@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { LayoutGrid, Presentation, Briefcase, Globe, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/layouts/Container";
+import { useDragScroll } from "@/hooks/useDragScroll";
 
 const TABS = [
   { label: "All Stories", value: "All", Icon: LayoutGrid, subtitle: "Explore all" },
@@ -19,6 +20,12 @@ export function StoryCategoryTabs() {
   const searchParams = useSearchParams();
   
   const currentCategory = searchParams.get("category") || "All";
+
+  const {
+    ref: tabsRef,
+    onMouseDown: onTabsMouseDown,
+    wasDragged: tabsWasDragged,
+  } = useDragScroll();
 
   const handleTabClick = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -37,14 +44,21 @@ export function StoryCategoryTabs() {
   return (
     <div className="border-t border-white/10 bg-[#002d56]">
       <Container>
-        <div className="flex overflow-x-auto no-scrollbar">
+        <div
+          ref={tabsRef}
+          onMouseDown={onTabsMouseDown}
+          className="flex cursor-grab overflow-x-auto no-scrollbar select-none active:cursor-grabbing"
+        >
           <div className="flex flex-row mx-auto">
             {TABS.map((tab) => {
               const isActive = currentCategory === tab.value;
               return (
                 <button
                   key={tab.label}
-                  onClick={() => handleTabClick(tab.value)}
+                  onClick={() => {
+                    if (tabsWasDragged()) return;
+                    handleTabClick(tab.value);
+                  }}
                   className={cn(
                     "group flex min-w-max items-center gap-4 border-b-2 px-6 py-5 text-left transition-colors",
                     isActive
