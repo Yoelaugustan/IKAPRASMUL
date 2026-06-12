@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Search, UserRound } from "lucide-react";
+import { Menu, UserRound } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { MAIN_NAV, ROUTES } from "@/constants/routes";
@@ -91,10 +91,13 @@ export function SiteHeader() {
                   <Menu />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80">
+              <SheetContent
+                side="right"
+                className="w-80 border-white/10 bg-primary text-primary-foreground"
+              >
                 <SheetHeader>
                   <SheetTitle>
-                    <Logo />
+                    <Logo variant="inverted" />
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col gap-1 px-4">
@@ -104,8 +107,8 @@ export function SiteHeader() {
                       href={item.href}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
-                        "rounded-md px-3 py-2.5 text-base font-medium text-foreground/80 hover:bg-accent hover:text-primary",
-                        isActive(item.href) && "bg-accent text-primary",
+                        "rounded-md px-3 py-2.5 text-base font-medium text-primary-foreground/85 hover:bg-white/10 hover:text-white",
+                        isActive(item.href) && "bg-white/10 text-gold",
                       )}
                     >
                       {item.label}
@@ -113,7 +116,11 @@ export function SiteHeader() {
                   ))}
                 </nav>
                 <div className="mt-4 flex flex-col gap-2 px-4">
-                  <Button asChild variant="outline">
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="border-white/40 bg-transparent text-primary-foreground hover:bg-white/10 hover:text-white"
+                  >
                     <a href="https://alumniprofile.ikaprama.org/home" onClick={() => setMobileOpen(false)}>
                       <UserRound /> Login / Register
                     </a>
