@@ -27,6 +27,10 @@ export function StoryCategoryTabs() {
     } else {
       params.set("category", value);
     }
+    // Category filtering only applies in the "view all" stage — selecting a
+    // category always takes you there (and resets pagination).
+    params.set("view", "all");
+    params.delete("page");
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 

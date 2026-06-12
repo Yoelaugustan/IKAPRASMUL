@@ -55,10 +55,10 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
               {story.category}
             </span>
           </div>
-          <h3 className="mt-6 text-3xl font-bold leading-tight text-white md:text-4xl">
+          <h3 className="mt-6 line-clamp-2 min-h-[2.5em] text-3xl font-bold leading-tight text-white md:text-4xl">
             {story.title}
           </h3>
-          <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-white/80">
+          <p className="mt-4 line-clamp-3 min-h-[4.9em] max-w-lg text-[15px] leading-relaxed text-white/80">
             {story.excerpt}
           </p>
           <div className="mt-8 flex items-center justify-between">

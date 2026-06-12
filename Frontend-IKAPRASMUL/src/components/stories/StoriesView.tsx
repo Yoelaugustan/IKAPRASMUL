@@ -68,8 +68,10 @@ export function StoriesView({
 
   /* ------------------------- DEFAULT MODE ------------------------- */
   if (!viewAll) {
+    // Highlights are NOT category-filtered — the category tabs only apply in the
+    // view-all stage. Always show the latest non-featured stories here.
     const featuredSlugs = new Set(featuredStories.map((s) => s.slug));
-    const highlights = filtered
+    const highlights = stories
       .filter((s) => !featuredSlugs.has(s.slug))
       .slice(0, HIGHLIGHT_COUNT);
 
@@ -138,7 +140,7 @@ export function StoriesView({
           title={heading}
           action={
             <button
-              onClick={() => setParams({ view: null, page: 1 })}
+              onClick={() => setParams({ view: null, category: null, page: 1 })}
               className="inline-flex items-center gap-1 text-[13px] font-bold text-[#c6b273] transition-colors hover:text-[#b4a05e]"
             >
               <ChevronLeft className="size-4" /> Back to Featured
