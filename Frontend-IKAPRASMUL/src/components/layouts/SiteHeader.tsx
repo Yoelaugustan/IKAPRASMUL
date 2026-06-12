@@ -27,7 +27,7 @@ export function SiteHeader() {
     href === ROUTES.home ? pathname === href : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 bg-primary text-primary-foreground">
+    <header className="sticky top-0 z-50 border-b border-white/25 bg-primary text-primary-foreground">
       <Container>
         <div className="flex h-[72px] items-center justify-between gap-3">
           <Link href={ROUTES.home} aria-label="IKAPRASMUL home" className="shrink-0">

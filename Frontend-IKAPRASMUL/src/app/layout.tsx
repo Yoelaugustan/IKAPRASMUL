@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Lora } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/sonner";
 
-const sans = Plus_Jakarta_Sans({
+const sans = Inter({
   variable: "--font-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const serif = Lora({
-  variable: "--font-serif",
   subsets: ["latin"],
   display: "swap",
 });
@@ -39,8 +33,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable} h-full`}>
-      <body className="flex min-h-full flex-col">
+    <html lang="en" className={`${sans.variable} h-full`}>
+      <body className="flex min-h-full flex-col font-sans antialiased">
         <Providers>
           {children}
           <Toaster richColors position="top-center" />

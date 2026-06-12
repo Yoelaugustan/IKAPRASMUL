@@ -31,7 +31,7 @@ const CAMPUSES = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-primary-dark text-primary-foreground">
+    <footer className="border-t-3 border-gold bg-primary-dark text-primary-foreground">
       <Container className="py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.3fr_1.4fr_1fr_1.1fr]">
           {/* Brand */}
