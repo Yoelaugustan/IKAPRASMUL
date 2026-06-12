@@ -19,7 +19,13 @@ export default async function StoriesPage() {
     getStoryCategoryCounts(),
   ]);
 
-  const featuredStory = stories.find((s) => s.isFeatured) || stories[0];
+  // Up to 3 stories for the featured carousel — prefer flagged ones, then
+  // backfill with others so the carousel always has up to 3 slides.
+  const flagged = stories.filter((s) => s.isFeatured);
+  const featuredStories = [
+    ...flagged,
+    ...stories.filter((s) => !s.isFeatured),
+  ].slice(0, 3);
 
   return (
     <>
@@ -43,7 +49,7 @@ export default async function StoriesPage() {
         <Container>
           <Suspense fallback={<div className="h-96" />}>
             <StoriesView
-              featuredStory={featuredStory}
+              featuredStories={featuredStories}
               stories={stories}
               counts={counts}
             />

@@ -15,11 +15,11 @@ const PAGE_SIZE = 9;
 const HIGHLIGHT_COUNT = 3;
 
 export function StoriesView({
-  featuredStory,
+  featuredStories,
   stories,
   counts,
 }: {
-  featuredStory: Story;
+  featuredStories: Story[];
   stories: Story[];
   counts: { category: string; count: number }[];
 }) {
@@ -68,15 +68,16 @@ export function StoriesView({
 
   /* ------------------------- DEFAULT MODE ------------------------- */
   if (!viewAll) {
+    const featuredSlugs = new Set(featuredStories.map((s) => s.slug));
     const highlights = filtered
-      .filter((s) => s.slug !== featuredStory.slug)
+      .filter((s) => !featuredSlugs.has(s.slug))
       .slice(0, HIGHLIGHT_COUNT);
 
     return (
       <div className="grid gap-x-8 gap-y-12 lg:grid-cols-[1fr_320px]">
         {/* Featured — col 1, row 1 */}
         <div className="lg:col-start-1 lg:row-start-1">
-          <FeaturedStory story={featuredStory} />
+          <FeaturedStory stories={featuredStories} />
         </div>
 
         {/* Highlights — col 1, row 2 */}

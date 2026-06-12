@@ -1,11 +1,31 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Story } from "@/types";
 import { ROUTES } from "@/constants/routes";
+import { cn } from "@/lib/utils";
 
-export function FeaturedStory({ story }: { story: Story }) {
-  if (!story) return null;
+const AUTO_ADVANCE_MS = 6000;
+
+export function FeaturedStory({ stories }: { stories: Story[] }) {
+  const [index, setIndex] = useState(0);
+  const count = stories.length;
+
+  // Auto-cycle through the featured stories (paused when there's only one).
+  useEffect(() => {
+    if (count <= 1) return;
+    const id = setInterval(
+      () => setIndex((i) => (i + 1) % count),
+      AUTO_ADVANCE_MS,
+    );
+    return () => clearInterval(id);
+  }, [count]);
+
+  if (count === 0) return null;
+  const story = stories[Math.min(index, count - 1)];
 
   return (
     <div>
@@ -15,10 +35,11 @@ export function FeaturedStory({ story }: { story: Story }) {
         </h2>
         <span className="mt-3 block h-px w-full bg-slate-200" />
       </div>
-      <div className="flex flex-col md:flex-row overflow-hidden rounded-2xl bg-[#00396c] shadow-lg">
+      <div className="flex flex-col overflow-hidden rounded-2xl bg-[#00396c] shadow-lg md:flex-row">
         {/* Left: Image */}
-        <div className="relative aspect-[4/3] w-full md:aspect-auto md:w-5/12 shrink-0">
+        <div className="relative aspect-[4/3] w-full shrink-0 md:aspect-auto md:w-5/12">
           <Image
+            key={story.slug}
             src={story.coverImage}
             alt={story.title}
             fill
@@ -28,13 +49,13 @@ export function FeaturedStory({ story }: { story: Story }) {
         </div>
 
         {/* Right: Content */}
-        <div className="flex flex-1 flex-col p-8 md:p-12 justify-center">
+        <div className="flex flex-1 flex-col justify-center p-8 md:p-12">
           <div>
             <span className="inline-block rounded-full bg-[#c6b273] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#0a192f]">
               {story.category}
             </span>
           </div>
-          <h3 className="mt-6 text-3xl md:text-4xl font-bold leading-tight text-white">
+          <h3 className="mt-6 text-3xl font-bold leading-tight text-white md:text-4xl">
             {story.title}
           </h3>
           <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-white/80">
@@ -43,17 +64,31 @@ export function FeaturedStory({ story }: { story: Story }) {
           <div className="mt-8 flex items-center justify-between">
             <Link
               href={ROUTES.story(story.slug)}
-              className="inline-flex items-center gap-2 bg-[#c6b273] px-6 py-3 text-[13px] font-bold text-[#0a192f] transition-colors hover:bg-[#b4a05e] rounded"
+              className="inline-flex items-center gap-2 rounded bg-[#c6b273] px-6 py-3 text-[13px] font-bold text-[#0a192f] transition-colors hover:bg-[#b4a05e]"
             >
               Read Full Story <ArrowRight className="size-4" />
             </Link>
-            
-            {/* Pagination dots (static for design match) */}
-            <div className="flex gap-1.5 hidden md:flex">
-              <span className="size-2 rounded-full bg-[#c6b273]" />
-              <span className="size-2 rounded-full bg-white/30" />
-              <span className="size-2 rounded-full bg-white/30" />
-            </div>
+
+            {/* Carousel dots — cycle between the featured stories */}
+            {count > 1 && (
+              <div className="hidden gap-1.5 md:flex">
+                {stories.map((s, i) => (
+                  <button
+                    key={s.slug}
+                    type="button"
+                    aria-label={`Show featured story ${i + 1}`}
+                    aria-current={i === index ? "true" : undefined}
+                    onClick={() => setIndex(i)}
+                    className={cn(
+                      "size-2 rounded-full transition-colors",
+                      i === index
+                        ? "bg-[#c6b273]"
+                        : "bg-white/30 hover:bg-white/50",
+                    )}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

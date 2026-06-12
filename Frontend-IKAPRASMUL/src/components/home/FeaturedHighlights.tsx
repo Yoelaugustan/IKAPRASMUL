@@ -20,11 +20,11 @@ export async function FeaturedHighlights() {
   return (
     <section className="py-16 sm:py-20">
       <Container>
-        <div className="mb-10">
-          <h2 className="text-2xl font-bold uppercase tracking-tight text-primary sm:text-3xl">
+        <div className="mb-10 w-fit">
+          <h2 className="text-2xl font-semibold uppercase tracking-tight text-primary sm:text-3xl">
             Featured Highlights
           </h2>
-          <span className="mt-3 block h-1 w-16 rounded-full bg-gold" />
+          <span className="mt-3 block h-1 w-full rounded-full bg-gold" />
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
