@@ -1,21 +1,26 @@
 "use client";
 
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Building2, Mail, Phone, X } from "lucide-react";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
-  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useContactModalStore } from "@/stores/contactModalStore";
 import { ContactForm } from "./form/ContactForm";
 
 const CAMPUSES = [
-  { name: "BSD Campus", address: "Jl. BSD Raya Utama, BSD City, Tangerang 15339" },
   {
-    name: "Cilandak Campus",
-    address: "Jl. R.A. Kartini (TB Simatupang), Cilandak, Jakarta 12430",
+    name: "Universitas Prasetiya Mulya - BSD Campus",
+    address:
+      "Edu Town Kavling Edu I No. 1, Jalan BSD Raya Barat 1, Serpong, Pagedangan, Kec. Pagedangan, Kabupaten Tangerang, Banten 15339",
+  },
+  {
+    name: "Universitas Prasetiya Mulya - Cilandak Campus",
+    address:
+      "Jl. R.A. Kartini, RT.14/RW.6, Cilandak Bar., Kec. Cilandak, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12430",
   },
 ];
 
@@ -26,60 +31,77 @@ export function ContactModal() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
-      <DialogContent className="max-h-[92vh] gap-0 overflow-y-auto p-0 sm:max-w-3xl">
-        <div className="grid md:grid-cols-2">
+      <DialogContent
+        showCloseButton={false}
+        className="max-h-[92vh] gap-0 overflow-y-auto border-0 p-0 sm:max-w-3xl"
+      >
+        {/* Navy header bar */}
+        <div className="flex items-center justify-between bg-[#001B3D] px-6 py-5 sm:px-8">
+          <DialogTitle className="text-xl font-bold text-white">
+            Get in Touch
+          </DialogTitle>
+          <DialogClose className="text-white/80 transition-colors hover:text-white focus:outline-none">
+            <X className="size-5" />
+            <span className="sr-only">Close</span>
+          </DialogClose>
+        </div>
+        <DialogDescription className="sr-only">
+          Contact information and a form to send the alumni network a message.
+        </DialogDescription>
+
+        <div className="grid md:grid-cols-[5fr_7fr]">
           {/* Left: contact details */}
-          <aside className="hidden flex-col justify-between bg-primary p-8 text-primary-foreground md:flex">
-            <div>
-              <DialogHeader className="space-y-2 text-left">
-                <DialogTitle className="text-2xl text-primary-foreground">
-                  Get in Touch
-                </DialogTitle>
-                <DialogDescription className="text-primary-foreground/70">
-                  Have a question, an idea, or want to list a business, share a
-                  story, or start a SIG? Send us a message and the alumni network
-                  will follow up.
-                </DialogDescription>
-              </DialogHeader>
-              <ul className="mt-8 space-y-5 text-sm">
-                {CAMPUSES.map((c) => (
-                  <li key={c.name} className="flex gap-3">
-                    <MapPin className="mt-0.5 size-4 shrink-0 text-gold" />
-                    <span className="text-primary-foreground/80">
-                      <span className="font-semibold text-primary-foreground">
-                        {c.name}
-                      </span>
-                      <br />
+          <aside className="bg-[#F5F3F3] p-6 sm:p-8">
+            <ul className="space-y-6">
+              {CAMPUSES.map((c) => (
+                <li key={c.name} className="flex gap-3">
+                  <Building2 className="mt-0.5 size-5 shrink-0 text-[#805600]" />
+                  <div>
+                    <p className="text-[13px] font-bold uppercase tracking-wide text-[#001B3D]">
+                      {c.name}
+                    </p>
+                    <p className="mt-1 text-[13px] leading-relaxed text-slate-500">
                       {c.address}
-                    </span>
-                  </li>
-                ))}
-                <li className="flex items-center gap-3">
-                  <Phone className="size-4 shrink-0 text-gold" />
-                  <span className="text-primary-foreground/80">
-                    +62 21 1234 567
-                  </span>
+                    </p>
+                  </div>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Mail className="size-4 shrink-0 text-gold" />
-                  <span className="text-primary-foreground/80">
-                    alumni@prasmul.ac.id
-                  </span>
-                </li>
-              </ul>
-            </div>
+              ))}
+            </ul>
+
+            <div className="my-7 h-px bg-[#001B3D]/10" />
+
+            <ul className="space-y-4">
+              <li className="flex items-center gap-3">
+                <span className="grid size-9 shrink-0 place-items-center rounded-md bg-[#8056001A] text-[#805600]">
+                  <Phone className="size-[18px]" />
+                </span>
+                <a
+                  href="tel:+622130450500"
+                  className="text-sm font-semibold text-[#001B3D] transition-colors hover:text-[#805600]"
+                >
+                  +62 21 304 50 500
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="grid size-9 shrink-0 place-items-center rounded-md bg-[#8056001A] text-[#805600]">
+                  <Mail className="size-[18px]" />
+                </span>
+                <a
+                  href="mailto:alumni@prasetiyamulya.ac.id"
+                  className="text-sm font-semibold text-[#001B3D] transition-colors hover:text-[#805600]"
+                >
+                  alumni@prasetiyamulya.ac.id
+                </a>
+              </li>
+            </ul>
           </aside>
 
           {/* Right: form */}
-          <div className="p-6 sm:p-8">
-            {/* Mobile header (left panel hidden on small screens) */}
-            <DialogHeader className="mb-6 space-y-2 text-left md:hidden">
-              <DialogTitle className="text-2xl">Get in Touch</DialogTitle>
-              <DialogDescription>
-                Send us a message and the alumni network will follow up.
-              </DialogDescription>
-            </DialogHeader>
-            <ContactForm defaultSubject={subject} onSuccess={close} />
+          <div className="bg-white p-6 sm:p-8">
+            <h2 className="text-2xl font-bold text-[#001B3D]">Send a Message</h2>
+            <div className="mt-6">
+              <ContactForm defaultSubject={subject} onSuccess={close} />
+            </div>
           </div>
         </div>
       </DialogContent>

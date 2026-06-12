@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { Loader2, Send } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { contactSchema, type ContactInput } from "@/types/schemas";
 import { INQUIRY_SUBJECTS, type InquirySubject } from "@/constants/categories";
 import {
@@ -66,49 +66,61 @@ export function ContactForm({
     });
   };
 
+  const labelClass =
+    "text-xs font-bold uppercase tracking-wide text-[#001B3D]";
+  const fieldClass = "bg-[#FBF9F8]";
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="fullName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Full name</FormLabel>
-              <FormControl>
-                <Input placeholder="Your full name" autoComplete="name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  placeholder="you@example.com"
-                  autoComplete="email"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        <div className="grid gap-5 sm:grid-cols-2">
+          <FormField
+            control={form.control}
+            name="fullName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className={labelClass}>Full Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="John Doe"
+                    autoComplete="name"
+                    className={fieldClass}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className={labelClass}>Email Address</FormLabel>
+                <FormControl>
+                  <Input
+                    type="email"
+                    placeholder="john@example.com"
+                    autoComplete="email"
+                    className={fieldClass}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subject</FormLabel>
+              <FormLabel className={labelClass}>Subject</FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className="w-full bg-[#FBF9F8]">
                     <SelectValue placeholder="Choose a subject" />
                   </SelectTrigger>
                 </FormControl>
@@ -129,11 +141,12 @@ export function ContactForm({
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Message</FormLabel>
+              <FormLabel className={labelClass}>Message</FormLabel>
               <FormControl>
                 <Textarea
                   rows={5}
-                  placeholder="How can the alumni network help?"
+                  placeholder="How can we help you today?"
+                  className={fieldClass}
                   {...field}
                 />
               </FormControl>
@@ -143,15 +156,18 @@ export function ContactForm({
         />
         <Button
           type="submit"
-          variant="gold"
-          className="w-full"
+          variant="default"
+          className="h-12 w-full bg-[#001B3D] text-[13px] font-bold uppercase tracking-wide text-white hover:bg-[#00132b]"
           disabled={sendInquiry.isPending}
         >
           {sendInquiry.isPending ? (
             <Loader2 className="animate-spin" />
           ) : (
             <>
-              Send message <Send />
+              Send Message
+              <svg viewBox="0 0 8 10" className="size-2.5 fill-current" aria-hidden>
+                <path d="M0 0l8 5-8 5z" />
+              </svg>
             </>
           )}
         </Button>
