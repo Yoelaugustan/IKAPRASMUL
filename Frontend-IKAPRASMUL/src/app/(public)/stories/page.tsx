@@ -1,9 +1,10 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { PageHero } from "@/components/layouts/PageHero";
 import { Section } from "@/components/layouts/Section";
-import { StoriesExplorer } from "@/components/stories/StoriesExplorer";
-import { StoryCategoriesSidebar } from "@/components/stories/StoryCategoriesSidebar";
-import { CtaBand } from "@/components/shared/CtaBand";
+import { Container } from "@/components/layouts/Container";
+import { StoryCategoryTabs } from "@/components/stories/StoryCategoryTabs";
+import { StoriesView } from "@/components/stories/StoriesView";
 import { getStories, getStoryCategoryCounts } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -18,29 +19,37 @@ export default async function StoriesPage() {
     getStoryCategoryCounts(),
   ]);
 
+  const featuredStory = stories.find((s) => s.isFeatured) || stories[0];
+
   return (
     <>
       <PageHero
         eyebrow="Alumni Stories"
-        title="Stories That Inspire"
-        subtitle="Journeys of founders, executives, and changemakers — alumni turning a shared education into lasting impact."
+        title={
+          <>
+            Stories <br />
+            <span className="text-[#c6b273]">That Inspire</span>
+          </>
+        }
+        subtitle="Discover the journeys of Prasmul alumni who are leading change, building businesses, and making a global impact."
+        backgroundImage="/images/stories/hero-alumni.jpg"
       />
 
-      <Section>
-        <div className="grid gap-10 lg:grid-cols-[1fr_280px]">
-          <StoriesExplorer stories={stories} />
-          <aside className="lg:order-last">
-            <StoryCategoriesSidebar counts={counts} />
-          </aside>
-        </div>
+      <Suspense fallback={<div className="h-16 bg-[#002d56]" />}>
+        <StoryCategoryTabs />
+      </Suspense>
+
+      <Section className="pb-24 pt-16">
+        <Container>
+          <Suspense fallback={<div className="h-96" />}>
+            <StoriesView
+              featuredStory={featuredStory}
+              stories={stories}
+              counts={counts}
+            />
+          </Suspense>
+        </Container>
       </Section>
-
-      <CtaBand
-        title="Have a story worth telling?"
-        description="Share your journey and our editorial team may feature it in Alumni Stories."
-        buttonLabel="Submit Your Story"
-        subject="Submit Your Story"
-      />
     </>
   );
 }
