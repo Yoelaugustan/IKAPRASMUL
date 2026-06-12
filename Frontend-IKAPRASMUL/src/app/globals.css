@@ -1,0 +1,184 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  IKAPRASMUL design tokens — navy + gold institutional identity.
+  Baseline values from PRD.md / guidelines.md. Figma is the source of truth;
+  update these hex values if they ever conflict with the Figma tokens.
+
+  Note: shadcn's `--accent` is the neutral subtle-hover token (kept light here).
+  The GOLD brand accent (CTAs/highlights) is a separate `--gold` token, exposed
+  to utilities as `bg-gold` / `text-gold` via the @theme block below.
+*/
+
+:root {
+  --radius: 0.5rem;
+
+  --background: #ffffff;
+  --foreground: #1f2937;
+
+  --card: #ffffff;
+  --card-foreground: #1f2937;
+
+  --popover: #ffffff;
+  --popover-foreground: #1f2937;
+
+  /* Navy brand */
+  --primary: #00396c;
+  --primary-foreground: #ffffff;
+
+  /* Neutral surfaces */
+  --secondary: #f5f7fa;
+  --secondary-foreground: #00396c;
+  --muted: #f5f7fa;
+  --muted-foreground: #6b7280;
+
+  /* shadcn neutral hover accent (NOT the brand gold) */
+  --accent: #eef2f7;
+  --accent-foreground: #00396c;
+
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  --border: #d1d5db;
+  --input: #d1d5db;
+  --ring: #00396c;
+
+  /* Brand extras */
+  --gold: #c6b273;
+  --gold-dark: #b4a05e;
+  --gold-foreground: #0a192f;
+  --surface: #f5f7fa;
+  --success: #16a34a;
+  --primary-dark: #0a192f;
+
+  /* Charts (admin grids) */
+  --chart-1: #00396c;
+  --chart-2: #c6b273;
+  --chart-3: #6b7280;
+  --chart-4: #16a34a;
+  --chart-5: #0a192f;
+
+  /* Sidebar (admin) */
+  --sidebar: #00396c;
+  --sidebar-foreground: #f5f7fa;
+  --sidebar-primary: #c6b273;
+  --sidebar-primary-foreground: #0a192f;
+  --sidebar-accent: #0a192f;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #004f99;
+  --sidebar-ring: #c6b273;
+}
+
+.dark {
+  --background: #0a192f;
+  --foreground: #f5f7fa;
+
+  --card: #00396c;
+  --card-foreground: #f5f7fa;
+
+  --popover: #00396c;
+  --popover-foreground: #f5f7fa;
+
+  --primary: #c6b273;
+  --primary-foreground: #0a192f;
+
+  --secondary: #0e2a4a;
+  --secondary-foreground: #f5f7fa;
+  --muted: #0e2a4a;
+  --muted-foreground: #9ca3af;
+
+  --accent: #0e2a4a;
+  --accent-foreground: #f5f7fa;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #1e4a78;
+  --input: #1e4a78;
+  --ring: #c6b273;
+
+  --gold: #c6b273;
+  --gold-dark: #b4a05e;
+  --gold-foreground: #0a192f;
+  --surface: #00396c;
+  --success: #22c55e;
+  --primary-dark: #0a192f;
+
+  --sidebar: #0a192f;
+  --sidebar-foreground: #f5f7fa;
+  --sidebar-primary: #c6b273;
+  --sidebar-primary-foreground: #0a192f;
+  --sidebar-accent: #0e2a4a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #0e2a4a;
+  --sidebar-ring: #c6b273;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand accents */
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-dark);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-surface: var(--surface);
+  --color-success: var(--success);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}

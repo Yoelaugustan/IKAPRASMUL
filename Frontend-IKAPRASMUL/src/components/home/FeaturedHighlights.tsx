@@ -1,0 +1,40 @@
+import { Container } from "@/components/layouts/Container";
+import {
+  getFeaturedAlumni,
+  getFeaturedBusinesses,
+  getUpcomingEvent,
+} from "@/lib/content";
+import { EventCard } from "./EventCard";
+import { FeaturedAlumniCard } from "./FeaturedAlumniCard";
+import { FeaturedBusinessCard } from "./FeaturedBusinessCard";
+
+// "Featured Highlights" — Upcoming Event, Featured Alumni, and two Featured
+// Businesses. Server Component: composes the curated home content.
+export async function FeaturedHighlights() {
+  const [event, alumni, businesses] = await Promise.all([
+    getUpcomingEvent(),
+    getFeaturedAlumni(),
+    getFeaturedBusinesses(2),
+  ]);
+
+  return (
+    <section className="py-16 sm:py-20">
+      <Container>
+        <div className="mb-10">
+          <h2 className="text-2xl font-bold uppercase tracking-tight text-primary sm:text-3xl">
+            Featured Highlights
+          </h2>
+          <span className="mt-3 block h-1 w-16 rounded-full bg-gold" />
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {event && <EventCard event={event} />}
+          <FeaturedAlumniCard alumni={alumni} />
+          {businesses.map((b) => (
+            <FeaturedBusinessCard key={b.slug} business={b} />
+          ))}
+        </div>
+      </Container>
+    </section>
+  );
+}
