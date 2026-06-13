@@ -5,11 +5,8 @@ export const ROUTES = {
   about: "/about",
   sig: "/sig",
   stories: "/stories",
-  story: (slug: string) => `/stories/${slug}`,
   business: "/business",
-  businessDetail: (slug: string) => `/business/${slug}`,
   news: "/news",
-  article: (slug: string) => `/news/${slug}`,
 
   // Admin sign-in (no public registration)
   login: "/login",
