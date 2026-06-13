@@ -1,53 +1,96 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
+import { useState } from "react";
 import { Bookmark, MapPin } from "lucide-react";
 import type { Business } from "@/types";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ROUTES } from "@/constants/routes";
+import { cn } from "@/lib/utils";
+import {
+  useHasHydrated,
+  useSavedBusinessStore,
+} from "@/stores/savedBusinessStore";
+import { industryBadgeClass } from "./industryMeta";
+import { BusinessDetailModal } from "./BusinessDetailModal";
 
 export function BusinessCard({ business }: { business: Business }) {
+  const [open, setOpen] = useState(false);
+  const hydrated = useHasHydrated();
+  const savedRaw = useSavedBusinessStore((s) => s.saved.includes(business.slug));
+  const toggleSaved = useSavedBusinessStore((s) => s.toggle);
+  const isSaved = hydrated && savedRaw;
+
   return (
-    <Card className="group h-full overflow-hidden p-0">
-      <div className="relative aspect-[16/10] overflow-hidden">
-        <Link href={ROUTES.businessDetail(business.slug)}>
-          <Image
-            src={business.coverImage}
-            alt={business.name}
-            fill
-            sizes="(min-width: 1024px) 33vw, 100vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        </Link>
-        <Badge className="absolute left-3 top-3 bg-surface text-primary hover:bg-surface">
-          {business.industry}
-        </Badge>
-        {/* Bookmark is decorative for now — saving is a future phase (PRD §4.5). */}
-        <button
-          type="button"
-          aria-label="Save business (coming soon)"
-          className="absolute right-3 top-3 grid size-8 place-items-center rounded-full bg-background/90 text-muted-foreground transition-colors hover:text-gold"
-        >
-          <Bookmark className="size-4" />
-        </button>
-      </div>
-      <div className="flex flex-1 flex-col p-5">
-        <Link href={ROUTES.businessDetail(business.slug)}>
-          <h3 className="text-lg font-semibold text-primary group-hover:underline">
+    <>
+      <article
+        onClick={() => setOpen(true)}
+        className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-md"
+      >
+        <div className="relative">
+          <div className="relative aspect-[16/10] overflow-hidden">
+            <Image
+              src={business.coverImage}
+              alt={business.name}
+              fill
+              sizes="(min-width: 1024px) 22vw, (min-width: 640px) 50vw, 100vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+
+          {/* Save to localStorage (browser-local bookmark) */}
+          <button
+            type="button"
+            aria-pressed={isSaved}
+            aria-label={isSaved ? "Remove from saved" : "Save business"}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleSaved(business.slug);
+            }}
+            className="absolute right-3 top-3 grid size-8 place-items-center rounded-full bg-white/95 text-slate-600 shadow-sm transition-colors hover:text-gold"
+          >
+            <Bookmark
+              className={cn("size-4", isSaved && "fill-gold text-gold")}
+            />
+          </button>
+
+          {/* Logo badge overlapping the image */}
+          <div className="absolute -bottom-5 left-4 size-12 overflow-hidden rounded-full border-2 border-white bg-white shadow">
+            <Image
+              src={business.logo}
+              alt=""
+              fill
+              sizes="48px"
+              className="object-cover"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-1 flex-col px-4 pb-5 pt-7">
+          <span
+            className={cn(
+              "w-fit rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide",
+              industryBadgeClass(business.industry),
+            )}
+          >
+            {business.industry}
+          </span>
+          <h3 className="mt-2.5 text-[15px] font-bold leading-snug text-slate-900 group-hover:text-primary">
             {business.name}
           </h3>
-        </Link>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {business.founder.name} · {business.founder.class}
-        </p>
-        <p className="mt-2 line-clamp-2 text-sm leading-6 text-foreground/80">
-          {business.shortDescription}
-        </p>
-        <p className="mt-auto flex items-center gap-2 pt-4 text-sm text-foreground/80">
-          <MapPin className="size-4 text-gold" />
-          {business.location}
-        </p>
-      </div>
-    </Card>
+          <p className="mt-1 text-[13px] text-slate-500">
+            {business.founder.name} ({business.founder.class})
+          </p>
+          <p className="mt-2 flex items-center gap-1.5 text-[13px] text-slate-500">
+            <MapPin className="size-3.5 shrink-0 text-gold" />
+            {business.location}
+          </p>
+        </div>
+      </article>
+
+      <BusinessDetailModal
+        business={business}
+        open={open}
+        onOpenChange={setOpen}
+      />
+    </>
   );
 }

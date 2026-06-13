@@ -45,7 +45,7 @@ export function PageHero({
       )}
       {/* gradient: full bleed when there's an image; subtle glow when plain */}
       {backgroundImage ? (
-        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/60 to-transparent" />
       ) : (
         <>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary-dark" />
