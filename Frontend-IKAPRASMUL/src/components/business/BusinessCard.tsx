@@ -10,6 +10,7 @@ import {
   useHasHydrated,
   useSavedBusinessStore,
 } from "@/stores/savedBusinessStore";
+import { onActivate } from "@/lib/a11y";
 import { industryBadgeClass } from "./industryMeta";
 import { BusinessDetailModal } from "./BusinessDetailModal";
 
@@ -23,8 +24,12 @@ export function BusinessCard({ business }: { business: Business }) {
   return (
     <>
       <article
+        role="button"
+        tabIndex={0}
+        aria-label={`View ${business.name}`}
         onClick={() => setOpen(true)}
-        className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-md"
+        onKeyDown={onActivate(() => setOpen(true))}
+        className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00396c] focus-visible:ring-offset-2"
       >
         <div className="relative">
           <div className="relative aspect-[16/10] overflow-hidden">

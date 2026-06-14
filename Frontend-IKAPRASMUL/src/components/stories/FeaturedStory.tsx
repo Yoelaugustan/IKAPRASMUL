@@ -1,30 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Story } from "@/types";
 import { cn } from "@/lib/utils";
 import { StoryDetailModal } from "./StoryDetailModal";
 
-const AUTO_ADVANCE_MS = 6000;
-
 export function FeaturedStory({ stories }: { stories: Story[] }) {
   const [index, setIndex] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
+  const [hovering, setHovering] = useState(false);
   const count = stories.length;
 
-  // Auto-advance: a fresh timer re-arms after every slide change (manual or
-  // auto), so it stays in sync with the progress bar. Paused while the detail
-  // modal is open.
-  useEffect(() => {
-    if (count <= 1 || modalOpen) return;
-    const t = setTimeout(
-      () => setIndex((i) => (i + 1) % count),
-      AUTO_ADVANCE_MS,
-    );
-    return () => clearTimeout(t);
-  }, [index, count, modalOpen]);
+  // Auto-advance is driven entirely by the progress bar's CSS animation: when
+  // it completes we move to the next slide. Pausing the animation (on hover or
+  // while the modal is open) freezes both the bar and the timer in sync, and
+  // resumes from where it left off. Reduced-motion users get no auto-rotate.
+  const paused = modalOpen || hovering;
 
   if (count === 0) return null;
   const active = stories[Math.min(index, count - 1)];
@@ -39,7 +32,11 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
         <span className="mt-3 block h-px w-full bg-slate-200" />
       </div>
 
-      <div className="group relative overflow-hidden rounded-2xl bg-[#00396c] shadow-lg">
+      <div
+        className="group relative overflow-hidden rounded-2xl bg-[#00396c] shadow-lg"
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+      >
         {/* Sliding track */}
         <div
           className="flex transition-transform duration-500 ease-out motion-reduce:transition-none"
@@ -48,30 +45,30 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
           {stories.map((story) => (
             <div
               key={story.slug}
-              className="flex w-full shrink-0 flex-col md:flex-row"
+              className="flex w-full shrink-0 flex-col lg:flex-row"
             >
               <button
                 type="button"
                 onClick={() => setModalOpen(true)}
-                className="relative aspect-[4/3] w-full shrink-0 md:aspect-auto md:w-5/12"
+                className="relative aspect-[16/10] w-full shrink-0 lg:aspect-auto lg:w-5/12"
                 tabIndex={story.slug === active.slug ? 0 : -1}
               >
                 <Image
                   src={story.coverImage}
                   alt={story.title}
                   fill
-                  sizes="(min-width: 768px) 40vw, 100vw"
+                  sizes="(min-width: 1024px) 40vw, 100vw"
                   className="object-cover"
                 />
               </button>
 
-              <div className="flex flex-1 flex-col justify-center p-8 md:p-12">
+              <div className="flex flex-1 flex-col justify-center p-6 sm:p-8 lg:p-10 xl:p-12">
                 <div>
                   <span className="inline-block rounded-full bg-[#c6b273] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#0a192f]">
                     {story.category}
                   </span>
                 </div>
-                <h3 className="mt-6 line-clamp-2 min-h-[2.5em] text-3xl font-bold leading-tight text-white md:text-4xl">
+                <h3 className="mt-5 line-clamp-2 min-h-[2.5em] text-2xl font-bold leading-tight text-white sm:mt-6 sm:text-3xl lg:text-[28px] xl:text-4xl">
                   {story.title}
                 </h3>
                 <p className="mt-4 line-clamp-3 min-h-[4.9em] max-w-lg text-[15px] leading-relaxed text-white/80">
@@ -99,7 +96,7 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
               type="button"
               onClick={() => go(-1)}
               aria-label="Previous story"
-              className="absolute left-3 top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-black/30 text-white opacity-0 backdrop-blur-sm transition hover:bg-black/55 focus-visible:opacity-100 group-hover:opacity-100"
+              className="absolute left-3 top-[28%] grid size-9 -translate-y-1/2 place-items-center rounded-full bg-black/30 text-white opacity-100 backdrop-blur-sm transition hover:bg-black/55 focus-visible:opacity-100 lg:top-1/2 lg:opacity-0 lg:group-hover:opacity-100"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -107,13 +104,13 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
               type="button"
               onClick={() => go(1)}
               aria-label="Next story"
-              className="absolute right-3 top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-black/30 text-white opacity-0 backdrop-blur-sm transition hover:bg-black/55 focus-visible:opacity-100 group-hover:opacity-100"
+              className="absolute right-3 top-[28%] grid size-9 -translate-y-1/2 place-items-center rounded-full bg-black/30 text-white opacity-100 backdrop-blur-sm transition hover:bg-black/55 focus-visible:opacity-100 lg:top-1/2 lg:opacity-0 lg:group-hover:opacity-100"
             >
               <ChevronRight className="size-5" />
             </button>
 
             {/* Dots */}
-            <div className="absolute bottom-6 right-8 hidden gap-1.5 md:flex">
+            <div className="absolute bottom-6 right-8 flex gap-1.5">
               {stories.map((s, i) => (
                 <button
                   key={s.slug}
@@ -131,10 +128,13 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
               ))}
             </div>
 
-            {/* Auto-advance progress */}
-            <div className="absolute inset-x-0 bottom-0 h-1 overflow-hidden bg-white/15">
+            {/* Auto-advance progress — the animation IS the timer: it freezes
+                when paused and advances the slide when it completes. */}
+            <div className="absolute inset-x-0 bottom-0 h-1 overflow-hidden bg-white/15 motion-reduce:hidden">
               <div
-                key={`${index}-${modalOpen}`}
+                key={index}
+                onAnimationEnd={() => setIndex((i) => (i + 1) % count)}
+                style={{ animationPlayState: paused ? "paused" : "running" }}
                 className="h-full origin-left bg-[#c6b273] motion-safe:animate-[featured-progress_6000ms_linear_forwards]"
               />
             </div>

@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import type { Article } from "@/types";
 import { NEWS_CATEGORIES } from "@/constants/categories";
 import { cn } from "@/lib/utils";
+import { scrollToElement } from "@/lib/scroll";
 import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
 import { useDragScroll } from "@/hooks/useDragScroll";
@@ -81,8 +82,30 @@ export function NewsExplorer({
     currentPage * PAGE_SIZE,
   );
 
+  // Scroll the filter panel into view when the user changes what they're
+  // looking at (filter, search, or entering/leaving view-all), so the active
+  // filter stays in context. Pagination scrolls to the results instead (see
+  // the Pagination handler below). Skips the initial mount.
+  const panelRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    scrollToElement(panelRef.current);
+  }, [category, appliedQuery, viewAll]);
+
+  // Page changes land at the top of the results, not the filter bar.
+  const goToPage = (p: number) => {
+    setPage(p);
+    scrollToElement(resultsRef.current);
+  };
+
   const applySearch = () => {
     setAppliedQuery(draftQuery);
+    setViewAll(true);
     setPage(1);
   };
   const selectCategory = (tab: string) => {
@@ -106,7 +129,10 @@ export function NewsExplorer({
     <div className="pb-20">
       <Container>
         {/* Everything sits in one white panel that overlaps the hero */}
-        <div className="relative z-10 -mt-16 overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-xl">
+        <div
+          ref={panelRef}
+          className="relative z-10 -mt-16 scroll-mt-24 overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-xl"
+        >
           {/* ---- Filter bar ---- */}
           <div className="border-b border-slate-100 p-4 sm:p-5">
             <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
@@ -213,7 +239,7 @@ export function NewsExplorer({
                 !viewAll && "mt-12",
               )}
             >
-              <div className="min-w-0">
+              <div ref={resultsRef} className="min-w-0 scroll-mt-24">
                 {viewAll ? (
                   /* ---- View-all: full paginated grid ---- */
                   <div
@@ -251,7 +277,7 @@ export function NewsExplorer({
                           <Pagination
                             currentPage={currentPage}
                             totalPages={totalPages}
-                            onPage={setPage}
+                            onPage={goToPage}
                           />
                         )}
                       </>
@@ -287,7 +313,7 @@ export function NewsExplorer({
                         className="mt-6"
                       />
                     ) : (
-                      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-3">
                         {topStories.map((a) => (
                           <TopStoryCard key={a.slug} article={a} />
                         ))}

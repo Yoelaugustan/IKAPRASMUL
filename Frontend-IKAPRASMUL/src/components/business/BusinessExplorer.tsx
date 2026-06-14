@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useDragScroll } from "@/hooks/useDragScroll";
+import { scrollToElement } from "@/lib/scroll";
 import { ArrowRight, Bookmark, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   BriefcaseIcon,
@@ -118,6 +119,27 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
     wasDragged: tabsWasDragged,
   } = useDragScroll();
 
+  // Bring the filter panel into view when the user filters, searches, or
+  // toggles the saved/view-all stage, so the active filter stays in context.
+  // Pagination scrolls to the results instead (see goToPage). Skips the
+  // initial mount.
+  const panelRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    scrollToElement(panelRef.current);
+  }, [applied, viewAll, savedOnly]);
+
+  // Page changes land at the top of the results, not the filter bar.
+  const goToPage = (p: number) => {
+    setPage(p);
+    scrollToElement(resultsRef.current);
+  };
+
   const resetFilters = () => {
     setQuery("");
     setIndustry("All");
@@ -204,7 +226,10 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
 
       {/* ---- Browse by Industry + Featured + Spotlight ---- */}
       <Container className="mt-10">
-        <div className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
+        <div
+          ref={panelRef}
+          className="scroll-mt-24 rounded-2xl bg-white p-6 shadow-sm sm:p-8"
+        >
           {/* Browse by Industry */}
           <SectionLabel>Browse by Industry</SectionLabel>
           <div
@@ -286,7 +311,8 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
             /* ---- View all: full-width paginated grid ---- */
             <div
               key="viewall"
-              className="mt-12 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300"
+              ref={resultsRef}
+              className="mt-12 scroll-mt-24 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300"
             >
               <div className="mb-6 flex items-center justify-between gap-4">
                 <SectionLabel>
@@ -330,7 +356,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
                     <Pagination
                       currentPage={currentPage}
                       totalPages={totalPages}
-                      onPage={setPage}
+                      onPage={goToPage}
                     />
                   )}
                 </>

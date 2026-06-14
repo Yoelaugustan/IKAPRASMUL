@@ -36,8 +36,9 @@ export function ContactModal() {
         showCloseButton={false}
         className="max-h-[92vh] gap-0 overflow-y-auto border-0 p-0 sm:max-w-3xl"
       >
-        {/* Navy header bar */}
-        <div className="flex items-center justify-between bg-[#001B3D] px-6 py-5 sm:px-8">
+        {/* Navy header bar — sticky so the title and the close button stay
+            reachable while scrolling the form on mobile. */}
+        <div className="sticky top-0 z-10 flex items-center justify-between bg-[#001B3D] px-6 py-5 shadow-sm sm:px-8">
           <DialogTitle className="text-xl font-bold text-white">
             Get in Touch
           </DialogTitle>

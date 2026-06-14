@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Story } from "@/types";
 import { cn } from "@/lib/utils";
+import { scrollToElement } from "@/lib/scroll";
 import { FeaturedStory } from "./FeaturedStory";
 import { StoryCard } from "./StoryCard";
 import { StoryCategoriesSidebar } from "./StoryCategoriesSidebar";
@@ -66,6 +67,28 @@ export function StoriesView({
   const handleSelectCategory = (cat: string) =>
     setParams({ category: cat, view: "all", page: 1 });
 
+  // Scroll the stories content into view on category / stage changes — both
+  // here and from the separate navy category bar (they share the URL). The
+  // ref attaches to whichever branch (default / view-all) is rendered. Skips
+  // the initial mount so the page doesn't jump on load.
+  const contentRef = useRef<HTMLDivElement>(null);
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    scrollToElement(contentRef.current);
+  }, [category, viewAll]);
+
+  // Pagination navigates via the URL, so the scroll is handled explicitly here
+  // (deferred a frame so it lands after the navigation commits) rather than via
+  // the effect above, which can race with the router re-render.
+  const goToPage = (p: number) => {
+    setParams({ page: p });
+    requestAnimationFrame(() => scrollToElement(contentRef.current));
+  };
+
   /* ------------------------- DEFAULT MODE ------------------------- */
   if (!viewAll) {
     // Highlights are NOT category-filtered — the category tabs only apply in the
@@ -77,16 +100,17 @@ export function StoriesView({
 
     return (
       <div
+        ref={contentRef}
         key="featured"
-        className="grid gap-x-8 gap-y-12 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300 lg:grid-cols-[1fr_320px]"
+        className="scroll-mt-24 grid gap-x-8 gap-y-12 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300 xl:grid-cols-[1fr_320px]"
       >
         {/* Featured — col 1, row 1 */}
-        <div className="lg:col-start-1 lg:row-start-1">
+        <div className="min-w-0 xl:col-start-1 xl:row-start-1">
           <FeaturedStory stories={featuredStories} />
         </div>
 
         {/* Highlights — col 1, row 2 */}
-        <div className="lg:col-start-1 lg:row-start-2">
+        <div className="min-w-0 xl:col-start-1 xl:row-start-2">
           <SectionHeading
             title="Stories Highlight"
             action={
@@ -113,7 +137,7 @@ export function StoriesView({
         </div>
 
         {/* Categories — col 2, row 1 (centered vertically) */}
-        <div className="lg:col-start-2 lg:row-start-1 lg:self-center">
+        <div className="xl:col-start-2 xl:row-start-1 xl:self-center">
           <StoryCategoriesSidebar
             counts={counts}
             activeCategory={category}
@@ -122,7 +146,7 @@ export function StoriesView({
         </div>
 
         {/* Share — col 2, row 2 */}
-        <div className="lg:col-start-2 lg:row-start-2">
+        <div className="xl:col-start-2 xl:row-start-2">
           <ShareYourStorySidebar />
         </div>
       </div>
@@ -138,8 +162,9 @@ export function StoriesView({
 
   return (
     <div
+      ref={contentRef}
       key="viewall"
-      className="grid gap-x-8 gap-y-12 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300 lg:grid-cols-[1fr_320px]"
+      className="scroll-mt-24 grid gap-x-8 gap-y-12 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300 xl:grid-cols-[1fr_320px]"
     >
       <div className="min-w-0">
         <SectionHeading
@@ -172,7 +197,7 @@ export function StoriesView({
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
-                onPage={(p) => setParams({ page: p })}
+                onPage={goToPage}
               />
             )}
           </>

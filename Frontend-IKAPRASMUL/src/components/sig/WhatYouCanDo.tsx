@@ -40,12 +40,12 @@ export function WhatYouCanDo() {
           <p className="mb-8 text-xs font-bold uppercase tracking-[0.18em] text-gold">
             What You Can Do in a SIG
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 md:gap-4">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-4">
             {ITEMS.map(({ title, subtitle, Icon }) => (
               <div key={title} className="flex flex-col items-start gap-4">
                 <Icon className="size-6 text-gold shrink-0" />
                 <div className="space-y-1">
-                  <h4 className="whitespace-nowrap text-[15px] font-medium text-white leading-snug">
+                  <h4 className="text-[15px] font-medium text-white leading-snug">
                     {title}
                   </h4>
                   {subtitle && (

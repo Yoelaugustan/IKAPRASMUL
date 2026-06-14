@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import type { Story } from "@/types";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { onActivate } from "@/lib/a11y";
 import { StoryDetailModal } from "./StoryDetailModal";
 
 export function StoryCard({ story }: { story: Story }) {
@@ -14,8 +15,12 @@ export function StoryCard({ story }: { story: Story }) {
   return (
     <>
       <Card
+        role="button"
+        tabIndex={0}
+        aria-label={`Read story: ${story.title}`}
         onClick={() => setOpen(true)}
-        className="group h-full cursor-pointer overflow-hidden p-0 border border-slate-100/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] rounded-2xl"
+        onKeyDown={onActivate(() => setOpen(true))}
+        className="group h-full cursor-pointer overflow-hidden p-0 border border-slate-100/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00396c] focus-visible:ring-offset-2"
       >
         <div className="flex h-full flex-col">
           <div className="relative aspect-[4/3] overflow-hidden rounded-t-2xl">
