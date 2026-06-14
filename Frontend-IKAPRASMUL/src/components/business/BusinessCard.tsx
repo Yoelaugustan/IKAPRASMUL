@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Bookmark, MapPin } from "lucide-react";
+import { Bookmark } from "lucide-react";
+import { MapPinIcon } from "@/components/icons";
 import type { Business } from "@/types";
 import { cn } from "@/lib/utils";
 import {
@@ -80,7 +81,7 @@ export function BusinessCard({ business }: { business: Business }) {
             {business.founder.name} ({business.founder.class})
           </p>
           <p className="mt-2 flex items-center gap-1.5 text-[13px] text-slate-500">
-            <MapPin className="size-3.5 shrink-0 text-gold" />
+            <MapPinIcon className="size-3.5 shrink-0 text-gold" />
             {business.location}
           </p>
         </div>

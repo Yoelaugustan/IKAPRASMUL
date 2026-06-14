@@ -1,11 +1,11 @@
-import { Heart, Navigation, Zap } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { Container } from "@/components/layouts/Container";
+import { MissionIcon, PurposeIcon, VisionIcon } from "@/components/icons";
 
-const ITEMS: { label: string; Icon: LucideIcon }[] = [
-  { label: "Our Vision", Icon: Navigation },
-  { label: "Our Mission", Icon: Zap },
-  { label: "Our Purpose", Icon: Heart },
+type IconType = React.ComponentType<{ className?: string }>;
+const ITEMS: { label: string; Icon: IconType }[] = [
+  { label: "Our Vision", Icon: VisionIcon },
+  { label: "Our Mission", Icon: MissionIcon },
+  { label: "Our Purpose", Icon: PurposeIcon },
 ];
 
 export function VisionMissionPurpose({
@@ -29,7 +29,7 @@ export function VisionMissionPurpose({
               className="flex flex-col items-center px-8 py-8 text-center"
             >
               <span className="grid size-16 place-items-center rounded-full bg-primary">
-                <Icon className="size-7 text-gold" strokeWidth={2} />
+                <Icon className="size-7 text-gold" />
               </span>
               <h3 className="mt-5 text-sm font-bold uppercase tracking-[0.12em] text-foreground">
                 {label}

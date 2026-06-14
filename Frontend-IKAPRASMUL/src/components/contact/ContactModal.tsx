@@ -1,6 +1,7 @@
 "use client";
 
-import { Building2, Mail, Phone, X } from "lucide-react";
+import { X } from "lucide-react";
+import { Building2Icon, MailIcon, PhoneIcon } from "@/components/icons";
 import {
   Dialog,
   DialogClose,
@@ -55,7 +56,7 @@ export function ContactModal() {
             <ul className="space-y-6">
               {CAMPUSES.map((c) => (
                 <li key={c.name} className="flex gap-3">
-                  <Building2 className="mt-0.5 size-5 shrink-0 text-[#805600]" />
+                  <Building2Icon className="mt-0.5 size-5 shrink-0 text-[#805600]" />
                   <div>
                     <p className="text-[13px] font-bold uppercase tracking-wide text-[#001B3D]">
                       {c.name}
@@ -73,7 +74,7 @@ export function ContactModal() {
             <ul className="space-y-4">
               <li className="flex items-center gap-3">
                 <span className="grid size-9 shrink-0 place-items-center rounded-md bg-[#8056001A] text-[#805600]">
-                  <Phone className="size-[18px]" />
+                  <PhoneIcon className="size-[18px]" />
                 </span>
                 <a
                   href="tel:+622130450500"
@@ -84,7 +85,7 @@ export function ContactModal() {
               </li>
               <li className="flex items-center gap-3">
                 <span className="grid size-9 shrink-0 place-items-center rounded-md bg-[#8056001A] text-[#805600]">
-                  <Mail className="size-[18px]" />
+                  <MailIcon className="size-[18px]" />
                 </span>
                 <a
                   href="mailto:alumni@prasetiyamulya.ac.id"

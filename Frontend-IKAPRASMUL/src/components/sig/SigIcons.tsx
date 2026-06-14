@@ -1,71 +1,78 @@
 import {
-  GraduationCap,
-  TrendingUp,
-  Palette,
-  MessageCircle,
-  ChefHat,
-  Bike,
-  Monitor,
-  Landmark,
-  Smartphone,
-  Gamepad2,
-  HeartPulse,
-  PiggyBank,
-  Crown,
-  Factory,
-  Music,
-  Camera,
-  Store,
-  Building,
-  Footprints,
-  Plane,
-  BarChart3,
-  Handshake,
-  Sprout,
-  PenTool,
-  Truck,
-  Briefcase,
-  Rocket,
-  Megaphone,
-  Volume2,
-  Users,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+  BriefcaseIcon,
+  CameraIcon,
+  ChevronsRightIcon,
+  CloudRainIcon,
+  CodepenIcon,
+  CutleryIcon,
+  CyclingIcon,
+  DatabaseIcon,
+  Edit3Icon,
+  EditIcon,
+  FarmIcon,
+  FinanceIcon,
+  GolfIcon,
+  HeadphonesIcon,
+  HealthIcon,
+  LayersIcon,
+  LeaderIcon,
+  Link2Icon,
+  MiningIcon,
+  PieChartIcon,
+  PlaneIcon,
+  RefreshCcwIcon,
+  ShoppingBagIcon,
+  ShoppingCartIcon,
+  SmartphoneIcon,
+  StarIcon,
+  TrendingUpIcon,
+  UsersIcon,
+} from "@/components/icons";
 
-// Map from icon key (stored in data) → Lucide component
-const ICON_MAP: Record<string, LucideIcon> = {
-  "graduation-cap": GraduationCap,
-  "trending-up": TrendingUp,
-  palette: Palette,
-  "message-circle": MessageCircle,
-  "chef-hat": ChefHat,
-  bike: Bike,
-  monitor: Monitor,
-  landmark: Landmark,
-  smartphone: Smartphone,
-  "gamepad-2": Gamepad2,
-  "heart-pulse": HeartPulse,
-  "piggy-bank": PiggyBank,
-  crown: Crown,
-  factory: Factory,
-  music: Music,
-  camera: Camera,
-  store: Store,
-  building: Building,
-  footprints: Footprints,
-  plane: Plane,
-  "bar-chart-3": BarChart3,
-  handshake: Handshake,
-  sprout: Sprout,
-  "pen-tool": PenTool,
-  truck: Truck,
-  briefcase: Briefcase,
-  rocket: Rocket,
-  megaphone: Megaphone,
-  "volume-2": Volume2,
+type IconType = React.ComponentType<{ className?: string }>;
+
+// Map from icon key (stored in data) → Figma icon component, chosen to match
+// the SIG design.
+const ICON_MAP: Record<string, IconType> = {
+  "graduation-cap": GolfIcon, // PGPM (golf)
+  "trending-up": TrendingUpIcon,
+  palette: EditIcon, // Branding
+  "message-circle": BriefcaseIcon, // Coaching
+  "chef-hat": CutleryIcon, // Culinary
+  bike: CyclingIcon, // Cycling
+  monitor: CloudRainIcon, // Digital
+  landmark: FinanceIcon, // Financial
+  smartphone: SmartphoneIcon, // Fintech
+  "gamepad-2": CodepenIcon, // Gamers
+  "heart-pulse": HealthIcon, // Health
+  "piggy-bank": PieChartIcon, // Investor
+  crown: TrendingUpIcon, // Leadership
+  factory: MiningIcon, // Mining & Energy
+  music: HeadphonesIcon, // Music
+  camera: CameraIcon, // Photographer
+  store: ShoppingCartIcon, // Marketplace
+  building: LayersIcon, // Property
+  footprints: ChevronsRightIcon, // Runners
+  plane: PlaneIcon, // Tourism
+  "bar-chart-3": RefreshCcwIcon, // Traders
+  handshake: ShoppingBagIcon, // UMKM & Koperasi
+  sprout: FarmIcon, // Urban Farming
+  "pen-tool": Edit3Icon, // Writers
+  truck: Link2Icon, // Supply Chain
+  briefcase: LeaderIcon, // CEO
+  rocket: BriefcaseIcon, // Entrepreneur
+  megaphone: StarIcon, // Marketing
+  "volume-2": DatabaseIcon, // Buzzer
 };
 
-export function getSigIcon(iconKey?: string): LucideIcon {
-  if (!iconKey) return Users;
-  return ICON_MAP[iconKey] ?? Users;
+// Renders the SIG icon for a given data key (falls back to a group icon).
+export function SigIcon({
+  iconKey,
+  className,
+}: {
+  iconKey?: string;
+  className?: string;
+}) {
+  const Icon = (iconKey && ICON_MAP[iconKey]) || UsersIcon;
+  return <Icon className={className} />;
 }

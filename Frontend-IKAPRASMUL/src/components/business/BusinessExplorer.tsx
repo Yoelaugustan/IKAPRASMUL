@@ -2,16 +2,13 @@
 
 import { useMemo, useState } from "react";
 import { useDragScroll } from "@/hooks/useDragScroll";
+import { ArrowRight, Bookmark, ChevronLeft, ChevronRight } from "lucide-react";
 import {
-  ArrowRight,
-  Bookmark,
-  Briefcase,
-  ChevronLeft,
-  ChevronRight,
-  MapPin,
-  Search,
-  UserRound,
-} from "lucide-react";
+  BriefcaseIcon,
+  MapPinIcon,
+  SearchIcon,
+  UserIcon,
+} from "@/components/icons";
 import type { Business } from "@/types";
 import { INDUSTRIES } from "@/constants/categories";
 import { Container } from "@/components/layouts/Container";
@@ -164,7 +161,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
           className="relative z-10 -mt-10 flex flex-col gap-3 rounded-2xl bg-[#0a2a52] p-4 shadow-2xl ring-1 ring-white/10 lg:flex-row lg:items-center"
         >
           <div className="relative flex-1">
-            <Search className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-white/40" />
+            <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-white/40" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -175,21 +172,21 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
           </div>
 
           <SelectField
-            icon={Briefcase}
+            icon={BriefcaseIcon}
             value={industry}
             onChange={setIndustry}
             allLabel="Industry"
             options={INDUSTRIES}
           />
           <SelectField
-            icon={MapPin}
+            icon={MapPinIcon}
             value={location}
             onChange={setLocation}
             allLabel="Location"
             options={locations}
           />
           <SelectField
-            icon={UserRound}
+            icon={UserIcon}
             value={founder}
             onChange={setFounder}
             allLabel="Founder"
@@ -216,7 +213,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
             className="mt-5 flex cursor-grab gap-3 overflow-x-auto pb-2 select-none [scrollbar-width:none] active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
           >
             {INDUSTRY_TABS.map((tab) => {
-              const Icon = INDUSTRY_ICONS[tab] ?? Briefcase;
+              const Icon = INDUSTRY_ICONS[tab] ?? BriefcaseIcon;
               const active = applied.industry === tab;
               return (
                 <button
@@ -234,8 +231,10 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
                   )}
                 >
                   <Icon
-                    className={cn("size-5", active ? "text-gold" : "text-slate-500")}
-                    strokeWidth={1.75}
+                    className={cn(
+                      "size-5",
+                      active ? "text-gold" : "text-slate-500",
+                    )}
                   />
                   <span className="text-[11px] font-semibold leading-tight">
                     {tab === "All" ? "All Industries" : tab}
@@ -258,7 +257,8 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
                         onClick={openSaved}
                         className="inline-flex items-center gap-1.5 text-[13px] font-bold text-slate-500 transition-colors hover:text-gold"
                       >
-                        <Bookmark className="size-4" /> Saved ({savedSlugs.length})
+                        <Bookmark className="size-4" /> Saved ({savedSlugs.length}
+                        )
                       </button>
                     )}
                     <button

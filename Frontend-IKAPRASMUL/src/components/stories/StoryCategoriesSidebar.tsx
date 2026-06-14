@@ -1,17 +1,23 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { ChevronRight, Presentation, Briefcase, Globe, Heart } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  BriefcaseIcon,
+  GlobeThinIcon,
+  PresentationIcon,
+  PurposeIcon,
+} from "@/components/icons";
 
 // Map category to icon
 const getCategoryIcon = (category: string) => {
   switch (category) {
-    case "Founder Stories": return Presentation;
-    case "Executive Journey": return Briefcase;
-    case "International Alumni": return Globe;
-    case "Impact Stories": return Heart;
-    default: return Presentation;
+    case "Founder Stories": return PresentationIcon;
+    case "Executive Journey": return BriefcaseIcon;
+    case "International Alumni": return GlobeThinIcon;
+    case "Impact Stories": return PurposeIcon;
+    default: return PresentationIcon;
   }
 };
 
@@ -48,7 +54,7 @@ export function StoryCategoriesSidebar({
                       active ? "bg-[#00396c]" : "bg-[#0a192f] group-hover:bg-[#00396c]",
                     )}
                   >
-                    <Icon className="size-5" strokeWidth={1.5} />
+                    <Icon className="size-5" />
                   </span>
                   <div>
                     <p

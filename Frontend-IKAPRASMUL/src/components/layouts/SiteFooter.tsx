@@ -1,13 +1,15 @@
-import { Building2, Mail, Phone } from "lucide-react";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
 import { NewsletterForm } from "@/components/newsletter/NewsletterForm";
 import {
+  Building2Icon,
   InstagramIcon,
   LinkedinIcon,
+  MailIcon,
+  PhoneIcon,
   SpotifyIcon,
   YoutubeIcon,
-} from "@/components/shared/brand-icons";
+} from "@/components/icons";
 
 const SOCIALS = [
   { label: "LinkedIn", href: "#", Icon: LinkedinIcon },
@@ -52,7 +54,7 @@ export function SiteFooter() {
             <ul className="mt-5 space-y-5 text-sm">
               {CAMPUSES.map((c) => (
                 <li key={c.name} className="flex gap-3">
-                  <Building2 className="mt-0.5 size-4 shrink-0 text-gold" />
+                  <Building2Icon className="mt-0.5 size-4 shrink-0 text-gold" />
                   <span>
                     <span className="font-semibold text-primary-foreground">
                       {c.name}
@@ -65,7 +67,7 @@ export function SiteFooter() {
                 </li>
               ))}
               <li className="flex items-center gap-3">
-                <Phone className="size-4 shrink-0 text-gold" />
+                <PhoneIcon className="size-4 shrink-0 text-gold" />
                 <a
                   href="tel:+622130450500"
                   className="text-primary-foreground/80 hover:text-gold"
@@ -74,7 +76,7 @@ export function SiteFooter() {
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail className="size-4 shrink-0 text-gold" />
+                <MailIcon className="size-4 shrink-0 text-gold" />
                 <a
                   href="mailto:alumni@prasetiyamulya.ac.id"
                   className="text-primary-foreground/80 hover:text-gold"

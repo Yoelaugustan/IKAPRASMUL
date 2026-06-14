@@ -1,7 +1,7 @@
-import { ArrowRight, MessageSquareMore } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layouts/Container";
 import { ContactCtaButton } from "@/components/contact/ContactCtaButton";
-import { SigGroupIcon } from "./SigGroupIcon";
+import { GatherIcon, MessageIcon } from "@/components/icons";
 
 export function SigDescription() {
   return (
@@ -11,7 +11,7 @@ export function SigDescription() {
           {/* Left — descriptive copy with circle badge icon */}
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:gap-8">
             <div className="flex size-18 shrink-0 items-center justify-center rounded-full bg-[#00396c]">
-              <SigGroupIcon className="size-9 text-gold" />
+              <GatherIcon className="size-9 text-gold" />
             </div>
             <div className="space-y-5 text-[15px] leading-7 text-foreground/80">
               <p>
@@ -34,7 +34,7 @@ export function SigDescription() {
           <div className="rounded-2xl bg-[#0b1220] p-8 text-white shadow-xl">
             <div className="flex items-start gap-4">
               <div className="flex size-12 shrink-0 items-center justify-center rounded-full border border-gold/30 text-gold">
-                <MessageSquareMore className="size-5" />
+                <MessageIcon className="size-5" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-gold tracking-wide">

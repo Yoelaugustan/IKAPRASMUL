@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { ArrowRight, Users } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { UsersIcon } from "@/components/icons";
 import type { Sig } from "@/types";
 import {
   Dialog,
@@ -70,7 +71,7 @@ export function SigSpotlightCard({ sig }: { sig: Sig }) {
             </DialogDescription>
 
             <div className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-              <Users className="size-4 text-gold" />
+              <UsersIcon className="size-4 text-gold" />
               {sig.memberCount.toLocaleString()} members
             </div>
 

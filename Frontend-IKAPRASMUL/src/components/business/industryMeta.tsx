@@ -1,33 +1,34 @@
 import {
-  BellRing,
-  Briefcase,
-  Cpu,
-  Factory,
-  GraduationCap,
-  HeartPulse,
-  LayoutGrid,
-  MoreHorizontal,
-  Palette,
-  Rocket,
-  Store,
-  UtensilsCrossed,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+  BellIcon,
+  ChatDollarIcon,
+  CpuIcon,
+  CutleryIcon,
+  FactoryIcon,
+  GraduationCapIcon,
+  GridIcon,
+  HeartPulseIcon,
+  PaletteIcon,
+  RocketIcon,
+  StoreIcon,
+  ThreeDotsIcon,
+} from "@/components/icons";
+
+type IconType = React.ComponentType<{ className?: string }>;
 
 // Icon used in the "Browse by Industry" tabs. "All" is the leading tab.
-export const INDUSTRY_ICONS: Record<string, LucideIcon> = {
-  All: LayoutGrid,
-  Retail: Store,
-  Startup: Rocket,
-  "F&B": UtensilsCrossed,
-  Consulting: Briefcase,
-  Manufacturing: Factory,
-  Services: BellRing,
-  Creative: Palette,
-  Technology: Cpu,
-  Healthcare: HeartPulse,
-  Education: GraduationCap,
-  Other: MoreHorizontal,
+export const INDUSTRY_ICONS: Record<string, IconType> = {
+  All: GridIcon,
+  Retail: StoreIcon,
+  Startup: RocketIcon,
+  "F&B": CutleryIcon,
+  Consulting: ChatDollarIcon,
+  Manufacturing: FactoryIcon,
+  Services: BellIcon,
+  Creative: PaletteIcon,
+  Technology: CpuIcon,
+  Healthcare: HeartPulseIcon,
+  Education: GraduationCapIcon,
+  Other: ThreeDotsIcon,
 };
 
 // Colored pill styles for the industry tag on each business card.

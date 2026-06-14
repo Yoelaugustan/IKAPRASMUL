@@ -1,17 +1,23 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { LayoutGrid, Presentation, Briefcase, Globe, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/layouts/Container";
 import { useDragScroll } from "@/hooks/useDragScroll";
+import {
+  BriefcaseIcon,
+  GlobeThinIcon,
+  NetworkIcon,
+  PresentationIcon,
+  PurposeIcon,
+} from "@/components/icons";
 
 const TABS = [
-  { label: "All Stories", value: "All", Icon: LayoutGrid, subtitle: "Explore all" },
-  { label: "Founder Stories", value: "Founder Stories", Icon: Presentation, subtitle: "Building from the ground up" },
-  { label: "Executive Journey", value: "Executive Journey", Icon: Briefcase, subtitle: "Leading with impact" },
-  { label: "International Alumni", value: "International Alumni", Icon: Globe, subtitle: "Making an impact globally" },
-  { label: "Impact Stories", value: "Impact Stories", Icon: Heart, subtitle: "Creating positive change" },
+  { label: "All Stories", value: "All", Icon: NetworkIcon, subtitle: "Explore all" },
+  { label: "Founder Stories", value: "Founder Stories", Icon: PresentationIcon, subtitle: "Building from the ground up" },
+  { label: "Executive Journey", value: "Executive Journey", Icon: BriefcaseIcon, subtitle: "Leading with impact" },
+  { label: "International Alumni", value: "International Alumni", Icon: GlobeThinIcon, subtitle: "Making an impact globally" },
+  { label: "Impact Stories", value: "Impact Stories", Icon: PurposeIcon, subtitle: "Creating positive change" },
 ];
 
 export function StoryCategoryTabs() {
@@ -71,7 +77,6 @@ export function StoryCategoryTabs() {
                       "size-6 shrink-0 transition-colors",
                       isActive ? "text-[#c6b273]" : "text-white/70 group-hover:text-[#c6b273]"
                     )}
-                    strokeWidth={1.5}
                   />
                   <div>
                     <p className={cn(

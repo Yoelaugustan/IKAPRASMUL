@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowRight, UserPlus } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/layouts/PageHero";
 import { ImpactStats } from "@/components/layouts/ImpactStats";
 import { SigDescription } from "@/components/sig/SigDescription";

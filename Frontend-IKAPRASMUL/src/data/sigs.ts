@@ -215,8 +215,8 @@ export const SIGS: Sig[] = [
     icon: "camera",
   },
   {
-    id: "prasmul-marketplace",
-    name: "Prasmul Marketplace",
+    id: "prazmall-marketplace",
+    name: "Prazmall Marketplace",
     category: "Business",
     shortDescription:
       "A marketplace for alumni businesses to connect and collaborate.",

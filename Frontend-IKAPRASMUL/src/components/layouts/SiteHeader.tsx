@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, UserRound } from "lucide-react";
+import { Menu } from "lucide-react";
+import { UserIcon } from "@/components/icons";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { MAIN_NAV, ROUTES } from "@/constants/routes";
@@ -67,7 +68,7 @@ export function SiteHeader() {
               className="hidden border-white/40 bg-transparent text-[13px] text-primary-foreground hover:bg-white/10 hover:text-white min-[1100px]:inline-flex"
             >
               <a href="https://alumniprofile.ikaprama.org/home">
-                <UserRound className="size-3.5" /> Login / Register
+                <UserIcon className="size-3.5" /> Login / Register
               </a>
             </Button>
             <Button
@@ -122,7 +123,7 @@ export function SiteHeader() {
                     className="border-white/40 bg-transparent text-primary-foreground hover:bg-white/10 hover:text-white"
                   >
                     <a href="https://alumniprofile.ikaprama.org/home" onClick={() => setMobileOpen(false)}>
-                      <UserRound /> Login / Register
+                      <UserIcon /> Login / Register
                     </a>
                   </Button>
                   <Button

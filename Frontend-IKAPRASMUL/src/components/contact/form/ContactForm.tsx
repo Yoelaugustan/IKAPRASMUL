@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { SendMessageIcon } from "@/components/icons";
 import { contactSchema, type ContactInput } from "@/types/schemas";
 import { INQUIRY_SUBJECTS, type InquirySubject } from "@/constants/categories";
 import {
@@ -165,9 +166,7 @@ export function ContactForm({
           ) : (
             <>
               Send Message
-              <svg viewBox="0 0 8 10" className="size-2.5 fill-current" aria-hidden>
-                <path d="M0 0l8 5-8 5z" />
-              </svg>
+              <SendMessageIcon className="size-4" />
             </>
           )}
         </Button>

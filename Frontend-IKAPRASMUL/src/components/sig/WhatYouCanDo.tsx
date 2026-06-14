@@ -1,28 +1,33 @@
-import { Video, Globe, Lightbulb, Earth } from "lucide-react";
 import { Container } from "@/components/layouts/Container";
-import { SigGroupIcon } from "./SigGroupIcon";
+import {
+  BulbIcon,
+  EarthIcon,
+  FilmIcon,
+  GatherIcon,
+  GlobeThinIcon,
+} from "@/components/icons";
 
 const ITEMS = [
   {
     title: "Gatherings & Networking",
-    Icon: SigGroupIcon,
+    Icon: GatherIcon,
   },
   {
     title: "Webinars & Knowledge Sharing",
-    Icon: Video,
+    Icon: FilmIcon,
   },
   {
     title: "Social & Community Activities",
-    Icon: Globe,
+    Icon: GlobeThinIcon,
   },
   {
     title: "Skill Development & Learning",
-    Icon: Lightbulb,
+    Icon: BulbIcon,
   },
   {
     title: "Create Bigger Impact",
     subtitle: "With Alumni Network Support",
-    Icon: Earth,
+    Icon: EarthIcon,
   },
 ];
 
