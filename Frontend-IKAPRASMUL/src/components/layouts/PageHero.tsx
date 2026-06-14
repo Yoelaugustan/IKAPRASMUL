@@ -61,7 +61,7 @@ export function PageHero({
       >
         <div
           className={cn(
-            "max-w-3xl",
+            "max-w-3xl animate-in fade-in-0 slide-in-from-bottom-4 duration-700 ease-out motion-reduce:animate-none",
             align === "center" && "mx-auto text-center",
           )}
         >

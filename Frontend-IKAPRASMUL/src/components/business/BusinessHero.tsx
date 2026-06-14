@@ -22,7 +22,7 @@ export function BusinessHero() {
       <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/60 to-primary/10" />
 
       <Container className="relative pt-16 pb-44 sm:pt-20 lg:pt-24 lg:pb-52">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl animate-in fade-in-0 slide-in-from-bottom-4 duration-700 ease-out motion-reduce:animate-none">
           <p className="mb-6 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-gold">
             <span className="h-4 w-1 rounded-sm bg-gold" />
             Alumni Business Showcase

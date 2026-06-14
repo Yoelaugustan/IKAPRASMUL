@@ -21,7 +21,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/50 to-transparent" />
 
       <Container className="relative pt-20 pb-44 sm:pt-24 lg:pt-28 lg:pb-52">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl animate-in fade-in-0 slide-in-from-bottom-4 duration-700 ease-out motion-reduce:animate-none">
           <h1 className="text-4xl font-extrabold uppercase leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
             Welcome Home,
             <br />

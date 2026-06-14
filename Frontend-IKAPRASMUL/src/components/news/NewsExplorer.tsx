@@ -6,6 +6,7 @@ import type { Article } from "@/types";
 import { NEWS_CATEGORIES } from "@/constants/categories";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/layouts/Container";
+import { Reveal } from "@/components/shared/Reveal";
 import { useDragScroll } from "@/hooks/useDragScroll";
 import {
   Select,
@@ -127,9 +128,9 @@ export function NewsExplorer({
                         selectCategory(tab);
                       }}
                       className={cn(
-                        "flex min-w-max flex-col items-center gap-1.5 rounded-lg px-4 py-2 transition-colors",
+                        "relative flex min-w-max flex-col items-center gap-1.5 overflow-hidden rounded-xl px-5 pb-4 pt-3 transition-colors",
                         active
-                          ? "bg-[#00396c] text-white"
+                          ? "bg-[#00396c] text-white shadow-sm"
                           : "text-slate-500 hover:bg-slate-50",
                       )}
                     >
@@ -144,6 +145,9 @@ export function NewsExplorer({
                       <span className="whitespace-nowrap text-[11px] font-semibold leading-tight">
                         {tab === "All" ? "All Stories" : tab}
                       </span>
+                      {active && (
+                        <span className="absolute inset-x-4 bottom-1.5 h-1 rounded-full bg-gold" />
+                      )}
                     </button>
                   );
                 })}
@@ -197,7 +201,11 @@ export function NewsExplorer({
 
           {/* ---- Body ---- */}
           <div className="p-5 sm:p-8 lg:p-10">
-            {!viewAll && <NewsValueProps />}
+            {!viewAll && (
+              <Reveal>
+                <NewsValueProps />
+              </Reveal>
+            )}
 
             <div
               className={cn(
@@ -208,7 +216,10 @@ export function NewsExplorer({
               <div className="min-w-0">
                 {viewAll ? (
                   /* ---- View-all: full paginated grid ---- */
-                  <>
+                  <div
+                    key="viewall"
+                    className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300"
+                  >
                     <div className="mb-5 flex items-center justify-between gap-4">
                       <SectionHeading>
                         {category === "All" ? "All Articles" : category}
@@ -228,7 +239,10 @@ export function NewsExplorer({
                       />
                     ) : (
                       <>
-                        <div className="grid gap-4 sm:grid-cols-2">
+                        <div
+                          key={`${category}-${currentPage}`}
+                          className="grid gap-4 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:duration-300 sm:grid-cols-2"
+                        >
                           {pageItems.map((a) => (
                             <TopStoryCard key={a.slug} article={a} />
                           ))}
@@ -242,10 +256,13 @@ export function NewsExplorer({
                         )}
                       </>
                     )}
-                  </>
+                  </div>
                 ) : (
                   /* ---- Default: featured + top stories ---- */
-                  <>
+                  <div
+                    key="featured"
+                    className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300"
+                  >
                     <SectionHeading>Featured Story</SectionHeading>
                     {featured && (
                       <div className="mt-5">
@@ -276,7 +293,7 @@ export function NewsExplorer({
                         ))}
                       </div>
                     )}
-                  </>
+                  </div>
                 )}
               </div>
 

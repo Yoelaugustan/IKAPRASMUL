@@ -193,3 +193,13 @@
     line-height: inherit;
   }
 }
+
+/* Featured-story carousel auto-advance progress bar (fills left→right). */
+@keyframes featured-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}

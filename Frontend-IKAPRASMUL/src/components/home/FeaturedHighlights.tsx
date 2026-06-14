@@ -1,4 +1,5 @@
 import { Container } from "@/components/layouts/Container";
+import { Reveal } from "@/components/shared/Reveal";
 import {
   getFeaturedAlumni,
   getFeaturedBusinesses,
@@ -27,13 +28,13 @@ export async function FeaturedHighlights() {
           <span className="mt-3 block h-1 w-full rounded-full bg-gold" />
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <Reveal className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {event && <EventCard event={event} />}
           <FeaturedAlumniCard alumni={alumni} />
           {businesses.map((b) => (
             <FeaturedBusinessCard key={b.slug} business={b} />
           ))}
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

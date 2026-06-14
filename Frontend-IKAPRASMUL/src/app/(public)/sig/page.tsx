@@ -8,6 +8,7 @@ import { SigGroupsGrid } from "@/components/sig/SigGroupsGrid";
 import { SigSpotlight } from "@/components/sig/SigSpotlight";
 import { ContactCtaButton } from "@/components/contact/ContactCtaButton";
 import { Container } from "@/components/layouts/Container";
+import { Reveal } from "@/components/shared/Reveal";
 import { getSigs } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -56,7 +57,7 @@ export default async function SigPage() {
       {/* 5. SIG Groups + Spotlight side by side */}
       <section className="py-16 sm:py-20 bg-[#f8fafc] border-t border-slate-100/50">
         <Container>
-          <div className="grid items-start gap-12 lg:grid-cols-[1fr_340px]">
+          <Reveal className="grid items-start gap-12 lg:grid-cols-[1fr_340px]">
             {/* Left: groups heading + grid */}
             <div>
               <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
@@ -80,7 +81,7 @@ export default async function SigPage() {
             <aside>
               <SigSpotlight />
             </aside>
-          </div>
+          </Reveal>
         </Container>
       </section>
     </>

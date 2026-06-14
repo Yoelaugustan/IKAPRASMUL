@@ -1,13 +1,14 @@
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/layouts/Container";
 import { ContactCtaButton } from "@/components/contact/ContactCtaButton";
+import { Reveal } from "@/components/shared/Reveal";
 import { GatherIcon, MessageIcon } from "@/components/icons";
 
 export function SigDescription() {
   return (
     <section className="py-16 sm:py-20">
       <Container>
-        <div className="grid items-start gap-10 lg:grid-cols-[1fr_380px]">
+        <Reveal className="grid items-start gap-10 lg:grid-cols-[1fr_380px]">
           {/* Left — descriptive copy with circle badge icon */}
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:gap-8">
             <div className="flex size-18 shrink-0 items-center justify-center rounded-full bg-[#00396c]">
@@ -54,7 +55,7 @@ export function SigDescription() {
               Contact Alumni Network <ArrowRight className="ml-1.5 size-4" />
             </ContactCtaButton>
           </div>
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

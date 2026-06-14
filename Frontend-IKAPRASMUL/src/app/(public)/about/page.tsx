@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/layouts/PageHero";
 import { Container } from "@/components/layouts/Container";
+import { Reveal } from "@/components/shared/Reveal";
 import { ImpactStats } from "@/components/layouts/ImpactStats";
 import { VisionMissionPurpose } from "@/components/about/VisionMissionPurpose";
 import { HistoryTimeline } from "@/components/about/HistoryTimeline";
@@ -42,13 +43,13 @@ export default async function AboutPage() {
 
       <section className="bg-slate-50 py-16 sm:py-20">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-[340px_1fr] lg:gap-16">
+          <Reveal className="grid gap-12 lg:grid-cols-[340px_1fr] lg:gap-16">
             <HistoryTimeline milestones={about.history} />
             <GovernanceStructure
               executiveBoard={about.executiveBoard}
               boardMembers={about.boardMembers}
             />
-          </div>
+          </Reveal>
         </Container>
       </section>
     </>

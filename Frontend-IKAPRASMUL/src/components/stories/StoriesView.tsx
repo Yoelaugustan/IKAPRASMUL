@@ -76,7 +76,10 @@ export function StoriesView({
       .slice(0, HIGHLIGHT_COUNT);
 
     return (
-      <div className="grid gap-x-8 gap-y-12 lg:grid-cols-[1fr_320px]">
+      <div
+        key="featured"
+        className="grid gap-x-8 gap-y-12 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300 lg:grid-cols-[1fr_320px]"
+      >
         {/* Featured — col 1, row 1 */}
         <div className="lg:col-start-1 lg:row-start-1">
           <FeaturedStory stories={featuredStories} />
@@ -134,7 +137,10 @@ export function StoriesView({
   const heading = category === "All" ? "All Stories" : category;
 
   return (
-    <div className="grid gap-x-8 gap-y-12 lg:grid-cols-[1fr_320px]">
+    <div
+      key="viewall"
+      className="grid gap-x-8 gap-y-12 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300 lg:grid-cols-[1fr_320px]"
+    >
       <div className="min-w-0">
         <SectionHeading
           title={heading}
@@ -154,7 +160,10 @@ export function StoriesView({
           />
         ) : (
           <>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div
+              key={`${category}-${currentPage}`}
+              className="grid gap-6 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:duration-300 sm:grid-cols-2 lg:grid-cols-3"
+            >
               {pageItems.map((s) => (
                 <StoryCard key={s.slug} story={s} />
               ))}

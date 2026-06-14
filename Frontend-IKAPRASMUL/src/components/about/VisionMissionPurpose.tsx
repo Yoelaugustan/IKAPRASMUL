@@ -1,4 +1,5 @@
 import { Container } from "@/components/layouts/Container";
+import { Reveal } from "@/components/shared/Reveal";
 import { MissionIcon, PurposeIcon, VisionIcon } from "@/components/icons";
 
 type IconType = React.ComponentType<{ className?: string }>;
@@ -22,7 +23,7 @@ export function VisionMissionPurpose({
   return (
     <section className="py-16 sm:py-20">
       <Container>
-        <div className="grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        <Reveal className="grid divide-y divide-border sm:grid-cols-3 sm:divide-x sm:divide-y-0">
           {ITEMS.map(({ label, Icon }, i) => (
             <div
               key={label}
@@ -39,7 +40,7 @@ export function VisionMissionPurpose({
               </p>
             </div>
           ))}
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

@@ -1,5 +1,6 @@
 import { getImpactStats } from "@/lib/content";
 import { Container } from "./Container";
+import { CountUp } from "@/components/shared/CountUp";
 import {
   CalendarCheckIcon,
   GlobeIcon,
@@ -37,7 +38,7 @@ export async function ImpactStats({ overlap = false }: { overlap?: boolean }) {
                 <div key={stat.key} className="px-4 text-center">
                   <Icon className="mx-auto size-7 text-gold" />
                   <p className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-                    {stat.value}
+                    <CountUp value={stat.value} />
                   </p>
                   <p className="mt-1 text-xs font-medium uppercase tracking-wider text-primary-foreground/60">
                     {stat.label}

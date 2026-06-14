@@ -1,4 +1,5 @@
 import { Container } from "@/components/layouts/Container";
+import { Reveal } from "@/components/shared/Reveal";
 import {
   BulbIcon,
   EarthIcon,
@@ -35,7 +36,7 @@ export function WhatYouCanDo() {
   return (
     <section className="pb-16">
       <Container>
-        <div className="rounded-2xl bg-[#00396c] p-8 md:p-10 text-white shadow-xl">
+        <Reveal className="rounded-2xl bg-[#00396c] p-8 md:p-10 text-white shadow-xl">
           <p className="mb-8 text-xs font-bold uppercase tracking-[0.18em] text-gold">
             What You Can Do in a SIG
           </p>
@@ -56,7 +57,7 @@ export function WhatYouCanDo() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </Container>
     </section>
   );

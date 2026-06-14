@@ -246,7 +246,10 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
 
           {/* ---- Default: Featured + Spotlight ---- */}
           {!viewAll ? (
-            <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_340px]">
+            <div
+              key="featured"
+              className="mt-12 grid gap-8 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300 lg:grid-cols-[1fr_340px]"
+            >
               <div>
                 <div className="mb-6 flex items-center justify-between gap-4">
                   <SectionLabel>Featured Businesses</SectionLabel>
@@ -281,7 +284,10 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
             </div>
           ) : (
             /* ---- View all: full-width paginated grid ---- */
-            <div className="mt-12">
+            <div
+              key="viewall"
+              className="mt-12 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300"
+            >
               <div className="mb-6 flex items-center justify-between gap-4">
                 <SectionLabel>
                   {savedOnly
@@ -312,7 +318,10 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
                 />
               ) : (
                 <>
-                  <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+                  <div
+                    key={`${applied.industry}|${applied.location}|${applied.founder}|${applied.query}|${savedOnly}|${currentPage}`}
+                    className="grid grid-cols-2 gap-5 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:duration-300 sm:grid-cols-3 lg:grid-cols-4"
+                  >
                     {pageItems.map((b) => (
                       <BusinessCard key={b.slug} business={b} />
                     ))}

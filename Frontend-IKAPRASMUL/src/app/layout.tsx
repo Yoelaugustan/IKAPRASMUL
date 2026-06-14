@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/sonner";
+import { SmoothScroll } from "@/components/shared/SmoothScroll";
 
 const sans = Inter({
   variable: "--font-sans",
@@ -35,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sans.variable} h-full`}>
       <body className="flex min-h-full flex-col font-sans antialiased">
+        <SmoothScroll />
         <Providers>
           {children}
           <Toaster richColors position="top-center" />
