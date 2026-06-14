@@ -1,36 +1,78 @@
-import Link from "next/link";
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 import type { Article } from "@/types";
-import { Card } from "@/components/ui/card";
-import { ROUTES } from "@/constants/routes";
-import { formatCompactNumber } from "@/lib/format";
+import { formatDateUS } from "@/lib/format";
+import { ArticleDetailModal } from "./ArticleDetailModal";
 
 // "Most Popular" ranked list (by views).
-export function MostPopularList({ articles }: { articles: Article[] }) {
+export function MostPopularList({
+  articles,
+  onViewAll,
+}: {
+  articles: Article[];
+  onViewAll?: () => void;
+}) {
+  const [active, setActive] = useState<Article | null>(null);
+
   return (
-    <Card className="p-6">
-      <h3 className="text-sm font-semibold uppercase tracking-wide text-primary">
-        Most Popular
-      </h3>
-      <ol className="mt-4 space-y-4">
+    <div>
+      <div className="mb-4 flex items-center justify-between">
+        <h3 className="text-sm font-bold uppercase tracking-widest text-[#00396c]">
+          Most Popular
+        </h3>
+        <button
+          type="button"
+          onClick={onViewAll}
+          className="inline-flex items-center gap-1 text-[12px] font-semibold text-gold hover:text-gold-dark"
+        >
+          View All <ArrowRight className="size-3.5" />
+        </button>
+      </div>
+
+      <ol className="space-y-3">
         {articles.map((article, i) => (
-          <li key={article.slug} className="flex gap-4">
-            <span className="text-2xl font-bold tabular-nums text-gold">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <div>
-              <Link
-                href={ROUTES.article(article.slug)}
-                className="text-sm font-medium leading-snug text-foreground hover:text-primary hover:underline"
-              >
-                {article.title}
-              </Link>
-              <p className="mt-1 text-xs text-muted-foreground">
-                {article.category} · {formatCompactNumber(article.views)} views
-              </p>
-            </div>
+          <li key={article.slug}>
+            <button
+              type="button"
+              onClick={() => setActive(article)}
+              className="group flex w-full items-center gap-3 text-left"
+            >
+              <span className="grid size-7 shrink-0 place-items-center rounded-md bg-[#0a192f] text-xs font-bold text-white">
+                {i + 1}
+              </span>
+              <span className="relative size-11 shrink-0 overflow-hidden rounded-md bg-slate-100">
+                <Image
+                  src={article.coverImage}
+                  alt={article.title}
+                  fill
+                  sizes="44px"
+                  className="object-cover"
+                />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="line-clamp-1 text-[13px] font-bold text-slate-900 group-hover:text-primary">
+                  {article.title}
+                </span>
+                <span className="mt-0.5 block text-[11px] text-muted-foreground">
+                  {formatDateUS(article.publishedAt)} • {article.readMinutes} min
+                  read
+                </span>
+              </span>
+            </button>
           </li>
         ))}
       </ol>
-    </Card>
+
+      {active && (
+        <ArticleDetailModal
+          article={active}
+          open={active !== null}
+          onOpenChange={(o) => !o && setActive(null)}
+        />
+      )}
+    </div>
   );
 }

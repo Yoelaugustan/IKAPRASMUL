@@ -24,3 +24,12 @@ export function formatDateTime(iso: string) {
 export function formatCompactNumber(n: number) {
   return new Intl.NumberFormat("en-US", { notation: "compact" }).format(n);
 }
+
+// US-style "May 20, 2025" — used on the News & Insight page.
+export function formatDateUS(iso: string) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(iso));
+}
