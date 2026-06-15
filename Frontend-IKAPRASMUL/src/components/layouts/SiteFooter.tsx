@@ -12,10 +12,10 @@ import {
 } from "@/components/icons";
 
 const SOCIALS = [
-  { label: "LinkedIn", href: "#", Icon: LinkedinIcon },
-  { label: "Instagram", href: "#", Icon: InstagramIcon },
-  { label: "YouTube", href: "#", Icon: YoutubeIcon },
-  { label: "Spotify", href: "#", Icon: SpotifyIcon },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/ikaprasmul/?originalSubdomain=id", Icon: LinkedinIcon },
+  { label: "Instagram", href: "https://www.instagram.com/alumniprasmul/?hl=en", Icon: InstagramIcon },
+  { label: "YouTube", href: "https://www.youtube.com/channel/UCiLdBhRqasdQ_n-xvglJ6Wg/videos", Icon: YoutubeIcon },
+  { label: "Spotify", href: "https://open.spotify.com/show/2TV53T3kSDvVNH6WcnMsTx", Icon: SpotifyIcon },
 ];
 
 const CAMPUSES = [
@@ -101,6 +101,7 @@ export function SiteFooter() {
                   key={label}
                   href={href}
                   aria-label={label}
+                  target="_blank"
                   className="grid size-10 place-items-center rounded-full bg-white/5 text-primary-foreground/80 transition-colors hover:bg-gold hover:text-gold-foreground"
                 >
                   <Icon className="size-4" />

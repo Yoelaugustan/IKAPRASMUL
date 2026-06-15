@@ -67,7 +67,7 @@ export function SiteHeader() {
               size="sm"
               className="hidden border-white/40 bg-transparent text-[13px] text-primary-foreground hover:bg-white/10 hover:text-white min-[1100px]:inline-flex"
             >
-              <a href="https://alumniprofile.ikaprama.org/home">
+              <a href="https://alumniprofile.ikaprama.org/home" target="_blank">
                 <UserIcon className="size-3.5" /> Login / Register
               </a>
             </Button>
