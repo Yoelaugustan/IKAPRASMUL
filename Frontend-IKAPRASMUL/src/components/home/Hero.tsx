@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layouts/Container";
 import { ROUTES } from "@/constants/routes";
+import { HERO_BLUR } from "@/lib/heroBlur";
 
 export function Hero() {
   return (
@@ -14,6 +15,8 @@ export function Hero() {
         alt="Prasetiya Mulya campus"
         fill
         priority
+        placeholder="blur"
+        blurDataURL={HERO_BLUR["/images/home/hero-campus.jpg"]}
         sizes="100vw"
         className="object-cover"
       />

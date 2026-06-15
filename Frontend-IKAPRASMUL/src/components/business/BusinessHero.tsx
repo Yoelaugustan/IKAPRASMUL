@@ -3,6 +3,7 @@ import { ArrowRight, Plus } from "lucide-react";
 import { Container } from "@/components/layouts/Container";
 import { Button } from "@/components/ui/button";
 import { ContactCtaButton } from "@/components/contact/ContactCtaButton";
+import { HERO_BLUR } from "@/lib/heroBlur";
 
 // Bespoke hero for the Alumni Business page — full-bleed photo, navy wash on the
 // left for the copy, and generous bottom space so the search bar (rendered by
@@ -15,6 +16,8 @@ export function BusinessHero() {
         alt=""
         fill
         priority
+        placeholder="blur"
+        blurDataURL={HERO_BLUR["/images/business/hero-business.jpg"]}
         sizes="100vw"
         className="object-cover"
       />

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { HERO_BLUR } from "@/lib/heroBlur";
 import { Container } from "./Container";
 
 type PageHeroProps = {
@@ -39,6 +40,8 @@ export function PageHero({
           alt=""
           fill
           priority
+          placeholder={HERO_BLUR[backgroundImage] ? "blur" : "empty"}
+          blurDataURL={HERO_BLUR[backgroundImage]}
           sizes="100vw"
           className="object-cover"
         />
