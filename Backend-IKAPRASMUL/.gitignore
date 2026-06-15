@@ -1,0 +1,19 @@
+# .NET build output
+bin/
+obj/
+out/
+
+# User-specific / secrets (never commit)
+*.user
+*.suo
+secrets.json
+appsettings.*.local.json
+
+# IDE
+.vs/
+.idea/
+*.DotSettings.user
+
+# Logs
+*.log
+logs/

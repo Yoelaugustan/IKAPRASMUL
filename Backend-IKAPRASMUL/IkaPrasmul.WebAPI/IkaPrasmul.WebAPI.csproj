@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <UserSecretsId>ikaprasmul-webapi</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- EF tooling for `dotnet ef migrations` (design-time only) -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../IkaPrasmul.Commons/IkaPrasmul.Commons.csproj" />
+    <ProjectReference Include="../IkaPrasmul.Infrastructure/IkaPrasmul.Infrastructure.csproj" />
+    <ProjectReference Include="../IkaPrasmul.Contracts/IkaPrasmul.Contracts.csproj" />
+    <ProjectReference Include="../IkaPrasmul.Entities/IkaPrasmul.Entities.csproj" />
+  </ItemGroup>
+</Project>

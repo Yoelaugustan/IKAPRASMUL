@@ -1,40 +1,26 @@
-// Typed API client (BFF pattern). The base URL comes from env — never hardcoded.
-// While the .NET backend is not yet wired, the data layer reads from src/data/*
-// (see lib/content.ts). This client is the seam we swap in later; keep the route
-// contract identical to be-standard.md.
+// Typed API client (axios). Base URL comes from env — never hardcoded.
+// `api.get<T>()` resolves to the response body directly (not the AxiosResponse),
+// keeping call sites terse. Used for direct calls to the .NET backend; the
+// public forms go through same-origin BFF routes (see the form hooks).
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
+import axios, { type AxiosRequestConfig } from "axios";
 
-type RequestOptions = Omit<RequestInit, "body"> & { body?: unknown };
-
-async function request<T>(path: string, options: RequestOptions = {}): Promise<T> {
-  const { body, headers, ...rest } = options;
-  const res = await fetch(`${API_URL}${path}`, {
-    ...rest,
-    headers: {
-      "Content-Type": "application/json",
-      ...headers,
-    },
-    body: body !== undefined ? JSON.stringify(body) : undefined,
-    // Auth cookie is httpOnly and forwarded by the browser / BFF route handler.
-    credentials: "include",
-  });
-
-  if (!res.ok) {
-    throw new Error(`Request failed: ${res.status} ${res.statusText}`);
-  }
-  return res.status === 204 ? (undefined as T) : ((await res.json()) as T);
-}
+export const client = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL ?? "",
+  headers: { "Content-Type": "application/json" },
+  // Auth cookie is httpOnly and forwarded by the browser / BFF route handler.
+  withCredentials: true,
+});
 
 export const api = {
-  get: <T>(path: string, options?: RequestOptions) =>
-    request<T>(path, { ...options, method: "GET" }),
-  post: <T>(path: string, body?: unknown, options?: RequestOptions) =>
-    request<T>(path, { ...options, method: "POST", body }),
-  put: <T>(path: string, body?: unknown, options?: RequestOptions) =>
-    request<T>(path, { ...options, method: "PUT", body }),
-  patch: <T>(path: string, body?: unknown, options?: RequestOptions) =>
-    request<T>(path, { ...options, method: "PATCH", body }),
-  delete: <T>(path: string, options?: RequestOptions) =>
-    request<T>(path, { ...options, method: "DELETE" }),
+  get: <T>(path: string, config?: AxiosRequestConfig) =>
+    client.get<T>(path, config).then((r) => r.data),
+  post: <T>(path: string, body?: unknown, config?: AxiosRequestConfig) =>
+    client.post<T>(path, body, config).then((r) => r.data),
+  put: <T>(path: string, body?: unknown, config?: AxiosRequestConfig) =>
+    client.put<T>(path, body, config).then((r) => r.data),
+  patch: <T>(path: string, body?: unknown, config?: AxiosRequestConfig) =>
+    client.patch<T>(path, body, config).then((r) => r.data),
+  delete: <T>(path: string, config?: AxiosRequestConfig) =>
+    client.delete<T>(path, config).then((r) => r.data),
 };

@@ -20,6 +20,11 @@ export const contactSchema = z.object({
     .trim()
     .min(10, "Please write at least 10 characters.")
     .max(2000, "Message is too long (2000 characters max)."),
+  // Optional attachment: a base64 data URL. Type/size are validated client-side
+  // before encoding; the cap here (~5 MB binary) is a backstop. Re-validated
+  // server-side (FluentValidation).
+  image: z.string().max(7_000_000, "Image is too large.").optional(),
+  imageName: z.string().max(255).optional(),
 });
 export type ContactInput = z.infer<typeof contactSchema>;
 

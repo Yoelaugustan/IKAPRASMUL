@@ -1,14 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import type { NewsletterInput } from "@/types/schemas";
 
-// Simulated newsletter subscribe. Swap the mutationFn for the real
-// `POST /api/newsletter` (BFF) call when the backend is wired.
-async function subscribe(input: NewsletterInput): Promise<{ ok: true }> {
-  await new Promise((r) => setTimeout(r, 700));
-  console.info("[dummy] newsletter subscribe:", input.email);
-  return { ok: true };
-}
-
-export function useNewsletter() {
-  return useMutation({ mutationFn: subscribe });
+// Subscribes through the BFF route (`/api/newsletter`), which forwards to the
+// .NET backend (stores the subscriber, de-duped). `source` tags where the signup
+// came from (e.g. "footer" / "news").
+export function useNewsletter(source?: string) {
+  return useMutation({
+    mutationFn: async (input: NewsletterInput): Promise<{ message?: string }> => {
+      const { data } = await axios.post<{ message?: string }>("/api/newsletter", {
+        email: input.email,
+        source,
+      });
+      return data;
+    },
+  });
 }

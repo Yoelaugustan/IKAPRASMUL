@@ -1,12 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import type { ContactInput } from "@/types/schemas";
 
-// Simulated "Get in Touch" inquiry submit. Swap for the real
-// `POST /api/contact` (BFF → .NET inquiries inbox) when the backend is wired.
-async function sendInquiry(input: ContactInput): Promise<{ ok: true }> {
-  await new Promise((r) => setTimeout(r, 800));
-  console.info("[dummy] contact inquiry:", input.subject, input.email);
-  return { ok: true };
+// Submits the "Get in Touch" inquiry through the BFF route (`/api/contact`),
+// which forwards to the .NET backend (stores it + emails the admin, with the
+// optional image as an attachment).
+async function sendInquiry(input: ContactInput): Promise<{ message?: string }> {
+  const { data } = await axios.post<{ message?: string }>("/api/contact", input);
+  return data;
 }
 
 export function useContact() {

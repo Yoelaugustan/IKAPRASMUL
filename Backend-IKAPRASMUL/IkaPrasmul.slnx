@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="IkaPrasmul.Entities/IkaPrasmul.Entities.csproj" />
+  <Project Path="IkaPrasmul.Contracts/IkaPrasmul.Contracts.csproj" />
+  <Project Path="IkaPrasmul.Commons/IkaPrasmul.Commons.csproj" />
+  <Project Path="IkaPrasmul.Infrastructure/IkaPrasmul.Infrastructure.csproj" />
+  <Project Path="IkaPrasmul.WebAPI/IkaPrasmul.WebAPI.csproj" />
+</Solution>

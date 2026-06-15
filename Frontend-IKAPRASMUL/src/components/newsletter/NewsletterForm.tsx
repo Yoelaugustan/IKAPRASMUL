@@ -20,7 +20,7 @@ export function NewsletterForm({
   variant = "footer",
   className,
 }: NewsletterFormProps) {
-  const subscribe = useNewsletter();
+  const subscribe = useNewsletter(variant === "footer" ? "footer" : "news");
   const {
     register,
     handleSubmit,

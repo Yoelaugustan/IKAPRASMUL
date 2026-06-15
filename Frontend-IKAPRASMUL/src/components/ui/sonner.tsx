@@ -30,6 +30,11 @@ const Toaster = ({ ...props }: ToasterProps) => {
           "--normal-text": "var(--popover-foreground)",
           "--normal-border": "var(--border)",
           "--border-radius": "var(--radius)",
+          // Success toasts use the IKAPRASMUL palette (light: white bg, navy
+          // text/icon, gold border) instead of the default green.
+          "--success-bg": "#ffffff",
+          "--success-text": "#00396c",
+          "--success-border": "#c6b273",
         } as React.CSSProperties
       }
       {...props}

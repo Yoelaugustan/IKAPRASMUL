@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <!-- IRequest<T> only — keeps Contracts dependency-light per be-standard §2 -->
+    <PackageReference Include="MediatR.Contracts" />
+  </ItemGroup>
+</Project>

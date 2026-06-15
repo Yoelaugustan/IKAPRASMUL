@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../IkaPrasmul.Contracts/IkaPrasmul.Contracts.csproj" />
+    <ProjectReference Include="../IkaPrasmul.Entities/IkaPrasmul.Entities.csproj" />
+  </ItemGroup>
+</Project>
