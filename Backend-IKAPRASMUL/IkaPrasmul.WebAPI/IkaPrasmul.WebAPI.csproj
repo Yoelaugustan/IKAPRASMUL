@@ -10,6 +10,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Update="SeedData\**\*" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="../IkaPrasmul.Commons/IkaPrasmul.Commons.csproj" />
     <ProjectReference Include="../IkaPrasmul.Infrastructure/IkaPrasmul.Infrastructure.csproj" />
     <ProjectReference Include="../IkaPrasmul.Contracts/IkaPrasmul.Contracts.csproj" />

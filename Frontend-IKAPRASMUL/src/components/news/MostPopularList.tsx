@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import type { Article } from "@/types";
 import { formatDateUS } from "@/lib/format";
+import { EmptyState } from "@/components/shared/EmptyState";
 import { ArticleDetailModal } from "./ArticleDetailModal";
 
 // "Most Popular" ranked list (by views).
@@ -32,6 +33,13 @@ export function MostPopularList({
         </button>
       </div>
 
+      {articles.length === 0 ? (
+        <EmptyState
+          title="No popular articles right now"
+          description="Please check back shortly."
+          className="py-10"
+        />
+      ) : (
       <ol className="space-y-3">
         {articles.map((article, i) => (
           <li key={article.slug}>
@@ -65,6 +73,7 @@ export function MostPopularList({
           </li>
         ))}
       </ol>
+      )}
 
       {active && (
         <ArticleDetailModal

@@ -2,6 +2,7 @@ using System.Threading.RateLimiting;
 using IkaPrasmul.Commons;
 using IkaPrasmul.Infrastructure;
 using IkaPrasmul.WebAPI.Middleware;
+using IkaPrasmul.WebAPI.Seeding;
 using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,9 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+
+// Seeds the ContentItems table from SeedData/seed.json on first startup.
+builder.Services.AddHostedService<ContentSeederHostedService>();
 
 // CORS — only the configured frontend origin(s) (security-standard §6.2).
 var allowedOrigins = builder.Configuration

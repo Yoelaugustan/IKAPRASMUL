@@ -290,10 +290,16 @@ export function NewsExplorer({
                     className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300"
                   >
                     <SectionHeading>Featured Story</SectionHeading>
-                    {featured && (
+                    {featured ? (
                       <div className="mt-5">
                         <FeaturedArticle article={featured} />
                       </div>
+                    ) : (
+                      <EmptyState
+                        title="No featured story available right now"
+                        description="Articles couldn't be loaded. Please check back shortly."
+                        className="mt-5"
+                      />
                     )}
 
                     <div className="mt-12 flex items-center justify-between">

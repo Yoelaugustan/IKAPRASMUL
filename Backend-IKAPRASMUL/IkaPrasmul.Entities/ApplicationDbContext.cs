@@ -12,6 +12,7 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<NewsletterSubscription> NewsletterSubscriptions => Set<NewsletterSubscription>();
     public DbSet<ContactInquiry> ContactInquiries => Set<ContactInquiry>();
+    public DbSet<ContentItem> ContentItems => Set<ContentItem>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -26,6 +27,12 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<ContactInquiry>(e =>
         {
             e.HasIndex(x => x.CreatedAt);
+        });
+
+        modelBuilder.Entity<ContentItem>(e =>
+        {
+            // The read endpoints query by type + status and order by SortOrder.
+            e.HasIndex(x => new { x.Type, x.Status, x.SortOrder });
         });
     }
 }

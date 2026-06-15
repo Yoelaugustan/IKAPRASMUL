@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
+import type { Business } from "@/types";
+import { EmptyState } from "@/components/shared/EmptyState";
 import {
   Dialog,
   DialogContent,
@@ -10,37 +12,46 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-// Editorial "Alumni Business Spotlight" card shown beside the featured grid.
-const SPOTLIGHT = {
-  image: "https://picsum.photos/seed/spotlight-impact/800/500",
-  title: "Turning Ideas Into Impact",
-  description:
-    "From a simple idea at Prasmul to a thriving business that creates value for thousands of customers across Indonesia.",
-  body:
-    "What started as a student project has grown into one of the region's most recognized alumni ventures. By staying close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow founders — the company has turned a simple idea into lasting impact for thousands of customers across Indonesia.",
-  founder: "Budi Setiawan",
-  founderClass: "MM '10",
-  company: "PT Maju Bersama Global",
-  avatar: "https://i.pravatar.cc/120?img=15",
-};
+function SpotlightHeader() {
+  return (
+    <div className="mb-6 flex items-center gap-3">
+      <span className="h-4 w-1 rounded bg-[#0a192f]" />
+      <h2 className="text-sm font-bold uppercase tracking-widest text-[#00396c]">
+        Alumni Business Spotlight
+      </h2>
+    </div>
+  );
+}
 
-export function BusinessSpotlight() {
+// "Alumni Business Spotlight" card — features one business from the DB (the
+// flagged spotlight, else the first listing). Shows a placeholder when none.
+export function BusinessSpotlight({ business }: { business?: Business }) {
   const [open, setOpen] = useState(false);
+
+  if (!business) {
+    return (
+      <div>
+        <SpotlightHeader />
+        <EmptyState
+          title="No spotlight available right now"
+          description="Please check back shortly."
+          className="py-10"
+        />
+      </div>
+    );
+  }
+
+  const avatar = business.founder.avatar ?? business.logo;
 
   return (
     <div>
-      <div className="mb-6 flex items-center gap-3">
-        <span className="h-4 w-1 rounded bg-[#0a192f]" />
-        <h2 className="text-sm font-bold uppercase tracking-widest text-[#00396c]">
-          Alumni Business Spotlight
-        </h2>
-      </div>
+      <SpotlightHeader />
 
       <div className="overflow-hidden rounded-2xl bg-[#00396c] shadow-lg">
         <div className="relative aspect-[16/9]">
           <Image
-            src={SPOTLIGHT.image}
-            alt={SPOTLIGHT.title}
+            src={business.coverImage}
+            alt={business.name}
             fill
             sizes="360px"
             className="object-cover"
@@ -51,17 +62,17 @@ export function BusinessSpotlight() {
             Featured Story
           </p>
           <h3 className="mt-2 text-xl font-bold leading-snug text-white">
-            {SPOTLIGHT.title}
+            {business.name}
           </h3>
-          <p className="mt-3 text-[13.5px] leading-relaxed text-white/75">
-            {SPOTLIGHT.description}
+          <p className="mt-3 line-clamp-3 text-[13.5px] leading-relaxed text-white/75">
+            {business.shortDescription}
           </p>
 
           <div className="mt-5 flex items-center gap-3">
             <span className="relative size-10 shrink-0 overflow-hidden rounded-full ring-2 ring-white/20">
               <Image
-                src={SPOTLIGHT.avatar}
-                alt={SPOTLIGHT.founder}
+                src={avatar}
+                alt={business.founder.name}
                 fill
                 sizes="40px"
                 className="object-cover"
@@ -69,9 +80,9 @@ export function BusinessSpotlight() {
             </span>
             <div className="text-[13px] leading-tight">
               <p className="font-bold text-white">
-                Founder: {SPOTLIGHT.founder} ({SPOTLIGHT.founderClass})
+                Founder: {business.founder.name} ({business.founder.class})
               </p>
-              <p className="text-white/60">{SPOTLIGHT.company}</p>
+              <p className="text-white/60">{business.location}</p>
             </div>
           </div>
 
@@ -89,8 +100,8 @@ export function BusinessSpotlight() {
         <DialogContent className="max-h-[90vh] max-w-2xl gap-0 overflow-y-auto p-0">
           <div className="relative aspect-[16/9] w-full">
             <Image
-              src={SPOTLIGHT.image}
-              alt={SPOTLIGHT.title}
+              src={business.coverImage}
+              alt={business.name}
               fill
               sizes="640px"
               className="object-cover"
@@ -102,14 +113,14 @@ export function BusinessSpotlight() {
           <div className="p-6 sm:p-8">
             <DialogHeader>
               <DialogTitle className="text-2xl text-primary">
-                {SPOTLIGHT.title}
+                {business.name}
               </DialogTitle>
             </DialogHeader>
             <div className="mt-4 flex items-center gap-3">
               <span className="relative size-10 shrink-0 overflow-hidden rounded-full ring-2 ring-slate-200">
                 <Image
-                  src={SPOTLIGHT.avatar}
-                  alt={SPOTLIGHT.founder}
+                  src={avatar}
+                  alt={business.founder.name}
                   fill
                   sizes="40px"
                   className="object-cover"
@@ -117,13 +128,13 @@ export function BusinessSpotlight() {
               </span>
               <div className="text-sm leading-tight">
                 <p className="font-semibold text-foreground">
-                  {SPOTLIGHT.founder} ({SPOTLIGHT.founderClass})
+                  {business.founder.name} ({business.founder.class})
                 </p>
-                <p className="text-muted-foreground">{SPOTLIGHT.company}</p>
+                <p className="text-muted-foreground">{business.location}</p>
               </div>
             </div>
             <p className="mt-5 text-[15px] leading-7 text-foreground/85">
-              {SPOTLIGHT.body}
+              {business.description}
             </p>
           </div>
         </DialogContent>

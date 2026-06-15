@@ -1,5 +1,6 @@
 import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
+import { EmptyState } from "@/components/shared/EmptyState";
 import {
   getFeaturedAlumni,
   getFeaturedBusinesses,
@@ -18,6 +19,8 @@ export async function FeaturedHighlights() {
     getFeaturedBusinesses(2),
   ]);
 
+  const hasContent = Boolean(event) || Boolean(alumni) || businesses.length > 0;
+
   return (
     <section className="py-16 sm:py-20">
       <Container>
@@ -28,13 +31,20 @@ export async function FeaturedHighlights() {
           <span className="mt-3 block h-1 w-full rounded-full bg-gold" />
         </div>
 
-        <Reveal className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {event && <EventCard event={event} />}
-          <FeaturedAlumniCard alumni={alumni} />
-          {businesses.map((b) => (
-            <FeaturedBusinessCard key={b.slug} business={b} />
-          ))}
-        </Reveal>
+        {hasContent ? (
+          <Reveal className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {event && <EventCard event={event} />}
+            {alumni && <FeaturedAlumniCard alumni={alumni} />}
+            {businesses.map((b) => (
+              <FeaturedBusinessCard key={b.slug} business={b} />
+            ))}
+          </Reveal>
+        ) : (
+          <EmptyState
+            title="No highlights available right now"
+            description="Highlights couldn't be loaded. Please check back shortly."
+          />
+        )}
       </Container>
     </section>
   );

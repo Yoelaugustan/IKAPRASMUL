@@ -5,7 +5,19 @@ import Image from "next/image";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Story } from "@/types";
 import { cn } from "@/lib/utils";
+import { EmptyState } from "@/components/shared/EmptyState";
 import { StoryDetailModal } from "./StoryDetailModal";
+
+function FeaturedStoryHeader() {
+  return (
+    <div className="mb-6">
+      <h2 className="text-[15px] font-extrabold uppercase tracking-widest text-[#00396c]">
+        FEATURED STORY
+      </h2>
+      <span className="mt-3 block h-px w-full bg-slate-200" />
+    </div>
+  );
+}
 
 export function FeaturedStory({ stories }: { stories: Story[] }) {
   const [index, setIndex] = useState(0);
@@ -19,18 +31,24 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
   // resumes from where it left off. Reduced-motion users get no auto-rotate.
   const paused = modalOpen || hovering;
 
-  if (count === 0) return null;
+  if (count === 0) {
+    return (
+      <div>
+        <FeaturedStoryHeader />
+        <EmptyState
+          title="No featured story available right now"
+          description="Stories couldn't be loaded. Please check back shortly."
+        />
+      </div>
+    );
+  }
+
   const active = stories[Math.min(index, count - 1)];
   const go = (dir: 1 | -1) => setIndex((i) => (i + dir + count) % count);
 
   return (
     <div>
-      <div className="mb-6">
-        <h2 className="text-[15px] font-extrabold uppercase tracking-widest text-[#00396c]">
-          FEATURED STORY
-        </h2>
-        <span className="mt-3 block h-px w-full bg-slate-200" />
-      </div>
+      <FeaturedStoryHeader />
 
       <div
         className="group relative overflow-hidden rounded-2xl bg-[#00396c] shadow-lg"

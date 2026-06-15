@@ -71,6 +71,8 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
 
   // Default stage shows a curated set; view-all shows everything (filtered).
   const featuredBusinesses = businesses.slice(0, FEATURED_COUNT);
+  // Spotlight: the flagged business, else the first listing (undefined if none).
+  const spotlight = businesses.find((b) => b.isSpotlight) ?? businesses[0];
 
   const filtered = useMemo(() => {
     const q = applied.query.trim().toLowerCase();
@@ -298,14 +300,21 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
                     </button>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-5 lg:grid-cols-3 xl:grid-cols-4">
-                  {featuredBusinesses.map((b) => (
-                    <BusinessCard key={b.slug} business={b} />
-                  ))}
-                </div>
+                {featuredBusinesses.length === 0 ? (
+                  <EmptyState
+                    title="No businesses available right now"
+                    description="Listings couldn't be loaded. Please check back shortly."
+                  />
+                ) : (
+                  <div className="grid grid-cols-2 gap-5 lg:grid-cols-3 xl:grid-cols-4">
+                    {featuredBusinesses.map((b) => (
+                      <BusinessCard key={b.slug} business={b} />
+                    ))}
+                  </div>
+                )}
               </div>
 
-              <BusinessSpotlight />
+              <BusinessSpotlight business={spotlight} />
             </div>
           ) : (
             /* ---- View all: full-width paginated grid ---- */
@@ -322,13 +331,24 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
                       ? "All Businesses"
                       : applied.industry}
                 </SectionLabel>
-                <button
-                  type="button"
-                  onClick={backToFeatured}
-                  className="inline-flex items-center gap-1 text-[13px] font-bold text-gold transition-colors hover:text-gold-dark"
-                >
-                  <ChevronLeft className="size-4" /> Back
-                </button>
+                <div className="flex items-center gap-4">
+                  {hydrated && savedSlugs.length > 0 && !savedOnly && (
+                    <button
+                      type="button"
+                      onClick={openSaved}
+                      className="inline-flex items-center gap-1.5 text-[13px] font-bold text-slate-500 transition-colors hover:text-gold"
+                    >
+                      <Bookmark className="size-4" /> Saved ({savedSlugs.length})
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={backToFeatured}
+                    className="inline-flex items-center gap-1 text-[13px] font-bold text-gold transition-colors hover:text-gold-dark"
+                  >
+                    <ChevronLeft className="size-4" /> Back
+                  </button>
+                </div>
               </div>
 
               {pageItems.length === 0 ? (
