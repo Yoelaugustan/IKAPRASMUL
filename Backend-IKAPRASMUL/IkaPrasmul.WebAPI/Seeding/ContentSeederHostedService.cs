@@ -35,12 +35,6 @@ public class ContentSeederHostedService : IHostedService
             using var scope = _services.CreateScope();
             var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-            if (await db.ContentItems.AnyAsync(cancellationToken))
-            {
-                _logger.LogInformation("Content already seeded — skipping.");
-                return;
-            }
-
             var path = Path.Combine(_environment.ContentRootPath, "SeedData", "seed.json");
             if (!File.Exists(path))
             {
@@ -51,9 +45,21 @@ public class ContentSeederHostedService : IHostedService
             var json = await File.ReadAllTextAsync(path, cancellationToken);
             using var doc = JsonDocument.Parse(json);
 
+            // Seed per type: only add content types that aren't in the table yet,
+            // so new types (e.g. a SIG split) get seeded without wiping the rest.
+            var existingTypes = await db.ContentItems
+                .Select(c => c.Type)
+                .Distinct()
+                .ToListAsync(cancellationToken);
+
             var items = new List<ContentItem>();
             foreach (var typeProperty in doc.RootElement.EnumerateObject())
             {
+                if (existingTypes.Contains(typeProperty.Name))
+                {
+                    continue;
+                }
+
                 var sortOrder = 0;
                 foreach (var element in typeProperty.Value.EnumerateArray())
                 {
@@ -68,9 +74,18 @@ public class ContentSeederHostedService : IHostedService
                 }
             }
 
+            if (items.Count == 0)
+            {
+                _logger.LogInformation("All content types already seeded — nothing to add.");
+                return;
+            }
+
             db.ContentItems.AddRange(items);
             await db.SaveChangesAsync(cancellationToken);
-            _logger.LogInformation("Seeded {Count} content items.", items.Count);
+            _logger.LogInformation(
+                "Seeded {Count} content items ({Types}).",
+                items.Count,
+                string.Join(", ", items.Select(i => i.Type).Distinct()));
         }
         catch (Exception ex)
         {

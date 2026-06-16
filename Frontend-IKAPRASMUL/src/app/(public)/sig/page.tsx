@@ -9,7 +9,7 @@ import { SigSpotlight } from "@/components/sig/SigSpotlight";
 import { ContactCtaButton } from "@/components/contact/ContactCtaButton";
 import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
-import { getSigs } from "@/lib/content";
+import { getSigGroups } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Shared Interest Groups",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default async function SigPage() {
-  const sigs = await getSigs();
+  const groups = await getSigGroups();
 
   return (
     <>
@@ -74,7 +74,7 @@ export default async function SigPage() {
                   <ArrowRight className="size-4 text-slate-600 ml-1" />
                 </ContactCtaButton> */}
               </div>
-              <SigGroupsGrid sigs={sigs} />
+              <SigGroupsGrid groups={groups} />
             </div>
 
             {/* Right: SIG Spotlight sidebar */}

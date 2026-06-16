@@ -19,20 +19,25 @@ export type ImpactStat = {
   value: string;
 };
 
-export type Sig = {
+// A SIG group in the "Our Shared Interest Groups" grid — just an image + name.
+// The icon is the placeholder shown when there is no image.
+export type SigGroup = {
   id: string;
   name: string;
-  category: string;
-  shortDescription: string;
-  longDescription: string;
-  memberCount: number;
-  coverImage: string;
-  activities: string[];
-  /** Lead/coordinator shown in the detail modal. */
-  lead?: Person;
-  isSpotlight?: boolean;
-  /** Lucide icon name for the compact SIG list display. */
+  image?: string;
+  /** Lucide icon key, used as the image placeholder. */
   icon?: string;
+};
+
+// A SIG Spotlight — a richer, news-like feature (separate from the groups grid).
+export type SigSpotlight = {
+  id: string;
+  name: string;
+  image: string;
+  description: string;
+  category?: string;
+  memberCount?: number;
+  activities?: string[];
 };
 
 export type Story = {

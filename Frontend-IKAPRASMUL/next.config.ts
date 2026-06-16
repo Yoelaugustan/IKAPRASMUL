@@ -14,6 +14,16 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "picsum.photos" },
     ],
   },
+
+  // Proxy backend-hosted content images (wwwroot/media) under the frontend
+  // origin, so `next/image` treats them as same-origin (no remotePatterns) and
+  // the stored paths (/media/...) stay environment-agnostic.
+  async rewrites() {
+    const api = process.env.API_URL ?? "http://localhost:5080";
+    return [
+      { source: "/media/:path*", destination: `${api}/media/:path*` },
+    ];
+  },
 };
 
 export default nextConfig;

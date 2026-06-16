@@ -1,10 +1,10 @@
-import type { Sig } from "@/types";
+import type { SigGroup } from "@/types";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { SigCard } from "./SigCard";
 
-// Compact list grid matching the design — 3 columns of SIG names with icons.
-export function SigGroupsGrid({ sigs }: { sigs: Sig[] }) {
-  if (sigs.length === 0) {
+// Grid of SIG group cards — image + name (icon fallback).
+export function SigGroupsGrid({ groups }: { groups: SigGroup[] }) {
+  if (groups.length === 0) {
     return (
       <EmptyState
         title="No interest groups available right now"
@@ -15,8 +15,8 @@ export function SigGroupsGrid({ sigs }: { sigs: Sig[] }) {
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {sigs.map((sig) => (
-        <SigCard key={sig.id} sig={sig} />
+      {groups.map((group) => (
+        <SigCard key={group.id} sig={group} />
       ))}
     </div>
   );

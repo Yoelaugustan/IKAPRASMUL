@@ -6,7 +6,7 @@ import { ROUTES } from "@/constants/routes";
 import {
   getArticles,
   getBusinesses,
-  getSigs,
+  getSigGroups,
   getStories,
 } from "@/lib/content";
 
@@ -16,15 +16,15 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminDashboardPage() {
-  const [sigs, stories, articles, businesses] = await Promise.all([
-    getSigs(),
+  const [sigGroups, stories, articles, businesses] = await Promise.all([
+    getSigGroups(),
     getStories(),
     getArticles(),
     getBusinesses(),
   ]);
 
   const stats = [
-    { label: "SIGs", value: sigs.length, href: ROUTES.adminSig, Icon: Users2 },
+    { label: "SIGs", value: sigGroups.length, href: ROUTES.adminSig, Icon: Users2 },
     { label: "Stories", value: stories.length, href: ROUTES.adminStories, Icon: FileText },
     { label: "Articles", value: articles.length, href: ROUTES.adminNews, Icon: Newspaper },
     { label: "Businesses", value: businesses.length, href: ROUTES.adminBusiness, Icon: Building2 },

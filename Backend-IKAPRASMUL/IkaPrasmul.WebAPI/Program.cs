@@ -46,6 +46,8 @@ var app = builder.Build();
 // --- Pipeline ---------------------------------------------------------------
 app.UseExceptionHandler();
 app.UseMiddleware<SecurityHeadersMiddleware>();
+// Serve content images from wwwroot (e.g. /media/sig/runners-club.jpg).
+app.UseStaticFiles();
 app.UseCors("frontend");
 app.UseRateLimiter();
 app.MapControllers();

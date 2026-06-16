@@ -13,7 +13,8 @@ import type {
   Article,
   Business,
   ImpactStat,
-  Sig,
+  SigGroup,
+  SigSpotlight,
   Story,
   AlumniEvent,
   FeaturedAlumni,
@@ -65,11 +66,11 @@ export const getUpcomingEvent = async (): Promise<AlumniEvent | undefined> => {
 };
 
 /* ---------- SIG ---------- */
-export const getSigs = (): Promise<Sig[]> => safeFetch<Sig[]>("/sig", []);
-export const getSigSpotlight = async (): Promise<Sig | undefined> => {
-  const sigs = await getSigs();
-  return sigs.find((s) => s.isSpotlight) ?? sigs[0];
-};
+// Two independent data sources: the groups grid and the (news-like) spotlight.
+export const getSigGroups = (): Promise<SigGroup[]> =>
+  safeFetch<SigGroup[]>("/sig/groups", []);
+export const getSigSpotlights = (): Promise<SigSpotlight[]> =>
+  safeFetch<SigSpotlight[]>("/sig/spotlight", []);
 
 /* ---------- Stories ---------- */
 export const getStories = (): Promise<Story[]> => safeFetch<Story[]>("/stories", []);
