@@ -1,13 +1,49 @@
-import type { BoardMember, HistoryMilestone } from "@/types";
+import type { BoardMember, HistoryMilestone, Pillar } from "@/types";
 
 export const VISION =
-  "To be a globally connected alumni community that inspires and drives positive impact.";
+  "Menjadi perekat sinergi yang terpercaya bagi alumni, mahasiswa, almamater, dan masyarakat luas dalam mendorong kemajuan kolektif yang berkelanjutan.";
 
-export const MISSION =
-  "To connect, develop, and empower alumni through opportunities, knowledge sharing, and collaboration.";
+export const MISSION: string[] = [
+  "Memberdayakan jejaring alumni yang kuat, kolaboratif, dan saling mendukung.",
+  "Memfasilitasi pertumbuhan wirausaha alumni melalui akses pasar, pendanaan, dan jejaring investor.",
+  "Memperkuat konektivitas alumni dengan dunia kerja dan peluang profesional strategis.",
+];
 
-export const PURPOSE =
-  "To empower every alumni to thrive, give back, and shape a better future together.";
+// The four C's.
+export const VALUES: string[] = [
+  "Character",
+  "Competency",
+  "Connectivity",
+  "Contribution",
+];
+
+export const PILLARS: Pillar[] = [
+  {
+    name: "Tata Kelola & Efisiensi Organisasi",
+    impact:
+      "IKA Prasmul diakui sebagai organisasi alumni yang kredibel, profesional, transparan, dan berintegritas.",
+  },
+  {
+    name: "Konektivitas & Pengembangan Karier",
+    impact:
+      "Alumni Prasmul merasakan lifetime value jejaring dan meningkatkan reputasi alumni di dunia profesional, baik nasional maupun global.",
+  },
+  {
+    name: "Kemitraan Strategis & Kewirausahaan",
+    impact:
+      "Alumni menjadi katalis ekosistem kewirausahaan & mitra strategis yang berdaya saing global.",
+  },
+  {
+    name: "Kontribusi Sosial & Pendidikan Lanjut",
+    impact:
+      "Alumni memberi dampak sosial & pendidikan nyata bagi masyarakat, almamater, dan generasi muda.",
+  },
+  {
+    name: "Komunitas Minat & Interaksi Alumni",
+    impact:
+      "Terciptanya komunitas minat alumni inklusif & berkelanjutan, rasa kebersamaan alumni mengakar lintas generasi.",
+  },
+];
 
 export const HISTORY: HistoryMilestone[] = [
   {

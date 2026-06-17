@@ -3,7 +3,9 @@ import { PageHero } from "@/components/layouts/PageHero";
 import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
 import { ImpactStats } from "@/components/layouts/ImpactStats";
-import { VisionMissionPurpose } from "@/components/about/VisionMissionPurpose";
+import { VisionMission } from "@/components/about/VisionMission";
+import { AboutValues } from "@/components/about/AboutValues";
+import { AboutPillars } from "@/components/about/AboutPillars";
 import { HistoryTimeline } from "@/components/about/HistoryTimeline";
 import { GovernanceStructure } from "@/components/about/GovernanceStructure";
 import { getAboutContent } from "@/lib/content";
@@ -11,7 +13,7 @@ import { getAboutContent } from "@/lib/content";
 export const metadata: Metadata = {
   title: "About IKAPRASMUL",
   description:
-    "Empowering alumni. Enabling impact. Learn about IKAPRASMUL's vision, mission, history, and the people who lead the Prasmul alumni association.",
+    "Empowering alumni. Enabling impact. IKAPRASMUL's vision, mission, values, strategic pillars, history, and the people who lead the Prasmul alumni association.",
 };
 
 export default async function AboutPage() {
@@ -35,11 +37,11 @@ export default async function AboutPage() {
 
       <ImpactStats overlap />
 
-      <VisionMissionPurpose
-        vision={about.vision}
-        mission={about.mission}
-        purpose={about.purpose}
-      />
+      <VisionMission vision={about.vision} mission={about.mission} />
+
+      <AboutValues values={about.values} />
+
+      <AboutPillars pillars={about.pillars} />
 
       <section className="bg-slate-50 py-16 sm:py-20">
         <Container>
