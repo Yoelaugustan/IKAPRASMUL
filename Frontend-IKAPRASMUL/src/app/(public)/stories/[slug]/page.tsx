@@ -8,6 +8,7 @@ import { ArticleContent } from "@/components/shared/ArticleContent";
 import { BackButton } from "@/components/shared/BackButton";
 import { ROUTES } from "@/constants/routes";
 import { formatDateUS } from "@/lib/format";
+import { getServerDict } from "@/i18n/server";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -20,7 +21,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function StoryDetailPage({ params }: Params) {
   const { slug } = await params;
-  const story = await getStoryBySlug(slug);
+  const [story, { t }] = await Promise.all([
+    getStoryBySlug(slug),
+    getServerDict(),
+  ]);
   if (!story) notFound();
 
   return (
@@ -48,7 +52,7 @@ export default async function StoryDetailPage({ params }: Params) {
             <CalendarDays className="size-4" /> {formatDateUS(story.publishedAt)}
           </span>
           <span className="flex items-center gap-1.5">
-            <Clock className="size-4" /> {story.readMinutes} min read
+            <Clock className="size-4" /> {story.readMinutes} {t.detail.minRead}
           </span>
         </div>
 

@@ -8,6 +8,7 @@ import { BackButton } from "@/components/shared/BackButton";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
 import { formatDate } from "@/lib/format";
+import { getServerDict } from "@/i18n/server";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -20,7 +21,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function EventDetailPage({ params }: Params) {
   const { slug } = await params;
-  const event = await getEventBySlug(slug);
+  const [event, { t }] = await Promise.all([
+    getEventBySlug(slug),
+    getServerDict(),
+  ]);
   if (!event) notFound();
 
   return (
@@ -31,7 +35,7 @@ export default async function EventDetailPage({ params }: Params) {
         </div>
 
         <span className="inline-block rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-gold-foreground">
-          Upcoming Event
+          {t.detail.upcomingEvent}
         </span>
 
         <h1 className="mt-4 text-3xl font-bold leading-tight text-primary sm:text-4xl">
@@ -70,7 +74,7 @@ export default async function EventDetailPage({ params }: Params) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Register Now
+                {t.detail.registerNow}
               </a>
             </Button>
           </div>

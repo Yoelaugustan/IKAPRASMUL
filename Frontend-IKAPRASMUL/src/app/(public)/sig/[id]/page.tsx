@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Users } from "lucide-react";
 import { getSigSpotlightById } from "@/lib/content";
 import { Container } from "@/components/layouts/Container";
 import { BackButton } from "@/components/shared/BackButton";

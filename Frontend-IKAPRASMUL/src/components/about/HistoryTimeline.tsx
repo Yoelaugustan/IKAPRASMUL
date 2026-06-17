@@ -1,11 +1,9 @@
 import Image from "next/image";
-import type { HistoryMilestone } from "@/types";
+import { getServerDict } from "@/i18n/server";
 
-export function HistoryTimeline({
-  milestones,
-}: {
-  milestones: HistoryMilestone[];
-}) {
+export async function HistoryTimeline() {
+  const { t } = await getServerDict();
+  const milestones = t.about.history;
   return (
     <div>
       {/* Campus photo */}
@@ -20,7 +18,7 @@ export function HistoryTimeline({
       </div>
 
       <h2 className="mt-8 text-xl font-bold uppercase tracking-tight text-primary">
-        Our History
+        {t.about.historyTitle}
       </h2>
 
       <ol className="relative mt-6 border-l border-gold/40 pl-7">

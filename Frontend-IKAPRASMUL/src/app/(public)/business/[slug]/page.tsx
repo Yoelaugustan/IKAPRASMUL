@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 import { industryBadgeClass } from "@/components/business/industryMeta";
+import { getServerDict } from "@/i18n/server";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -22,7 +23,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function BusinessDetailPage({ params }: Params) {
   const { slug } = await params;
-  const business = await getBusinessBySlug(slug);
+  const [business, { t }] = await Promise.all([
+    getBusinessBySlug(slug),
+    getServerDict(),
+  ]);
   if (!business) notFound();
 
   return (
@@ -45,7 +49,8 @@ export default async function BusinessDetailPage({ params }: Params) {
           {business.name}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Founded by {business.founder.name} · {business.founder.class}
+          {t.detail.foundedBy} {business.founder.name} ·{" "}
+          {business.founder.class}
         </p>
         <p className="mt-2 flex items-center gap-2 text-sm text-foreground/80">
           <MapPin className="size-4 text-gold" /> {business.location}
@@ -72,7 +77,7 @@ export default async function BusinessDetailPage({ params }: Params) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Visit Website <ExternalLink className="size-4" />
+                {t.detail.visitWebsite} <ExternalLink className="size-4" />
               </a>
             </Button>
           </div>

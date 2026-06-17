@@ -4,6 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/layouts/Container";
 import { useDragScroll } from "@/hooks/useDragScroll";
+import { useLang } from "@/components/shared/LanguageProvider";
 import {
   BriefcaseIcon,
   GlobeThinIcon,
@@ -12,19 +13,22 @@ import {
   PurposeIcon,
 } from "@/components/icons";
 
+// Icons + the canonical category value stay here (value is the data key used for
+// filtering); the visible label + subtitle come from the dictionary.
 const TABS = [
-  { label: "All Stories", value: "All", Icon: NetworkIcon, subtitle: "Explore all" },
-  { label: "Founder Stories", value: "Founder Stories", Icon: PresentationIcon, subtitle: "Building from the ground up" },
-  { label: "Executive Journey", value: "Executive Journey", Icon: BriefcaseIcon, subtitle: "Leading with impact" },
-  { label: "International Alumni", value: "International Alumni", Icon: GlobeThinIcon, subtitle: "Making an impact globally" },
-  { label: "Impact Stories", value: "Impact Stories", Icon: PurposeIcon, subtitle: "Creating positive change" },
+  { value: "All", Icon: NetworkIcon },
+  { value: "Founder Stories", Icon: PresentationIcon },
+  { value: "Executive Journey", Icon: BriefcaseIcon },
+  { value: "International Alumni", Icon: GlobeThinIcon },
+  { value: "Impact Stories", Icon: PurposeIcon },
 ];
 
 export function StoryCategoryTabs() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  
+  const { t } = useLang();
+
   const currentCategory = searchParams.get("category") || "All";
 
   const {
@@ -58,9 +62,11 @@ export function StoryCategoryTabs() {
           <div className="flex flex-row mx-auto">
             {TABS.map((tab) => {
               const isActive = currentCategory === tab.value;
+              const label = t.categories.story[tab.value] ?? tab.value;
+              const subtitle = t.categories.storySub[tab.value] ?? "";
               return (
                 <button
-                  key={tab.label}
+                  key={tab.value}
                   onClick={() => {
                     if (tabsWasDragged()) return;
                     handleTabClick(tab.value);
@@ -83,13 +89,13 @@ export function StoryCategoryTabs() {
                       "text-[13px] font-bold leading-tight",
                       isActive ? "text-white" : "text-white/90"
                     )}>
-                      {tab.label}
+                      {label}
                     </p>
                     <p className={cn(
                       "text-[11px] leading-tight mt-0.5",
                       isActive ? "text-white/80" : "text-white/60"
                     )}>
-                      {tab.subtitle}
+                      {subtitle}
                     </p>
                   </div>
                 </button>

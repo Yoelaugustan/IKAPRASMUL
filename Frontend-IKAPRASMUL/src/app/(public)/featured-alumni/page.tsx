@@ -6,13 +6,17 @@ import { getFeaturedAlumni } from "@/lib/content";
 import { Container } from "@/components/layouts/Container";
 import { BackButton } from "@/components/shared/BackButton";
 import { ROUTES } from "@/constants/routes";
+import { getServerDict } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "Alumni of the Month",
 };
 
 export default async function FeaturedAlumniPage() {
-  const alumni = await getFeaturedAlumni();
+  const [alumni, { t }] = await Promise.all([
+    getFeaturedAlumni(),
+    getServerDict(),
+  ]);
   if (!alumni) notFound();
 
   return (
@@ -23,7 +27,7 @@ export default async function FeaturedAlumniPage() {
         </div>
 
         <span className="inline-block rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-gold-foreground">
-          Alumni of the Month
+          {t.detail.alumniOfTheMonth}
         </span>
 
         <h1 className="mt-4 text-3xl font-bold leading-tight text-primary sm:text-4xl">

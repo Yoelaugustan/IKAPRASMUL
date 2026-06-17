@@ -1,10 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { Article } from "@/types";
 import { formatDateUS } from "@/lib/format";
 import { ROUTES } from "@/constants/routes";
+import { useLang } from "@/components/shared/LanguageProvider";
 
 export function FeaturedArticle({ article }: { article: Article }) {
+  const { t } = useLang();
   return (
     <Link
       href={ROUTES.articleDetail(article.slug)}
@@ -46,7 +50,7 @@ export function FeaturedArticle({ article }: { article: Article }) {
             )}
             <span className="leading-tight">
               <span className="block font-semibold text-white">
-                By {article.author.name}
+                {t.detail.by} {article.author.name}
               </span>
               {article.author.role && (
                 <span className="block text-white/60">
@@ -59,7 +63,9 @@ export function FeaturedArticle({ article }: { article: Article }) {
           <span className="hidden h-4 w-px bg-white/30 sm:block" />
           <span>{formatDateUS(article.publishedAt)}</span>
           <span className="hidden h-4 w-px bg-white/30 sm:block" />
-          <span>{article.readMinutes} min read</span>
+          <span>
+            {article.readMinutes} {t.detail.minRead}
+          </span>
         </div>
       </div>
     </Link>

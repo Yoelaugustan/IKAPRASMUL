@@ -1,10 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { Article } from "@/types";
 import { formatDateUS } from "@/lib/format";
 import { ROUTES } from "@/constants/routes";
+import { useLang } from "@/components/shared/LanguageProvider";
 
 export function TopStoryCard({ article }: { article: Article }) {
+  const { t } = useLang();
   return (
     <Link
       href={ROUTES.articleDetail(article.slug)}
@@ -27,7 +31,8 @@ export function TopStoryCard({ article }: { article: Article }) {
           {article.title}
         </h3>
         <p className="mt-2 text-[11px] text-muted-foreground">
-          {formatDateUS(article.publishedAt)} • {article.readMinutes} min read
+          {formatDateUS(article.publishedAt)} • {article.readMinutes}{" "}
+          {t.detail.minRead}
         </p>
       </div>
     </Link>

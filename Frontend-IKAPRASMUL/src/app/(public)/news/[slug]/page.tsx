@@ -8,6 +8,7 @@ import { ArticleContent } from "@/components/shared/ArticleContent";
 import { BackButton } from "@/components/shared/BackButton";
 import { ROUTES } from "@/constants/routes";
 import { formatCompactNumber, formatDateUS } from "@/lib/format";
+import { getServerDict } from "@/i18n/server";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -20,7 +21,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 
 export default async function ArticleDetailPage({ params }: Params) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const [article, { t }] = await Promise.all([
+    getArticleBySlug(slug),
+    getServerDict(),
+  ]);
   if (!article) notFound();
 
   return (
@@ -46,10 +50,11 @@ export default async function ArticleDetailPage({ params }: Params) {
             <CalendarDays className="size-4" /> {formatDateUS(article.publishedAt)}
           </span>
           <span className="flex items-center gap-1.5">
-            <Clock className="size-4" /> {article.readMinutes} min read
+            <Clock className="size-4" /> {article.readMinutes} {t.detail.minRead}
           </span>
           <span className="flex items-center gap-1.5">
-            <Eye className="size-4" /> {formatCompactNumber(article.views)} views
+            <Eye className="size-4" /> {formatCompactNumber(article.views)}{" "}
+            {t.detail.views}
           </span>
         </div>
 

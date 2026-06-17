@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLang } from "@/components/shared/LanguageProvider";
 import {
   BriefcaseIcon,
   GlobeThinIcon,
@@ -31,10 +32,11 @@ export function StoryCategoriesSidebar({
   activeCategory?: string;
   onSelect?: (category: string) => void;
 }) {
+  const { t } = useLang();
   return (
     <Card className="p-6 border border-slate-100/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] rounded-2xl">
       <h3 className="border-b border-slate-100 pb-4 text-[15px] font-extrabold uppercase tracking-widest text-[#00396c]">
-        STORY CATEGORIES
+        {t.lists.storyCategoriesTitle}
       </h3>
       <ul className="mt-5 space-y-5">
         {counts.map(({ category, count }) => {
@@ -63,10 +65,10 @@ export function StoryCategoriesSidebar({
                         active ? "text-[#00396c]" : "text-slate-900 group-hover:text-[#00396c]",
                       )}
                     >
-                      {category}
+                      {t.categories.story[category] ?? category}
                     </p>
                     <p className="text-[12px] text-slate-500 mt-0.5">
-                      {count} Stories
+                      {count} {t.lists.storiesUnit}
                     </p>
                   </div>
                 </div>

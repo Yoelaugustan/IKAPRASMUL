@@ -8,7 +8,7 @@ import { AboutValues } from "@/components/about/AboutValues";
 import { AboutPillars } from "@/components/about/AboutPillars";
 import { HistoryTimeline } from "@/components/about/HistoryTimeline";
 import { GovernanceStructure } from "@/components/about/GovernanceStructure";
-import { getAboutContent } from "@/lib/content";
+import { getServerDict } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "About IKAPRASMUL",
@@ -17,40 +17,37 @@ export const metadata: Metadata = {
 };
 
 export default async function AboutPage() {
-  const about = await getAboutContent();
+  const { t } = await getServerDict();
 
   return (
     <>
       <PageHero
-        eyebrow="About IKAPRASMUL"
+        eyebrow={t.about.heroEyebrow}
         title={
           <>
-            Empowering Alumni.
+            {t.about.heroTitleLine1}
             <br />
-            <span className="text-gold">Enabling Impact.</span>
+            <span className="text-gold">{t.about.heroTitleLine2}</span>
           </>
         }
-        subtitle="IKAPRASMUL is the official alumni association of Universitas Prasetiya Mulya, committed to building a lifelong ecosystem that connects, grows, and empowers alumni to create meaningful impact for Indonesia and the world."
+        subtitle={t.about.heroSubtitle}
         backgroundImage="/images/about/hero-building.jpg"
         overlap
       />
 
       <ImpactStats overlap />
 
-      <VisionMission vision={about.vision} mission={about.mission} />
+      <VisionMission />
 
-      <AboutValues values={about.values} />
+      <AboutValues />
 
-      <AboutPillars pillars={about.pillars} />
+      <AboutPillars />
 
       <section className="bg-slate-50 py-16 sm:py-20">
         <Container>
           <Reveal className="grid gap-12 lg:grid-cols-[340px_1fr] lg:gap-16">
-            <HistoryTimeline milestones={about.history} />
-            <GovernanceStructure
-              executiveBoard={about.executiveBoard}
-              boardMembers={about.boardMembers}
-            />
+            <HistoryTimeline />
+            <GovernanceStructure />
           </Reveal>
         </Container>
       </section>

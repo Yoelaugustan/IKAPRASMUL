@@ -3,8 +3,14 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { FeaturedAlumni } from "@/types";
 import { ROUTES } from "@/constants/routes";
+import { getServerDict } from "@/i18n/server";
 
-export function FeaturedAlumniCard({ alumni }: { alumni: FeaturedAlumni }) {
+export async function FeaturedAlumniCard({
+  alumni,
+}: {
+  alumni: FeaturedAlumni;
+}) {
+  const { t } = await getServerDict();
   return (
     <Link
       href={ROUTES.featuredAlumni}
@@ -19,19 +25,19 @@ export function FeaturedAlumniCard({ alumni }: { alumni: FeaturedAlumni }) {
           className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
         <span className="absolute left-3 top-3 rounded bg-primary px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary-foreground">
-          Featured Alumni
+          {t.cards.featuredAlumni}
         </span>
       </div>
       <div className="flex flex-1 flex-col p-5">
         <h3 className="text-lg font-bold leading-snug text-primary">
-          Alumni of the Month
+          {t.detail.alumniOfTheMonth}
         </h3>
         <p className="mt-2 text-sm font-semibold text-foreground">
           {alumni.name}
         </p>
         <p className="mt-0.5 text-sm text-muted-foreground">{alumni.class}</p>
         <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-primary transition-all group-hover:gap-2.5 group-hover:underline">
-          Read Story <ArrowRight className="size-4" />
+          {t.cards.readStory} <ArrowRight className="size-4" />
         </span>
       </div>
     </Link>

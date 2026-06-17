@@ -4,8 +4,10 @@ import { CalendarDays, ArrowRight } from "lucide-react";
 import type { AlumniEvent } from "@/types";
 import { formatDate } from "@/lib/format";
 import { ROUTES } from "@/constants/routes";
+import { getServerDict } from "@/i18n/server";
 
-export function EventCard({ event }: { event: AlumniEvent }) {
+export async function EventCard({ event }: { event: AlumniEvent }) {
+  const { t } = await getServerDict();
   return (
     <Link
       href={ROUTES.eventDetail(event.slug)}
@@ -20,7 +22,7 @@ export function EventCard({ event }: { event: AlumniEvent }) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <span className="absolute left-3 top-3 rounded bg-primary px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary-foreground">
-          Upcoming Event
+          {t.detail.upcomingEvent}
         </span>
       </div>
       <div className="flex flex-1 flex-col p-5">
@@ -32,7 +34,7 @@ export function EventCard({ event }: { event: AlumniEvent }) {
           {formatDate(event.date)} • {event.location}
         </p>
         <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-primary transition-all group-hover:gap-2.5 group-hover:underline">
-          View Details <ArrowRight className="size-4" />
+          {t.cards.viewDetails} <ArrowRight className="size-4" />
         </span>
       </div>
     </Link>

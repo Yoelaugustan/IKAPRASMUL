@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { useLang } from "@/components/shared/LanguageProvider";
 import { NewsValueProps } from "./NewsValueProps";
 import { FeaturedArticle } from "./FeaturedArticle";
 import { TopStoryCard } from "./TopStoryCard";
@@ -37,6 +38,7 @@ export function NewsExplorer({
   featured?: Article;
   mostPopular: Article[];
 }) {
+  const { t } = useLang();
   const [category, setCategory] = useState("All");
   const [draftQuery, setDraftQuery] = useState("");
   const [appliedQuery, setAppliedQuery] = useState("");
@@ -169,7 +171,7 @@ export function NewsExplorer({
                         />
                       )}
                       <span className="whitespace-nowrap text-[11px] font-semibold leading-tight">
-                        {tab === "All" ? "All Stories" : tab}
+                        {t.categories.news[tab] ?? tab}
                       </span>
                       {active && (
                         <span className="absolute inset-x-4 bottom-1.5 h-1 rounded-full bg-gold" />
@@ -189,8 +191,8 @@ export function NewsExplorer({
                     onKeyDown={(e) => {
                       if (e.key === "Enter") applySearch();
                     }}
-                    placeholder="Search articles, topics, or authors"
-                    aria-label="Search news"
+                    placeholder={t.newsList.searchPlaceholder}
+                    aria-label={t.newsList.searchAria}
                     className="h-10 w-full rounded-lg border border-slate-200 bg-white pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#00396c] focus:outline-none focus:ring-2 focus:ring-[#00396c]/15"
                   />
                 </div>
@@ -199,7 +201,7 @@ export function NewsExplorer({
                   onClick={applySearch}
                   className="h-10 shrink-0 rounded-lg bg-[#00396c] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#00305c]"
                 >
-                  Search
+                  {t.newsList.search}
                 </button>
                 <Select
                   value={sort}
@@ -216,9 +218,11 @@ export function NewsExplorer({
                     sideOffset={6}
                     className="rounded-xl"
                   >
-                    <SelectItem value="latest">Latest</SelectItem>
-                    <SelectItem value="oldest">Oldest</SelectItem>
-                    <SelectItem value="popular">Most Popular</SelectItem>
+                    <SelectItem value="latest">{t.newsList.sortLatest}</SelectItem>
+                    <SelectItem value="oldest">{t.newsList.sortOldest}</SelectItem>
+                    <SelectItem value="popular">
+                      {t.newsList.sortPopular}
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -248,20 +252,22 @@ export function NewsExplorer({
                   >
                     <div className="mb-5 flex items-center justify-between gap-4">
                       <SectionHeading>
-                        {category === "All" ? "All Articles" : category}
+                        {category === "All"
+                          ? t.newsList.allArticles
+                          : t.categories.news[category] ?? category}
                       </SectionHeading>
                       <button
                         type="button"
                         onClick={backToFeatured}
                         className="inline-flex items-center gap-1 text-[13px] font-bold text-gold transition-colors hover:text-gold-dark"
                       >
-                        <ChevronLeft className="size-4" /> Back
+                        <ChevronLeft className="size-4" /> {t.newsList.back}
                       </button>
                     </div>
                     {pageItems.length === 0 ? (
                       <EmptyState
-                        title="No articles found"
-                        description="Try a different search term or category."
+                        title={t.newsList.noArticlesTitle}
+                        description={t.newsList.noArticlesDesc}
                       />
                     ) : (
                       <>
@@ -289,33 +295,34 @@ export function NewsExplorer({
                     key="featured"
                     className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300"
                   >
-                    <SectionHeading>Featured Story</SectionHeading>
+                    <SectionHeading>{t.newsList.featuredStory}</SectionHeading>
                     {featured ? (
                       <div className="mt-5">
                         <FeaturedArticle article={featured} />
                       </div>
                     ) : (
                       <EmptyState
-                        title="No featured story available right now"
-                        description="Articles couldn't be loaded. Please check back shortly."
+                        title={t.newsList.noFeaturedTitle}
+                        description={t.newsList.noFeaturedDesc}
                         className="mt-5"
                       />
                     )}
 
                     <div className="mt-12 flex items-center justify-between">
-                      <SectionHeading>Top Stories</SectionHeading>
+                      <SectionHeading>{t.newsList.topStories}</SectionHeading>
                       <button
                         type="button"
                         onClick={enterViewAll}
                         className="inline-flex items-center gap-1 text-[13px] font-bold text-gold transition-colors hover:text-gold-dark"
                       >
-                        View All Stories <ArrowRight className="size-4" />
+                        {t.newsList.viewAllStories}{" "}
+                        <ArrowRight className="size-4" />
                       </button>
                     </div>
                     {topStories.length === 0 ? (
                       <EmptyState
-                        title="No articles found"
-                        description="Try a different search term or category."
+                        title={t.newsList.noArticlesTitle}
+                        description={t.newsList.noArticlesDesc}
                         className="mt-6"
                       />
                     ) : (
@@ -361,17 +368,18 @@ function Pagination({
   totalPages: number;
   onPage: (page: number) => void;
 }) {
+  const { t } = useLang();
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   return (
     <nav
-      aria-label="Pagination"
+      aria-label={t.lists.paginationLabel}
       className="mt-10 flex items-center justify-center gap-2"
     >
       <button
         type="button"
         onClick={() => onPage(currentPage - 1)}
         disabled={currentPage === 1}
-        aria-label="Previous page"
+        aria-label={t.lists.prevPage}
         className="grid size-9 place-items-center rounded-md border border-slate-200 text-slate-500 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
       >
         <ChevronLeft className="size-4" />
@@ -396,7 +404,7 @@ function Pagination({
         type="button"
         onClick={() => onPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        aria-label="Next page"
+        aria-label={t.lists.nextPage}
         className="grid size-9 place-items-center rounded-md border border-slate-200 text-slate-500 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
       >
         <ChevronRight className="size-4" />

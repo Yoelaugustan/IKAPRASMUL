@@ -3,8 +3,10 @@ import { Container } from "@/components/layouts/Container";
 import { ContactCtaButton } from "@/components/contact/ContactCtaButton";
 import { Reveal } from "@/components/shared/Reveal";
 import { GatherIcon, MessageIcon } from "@/components/icons";
+import { getServerDict } from "@/i18n/server";
 
-export function SigDescription() {
+export async function SigDescription() {
+  const { t } = await getServerDict();
   return (
     <section className="py-16 sm:py-20">
       <Container>
@@ -15,19 +17,8 @@ export function SigDescription() {
               <GatherIcon className="size-9 text-gold" />
             </div>
             <div className="space-y-5 text-[15px] leading-7 text-foreground/80">
-              <p>
-                Shared Interest Group (SIG) is a platform created for Prasetiya
-                Mulya alumni to discuss, share, and learn about something they are
-                passionate about—whether it&apos;s a hobby, social activity, or a
-                specific professional topic.
-              </p>
-              <p>
-                There are many activities you can do in a SIG, from gatherings,
-                creating webinar materials, social initiatives, knowledge sharing,
-                and more. Even if a SIG wants to organize a large-scale event,
-                it&apos;s possible with the support of IKAPRASMUL and the
-                Prasetiya Mulya Alumni Network.
-              </p>
+              <p>{t.sig.descP1}</p>
+              <p>{t.sig.descP2}</p>
             </div>
           </div>
 
@@ -39,11 +30,10 @@ export function SigDescription() {
               </div>
               <div>
                 <h3 className="text-lg font-bold text-gold tracking-wide">
-                  Interested in joining a SIG?
+                  {t.sig.ctaTitle}
                 </h3>
                 <p className="mt-2 text-sm leading-6 text-white/80">
-                  Get in touch with the Alumni Network to find the right SIG for
-                  you.
+                  {t.sig.ctaText}
                 </p>
               </div>
             </div>
@@ -52,7 +42,8 @@ export function SigDescription() {
               variant="gold"
               className="mt-6 w-full text-sm font-bold h-11"
             >
-              Contact Alumni Network <ArrowRight className="ml-1.5 size-4" />
+              {t.sig.contactAlumniNetwork}{" "}
+              <ArrowRight className="ml-1.5 size-4" />
             </ContactCtaButton>
           </div>
         </Reveal>

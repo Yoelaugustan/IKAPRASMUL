@@ -1,14 +1,16 @@
 import type { SigGroup } from "@/types";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { getServerDict } from "@/i18n/server";
 import { SigCard } from "./SigCard";
 
 // Grid of SIG group cards — image + name (icon fallback).
-export function SigGroupsGrid({ groups }: { groups: SigGroup[] }) {
+export async function SigGroupsGrid({ groups }: { groups: SigGroup[] }) {
   if (groups.length === 0) {
+    const { t } = await getServerDict();
     return (
       <EmptyState
-        title="No interest groups available right now"
-        description="Groups couldn't be loaded. Please check back shortly."
+        title={t.cards.noGroupsTitle}
+        description={t.cards.noGroupsDesc}
       />
     );
   }

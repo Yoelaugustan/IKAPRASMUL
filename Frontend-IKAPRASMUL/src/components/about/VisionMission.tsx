@@ -1,14 +1,11 @@
 import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
 import { MissionIcon, VisionIcon } from "@/components/icons";
+import { getServerDict } from "@/i18n/server";
 
-export function VisionMission({
-  vision,
-  mission,
-}: {
-  vision: string;
-  mission: string[];
-}) {
+export async function VisionMission() {
+  const { t } = await getServerDict();
+  const { ourVision, ourMission, vision, mission } = t.about;
   return (
     <section className="py-16 sm:py-20">
       <Container>
@@ -19,7 +16,7 @@ export function VisionMission({
               <VisionIcon className="size-7 text-gold" />
             </span>
             <h3 className="mt-5 text-base font-bold uppercase tracking-[0.12em] text-foreground sm:text-lg">
-              Our Vision
+              {ourVision}
             </h3>
             <p className="mt-3 max-w-md text-[15px] leading-7 text-muted-foreground sm:text-base">
               {vision}
@@ -32,7 +29,7 @@ export function VisionMission({
               <MissionIcon className="size-7 text-gold" />
             </span>
             <h3 className="mt-5 text-base font-bold uppercase tracking-[0.12em] text-foreground sm:text-lg">
-              Our Mission
+              {ourMission}
             </h3>
             <ol className="mt-3 max-w-md space-y-3 text-left">
               {mission.map((item, i) => (

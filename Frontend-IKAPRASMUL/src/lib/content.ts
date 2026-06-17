@@ -18,22 +18,10 @@ import type {
   Story,
   AlumniEvent,
   FeaturedAlumni,
-  Pillar,
-  HistoryMilestone,
-  BoardMember,
 } from "@/types";
 import { STORY_CATEGORIES } from "@/constants/categories";
-// Rarely-changing content stays static (no DB): impact stats + the About page.
+// Rarely-changing content stays static (no DB): impact stats.
 import { IMPACT_STATS } from "@/data/impact";
-import {
-  VISION,
-  MISSION,
-  VALUES,
-  PILLARS,
-  HISTORY,
-  EXECUTIVE_BOARD,
-  BOARD_MEMBERS,
-} from "@/data/about";
 
 const API_URL = process.env.API_URL ?? "http://localhost:5080";
 
@@ -127,24 +115,6 @@ export const getMostPopularArticles = async (limit = 5): Promise<Article[]> =>
 export const getArticleBySlug = async (slug: string): Promise<Article | undefined> =>
   (await getArticles()).find((a) => a.slug === slug);
 
-/* ---------- About ---------- */
-type AboutContent = {
-  vision: string;
-  mission: string[];
-  values: string[];
-  pillars: Pillar[];
-  history: HistoryMilestone[];
-  executiveBoard: BoardMember[];
-  boardMembers: BoardMember[];
-};
-// Static — the About page (vision/mission, values, pillars, history, governance)
-// rarely changes.
-export const getAboutContent = async (): Promise<AboutContent> => ({
-  vision: VISION,
-  mission: MISSION,
-  values: VALUES,
-  pillars: PILLARS,
-  history: HISTORY,
-  executiveBoard: EXECUTIVE_BOARD,
-  boardMembers: BOARD_MEMBERS,
-});
+// About-page content (vision/mission, values, pillars, history, governance) is
+// static and localized — it lives in the i18n dictionaries (see src/i18n) and
+// the governance board data in src/data/about.ts, not here.

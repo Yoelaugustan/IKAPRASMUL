@@ -1,12 +1,16 @@
 import Image from "next/image";
 import type { BoardMember } from "@/types";
 import { cn } from "@/lib/utils";
+import { EXECUTIVE_BOARD, BOARD_MEMBERS } from "@/data/about";
+import { getServerDict } from "@/i18n/server";
 
 function MemberAvatar({
   member,
+  roleLabel,
   withDivider,
 }: {
   member: BoardMember;
+  roleLabel: string;
   withDivider?: boolean;
 }) {
   return (
@@ -29,34 +33,33 @@ function MemberAvatar({
       </div>
       <div>
         <p className="text-sm font-semibold text-foreground">{member.name}</p>
-        <p className="text-xs text-muted-foreground">{member.role}</p>
+        <p className="text-xs text-muted-foreground">{roleLabel}</p>
       </div>
     </div>
   );
 }
 
-export function GovernanceStructure({
-  executiveBoard,
-  boardMembers,
-}: {
-  executiveBoard: BoardMember[];
-  boardMembers: BoardMember[];
-}) {
+export async function GovernanceStructure() {
+  const { t } = await getServerDict();
+  const { governanceTitle, executiveBoardLabel, boardMembersLabel, roles } =
+    t.about;
+  const roleLabel = (role: string) => roles[role] ?? role;
+
   return (
     <div>
       <h2 className="text-2xl font-bold uppercase tracking-tight text-primary sm:text-3xl">
-        Governance Structure
+        {governanceTitle}
       </h2>
 
       {/* Executive Board — top line only, no dividers between members */}
       <div className="mt-8">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold">
-          Executive Board
+          {executiveBoardLabel}
         </p>
         <div className="mt-3 border-t border-gray-200">
           <div className="grid grid-cols-3 sm:grid-cols-5">
-            {executiveBoard.map((m) => (
-              <MemberAvatar key={m.name} member={m} />
+            {EXECUTIVE_BOARD.map((m) => (
+              <MemberAvatar key={m.name} member={m} roleLabel={roleLabel(m.role)} />
             ))}
           </div>
         </div>
@@ -65,12 +68,17 @@ export function GovernanceStructure({
       {/* Board Members — top line + short vertical dividers only */}
       <div className="mt-10">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold">
-          Board Members
+          {boardMembersLabel}
         </p>
         <div className="mt-3 border-t border-gray-200">
           <div className="grid grid-cols-2 sm:grid-cols-4">
-            {boardMembers.map((m) => (
-              <MemberAvatar key={m.name} member={m} withDivider />
+            {BOARD_MEMBERS.map((m) => (
+              <MemberAvatar
+                key={m.name}
+                member={m}
+                roleLabel={roleLabel(m.role)}
+                withDivider
+              />
             ))}
           </div>
         </div>

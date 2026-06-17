@@ -6,6 +6,7 @@ import { Container } from "@/components/layouts/Container";
 import { StoryCategoryTabs } from "@/components/stories/StoryCategoryTabs";
 import { StoriesView } from "@/components/stories/StoriesView";
 import { getStories, getStoryCategoryCounts } from "@/lib/content";
+import { getServerDict } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "Alumni Stories",
@@ -14,7 +15,8 @@ export const metadata: Metadata = {
 };
 
 export default async function StoriesPage() {
-  const [stories, counts] = await Promise.all([
+  const [{ t }, stories, counts] = await Promise.all([
+    getServerDict(),
     getStories(),
     getStoryCategoryCounts(),
   ]);
@@ -26,14 +28,14 @@ export default async function StoriesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Alumni Stories"
+        eyebrow={t.pageHero.storiesEyebrow}
         title={
           <>
-            Stories <br />
-            <span className="text-[#c6b273]">That Inspire</span>
+            {t.pageHero.storiesTitle1} <br />
+            <span className="text-[#c6b273]">{t.pageHero.storiesTitle2}</span>
           </>
         }
-        subtitle="Discover the journeys of Prasmul alumni who are leading change, building businesses, and making a global impact."
+        subtitle={t.pageHero.storiesSubtitle}
         backgroundImage="/images/stories/hero-alumni.jpg"
       />
 

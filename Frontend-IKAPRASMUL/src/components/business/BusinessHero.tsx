@@ -4,11 +4,13 @@ import { Container } from "@/components/layouts/Container";
 import { Button } from "@/components/ui/button";
 import { ContactCtaButton } from "@/components/contact/ContactCtaButton";
 import { HERO_BLUR } from "@/lib/heroBlur";
+import { getServerDict } from "@/i18n/server";
 
 // Bespoke hero for the Alumni Business page — full-bleed photo, navy wash on the
 // left for the copy, and generous bottom space so the search bar (rendered by
 // BusinessExplorer) can straddle the bottom edge.
-export function BusinessHero() {
+export async function BusinessHero() {
+  const { t } = await getServerDict();
   return (
     <section className="relative overflow-hidden bg-primary text-white">
       <Image
@@ -28,24 +30,23 @@ export function BusinessHero() {
         <div className="max-w-2xl animate-in fade-in-0 slide-in-from-bottom-4 duration-700 ease-out motion-reduce:animate-none">
           <p className="mb-6 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-gold">
             <span className="h-4 w-1 rounded-sm bg-gold" />
-            Alumni Business Showcase
+            {t.business.heroEyebrow}
           </p>
 
           <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-            Built By Alumni.
+            {t.business.heroTitle1}
             <br />
-            <span className="text-gold">For Alumni.</span>
+            <span className="text-gold">{t.business.heroTitle2}</span>
           </h1>
 
           <p className="mt-6 max-w-md text-base leading-7 text-white/85">
-            Discover, connect, and collaborate with businesses built by Prasmul
-            alumni across industries and the world.
+            {t.business.heroSubtitle}
           </p>
 
           <div className="mt-9 flex flex-wrap gap-4">
             <Button asChild variant="gold" size="lg">
               <a href="#featured-businesses">
-                Explore Businesses <ArrowRight />
+                {t.business.explore} <ArrowRight />
               </a>
             </Button>
             <ContactCtaButton
@@ -54,7 +55,7 @@ export function BusinessHero() {
               size="lg"
               className="border-white/50 bg-transparent text-white hover:bg-white/10 hover:text-white"
             >
-              <Plus /> List Your Business
+              <Plus /> {t.business.listYourBusiness}
             </ContactCtaButton>
           </div>
         </div>

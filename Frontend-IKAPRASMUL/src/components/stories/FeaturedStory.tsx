@@ -8,12 +8,13 @@ import type { Story } from "@/types";
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/constants/routes";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { useLang } from "@/components/shared/LanguageProvider";
 
-function FeaturedStoryHeader() {
+function FeaturedStoryHeader({ title }: { title: string }) {
   return (
     <div className="mb-6">
       <h2 className="text-[15px] font-extrabold uppercase tracking-widest text-[#00396c]">
-        FEATURED STORY
+        {title}
       </h2>
       <span className="mt-3 block h-px w-full bg-slate-200" />
     </div>
@@ -21,6 +22,7 @@ function FeaturedStoryHeader() {
 }
 
 export function FeaturedStory({ stories }: { stories: Story[] }) {
+  const { t } = useLang();
   const [index, setIndex] = useState(0);
   const [hovering, setHovering] = useState(false);
   const count = stories.length;
@@ -34,10 +36,10 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
   if (count === 0) {
     return (
       <div>
-        <FeaturedStoryHeader />
+        <FeaturedStoryHeader title={t.detail.featuredStory} />
         <EmptyState
-          title="No featured story available right now"
-          description="Stories couldn't be loaded. Please check back shortly."
+          title={t.detail.noFeaturedStoryTitle}
+          description={t.detail.noFeaturedStoryDesc}
         />
       </div>
     );
@@ -48,7 +50,7 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
 
   return (
     <div>
-      <FeaturedStoryHeader />
+      <FeaturedStoryHeader title={t.detail.featuredStory} />
 
       <div
         className="group relative overflow-hidden rounded-2xl bg-[#00396c] shadow-lg"
@@ -97,7 +99,7 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
                     tabIndex={story.slug === active.slug ? 0 : -1}
                     className="inline-flex items-center gap-2 rounded bg-[#c6b273] px-6 py-3 text-[13px] font-bold text-[#0a192f] transition-colors hover:bg-[#b4a05e]"
                   >
-                    Read Full Story <ArrowRight className="size-4" />
+                    {t.detail.readFullStory} <ArrowRight className="size-4" />
                   </Link>
                 </div>
               </div>
@@ -111,7 +113,7 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
             <button
               type="button"
               onClick={() => go(-1)}
-              aria-label="Previous story"
+              aria-label={t.detail.prevStory}
               className="absolute left-3 top-[28%] grid size-9 -translate-y-1/2 place-items-center rounded-full bg-black/30 text-white opacity-100 backdrop-blur-sm transition hover:bg-black/55 focus-visible:opacity-100 lg:top-1/2 lg:opacity-0 lg:group-hover:opacity-100"
             >
               <ChevronLeft className="size-5" />
@@ -119,7 +121,7 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
             <button
               type="button"
               onClick={() => go(1)}
-              aria-label="Next story"
+              aria-label={t.detail.nextStory}
               className="absolute right-3 top-[28%] grid size-9 -translate-y-1/2 place-items-center rounded-full bg-black/30 text-white opacity-100 backdrop-blur-sm transition hover:bg-black/55 focus-visible:opacity-100 lg:top-1/2 lg:opacity-0 lg:group-hover:opacity-100"
             >
               <ChevronRight className="size-5" />
@@ -131,7 +133,7 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
                 <button
                   key={s.slug}
                   type="button"
-                  aria-label={`Go to story ${i + 1}`}
+                  aria-label={`${t.detail.goToStory} ${i + 1}`}
                   aria-current={i === index ? "true" : undefined}
                   onClick={() => setIndex(i)}
                   className={cn(

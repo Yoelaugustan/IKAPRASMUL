@@ -5,6 +5,8 @@ import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/sonner";
 import { SmoothScroll } from "@/components/shared/SmoothScroll";
 import { NavSourceProvider } from "@/components/shared/NavSourceProvider";
+import { LanguageProvider } from "@/components/shared/LanguageProvider";
+import { getLang } from "@/i18n/server";
 
 const sans = Inter({
   variable: "--font-sans",
@@ -29,18 +31,22 @@ export const metadata: Metadata = {
 
 // Root layout stays minimal — public chrome lives in app/(public)/layout.tsx,
 // and the admin areas bring their own layouts. Providers + Toaster are global.
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const lang = await getLang();
+
   return (
-    <html lang="en" className={`${sans.variable} h-full`}>
+    <html lang={lang} className={`${sans.variable} h-full`}>
       <body className="flex min-h-full flex-col font-sans antialiased">
         <SmoothScroll />
         <Providers>
-          <NavSourceProvider>{children}</NavSourceProvider>
-          <Toaster richColors position="top-center" />
+          <LanguageProvider initialLang={lang}>
+            <NavSourceProvider>{children}</NavSourceProvider>
+            <Toaster richColors position="top-center" />
+          </LanguageProvider>
         </Providers>
       </body>
     </html>

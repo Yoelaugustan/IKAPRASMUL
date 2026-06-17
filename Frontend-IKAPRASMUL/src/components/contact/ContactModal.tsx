@@ -10,6 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useContactModalStore } from "@/stores/contactModalStore";
+import { useLang } from "@/components/shared/LanguageProvider";
 import { ContactForm } from "./form/ContactForm";
 
 const CAMPUSES = [
@@ -29,6 +30,7 @@ const CAMPUSES = [
 // header and from CTA buttons (with a pre-filled subject) via the Zustand store.
 export function ContactModal() {
   const { isOpen, subject, setOpen, close } = useContactModalStore();
+  const { t } = useLang();
 
   return (
     <Dialog open={isOpen} onOpenChange={setOpen}>
@@ -40,15 +42,15 @@ export function ContactModal() {
             reachable while scrolling the form on mobile. */}
         <div className="sticky top-0 z-10 flex items-center justify-between bg-[#001B3D] px-6 py-5 shadow-sm sm:px-8">
           <DialogTitle className="text-xl font-bold text-white">
-            Get in Touch
+            {t.contact.getInTouch}
           </DialogTitle>
           <DialogClose className="text-white/80 transition-colors hover:text-white focus:outline-none">
             <X className="size-5" />
-            <span className="sr-only">Close</span>
+            <span className="sr-only">{t.contact.close}</span>
           </DialogClose>
         </div>
         <DialogDescription className="sr-only">
-          Contact information and a form to send the alumni network a message.
+          {t.contact.modalDesc}
         </DialogDescription>
 
         <div className="grid md:grid-cols-[5fr_7fr]">
@@ -100,7 +102,9 @@ export function ContactModal() {
 
           {/* Right: form */}
           <div className="bg-white p-6 sm:p-8">
-            <h2 className="text-2xl font-bold text-[#001B3D]">Send a Message</h2>
+            <h2 className="text-2xl font-bold text-[#001B3D]">
+              {t.contact.sendAMessage}
+            </h2>
             <div className="mt-6">
               <ContactForm defaultSubject={subject} onSuccess={close} />
             </div>

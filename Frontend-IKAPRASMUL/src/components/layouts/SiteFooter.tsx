@@ -1,6 +1,7 @@
 import { Container } from "./Container";
 import { Logo } from "./Logo";
 import { NewsletterForm } from "@/components/newsletter/NewsletterForm";
+import { getServerDict } from "@/i18n/server";
 import {
   Building2Icon,
   InstagramIcon,
@@ -37,10 +38,11 @@ const PHONES = [
   { label: null, display: "(+62 21) 750-0463", tel: "+62217500463" },
   { label: null, display: "(+62 21) 765-7257", tel: "+62217657257" },
   { label: "Fax", display: "(+62 21) 751-1128", tel: null },
-  { label: "HP", display: "0813 7190 8225", tel: "+6281371908225" },
+  { label: "Mobile", display: "0813 7190 8225", tel: "+6281371908225" },
 ];
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const { t } = await getServerDict();
   return (
     <footer className="border-t-3 border-gold bg-primary-dark text-primary-foreground">
       <Container className="py-16">
@@ -49,16 +51,14 @@ export function SiteFooter() {
           <div>
             <Logo variant="inverted" />
             <p className="mt-6 max-w-xs text-sm leading-6 text-primary-foreground/70">
-              The official alumni association of Universitas Prasetiya Mulya,
-              dedicated to fostering lifelong connections and professional
-              growth.
+              {t.footer.brandDesc}
             </p>
           </div>
 
           {/* Contact */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-gold">
-              Contact Us
+              {t.footer.contactHeading}
             </h3>
             <ul className="mt-5 space-y-5 text-sm">
               {CAMPUSES.map((c) => (
@@ -116,10 +116,10 @@ export function SiteFooter() {
           {/* Socials */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-gold">
-              Follow Us
+              {t.footer.followHeading}
             </h3>
             <p className="mt-5 text-sm text-primary-foreground/70">
-              Stay connected with IKAPRASMUL
+              {t.footer.followText}
             </p>
             <div className="mt-5 flex gap-3">
               {SOCIALS.map(({ label, href, Icon }) => (
@@ -139,10 +139,10 @@ export function SiteFooter() {
           {/* Newsletter */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-gold">
-              Newsletter
+              {t.footer.newsletterHeading}
             </h3>
             <p className="mt-5 text-sm text-primary-foreground/70">
-              Subscribe to our newsletter for the latest updates.
+              {t.footer.newsletterText}
             </p>
             <div className="mt-4">
               <NewsletterForm variant="footer" />
@@ -151,13 +151,13 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm text-primary-foreground/60 sm:flex-row">
-          <p>© 2024 IKAPRASMUL. All rights reserved.</p>
+          <p>{t.footer.rights}</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-gold">
-              Privacy Policy
+              {t.footer.privacy}
             </a>
             <a href="#" className="hover:text-gold">
-              Terms of Service
+              {t.footer.terms}
             </a>
           </div>
         </div>

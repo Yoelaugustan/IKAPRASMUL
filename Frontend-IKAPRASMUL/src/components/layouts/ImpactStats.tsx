@@ -1,4 +1,5 @@
 import { getImpactStats } from "@/lib/content";
+import { getServerDict } from "@/i18n/server";
 import { Container } from "./Container";
 import { CountUp } from "@/components/shared/CountUp";
 import {
@@ -19,7 +20,7 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
 // the bottom of the hero above it (Home, About); otherwise it sits inline with
 // its own vertical spacing (SIG). Server Component.
 export async function ImpactStats({ overlap = false }: { overlap?: boolean }) {
-  const stats = await getImpactStats();
+  const [stats, { t }] = await Promise.all([getImpactStats(), getServerDict()]);
   return (
     <div
       className={
@@ -29,7 +30,7 @@ export async function ImpactStats({ overlap = false }: { overlap?: boolean }) {
       <Container>
         <div className="rounded-2xl bg-primary px-6 py-8 text-primary-foreground shadow-2xl ring-1 ring-white/10 sm:px-10">
           <h2 className="text-center text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground/90">
-            Our Impact in Numbers
+            {t.impact.title}
           </h2>
           <div className="mt-7 grid grid-cols-2 gap-y-8 lg:grid-cols-4 lg:divide-x lg:divide-white/15">
             {stats.map((stat) => {
@@ -41,7 +42,7 @@ export async function ImpactStats({ overlap = false }: { overlap?: boolean }) {
                     <CountUp value={stat.value} />
                   </p>
                   <p className="mt-1 text-xs font-medium uppercase tracking-wider text-primary-foreground/60">
-                    {stat.label}
+                    {t.impact.labels[stat.key] ?? stat.label}
                   </p>
                 </div>
               );

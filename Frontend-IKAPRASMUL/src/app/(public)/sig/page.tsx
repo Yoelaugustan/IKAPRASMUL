@@ -10,6 +10,7 @@ import { ContactCtaButton } from "@/components/contact/ContactCtaButton";
 import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
 import { getSigGroups } from "@/lib/content";
+import { getServerDict } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "Shared Interest Groups",
@@ -18,21 +19,21 @@ export const metadata: Metadata = {
 };
 
 export default async function SigPage() {
-  const groups = await getSigGroups();
+  const [{ t }, groups] = await Promise.all([getServerDict(), getSigGroups()]);
 
   return (
     <>
       {/* 1. Hero with background image + overlapping stats */}
       <PageHero
-        eyebrow="SIG (Shared Interest Group)"
+        eyebrow={t.pageHero.sigEyebrow}
         title={
           <>
-            Connect. Share. Grow.
+            {t.pageHero.sigTitle1}
             <br />
-            <span className="text-gold">Through Shared Interests.</span>
+            <span className="text-gold">{t.pageHero.sigTitle2}</span>
           </>
         }
-        subtitle="SIG (Shared Interest Group) is a platform for Prasetiya Mulya alumni to discuss, share, and learn about topics, hobbies, and activities they are passionate about."
+        subtitle={t.pageHero.sigSubtitle}
         backgroundImage="/images/sig/hero-banner.jpg"
         overlap
       >
@@ -41,7 +42,7 @@ export default async function SigPage() {
           variant="gold"
           size="lg"
         >
-          Contact Alumni Network <ArrowRight className="ml-1 size-4" />
+          {t.sig.contactAlumniNetwork} <ArrowRight className="ml-1 size-4" />
         </ContactCtaButton>
       </PageHero>
 
@@ -62,7 +63,7 @@ export default async function SigPage() {
             <div>
               <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
                 <h2 className="text-xl font-bold uppercase tracking-wide text-[#00396c]">
-                  Our Shared Interest Groups
+                  {t.sig.ourGroups}
                 </h2>
                 {/* <ContactCtaButton
                   subject="Create a SIG"

@@ -17,11 +17,14 @@ import {
 } from "@/components/ui/sheet";
 import { Container } from "./Container";
 import { useContactModalStore } from "@/stores/contactModalStore";
+import { useLang } from "@/components/shared/LanguageProvider";
+import { LanguageToggle } from "./LanguageToggle";
 import { Logo } from "./Logo";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const openContact = useContactModalStore((s) => s.open);
+  const { t } = useLang();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const isActive = (href: string) =>
@@ -47,20 +50,13 @@ export function SiteHeader() {
                     "text-gold after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:bg-gold",
                 )}
               >
-                {item.label}
+                {t.nav[item.key]}
               </Link>
             ))}
           </nav>
 
           <div className="flex shrink-0 items-center gap-1.5">
-            {/* <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Search"
-              className="hidden text-primary-foreground hover:bg-white/10 hover:text-white sm:inline-flex"
-            >
-              <Search />
-            </Button> */}
+            <LanguageToggle className="mr-1 hidden min-[1100px]:inline-flex" />
             <Button
               asChild
               variant="outline"
@@ -68,7 +64,7 @@ export function SiteHeader() {
               className="hidden border-white/40 bg-transparent text-[13px] text-primary-foreground hover:bg-white/10 hover:text-white min-[1100px]:inline-flex"
             >
               <a href="https://alumniprofile.ikaprama.org/home" target="_blank">
-                <UserIcon className="size-3.5" /> Login / Register
+                <UserIcon className="size-3.5" /> {t.header.login}
               </a>
             </Button>
             <Button
@@ -77,7 +73,7 @@ export function SiteHeader() {
               className="hidden text-[13px] min-[1100px]:inline-flex"
               onClick={() => openContact()}
             >
-              Contact Us
+              {t.header.contact}
             </Button>
 
             {/* Mobile menu */}
@@ -112,7 +108,7 @@ export function SiteHeader() {
                         isActive(item.href) && "bg-white/10 text-gold",
                       )}
                     >
-                      {item.label}
+                      {t.nav[item.key]}
                     </Link>
                   ))}
                 </nav>
@@ -123,7 +119,7 @@ export function SiteHeader() {
                     className="border-white/40 bg-transparent text-primary-foreground hover:bg-white/10 hover:text-white"
                   >
                     <a href="https://alumniprofile.ikaprama.org/home" onClick={() => setMobileOpen(false)}>
-                      <UserIcon /> Login / Register
+                      <UserIcon /> {t.header.login}
                     </a>
                   </Button>
                   <Button
@@ -133,8 +129,9 @@ export function SiteHeader() {
                       openContact();
                     }}
                   >
-                    Contact Us
+                    {t.header.contact}
                   </Button>
+                  <LanguageToggle className="mt-2 self-start" />
                 </div>
               </SheetContent>
             </Sheet>

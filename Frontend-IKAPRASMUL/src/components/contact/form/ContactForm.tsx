@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useMemo, useState, type ChangeEvent } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { ImagePlus, Loader2, X } from "lucide-react";
 import { SendMessageIcon } from "@/components/icons";
-import { contactSchema, type ContactInput } from "@/types/schemas";
+import { makeContactSchema, type ContactInput } from "@/types/schemas";
 import { INQUIRY_SUBJECTS, type InquirySubject } from "@/constants/categories";
 import {
   Form,
@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useLang } from "@/components/shared/LanguageProvider";
 import { useContact } from "../hooks/useContact";
 
 const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -39,8 +40,10 @@ export function ContactForm({
   onSuccess?: () => void;
 }) {
   const sendInquiry = useContact();
+  const { t } = useLang();
+  const schema = useMemo(() => makeContactSchema(t.validation), [t]);
   const form = useForm<ContactInput>({
-    resolver: zodResolver(contactSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       fullName: "",
       email: "",
@@ -69,12 +72,12 @@ export function ContactForm({
     const file = e.target.files?.[0];
     if (!file) return;
     if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
-      toast.error("Please choose a JPG, PNG, or WebP image.");
+      toast.error(t.contact.imageTypeError);
       e.target.value = "";
       return;
     }
     if (file.size > MAX_IMAGE_BYTES) {
-      toast.error("Image must be 5 MB or smaller.");
+      toast.error(t.contact.imageSizeError);
       e.target.value = "";
       return;
     }
@@ -89,7 +92,7 @@ export function ContactForm({
   const onSubmit = (data: ContactInput) => {
     sendInquiry.mutate(data, {
       onSuccess: () => {
-        toast.success("Thanks! Your message has been sent.");
+        toast.success(t.contact.toastSuccess);
         form.reset({
           fullName: "",
           email: "",
@@ -101,7 +104,7 @@ export function ContactForm({
         setFileKey((k) => k + 1);
         onSuccess?.();
       },
-      onError: () => toast.error("Couldn't send your message. Please try again."),
+      onError: () => toast.error(t.contact.toastError),
     });
   };
 
@@ -118,10 +121,12 @@ export function ContactForm({
             name="fullName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className={labelClass}>Full Name</FormLabel>
+                <FormLabel className={labelClass}>
+                  {t.contact.fullName}
+                </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="John Doe"
+                    placeholder={t.contact.fullNamePlaceholder}
                     autoComplete="name"
                     className={fieldClass}
                     {...field}
@@ -136,11 +141,13 @@ export function ContactForm({
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className={labelClass}>Email Address</FormLabel>
+                <FormLabel className={labelClass}>
+                  {t.contact.emailAddress}
+                </FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder={t.contact.emailPlaceholder}
                     autoComplete="email"
                     className={fieldClass}
                     {...field}
@@ -156,17 +163,17 @@ export function ContactForm({
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className={labelClass}>Subject</FormLabel>
+              <FormLabel className={labelClass}>{t.contact.subject}</FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger className="w-full bg-[#FBF9F8]">
-                    <SelectValue placeholder="Choose a subject" />
+                    <SelectValue placeholder={t.contact.subjectPlaceholder} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   {INQUIRY_SUBJECTS.map((s) => (
                     <SelectItem key={s} value={s}>
-                      {s}
+                      {t.contact.subjects[s] ?? s}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -180,11 +187,11 @@ export function ContactForm({
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className={labelClass}>Message</FormLabel>
+              <FormLabel className={labelClass}>{t.contact.message}</FormLabel>
               <FormControl>
                 <Textarea
                   rows={5}
-                  placeholder="How can we help you today?"
+                  placeholder={t.contact.messagePlaceholder}
                   className={fieldClass}
                   {...field}
                 />
@@ -195,7 +202,7 @@ export function ContactForm({
         />
         {/* Optional image attachment */}
         <div>
-          <p className={labelClass}>Attachment (optional)</p>
+          <p className={labelClass}>{t.contact.attachment}</p>
           <input
             key={fileKey}
             id="contact-image"
@@ -210,23 +217,23 @@ export function ContactForm({
               className="mt-2 flex cursor-pointer items-center gap-2 rounded-md border border-dashed border-[#001B3D]/25 bg-[#FBF9F8] px-3 py-2.5 text-sm text-[#001B3D]/70 transition-colors hover:border-[#805600]/50 hover:text-[#805600]"
             >
               <ImagePlus className="size-4 shrink-0" />
-              Add an image - JPG, PNG, or WebP (max 5&nbsp;MB)
+              {t.contact.addImage}
             </label>
           ) : (
             <div className="mt-2 flex items-center gap-3 rounded-md border border-[#001B3D]/15 bg-[#FBF9F8] p-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={imageData}
-                alt="Attachment preview"
+                alt={t.contact.attachmentPreview}
                 className="size-12 shrink-0 rounded object-cover"
               />
               <span className="min-w-0 flex-1 truncate text-sm text-[#001B3D]">
-                {imageName ?? "Selected image"}
+                {imageName ?? t.contact.selectedImage}
               </span>
               <button
                 type="button"
                 onClick={clearImage}
-                aria-label="Remove image"
+                aria-label={t.contact.removeImage}
                 className="grid size-7 shrink-0 place-items-center rounded-full text-[#001B3D]/60 transition-colors hover:bg-[#001B3D]/5 hover:text-[#001B3D]"
               >
                 <X className="size-4" />
@@ -245,7 +252,7 @@ export function ContactForm({
             <Loader2 className="animate-spin" />
           ) : (
             <>
-              Send Message
+              {t.contact.sendMessage}
               <SendMessageIcon className="size-4" />
             </>
           )}

@@ -11,9 +11,11 @@ import {
   useSavedBusinessStore,
 } from "@/stores/savedBusinessStore";
 import { ROUTES } from "@/constants/routes";
+import { useLang } from "@/components/shared/LanguageProvider";
 import { industryBadgeClass } from "./industryMeta";
 
 export function BusinessCard({ business }: { business: Business }) {
+  const { t } = useLang();
   const hydrated = useHasHydrated();
   const savedRaw = useSavedBusinessStore((s) => s.saved.includes(business.slug));
   const toggleSaved = useSavedBusinessStore((s) => s.toggle);
@@ -22,7 +24,7 @@ export function BusinessCard({ business }: { business: Business }) {
   return (
     <Link
       href={ROUTES.businessDetail(business.slug)}
-      aria-label={`View ${business.name}`}
+      aria-label={`${t.cards.viewAria} ${business.name}`}
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00396c] focus-visible:ring-offset-2"
     >
       <div className="relative">
@@ -40,7 +42,7 @@ export function BusinessCard({ business }: { business: Business }) {
         <button
           type="button"
           aria-pressed={isSaved}
-          aria-label={isSaved ? "Remove from saved" : "Save business"}
+          aria-label={isSaved ? t.cards.removeSaved : t.cards.saveBusiness}
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();

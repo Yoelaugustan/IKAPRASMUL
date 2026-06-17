@@ -3,9 +3,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { SigSpotlight } from "@/types";
 import { ROUTES } from "@/constants/routes";
+import { getServerDict } from "@/i18n/server";
 
 // Spotlight SIG card (news-like) — links to its detail page.
-export function SigSpotlightCard({ spotlight }: { spotlight: SigSpotlight }) {
+export async function SigSpotlightCard({
+  spotlight,
+}: {
+  spotlight: SigSpotlight;
+}) {
+  const { t } = await getServerDict();
   return (
     <div className="rounded-2xl border border-slate-100/80 bg-white p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
       <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
@@ -26,7 +32,7 @@ export function SigSpotlightCard({ spotlight }: { spotlight: SigSpotlight }) {
           href={ROUTES.sigDetail(spotlight.id)}
           className="mt-4 inline-flex items-center gap-1 text-[13.5px] font-semibold text-[#EAB308] transition-colors hover:text-[#ca8a04]"
         >
-          Learn More <ArrowRight className="size-4" />
+          {t.cards.learnMore} <ArrowRight className="size-4" />
         </Link>
       </div>
     </div>

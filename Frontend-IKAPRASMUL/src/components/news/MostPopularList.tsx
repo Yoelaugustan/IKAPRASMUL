@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import type { Article } from "@/types";
 import { formatDateUS } from "@/lib/format";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { useLang } from "@/components/shared/LanguageProvider";
 import { ROUTES } from "@/constants/routes";
 
 // "Most Popular" ranked list (by views).
@@ -16,25 +17,26 @@ export function MostPopularList({
   articles: Article[];
   onViewAll?: () => void;
 }) {
+  const { t } = useLang();
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
         <h3 className="text-sm font-bold uppercase tracking-widest text-[#00396c]">
-          Most Popular
+          {t.newsList.mostPopular}
         </h3>
         <button
           type="button"
           onClick={onViewAll}
           className="inline-flex items-center gap-1 text-[12px] font-semibold text-gold hover:text-gold-dark"
         >
-          View All <ArrowRight className="size-3.5" />
+          {t.newsList.viewAll} <ArrowRight className="size-3.5" />
         </button>
       </div>
 
       {articles.length === 0 ? (
         <EmptyState
-          title="No popular articles right now"
-          description="Please check back shortly."
+          title={t.newsList.noPopularTitle}
+          description={t.newsList.noPopularDesc}
           className="py-10"
         />
       ) : (
@@ -62,8 +64,8 @@ export function MostPopularList({
                     {article.title}
                   </span>
                   <span className="mt-0.5 block text-[11px] text-muted-foreground">
-                    {formatDateUS(article.publishedAt)} • {article.readMinutes} min
-                    read
+                    {formatDateUS(article.publishedAt)} • {article.readMinutes}{" "}
+                    {t.newsList.minRead}
                   </span>
                 </span>
               </Link>

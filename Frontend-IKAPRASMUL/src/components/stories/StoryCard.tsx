@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -5,12 +7,14 @@ import type { Story } from "@/types";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ROUTES } from "@/constants/routes";
+import { useLang } from "@/components/shared/LanguageProvider";
 
 export function StoryCard({ story }: { story: Story }) {
+  const { t } = useLang();
   return (
     <Link
       href={ROUTES.storyDetail(story.slug)}
-      aria-label={`Read story: ${story.title}`}
+      aria-label={`${t.cards.readStoryAria} ${story.title}`}
       className="group block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00396c] focus-visible:ring-offset-2"
     >
       <Card className="h-full overflow-hidden p-0 border border-slate-100/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] rounded-2xl">
@@ -37,7 +41,7 @@ export function StoryCard({ story }: { story: Story }) {
             </div>
             <div className="mt-auto pt-6">
               <p className="inline-flex items-center gap-1 text-[13px] font-bold text-slate-900 transition-colors group-hover:text-[#c6b273]">
-                Read Story <ArrowRight className="size-4" />
+                {t.cards.readStory} <ArrowRight className="size-4" />
               </p>
             </div>
           </div>

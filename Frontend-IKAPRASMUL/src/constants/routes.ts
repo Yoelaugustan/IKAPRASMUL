@@ -34,11 +34,13 @@ export const ROUTES = {
   adminNewsletter: "/admin/newsletter",
 } as const;
 
+// `key` maps to dictionaries.nav[key] for translated labels; `label` is the
+// English fallback (used in non-localized contexts / before hydration).
 export const MAIN_NAV = [
-  { label: "Home", href: ROUTES.home },
-  { label: "About IKAPRASMUL", href: ROUTES.about },
-  { label: "SIG", href: ROUTES.sig },
-  { label: "Alumni Stories", href: ROUTES.stories },
-  { label: "Alumni Business", href: ROUTES.business },
-  { label: "News & Insight", href: ROUTES.news },
+  { key: "home", label: "Home", href: ROUTES.home },
+  { key: "about", label: "About IKAPRASMUL", href: ROUTES.about },
+  { key: "sig", label: "SIG", href: ROUTES.sig },
+  { key: "stories", label: "Alumni Stories", href: ROUTES.stories },
+  { key: "business", label: "Alumni Business", href: ROUTES.business },
+  { key: "news", label: "News & Insight", href: ROUTES.news },
 ] as const;

@@ -28,6 +28,7 @@ import {
 import { BusinessCard } from "./BusinessCard";
 import { BusinessSpotlight } from "./BusinessSpotlight";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { useLang } from "@/components/shared/LanguageProvider";
 import { INDUSTRY_ICONS } from "./industryMeta";
 
 const INDUSTRY_TABS = ["All", ...INDUSTRIES];
@@ -45,6 +46,7 @@ const FEATURED_COUNT = 8; // curated default grid (shown beside the spotlight)
 const PAGE_SIZE = 12; // view-all grid, per page
 
 export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
+  const { t } = useLang();
   // Draft values being edited in the search bar.
   const [query, setQuery] = useState("");
   const [industry, setIndustry] = useState("All");
@@ -189,8 +191,8 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search business, founder, or company"
-              aria-label="Search businesses"
+              placeholder={t.bizList.searchPlaceholder}
+              aria-label={t.bizList.searchAria}
               className={cn(fieldClass, "w-full pl-10 pr-4")}
             />
           </div>
@@ -199,21 +201,22 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
             icon={BriefcaseIcon}
             value={industry}
             onChange={setIndustry}
-            allLabel="Industry"
+            allLabel={t.bizList.industryLabel}
             options={INDUSTRIES}
+            labels={t.categories.industry}
           />
           <SelectField
             icon={MapPinIcon}
             value={location}
             onChange={setLocation}
-            allLabel="Location"
+            allLabel={t.bizList.locationLabel}
             options={locations}
           />
           <SelectField
             icon={UserIcon}
             value={founder}
             onChange={setFounder}
-            allLabel="Founder"
+            allLabel={t.bizList.founderLabel}
             options={founders}
           />
 
@@ -221,7 +224,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
             type="submit"
             className="h-11 shrink-0 rounded-lg bg-gold px-7 text-sm font-bold text-gold-foreground transition-colors hover:bg-gold-dark"
           >
-            Search
+            {t.bizList.search}
           </button>
         </form>
       </Container>
@@ -233,7 +236,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
           className="scroll-mt-24 rounded-2xl bg-white p-6 shadow-sm sm:p-8"
         >
           {/* Browse by Industry */}
-          <SectionLabel>Browse by Industry</SectionLabel>
+          <SectionLabel>{t.bizList.browseByIndustry}</SectionLabel>
           <div
             ref={tabsRef}
             onMouseDown={onTabsMouseDown}
@@ -264,7 +267,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
                     )}
                   />
                   <span className="text-[11px] font-semibold leading-tight">
-                    {tab === "All" ? "All Industries" : tab}
+                    {t.categories.industry[tab] ?? tab}
                   </span>
                 </button>
               );
@@ -279,7 +282,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
             >
               <div>
                 <div className="mb-6 flex items-center justify-between gap-4">
-                  <SectionLabel>Featured Businesses</SectionLabel>
+                  <SectionLabel>{t.bizList.featuredBusinesses}</SectionLabel>
                   <div className="flex items-center gap-4">
                     {hydrated && savedSlugs.length > 0 && (
                       <button
@@ -287,8 +290,8 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
                         onClick={openSaved}
                         className="inline-flex items-center gap-1.5 text-[13px] font-bold text-slate-500 transition-colors hover:text-gold"
                       >
-                        <Bookmark className="size-4" /> Saved ({savedSlugs.length}
-                        )
+                        <Bookmark className="size-4" /> {t.bizList.saved} (
+                        {savedSlugs.length})
                       </button>
                     )}
                     <button
@@ -296,14 +299,15 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
                       onClick={openViewAll}
                       className="inline-flex items-center gap-1 text-[13px] font-bold text-gold transition-colors hover:text-gold-dark"
                     >
-                      View All Businesses <ArrowRight className="size-4" />
+                      {t.bizList.viewAllBusinesses}{" "}
+                      <ArrowRight className="size-4" />
                     </button>
                   </div>
                 </div>
                 {featuredBusinesses.length === 0 ? (
                   <EmptyState
-                    title="No businesses available right now"
-                    description="Listings couldn't be loaded. Please check back shortly."
+                    title={t.bizList.noBusinessesTitle}
+                    description={t.bizList.noBusinessesDesc}
                   />
                 ) : (
                   <div className="grid grid-cols-2 gap-5 lg:grid-cols-3 xl:grid-cols-4">
@@ -326,10 +330,11 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
               <div className="mb-6 flex items-center justify-between gap-4">
                 <SectionLabel>
                   {savedOnly
-                    ? "Saved Businesses"
+                    ? t.bizList.savedBusinesses
                     : applied.industry === "All"
-                      ? "All Businesses"
-                      : applied.industry}
+                      ? t.bizList.allBusinesses
+                      : t.categories.industry[applied.industry] ??
+                        applied.industry}
                 </SectionLabel>
                 <div className="flex items-center gap-4">
                   {hydrated && savedSlugs.length > 0 && !savedOnly && (
@@ -338,7 +343,8 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
                       onClick={openSaved}
                       className="inline-flex items-center gap-1.5 text-[13px] font-bold text-slate-500 transition-colors hover:text-gold"
                     >
-                      <Bookmark className="size-4" /> Saved ({savedSlugs.length})
+                      <Bookmark className="size-4" /> {t.bizList.saved} (
+                      {savedSlugs.length})
                     </button>
                   )}
                   <button
@@ -346,7 +352,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
                     onClick={backToFeatured}
                     className="inline-flex items-center gap-1 text-[13px] font-bold text-gold transition-colors hover:text-gold-dark"
                   >
-                    <ChevronLeft className="size-4" /> Back
+                    <ChevronLeft className="size-4" /> {t.bizList.back}
                   </button>
                 </div>
               </div>
@@ -354,12 +360,14 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
               {pageItems.length === 0 ? (
                 <EmptyState
                   title={
-                    savedOnly ? "No saved businesses yet" : "No businesses found"
+                    savedOnly
+                      ? t.bizList.noSavedTitle
+                      : t.bizList.noResultsTitle
                   }
                   description={
                     savedOnly
-                      ? "Tap the bookmark on any business to save it here."
-                      : "Try a different search term, industry, or filter."
+                      ? t.bizList.noSavedDesc
+                      : t.bizList.noResultsDesc
                   }
                 />
               ) : (
@@ -398,17 +406,18 @@ function Pagination({
   totalPages: number;
   onPage: (page: number) => void;
 }) {
+  const { t } = useLang();
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   return (
     <nav
-      aria-label="Pagination"
+      aria-label={t.lists.paginationLabel}
       className="mt-10 flex items-center justify-center gap-2"
     >
       <button
         type="button"
         onClick={() => onPage(currentPage - 1)}
         disabled={currentPage === 1}
-        aria-label="Previous page"
+        aria-label={t.lists.prevPage}
         className="grid size-9 place-items-center rounded-md border border-slate-200 text-slate-500 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
       >
         <ChevronLeft className="size-4" />
@@ -433,7 +442,7 @@ function Pagination({
         type="button"
         onClick={() => onPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        aria-label="Next page"
+        aria-label={t.lists.nextPage}
         className="grid size-9 place-items-center rounded-md border border-slate-200 text-slate-500 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
       >
         <ChevronRight className="size-4" />
@@ -459,12 +468,16 @@ function SelectField({
   onChange,
   allLabel,
   options,
+  labels,
 }: {
   icon: React.ComponentType<{ className?: string }>;
   value: string;
   onChange: (v: string) => void;
   allLabel: string;
   options: readonly string[];
+  /** Optional display-label map (e.g. translated industries). Keys are the
+   * canonical option values; values stay English so filtering still works. */
+  labels?: Record<string, string>;
 }) {
   return (
     <Select value={value} onValueChange={onChange}>
@@ -486,7 +499,7 @@ function SelectField({
         <SelectItem value="All">{allLabel}</SelectItem>
         {options.map((o) => (
           <SelectItem key={o} value={o}>
-            {o}
+            {labels?.[o] ?? o}
           </SelectItem>
         ))}
       </SelectContent>

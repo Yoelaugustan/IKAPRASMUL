@@ -11,6 +11,7 @@ import { StoryCard } from "./StoryCard";
 import { StoryCategoriesSidebar } from "./StoryCategoriesSidebar";
 import { ShareYourStorySidebar } from "./ShareYourStorySidebar";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { useLang } from "@/components/shared/LanguageProvider";
 
 const PAGE_SIZE = 9;
 const HIGHLIGHT_COUNT = 3;
@@ -27,6 +28,7 @@ export function StoriesView({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { t } = useLang();
 
   const category = searchParams.get("category") || "All";
   const viewAll = searchParams.get("view") === "all";
@@ -112,20 +114,20 @@ export function StoriesView({
         {/* Highlights — col 1, row 2 */}
         <div className="min-w-0 xl:col-start-1 xl:row-start-2">
           <SectionHeading
-            title="Stories Highlight"
+            title={t.lists.storiesHighlight}
             action={
               <button
                 onClick={() => setParams({ view: "all", page: 1 })}
                 className="inline-flex items-center gap-1 text-[13px] font-bold text-[#c6b273] transition-colors hover:text-[#b4a05e]"
               >
-                View All Stories <ArrowRight className="size-4" />
+                {t.lists.viewAllStories} <ArrowRight className="size-4" />
               </button>
             }
           />
           {highlights.length === 0 ? (
             <EmptyState
-              title="No stories yet"
-              description="There are no stories in this category right now. Check back soon."
+              title={t.lists.noStoriesTitle}
+              description={t.lists.noStoriesDesc}
             />
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -158,7 +160,10 @@ export function StoriesView({
   const currentPage = Math.min(page, totalPages);
   const start = (currentPage - 1) * PAGE_SIZE;
   const pageItems = filtered.slice(start, start + PAGE_SIZE);
-  const heading = category === "All" ? "All Stories" : category;
+  const heading =
+    category === "All"
+      ? t.lists.allStories
+      : t.categories.story[category] ?? category;
 
   return (
     <div
@@ -174,14 +179,14 @@ export function StoriesView({
               onClick={() => setParams({ view: null, category: null, page: 1 })}
               className="inline-flex items-center gap-1 text-[13px] font-bold text-[#c6b273] transition-colors hover:text-[#b4a05e]"
             >
-              <ChevronLeft className="size-4" /> Back to Featured
+              <ChevronLeft className="size-4" /> {t.lists.backToFeatured}
             </button>
           }
         />
         {pageItems.length === 0 ? (
           <EmptyState
-            title="No stories yet"
-            description="There are no stories in this category right now. Check back soon."
+            title={t.lists.noStoriesTitle}
+            description={t.lists.noStoriesDesc}
           />
         ) : (
           <>
@@ -245,16 +250,17 @@ function Pagination({
   totalPages: number;
   onPage: (page: number) => void;
 }) {
+  const { t } = useLang();
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   return (
     <nav
-      aria-label="Pagination"
+      aria-label={t.lists.paginationLabel}
       className="mt-10 flex items-center justify-center gap-2"
     >
       <button
         onClick={() => onPage(currentPage - 1)}
         disabled={currentPage === 1}
-        aria-label="Previous page"
+        aria-label={t.lists.prevPage}
         className="grid size-9 place-items-center rounded-md border border-slate-200 text-slate-500 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
       >
         <ChevronLeft className="size-4" />
@@ -277,7 +283,7 @@ function Pagination({
       <button
         onClick={() => onPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        aria-label="Next page"
+        aria-label={t.lists.nextPage}
         className="grid size-9 place-items-center rounded-md border border-slate-200 text-slate-500 transition-colors hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
       >
         <ChevronRight className="size-4" />

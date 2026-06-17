@@ -6,6 +6,7 @@ import {
   getFeaturedArticle,
   getMostPopularArticles,
 } from "@/lib/content";
+import { getServerDict } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "News & Insight",
@@ -14,7 +15,8 @@ export const metadata: Metadata = {
 };
 
 export default async function NewsPage() {
-  const [articles, featured, mostPopular] = await Promise.all([
+  const [{ t }, articles, featured, mostPopular] = await Promise.all([
+    getServerDict(),
     getArticles(),
     getFeaturedArticle(),
     getMostPopularArticles(7),
@@ -23,15 +25,15 @@ export default async function NewsPage() {
   return (
     <>
       <PageHero
-        eyebrow="News & Insights"
+        eyebrow={t.pageHero.newsEyebrow}
         title={
           <>
-            Insights That
+            {t.pageHero.newsTitle1}
             <br />
-            <span className="text-gold">Move Forward</span>
+            <span className="text-gold">{t.pageHero.newsTitle2}</span>
           </>
         }
-        subtitle="Stay informed with the latest news, research, and thought leadership from Prasetiya Mulya and our global alumni community."
+        subtitle={t.pageHero.newsSubtitle}
         backgroundImage="/images/news/hero-news.jpg"
         overlap
       />

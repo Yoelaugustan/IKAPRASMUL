@@ -1,13 +1,15 @@
 "use client";
 
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { ArrowRight, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { newsletterSchema, type NewsletterInput } from "@/types/schemas";
+import { makeNewsletterSchema, type NewsletterInput } from "@/types/schemas";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useLang } from "@/components/shared/LanguageProvider";
 import { useNewsletter } from "./hooks/useNewsletter";
 
 type NewsletterFormProps = {
@@ -21,13 +23,15 @@ export function NewsletterForm({
   className,
 }: NewsletterFormProps) {
   const subscribe = useNewsletter(variant === "footer" ? "footer" : "news");
+  const { t } = useLang();
+  const schema = useMemo(() => makeNewsletterSchema(t.validation), [t]);
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<NewsletterInput>({
-    resolver: zodResolver(newsletterSchema),
+    resolver: zodResolver(schema),
     // Consent is implied by submitting (disclosure shown below the field). We
     // keep it in the schema so the server contract stays explicit.
     defaultValues: { consent: true },
@@ -36,11 +40,10 @@ export function NewsletterForm({
   const onSubmit = (data: NewsletterInput) => {
     subscribe.mutate(data, {
       onSuccess: () => {
-        toast.success("You're subscribed! Watch your inbox for updates.");
+        toast.success(t.newsletter.successToast);
         reset({ email: "", consent: true });
       },
-      onError: () =>
-        toast.error("Something went wrong. Please try again."),
+      onError: () => toast.error(t.newsletter.errorToast),
     });
   };
 
@@ -51,12 +54,12 @@ export function NewsletterForm({
       <div className={cn("flex gap-3", isDark ? "flex-col" : "flex-col sm:flex-row")}>
         <div className="flex-1">
           <label htmlFor={`newsletter-${variant}`} className="sr-only">
-            Email address
+            {t.newsletter.emailLabel}
           </label>
           <Input
             id={`newsletter-${variant}`}
             type="email"
-            placeholder="Enter your email"
+            placeholder={t.newsletter.emailPlaceholder}
             autoComplete="email"
             aria-invalid={!!errors.email}
             className={cn(
@@ -75,10 +78,10 @@ export function NewsletterForm({
           {subscribe.isPending ? (
             <Loader2 className="animate-spin" />
           ) : isDark ? (
-            "Subscribe"
+            t.newsletter.subscribe
           ) : (
             <>
-              Subscribe <ArrowRight />
+              {t.newsletter.subscribe} <ArrowRight />
             </>
           )}
         </Button>
@@ -95,7 +98,7 @@ export function NewsletterForm({
       )}
       {!isDark && (
         <p className="mt-2 text-xs text-muted-foreground">
-          By subscribing you agree to receive updates. Unsubscribe anytime.
+          {t.newsletter.consent}
         </p>
       )}
     </form>

@@ -6,6 +6,7 @@ import {
   getFeaturedBusinesses,
   getUpcomingEvent,
 } from "@/lib/content";
+import { getServerDict } from "@/i18n/server";
 import { EventCard } from "./EventCard";
 import { FeaturedAlumniCard } from "./FeaturedAlumniCard";
 import { FeaturedBusinessCard } from "./FeaturedBusinessCard";
@@ -13,7 +14,8 @@ import { FeaturedBusinessCard } from "./FeaturedBusinessCard";
 // "Featured Highlights" — Upcoming Event, Featured Alumni, and two Featured
 // Businesses. Server Component: composes the curated home content.
 export async function FeaturedHighlights() {
-  const [event, alumni, businesses] = await Promise.all([
+  const [{ t }, event, alumni, businesses] = await Promise.all([
+    getServerDict(),
     getUpcomingEvent(),
     getFeaturedAlumni(),
     getFeaturedBusinesses(2),
@@ -26,7 +28,7 @@ export async function FeaturedHighlights() {
       <Container>
         <div className="mb-10 w-fit">
           <h2 className="text-2xl font-semibold uppercase tracking-tight text-primary sm:text-3xl">
-            Featured Highlights
+            {t.home.featuredHighlights}
           </h2>
           <span className="mt-3 block h-1 w-full rounded-full bg-gold" />
         </div>
@@ -41,8 +43,8 @@ export async function FeaturedHighlights() {
           </Reveal>
         ) : (
           <EmptyState
-            title="No highlights available right now"
-            description="Highlights couldn't be loaded. Please check back shortly."
+            title={t.home.noHighlightsTitle}
+            description={t.home.noHighlightsDesc}
           />
         )}
       </Container>
