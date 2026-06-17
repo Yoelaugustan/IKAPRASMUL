@@ -19,13 +19,9 @@ export default async function StoriesPage() {
     getStoryCategoryCounts(),
   ]);
 
-  // Up to 3 stories for the featured carousel — prefer flagged ones, then
-  // backfill with others so the carousel always has up to 3 slides.
+  // Use all flagged featured stories. If none are flagged, fallback to the latest 4 stories.
   const flagged = stories.filter((s) => s.isFeatured);
-  const featuredStories = [
-    ...flagged,
-    ...stories.filter((s) => !s.isFeatured),
-  ].slice(0, 3);
+  const featuredStories = flagged.length > 0 ? flagged : stories.slice(0, 4);
 
   return (
     <>
