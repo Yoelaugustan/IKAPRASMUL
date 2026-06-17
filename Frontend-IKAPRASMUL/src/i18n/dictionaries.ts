@@ -106,37 +106,98 @@ const en = {
     historyTitle: "Our History",
     history: [
       {
-        year: "1982",
+        year: "28 Oktober 1983",
         description:
-          "IKAPRASMUL was established along with the founding of Universitas Prasetiya Mulya.",
+          "Ikatan Alumni Prasetiya Mulya was first established at Hotel Kemang.",
       },
       {
-        year: "1990s",
+        year: "1983 – 1986",
         description:
-          "Became a strong bridge between alumni, business, and academia.",
+          "IKAPRAMA was led by Mr. Ir. Sukiman Hendrokusumo, MSc (MBA Modular 1986, PT. Pembangunan Jaya).",
       },
       {
-        year: "2000s",
+        year: "1987 – 1988",
         description:
-          "Expanded global network and strengthened alumni chapters.",
+          "IKAPRAMA was led by Mr. Dr. Sismadi Partodumuljo, MBA (late) (MBA Modular 1987, owner of RS Sukmul).",
       },
       {
-        year: "2020s",
+        year: "1988 – 1990",
         description:
-          "Transforming into a digital ecosystem that empowers alumni for greater impact.",
+          "IKAPRAMA was led by Mr. Eddy Sutjipto, MBA (MBA Modular 1988, Director of PT. Wijaya Kusuma Contractors).",
+      },
+      {
+        year: "1990 – 1994",
+        description:
+          "IKAPRAMA was led by Mr. Max Moein, MBA (MBA Modular 1990).",
+      },
+      {
+        year: "1994 – 1996",
+        description:
+          "IKAPRAMA was led by Ms. Dinny Sri Roehdiany, MBA (MBA Modular 1989, entrepreneur).",
+      },
+      {
+        year: "1995 – 1997",
+        description:
+          "IKAPRAMA was led by Capt. Bobby Faisal MBA (MBA Modular 1991).",
+      },
+      {
+        year: "1997 – 2000",
+        description:
+          "IKAPRAMA was led by Mr. Pulung Peranginangin, MM (MME MS Batch 5, Chairman of PT. Gema Graha Sarana Tbk).",
+      },
+      {
+        year: "2001 – 2005",
+        description:
+          "IKAPRAMA was led by Mr. Eddy Junaedi Danu, MM (MME MS Batch 10, Director of PT. Indika Energy, Tbk).",
+      },
+      {
+        year: "2005 – 2010",
+        description:
+          "IKAPRAMA was led by Mr. Djuanda Nugraha Ibrahim, MM (MME MS Batch 16, Director of Human Resources & Organization at PT PLN).",
+      },
+      {
+        year: "2010 – 2015",
+        description:
+          "IKAPRAMA was led by Mr. Taslim Yunus, MM (MME MS Batch 8 – Vice President of SKK Migas).",
+      },
+      {
+        year: "2015 – 2020",
+        description:
+          "IKAPRAMA was led by Mr. Dr. Harris Turino, MM (MME MS Batch 10 – CEO of Kleo Beauty Group).",
+      },
+      {
+        year: "2020 – 2025",
+        description:
+          "IKAPRAMA was led by Mr. Ir. Maspiyono Handoyo, MM (MM SM 10 – Regional Managing Director of PT. Mayora Indah Tbk).",
+      },
+      {
+        year: "2025 – 2029",
+        description:
+          "IKAPRAMA was renamed to IKA PRASMUL. Led by Mr. Edy Sutrisman, MM (MMSM 47 - President Commissioner of Rekind).",
       },
     ],
     governanceTitle: "Governance Structure",
     executiveBoardLabel: "Executive Board",
     boardMembersLabel: "Board Members",
     roles: {
-      President: "President",
-      "Vice President": "Vice President",
-      Treasurer: "Treasurer",
-      Secretary: "Secretary",
-      "Head of Programs": "Head of Programs",
-      Chairman: "Chairman",
-      Member: "Member",
+      "President": "President",
+      "Vice President 1": "Vice President 1",
+      "Vice President 2": "Vice President 2",
+      "Vice President 3": "Vice President 3",
+      "Vice President 4": "Vice President 4",
+      "Secretary General": "Secretary General",
+      "Deputy Secretary General 1": "Deputy Secretary General 1",
+      "Deputy Secretary General 2": "Deputy Secretary General 2",
+      "General Treasurer": "General Treasurer",
+      "Head of Protectorate Board": "Head of Protectorate Board",
+      "Member of Protectorate Board": "Member of Protectorate Board",
+      "Head of Advisory Board": "Head of Advisory Board",
+      "Deputy Head of Advisory Board": "Deputy Head of Advisory Board",
+      "Advisory Board Member": "Advisory Board Member",
+      "Head of Board of Trustees": "Head of Board of Trustees",
+      "Deputy Head of Board of Trustees": "Deputy Head of Board of Trustees",
+      "Head of Expert Board": "Head of Expert Board",
+      "Deputy Head of Expert Board": "Deputy Head of Expert Board",
     } as Record<string, string>,
   },
   pageHero: {
@@ -505,37 +566,98 @@ const id: Dictionary = {
     historyTitle: "Sejarah Kami",
     history: [
       {
-        year: "1982",
+        year: "28 Oktober 1983",
         description:
-          "IKAPRASMUL didirikan bersamaan dengan berdirinya Universitas Prasetiya Mulya.",
+          "Ikatan Alumni Prasetiya Mulya pertama kali dibentuk di Hotel Kemang.",
       },
       {
-        year: "1990s",
+        year: "1983 – 1986",
         description:
-          "Menjadi jembatan yang kuat antara alumni, dunia bisnis, dan akademisi.",
+          "IKAPRAMA dipimpin oleh Bpk Ir. Sukiman Hendrokusumo, MSc (MBA Modular 1986, PT. Pembangunan Jaya).",
       },
       {
-        year: "2000s",
+        year: "1987 – 1988",
         description:
-          "Memperluas jejaring global dan memperkuat chapter alumni.",
+          "IKAPRAMA dipimpin oleh Bpk. Dr. Sismadi Partodumuljo, MBA (Alm) (MBA Modular 1987, pemilik RS Sukmul).",
       },
       {
-        year: "2020s",
+        year: "1988 – 1990",
         description:
-          "Bertransformasi menjadi ekosistem digital yang memberdayakan alumni untuk dampak yang lebih besar.",
+          "IKAPRAMA dipimpin oleh Bapak Eddy Sutjipto, MBA (MBA Modular 1988, Direktur PT. Wijaya Kusuma Contractors).",
+      },
+      {
+        year: "1990 – 1994",
+        description:
+          "IKAPRAMA dipimpin oleh Bapak Max Moein, MBA (MBA Modular 1990).",
+      },
+      {
+        year: "1994 – 1996",
+        description:
+          "IKAPRAMA dipimpin oleh Ibu Dinny Sri Roehdiany, MBA (MBA Modular 1989, wiraswasta).",
+      },
+      {
+        year: "1995 – 1997",
+        description:
+          "IKAPRAMA dipimpin oleh Capt. Bobby Faisal MBA (MBA Modular 1991).",
+      },
+      {
+        year: "1997 – 2000",
+        description:
+          "IKAPRAMA dipimpin oleh Bapak Pulung Peranginangin, MM (MME MS Batch 5, Chairman PT. Gema Graha Sarana Tbk).",
+      },
+      {
+        year: "2001 – 2005",
+        description:
+          "IKAPRAMA dipimpin oleh Bapak Eddy Junaedi Danu, MM (MME MS Batch 10, Director PT. Indika Energy, Tbk).",
+      },
+      {
+        year: "2005 – 2010",
+        description:
+          "IKAPRAMA dipimpin oleh Bapak Djuanda Nugraha Ibrahim, MM (MME MS Batch 16, Direktur Sumber Daya Manusia dan Organisasi PT PLN).",
+      },
+      {
+        year: "2010 – 2015",
+        description:
+          "IKAPRAMA dipimpin oleh Bapak Taslim Yunus, MM (MME MS Batch 8 – Vice President SKK Migas).",
+      },
+      {
+        year: "2015 – 2020",
+        description:
+          "IKAPRAMA dipimpin oleh Bapak Dr. Harris Turino, MM (MME MS Batch 10 – CEO Kleo Beauty Group).",
+      },
+      {
+        year: "2020 – 2025",
+        description:
+          "IKAPRAMA dipimpin oleh Bapak Ir. Maspiyono Handoyo, MM (MM SM 10 – Regional Managing Director PT. Mayora Indah Tbk).",
+      },
+      {
+        year: "2025 – 2029",
+        description:
+          "IKAPRAMA berubah nama menjadi IKA PRASMUL. Dipimpin oleh Bapak Edy Sutrisman, MM (MMSM 47 - Komisaris Utama Rekind).",
       },
     ],
     governanceTitle: "Struktur Organisasi",
     executiveBoardLabel: "Dewan Eksekutif",
     boardMembersLabel: "Anggota Dewan",
     roles: {
-      President: "Presiden",
-      "Vice President": "Wakil Presiden",
-      Treasurer: "Bendahara",
-      Secretary: "Sekretaris",
-      "Head of Programs": "Kepala Program",
-      Chairman: "Ketua",
-      Member: "Anggota",
+      "President": "Ketua Umum",
+      "Vice President 1": "Wakil Ketua 1",
+      "Vice President 2": "Wakil Ketua 2",
+      "Vice President 3": "Wakil Ketua 3",
+      "Vice President 4": "Wakil Ketua 4",
+      "Secretary General": "Sekretaris Jenderal",
+      "Deputy Secretary General 1": "Wakil Sekretaris Jenderal 1",
+      "Deputy Secretary General 2": "Wakil Sekretaris Jenderal 2",
+      "General Treasurer": "Bendahara Umum",
+      "Head of Protectorate Board": "Ketua Dewan Pelindung",
+      "Member of Protectorate Board": "Anggota Dewan Pelindung",
+      "Head of Advisory Board": "Ketua Dewan Penasihat",
+      "Deputy Head of Advisory Board": "Wakil Ketua Dewan Penasihat",
+      "Advisory Board Member": "Wakil Dewan Penasihat",
+      "Head of Board of Trustees": "Ketua Dewan Penyantun",
+      "Deputy Head of Board of Trustees": "Wakil Ketua Dewan Penyantun",
+      "Head of Expert Board": "Ketua Dewan Pakar",
+      "Deputy Head of Expert Board": "Wakil Ketua Dewan Pakar",
     },
   },
   pageHero: {

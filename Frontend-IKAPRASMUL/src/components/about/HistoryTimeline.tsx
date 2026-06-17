@@ -25,17 +25,13 @@ export async function HistoryTimeline() {
         {milestones.map((m, i) => (
           <li
             key={m.year}
-            className={i < milestones.length - 1 ? "mb-7" : ""}
+            className={`relative ${i < milestones.length - 1 ? "mb-6" : ""}`}
           >
-            <span className="absolute -left-[6px] mt-1 size-[11px] rounded-full bg-gold ring-4 ring-slate-50" />
-            <div className="flex gap-4">
-              <p className="w-12 shrink-0 text-sm font-bold text-primary">
-                {m.year}
-              </p>
-              <p className="text-sm leading-6 text-muted-foreground">
-                {m.description}
-              </p>
-            </div>
+            <span className="absolute -left-[34px] mt-1 size-[11px] rounded-full bg-gold ring-4 ring-slate-50" />
+            <p className="text-sm font-bold text-primary">{m.year}</p>
+            <p className="mt-0.5 text-sm leading-6 text-muted-foreground">
+              {m.description}
+            </p>
           </li>
         ))}
       </ol>
