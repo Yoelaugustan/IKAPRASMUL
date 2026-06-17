@@ -18,8 +18,9 @@ import type {
   Story,
   AlumniEvent,
   FeaturedAlumni,
-  BoardMember,
+  Pillar,
   HistoryMilestone,
+  BoardMember,
 } from "@/types";
 import { STORY_CATEGORIES } from "@/constants/categories";
 // Rarely-changing content stays static (no DB): impact stats + the About page.
@@ -27,7 +28,8 @@ import { IMPACT_STATS } from "@/data/impact";
 import {
   VISION,
   MISSION,
-  PURPOSE,
+  VALUES,
+  PILLARS,
   HISTORY,
   EXECUTIVE_BOARD,
   BOARD_MEMBERS,
@@ -60,10 +62,16 @@ export const getFeaturedAlumni = async (): Promise<FeaturedAlumni | undefined> =
   );
   return alumni ?? undefined;
 };
+export const getEvents = (): Promise<AlumniEvent[]> =>
+  safeFetch<AlumniEvent[]>("/events", []);
 export const getUpcomingEvent = async (): Promise<AlumniEvent | undefined> => {
-  const events = await safeFetch<AlumniEvent[]>("/events", []);
+  const events = await getEvents();
   return [...events].sort((a, b) => a.date.localeCompare(b.date))[0];
 };
+export const getEventBySlug = async (
+  slug: string,
+): Promise<AlumniEvent | undefined> =>
+  (await getEvents()).find((e) => e.slug === slug);
 
 /* ---------- SIG ---------- */
 // Two independent data sources: the groups grid and the (news-like) spotlight.
@@ -71,6 +79,10 @@ export const getSigGroups = (): Promise<SigGroup[]> =>
   safeFetch<SigGroup[]>("/sig/groups", []);
 export const getSigSpotlights = (): Promise<SigSpotlight[]> =>
   safeFetch<SigSpotlight[]>("/sig/spotlight", []);
+export const getSigSpotlightById = async (
+  id: string,
+): Promise<SigSpotlight | undefined> =>
+  (await getSigSpotlights()).find((s) => s.id === id);
 
 /* ---------- Stories ---------- */
 export const getStories = (): Promise<Story[]> => safeFetch<Story[]>("/stories", []);
@@ -118,17 +130,20 @@ export const getArticleBySlug = async (slug: string): Promise<Article | undefine
 /* ---------- About ---------- */
 type AboutContent = {
   vision: string;
-  mission: string;
-  purpose: string;
+  mission: string[];
+  values: string[];
+  pillars: Pillar[];
   history: HistoryMilestone[];
   executiveBoard: BoardMember[];
   boardMembers: BoardMember[];
 };
-// Static — the About page (vision/mission/purpose, history, governance) rarely changes.
+// Static — the About page (vision/mission, values, pillars, history, governance)
+// rarely changes.
 export const getAboutContent = async (): Promise<AboutContent> => ({
   vision: VISION,
   mission: MISSION,
-  purpose: PURPOSE,
+  values: VALUES,
+  pillars: PILLARS,
   history: HISTORY,
   executiveBoard: EXECUTIVE_BOARD,
   boardMembers: BOARD_MEMBERS,

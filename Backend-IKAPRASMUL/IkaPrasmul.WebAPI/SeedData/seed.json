@@ -3,204 +3,214 @@
     {
       "id": "pgpm",
       "name": "Perkumpulan Civil Prasetiya Mulya (PGPM)",
-      "image": null,
+      "image": "/media/sig/clubs/PGPM.jpg",
       "icon": "graduation-cap"
     },
     {
       "id": "saham-club",
       "name": "Saham Club",
-      "image": null,
+      "image": "/media/sig/clubs/SIG LOGO_SAHAM.png",
       "icon": "trending-up"
     },
     {
       "id": "branding-club",
       "name": "Branding Club",
-      "image": null,
+      "image": "/media/sig/clubs/SIG LOGO_BRANDING.png",
       "icon": "palette"
     },
     {
       "id": "coaching-club",
       "name": "Coaching Club",
-      "image": null,
+      "image": "/media/sig/clubs/COACHING.jpg",
       "icon": "message-circle"
     },
     {
       "id": "culinary-club",
       "name": "Culinary Club",
-      "image": null,
+      "image": "/media/sig/clubs/CULLINARY.jpg",
       "icon": "chef-hat"
     },
     {
       "id": "cycling-club",
       "name": "Cycling Club",
-      "image": null,
+      "image": "/media/sig/clubs/CYCLING.jpg",
       "icon": "bike"
     },
     {
       "id": "digital-club",
       "name": "Digital Club",
-      "image": null,
+      "image": "/media/sig/clubs/DIGITAL.jpg",
       "icon": "monitor"
     },
     {
       "id": "financial-club",
       "name": "Financial Club",
-      "image": null,
+      "image": "/media/sig/clubs/SIG LOGO_FINANCIAL.png",
       "icon": "landmark"
     },
     {
       "id": "fintech-club",
       "name": "Fintech Club",
-      "image": null,
+      "image": "/media/sig/clubs/SIG LOGO_FINTECH.png",
       "icon": "smartphone"
     },
     {
       "id": "gamers-club",
       "name": "Gamers Club",
-      "image": null,
+      "image": "/media/sig/clubs/GAMERS.jpg",
       "icon": "gamepad-2"
     },
     {
       "id": "health-club",
       "name": "Health Club",
-      "image": null,
+      "image": "/media/sig/clubs/SIG LOGO_HEALTHCARE.png",
       "icon": "heart-pulse"
     },
     {
       "id": "investor-club",
       "name": "Investor Club",
-      "image": null,
+      "image": "/media/sig/clubs/INVESTOR.jpeg",
       "icon": "piggy-bank"
     },
     {
       "id": "leadership-club",
       "name": "Leadership Club",
-      "image": null,
+      "image": "/media/sig/clubs/LEADERSHIP.jpeg",
       "icon": "crown"
     },
     {
       "id": "mining-energy-club",
       "name": "Mining & Energy Club",
-      "image": null,
+      "image": "/media/sig/clubs/MINING.jpeg",
       "icon": "factory"
     },
     {
       "id": "music-club",
       "name": "Music Club",
-      "image": null,
+      "image": "/media/sig/clubs/MUSIC.jpg",
       "icon": "music"
     },
     {
       "id": "photographer-club",
       "name": "Photographer Club",
-      "image": null,
+      "image": "/media/sig/clubs/PHOTOGRAPHER.jpg",
       "icon": "camera"
     },
     {
       "id": "prazmall-marketplace",
       "name": "Prazmall Marketplace",
-      "image": null,
+      "image": "/media/sig/clubs/MARKETPLACE.jpg",
       "icon": "store"
     },
     {
       "id": "property-club",
       "name": "Property Club",
-      "image": null,
+      "image": "/media/sig/clubs/PROPERTY.jpg",
       "icon": "building"
     },
     {
       "id": "runners-club",
       "name": "Runners Club",
-      "image": null,
+      "image": "/media/sig/clubs/RUNNING.jpg",
       "icon": "footprints"
     },
     {
       "id": "tourism-club",
       "name": "Tourism Club",
-      "image": null,
+      "image": "/media/sig/clubs/TOURISM.jpeg",
       "icon": "plane"
-    },
-    {
-      "id": "traders-club",
-      "name": "Traders Club",
-      "image": null,
-      "icon": "bar-chart-3"
     },
     {
       "id": "umkm-koperasi-club",
       "name": "UMKM & Koperasi Club",
-      "image": null,
+      "image": "/media/sig/clubs/UMKM.jpg",
       "icon": "handshake"
     },
     {
       "id": "urban-farming-club",
       "name": "Urban Farming Club",
-      "image": null,
+      "image": "/media/sig/clubs/URBAN.jpg",
       "icon": "sprout"
     },
     {
       "id": "writers-club",
       "name": "Writers Club",
-      "image": null,
+      "image": "/media/sig/clubs/WRITERS.jpg",
       "icon": "pen-tool"
     },
     {
       "id": "supply-chain-club",
       "name": "Supply Chain Club",
-      "image": null,
+      "image": "/media/sig/clubs/SUPPLYCHAIN.jpeg",
       "icon": "truck"
     },
     {
       "id": "ceo-club",
       "name": "CEO Club",
-      "image": null,
+      "image": "/media/sig/clubs/CEO CLUB.jpg",
       "icon": "briefcase"
     },
     {
-      "id": "komunitas-alumni-entrepreneur",
-      "name": "Komunitas Alumni Entrepreneur",
-      "image": null,
-      "icon": "rocket"
+      "id": "fishing-club",
+      "name": "Fishing Club",
+      "image": "/media/sig/clubs/FISHING.jpg",
+      "icon": "users"
     },
     {
-      "id": "komunitas-alumni-marketing",
-      "name": "Komunitas Alumni Marketing",
-      "image": null,
-      "icon": "megaphone"
+      "id": "korean-club",
+      "name": "Korean Club",
+      "image": "/media/sig/clubs/KOREAN.jpg",
+      "icon": "users"
     },
     {
-      "id": "komunitas-buzzer",
-      "name": "Komunitas Buzzer",
-      "image": null,
-      "icon": "volume-2"
+      "id": "non-halal-cullinary-club",
+      "name": "Non Halal Cullinary Club",
+      "image": "/media/sig/clubs/NON HALAL CULLINARY.jpg",
+      "icon": "users"
+    },
+    {
+      "id": "padel-club",
+      "name": "Padel Club",
+      "image": "/media/sig/clubs/PADEL.jpg",
+      "icon": "users"
+    },
+    {
+      "id": "tennis-club",
+      "name": "Tennis Club",
+      "image": "/media/sig/clubs/SIG LOGO rev_Tennis.png",
+      "icon": "users"
+    },
+    {
+      "id": "badminton-club",
+      "name": "Badminton Club",
+      "image": "/media/sig/clubs/SIG LOGO_BADMINTON.png",
+      "icon": "users"
+    },
+    {
+      "id": "chess-club",
+      "name": "Chess Club",
+      "image": "/media/sig/clubs/SIG LOGO_CHESS.png",
+      "icon": "users"
+    },
+    {
+      "id": "crypto-club",
+      "name": "Crypto Club",
+      "image": "/media/sig/clubs/SIG LOGO_CRYPTO.png",
+      "icon": "users"
     }
   ],
   "sigSpotlight": [
     {
-      "id": "financial-club",
-      "name": "Financial Club",
-      "image": "/images/sig/financial-club.jpg",
-      "description": "The Financial Club hosts monthly market briefings, personal-finance workshops, and guest sessions with alumni working across banking, asset management, and fintech.",
-      "category": "Professional",
-      "memberCount": 526,
-      "activities": [
-        "Market briefings",
-        "Workshops",
-        "Guest sessions"
-      ]
+      "id": "padel-club-mabar",
+      "name": "MABAR IKAPRASMUL PADEL CLUB",
+      "image": "/media/sig/spotlight/Mabar_IKAPRASMUL_Padel_Club.jpg",
+      "description": "Seru, kompetitif, dan penuh networking! Pada 1 Juni 2026, Shared Interest Group (SIG) IKAPRASMUL Padel Club kembali menggelar sesi Mabar Padel di Anwa Racquet Privé. Sebanyak 18 alumni dan keluarga alumni turut meramaikan kegiatan ini dengan semangat olahraga dan kebersamaan yang luar biasa.\n\nTak hanya menjadi ajang untuk menjaga kebugaran, kegiatan ini juga menjadi wadah mempererat relasi antaralumni lintas angkatan dan profesi. Dari rally seru di lapangan hingga obrolan santai di sela pertandingan, semuanya menjadi bagian dari pengalaman yang menyenangkan.\n\nTerima kasih kepada seluruh peserta yang telah hadir dan ikut meramaikan acara. Sampai jumpa di mabar berikutnya! 💙\n\n#universitasprasetyamulya #ikaprasmul #Ikatanalumniprasmul\nSumber : @alumniprasmul (instagram)"
     },
     {
-      "id": "runners-club",
-      "name": "Runners Club",
-      "image": "/images/sig/runner-club.png",
-      "description": "Building healthier lives and stronger bonds, one run at a time.",
-      "category": "Lifestyle",
-      "memberCount": 312,
-      "activities": [
-        "Weekly runs",
-        "Race meet-ups",
-        "Charity relays"
-      ]
+      "id": "financial-club-coretax",
+      "name": "IKA Prasmul Bersama DJP dan RDN Consulting Gelar Pelatihan SPT Tahunan dan Coretax",
+      "image": "/media/sig/spotlight/prasmul_coretax.jpeg",
+      "description": "Ikatan Alumni Prasetiya Mulya (IKA Prasmul), bersama dengan Alumni Network Prasetiya Mulya, RDN Consulting, dan Kantor Wilayah (Kanwil) Direktorat Jenderal Pajak (DJP) Jakarta Selatan II, menyelenggarakan sosialisasi perpajakan bertajuk “Lapor Pajak Jadi Mudah: Panduan Praktis SPT Tahunan & Aktivasi Akun Coretax.” Acara diselenggarakan di Universitas Prasetiya Mulya, Kampus Cilandak, pada hari Kamis, 27 November 2025.\n\nNarasumber meliputi tim penyuluh dari Kanwil DJP Jakarta Selatan II dan konsultan pajak dari RDN Consulting. Plt. Kabid P2 Humas Kanwil DJP Jakarta Selatan II, Siscka Mirela Juniati, memaparkan bahwa pelaporan melalui Coretax memerlukan aktivasi akun dan kepemilikan kode otorisasi sertifikat digital sebagai tanda tangan elektronik.\n\nPartner RDN Consulting, Leander Resadhatu, menekankan pentingnya peran pajak sebagai bentuk kontribusi kolektif dan tanggung jawab bersama. Ketua Umum IKA Prasmul Edy Sutrisman (Edisut) menyampaikan bahwa pemahaman tentang pajak harus terus disosialisasikan, karena pajak yang tidak dikelola dengan baik akan menjadi beban.\n\nSumber: Warta Ekonomi, Kompas, Pajak.com"
     }
   ],
   "story": [
@@ -841,12 +851,12 @@
   ],
   "event": [
     {
-      "slug": "alumni-golf-tournament-2025",
-      "title": "Alumni Golf Tournament 2025",
-      "date": "2025-05-24T08:00:00+07:00",
-      "location": "BSD Course",
-      "coverImage": "/images/home/event-golf.png",
-      "description": "A morning on the green — reconnect with fellow alumni over a friendly round and networking brunch.",
+      "slug": "pgpm-end-year-tournament-2025",
+      "title": "PGPM End Year Tournament & Inter Alumni University Cup 2025",
+      "date": "2025-12-07T08:00:00+07:00",
+      "location": "Imperial Golf Klub Karawaci",
+      "coverImage": "/media/events/pgpm-end-year-tournament-2025.jpg",
+      "description": "PGPM (Perkumpulan Golf Prasetiya Mulya) menggelar PGPM End Year Tournament and Featuring Inter Alumni University Cup 2025 yang digelar di Imperial Golf Klub Karawaci, Minggu 7 Desember 2025.\n\n#universitas #alumniprasmul #universitasprasetiyamulya",
       "registerUrl": "#"
     },
     {

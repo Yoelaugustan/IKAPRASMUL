@@ -8,6 +8,14 @@ export const ROUTES = {
   business: "/business",
   news: "/news",
 
+  // Dynamic content detail pages
+  storyDetail: (slug: string) => `/stories/${slug}`,
+  businessDetail: (slug: string) => `/business/${slug}`,
+  articleDetail: (slug: string) => `/news/${slug}`,
+  eventDetail: (slug: string) => `/events/${slug}`,
+  sigDetail: (id: string) => `/sig/${id}`,
+  featuredAlumni: "/featured-alumni",
+
   // Admin sign-in (no public registration)
   login: "/login",
   forgotPassword: "/forgot-password",

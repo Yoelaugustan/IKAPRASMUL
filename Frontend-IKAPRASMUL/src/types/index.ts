@@ -30,14 +30,11 @@ export type SigGroup = {
 };
 
 // A SIG Spotlight — a richer, news-like feature (separate from the groups grid).
-export type SigSpotlight = {
+export interface SigSpotlight {
   id: string;
   name: string;
   image: string;
   description: string;
-  category?: string;
-  memberCount?: number;
-  activities?: string[];
 };
 
 export type Story = {
@@ -92,17 +89,25 @@ export type AlumniEvent = {
   registerUrl?: string;
 };
 
+// About page — strategic pillar + its impact/legacy statement.
+export type Pillar = {
+  name: string;
+  impact: string;
+};
+
+// About page — a milestone in the "Our History" timeline.
+export type HistoryMilestone = {
+  year: string;
+  title: string;
+  description: string;
+};
+
+// About page — a member of the Governance Structure.
 export type BoardMember = {
   name: string;
   role: string;
   photo: string;
   tier: "executive" | "board";
-};
-
-export type HistoryMilestone = {
-  year: string;
-  title: string;
-  description: string;
 };
 
 export type FeaturedAlumni = Person & {
