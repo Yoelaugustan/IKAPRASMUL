@@ -12,14 +12,28 @@ import { setLenisInstance, scrollToTop } from "@/lib/scroll";
 export function SmoothScroll() {
   const pathname = usePathname();
 
-  // Always land at the top when navigating to a new page. Lenis manages its own
-  // scroll position and overrides the router's default scroll restoration, so
-  // we reset it explicitly on pathname changes (not on initial mount, and not
-  // on searchParams-only changes — those drive the in-page scroll-to-content).
+  // Land at the top on a new forward navigation, but let the browser/Next
+  // restore the previous scroll position on back/forward (so closing a detail
+  // page returns to where you were). Skips the initial mount and searchParams-
+  // only changes (those drive the in-page scroll-to-content).
   const firstRender = useRef(true);
+  const isPopNavigation = useRef(false);
+
+  useEffect(() => {
+    const onPopState = () => {
+      isPopNavigation.current = true;
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
+      return;
+    }
+    if (isPopNavigation.current) {
+      isPopNavigation.current = false;
       return;
     }
     scrollToTop(true);

@@ -1,16 +1,9 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Business } from "@/types";
 import { EmptyState } from "@/components/shared/EmptyState";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { ROUTES } from "@/constants/routes";
 
 function SpotlightHeader() {
   return (
@@ -26,8 +19,6 @@ function SpotlightHeader() {
 // "Alumni Business Spotlight" card — features one business from the DB (the
 // flagged spotlight, else the first listing). Shows a placeholder when none.
 export function BusinessSpotlight({ business }: { business?: Business }) {
-  const [open, setOpen] = useState(false);
-
   if (!business) {
     return (
       <div>
@@ -86,59 +77,14 @@ export function BusinessSpotlight({ business }: { business?: Business }) {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
+          <Link
+            href={ROUTES.businessDetail(business.slug)}
             className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-gold px-4 py-3 text-[13px] font-bold text-gold-foreground transition-colors hover:bg-gold-dark"
           >
             Read Full Story <ArrowRight className="size-4" />
-          </button>
+          </Link>
         </div>
       </div>
-
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-h-[90vh] max-w-2xl gap-0 overflow-y-auto p-0">
-          <div className="relative aspect-[16/9] w-full">
-            <Image
-              src={business.coverImage}
-              alt={business.name}
-              fill
-              sizes="640px"
-              className="object-cover"
-            />
-            <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-gold-foreground">
-              Featured Story
-            </span>
-          </div>
-          <div className="p-6 sm:p-8">
-            <DialogHeader>
-              <DialogTitle className="text-2xl text-primary">
-                {business.name}
-              </DialogTitle>
-            </DialogHeader>
-            <div className="mt-4 flex items-center gap-3">
-              <span className="relative size-10 shrink-0 overflow-hidden rounded-full ring-2 ring-slate-200">
-                <Image
-                  src={avatar}
-                  alt={business.founder.name}
-                  fill
-                  sizes="40px"
-                  className="object-cover"
-                />
-              </span>
-              <div className="text-sm leading-tight">
-                <p className="font-semibold text-foreground">
-                  {business.founder.name} ({business.founder.class})
-                </p>
-                <p className="text-muted-foreground">{business.location}</p>
-              </div>
-            </div>
-            <p className="mt-5 text-[15px] leading-7 text-foreground/85">
-              {business.description}
-            </p>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

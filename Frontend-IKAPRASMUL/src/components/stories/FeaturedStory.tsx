@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Story } from "@/types";
 import { cn } from "@/lib/utils";
+import { ROUTES } from "@/constants/routes";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { StoryDetailModal } from "./StoryDetailModal";
 
 function FeaturedStoryHeader() {
   return (
@@ -21,15 +22,14 @@ function FeaturedStoryHeader() {
 
 export function FeaturedStory({ stories }: { stories: Story[] }) {
   const [index, setIndex] = useState(0);
-  const [modalOpen, setModalOpen] = useState(false);
   const [hovering, setHovering] = useState(false);
   const count = stories.length;
 
   // Auto-advance is driven entirely by the progress bar's CSS animation: when
-  // it completes we move to the next slide. Pausing the animation (on hover or
-  // while the modal is open) freezes both the bar and the timer in sync, and
-  // resumes from where it left off. Reduced-motion users get no auto-rotate.
-  const paused = modalOpen || hovering;
+  // it completes we move to the next slide. Pausing the animation on hover
+  // freezes both the bar and the timer in sync, and resumes from where it left
+  // off. Reduced-motion users get no auto-rotate.
+  const paused = hovering;
 
   if (count === 0) {
     return (
@@ -65,10 +65,9 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
               key={story.slug}
               className="flex w-full shrink-0 flex-col lg:flex-row"
             >
-              <button
-                type="button"
-                onClick={() => setModalOpen(true)}
-                className="relative aspect-[16/10] w-full shrink-0 lg:aspect-auto lg:w-5/12"
+              <Link
+                href={ROUTES.storyDetail(story.slug)}
+                className="relative block aspect-[16/10] w-full shrink-0 lg:aspect-auto lg:w-5/12"
                 tabIndex={story.slug === active.slug ? 0 : -1}
               >
                 <Image
@@ -78,7 +77,7 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
                   sizes="(min-width: 1024px) 40vw, 100vw"
                   className="object-cover"
                 />
-              </button>
+              </Link>
 
               <div className="flex flex-1 flex-col justify-center p-6 sm:p-8 lg:p-10 xl:p-12">
                 <div>
@@ -93,14 +92,13 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
                   {story.excerpt}
                 </p>
                 <div className="mt-8">
-                  <button
-                    type="button"
-                    onClick={() => setModalOpen(true)}
+                  <Link
+                    href={ROUTES.storyDetail(story.slug)}
                     tabIndex={story.slug === active.slug ? 0 : -1}
                     className="inline-flex items-center gap-2 rounded bg-[#c6b273] px-6 py-3 text-[13px] font-bold text-[#0a192f] transition-colors hover:bg-[#b4a05e]"
                   >
                     Read Full Story <ArrowRight className="size-4" />
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -159,12 +157,6 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
           </>
         )}
       </div>
-
-      <StoryDetailModal
-        story={active}
-        open={modalOpen}
-        onOpenChange={setModalOpen}
-      />
     </div>
   );
 }

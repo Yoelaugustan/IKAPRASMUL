@@ -10,7 +10,7 @@ import {
 
 const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   alumni: UsersIcon,
-  countries: GlobeIcon,
+  sig: GlobeIcon,
   entrepreneurs: RocketIcon,
   events: CalendarCheckIcon,
 };

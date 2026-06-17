@@ -12,10 +12,10 @@ import {
 } from "@/components/icons";
 
 const SOCIALS = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/ikaprasmul/?originalSubdomain=id", Icon: LinkedinIcon },
-  { label: "Instagram", href: "https://www.instagram.com/alumniprasmul/?hl=en", Icon: InstagramIcon },
-  { label: "YouTube", href: "https://www.youtube.com/channel/UCiLdBhRqasdQ_n-xvglJ6Wg/videos", Icon: YoutubeIcon },
-  { label: "Spotify", href: "https://open.spotify.com/show/2TV53T3kSDvVNH6WcnMsTx", Icon: SpotifyIcon },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/ikaprasmul/", Icon: LinkedinIcon },
+  { label: "Instagram", href: "https://www.instagram.com/alumniprasmul?igsh=N3ZnNGx0dzRtMG9y", Icon: InstagramIcon },
+  { label: "YouTube", href: "https://youtube.com/@ikapramaprasetiyamulya?si=LQSjDLmGWhg76Uo1", Icon: YoutubeIcon },
+  { label: "Spotify", href: "https://open.spotify.com/show/2TV53T3kSDvVNH6WcnMsTx?si=7Bl65LKeQHiyXeiSsQGauA", Icon: SpotifyIcon },
 ];
 
 const CAMPUSES = [
@@ -27,8 +27,17 @@ const CAMPUSES = [
   {
     name: "Universitas Prasetiya Mulya - Cilandak Campus",
     address:
-      "Edu Town Kavling Edu I No. 1, Jalan BSD Raya Barat 1, Serpong, Pagedangan, Kec. Pagedangan, Kabupaten Tangerang, Banten 15339",
+      "Jl. R.A. Kartini, RT.14/RW.6, Cilandak Bar., Kec. Cilandak, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12430",
   },
+];
+
+// `tel` is the dial-able number (null = not call-able, e.g. fax).
+const PHONES = [
+  { label: null, display: "(+62 21) 751-1126", tel: "+62217511126" },
+  { label: null, display: "(+62 21) 750-0463", tel: "+62217500463" },
+  { label: null, display: "(+62 21) 765-7257", tel: "+62217657257" },
+  { label: "Fax", display: "(+62 21) 751-1128", tel: null },
+  { label: "HP", display: "0813 7190 8225", tel: "+6281371908225" },
 ];
 
 export function SiteFooter() {
@@ -66,22 +75,39 @@ export function SiteFooter() {
                   </span>
                 </li>
               ))}
-              <li className="flex items-center gap-3">
-                <PhoneIcon className="size-4 shrink-0 text-gold" />
-                <a
-                  href="tel:+622130450500"
-                  className="text-primary-foreground/80 hover:text-gold"
-                >
-                  +62 21 304 50 500
-                </a>
+              <li className="flex gap-3">
+                <PhoneIcon className="mt-0.5 size-4 shrink-0 text-gold" />
+                <span className="space-y-1">
+                  {PHONES.map((p) => (
+                    <span key={p.display} className="block">
+                      {p.label && (
+                        <span className="text-primary-foreground/50">
+                          {p.label}:{" "}
+                        </span>
+                      )}
+                      {p.tel ? (
+                        <a
+                          href={`tel:${p.tel}`}
+                          className="text-primary-foreground/80 hover:text-gold"
+                        >
+                          {p.display}
+                        </a>
+                      ) : (
+                        <span className="text-primary-foreground/80">
+                          {p.display}
+                        </span>
+                      )}
+                    </span>
+                  ))}
+                </span>
               </li>
               <li className="flex items-center gap-3">
                 <MailIcon className="size-4 shrink-0 text-gold" />
                 <a
-                  href="mailto:alumni@prasetiyamulya.ac.id"
+                  href="mailto:ikaprama@prasetiyamulya.ac.id"
                   className="text-primary-foreground/80 hover:text-gold"
                 >
-                  alumni@prasetiyamulya.ac.id
+                  ikaprama@prasetiyamulya.ac.id
                 </a>
               </li>
             </ul>

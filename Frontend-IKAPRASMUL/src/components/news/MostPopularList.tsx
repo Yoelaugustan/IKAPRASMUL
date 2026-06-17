@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Article } from "@/types";
 import { formatDateUS } from "@/lib/format";
 import { EmptyState } from "@/components/shared/EmptyState";
-import { ArticleDetailModal } from "./ArticleDetailModal";
+import { ROUTES } from "@/constants/routes";
 
 // "Most Popular" ranked list (by views).
 export function MostPopularList({
@@ -16,8 +16,6 @@ export function MostPopularList({
   articles: Article[];
   onViewAll?: () => void;
 }) {
-  const [active, setActive] = useState<Article | null>(null);
-
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
@@ -40,47 +38,38 @@ export function MostPopularList({
           className="py-10"
         />
       ) : (
-      <ol className="space-y-3">
-        {articles.map((article, i) => (
-          <li key={article.slug}>
-            <button
-              type="button"
-              onClick={() => setActive(article)}
-              className="group flex w-full items-center gap-3 text-left"
-            >
-              <span className="grid size-7 shrink-0 place-items-center rounded-md bg-[#0a192f] text-xs font-bold text-white">
-                {i + 1}
-              </span>
-              <span className="relative size-11 shrink-0 overflow-hidden rounded-md bg-slate-100">
-                <Image
-                  src={article.coverImage}
-                  alt={article.title}
-                  fill
-                  sizes="44px"
-                  className="object-cover"
-                />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="line-clamp-1 text-[13px] font-bold text-slate-900 group-hover:text-primary">
-                  {article.title}
+        <ol className="space-y-3">
+          {articles.map((article, i) => (
+            <li key={article.slug}>
+              <Link
+                href={ROUTES.articleDetail(article.slug)}
+                className="group flex w-full items-center gap-3 text-left"
+              >
+                <span className="grid size-7 shrink-0 place-items-center rounded-md bg-[#0a192f] text-xs font-bold text-white">
+                  {i + 1}
                 </span>
-                <span className="mt-0.5 block text-[11px] text-muted-foreground">
-                  {formatDateUS(article.publishedAt)} • {article.readMinutes} min
-                  read
+                <span className="relative size-11 shrink-0 overflow-hidden rounded-md bg-slate-100">
+                  <Image
+                    src={article.coverImage}
+                    alt={article.title}
+                    fill
+                    sizes="44px"
+                    className="object-cover"
+                  />
                 </span>
-              </span>
-            </button>
-          </li>
-        ))}
-      </ol>
-      )}
-
-      {active && (
-        <ArticleDetailModal
-          article={active}
-          open={active !== null}
-          onOpenChange={(o) => !o && setActive(null)}
-        />
+                <span className="min-w-0 flex-1">
+                  <span className="line-clamp-1 text-[13px] font-bold text-slate-900 group-hover:text-primary">
+                    {article.title}
+                  </span>
+                  <span className="mt-0.5 block text-[11px] text-muted-foreground">
+                    {formatDateUS(article.publishedAt)} • {article.readMinutes} min
+                    read
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
       )}
     </div>
   );
