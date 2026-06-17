@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { Toaster } from "@/components/ui/sonner";
 import { SmoothScroll } from "@/components/shared/SmoothScroll";
+import { NavSourceProvider } from "@/components/shared/NavSourceProvider";
 
 const sans = Inter({
   variable: "--font-sans",
@@ -38,7 +39,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col font-sans antialiased">
         <SmoothScroll />
         <Providers>
-          {children}
+          <NavSourceProvider>{children}</NavSourceProvider>
           <Toaster richColors position="top-center" />
         </Providers>
       </body>

@@ -4,7 +4,7 @@ import type { ImpactStat } from "@/types";
 // `key` also selects the icon in components/layouts/ImpactStats.tsx.
 export const IMPACT_STATS: ImpactStat[] = [
   { key: "alumni", label: "Alumni", value: "18,000+" },
-  { key: "countries", label: "Countries", value: "35+" },
+  { key: "sig", label: "SIG", value: "30+" },
   { key: "entrepreneurs", label: "Entrepreneurs", value: "2,000+" },
-  { key: "events", label: "Events", value: "500+" },
+  { key: "events", label: "Events", value: "1000+" },
 ];
