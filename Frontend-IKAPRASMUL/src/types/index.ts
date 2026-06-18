@@ -19,8 +19,6 @@ export type ImpactStat = {
   value: string;
 };
 
-// A SIG group in the "Our Shared Interest Groups" grid — just an image + name.
-// The icon is the placeholder shown when there is no image.
 export type SigGroup = {
   id: string;
   name: string;
@@ -29,7 +27,6 @@ export type SigGroup = {
   icon?: string;
 };
 
-// A SIG Spotlight — a richer, news-like feature (separate from the groups grid).
 export interface SigSpotlight {
   id: string;
   name: string;
@@ -41,7 +38,6 @@ export type Story = {
   slug: string;
   title: string;
   excerpt: string;
-  /** Sanitized HTML / MDX body (dummy plain paragraphs for now). */
   body: string;
   category: StoryCategory;
   author: Person;
@@ -97,20 +93,17 @@ export type AlumniEvent = {
   registerUrl?: string;
 };
 
-// About page — strategic pillar + its impact/legacy statement.
 export type Pillar = {
   name: string;
   impact: string;
 };
 
-// About page — a milestone in the "Our History" timeline.
 export type HistoryMilestone = {
   year: string;
   title: string;
   description: string;
 };
 
-// About page — a member of the Governance Structure.
 export type BoardMember = {
   name: string;
   role: string;

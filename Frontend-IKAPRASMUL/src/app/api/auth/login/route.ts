@@ -2,12 +2,7 @@ import { NextResponse } from "next/server";
 import { adminLoginSchema } from "@/types/schemas";
 import { SESSION_COOKIE } from "@/lib/auth";
 
-// BFF login. In production this forwards credentials to the .NET backend,
-// receives the JWT, and sets it as an httpOnly Secure cookie (security-standard
-// §2.3/§7.1).
-//
-// STATIC PHASE: there is no backend, so this accepts any schema-valid login and
-// issues a dummy opaque session cookie. DO NOT ship to production as-is.
+// STATIC PHASE: accepts any valid login and issues a dummy session cookie. DO NOT ship to production as-is (For now it is safe, but when admin page has features it will be unsafe).
 export async function POST(request: Request) {
   let body: unknown;
   try {

@@ -6,12 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IkaPrasmul.WebAPI.Seeding;
 
-/// <summary>
-/// On startup, seeds the ContentItems table from <c>SeedData/seed.json</c> if it's
-/// empty. The JSON is keyed by content type, each value an array of items
-/// (the exact shapes the frontend consumes). Runs only when the app actually
-/// starts — not during <c>dotnet ef</c> commands.
-/// </summary>
+/// <summary>Runs only when the app starts — not during <c>dotnet ef</c> commands.</summary>
 public class ContentSeederHostedService : IHostedService
 {
     private readonly IServiceProvider _services;

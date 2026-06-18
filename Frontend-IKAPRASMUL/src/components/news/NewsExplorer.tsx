@@ -43,7 +43,6 @@ export function NewsExplorer({
   const [draftQuery, setDraftQuery] = useState("");
   const [appliedQuery, setAppliedQuery] = useState("");
   const [sort, setSort] = useState<Sort>("latest");
-  // "View all" stage: featured + value props hidden, full paginated grid.
   const [viewAll, setViewAll] = useState(false);
   const [page, setPage] = useState(1);
 
@@ -53,9 +52,6 @@ export function NewsExplorer({
     wasDragged: tabsWasDragged,
   } = useDragScroll();
 
-  // Filtered + sorted articles. In the default view the featured article is
-  // excluded (it's shown separately above); in view-all it is included so
-  // users can find it when browsing all articles.
   const filteredArticles = useMemo(() => {
     const q = appliedQuery.trim().toLowerCase();
     const filtered = articles.filter((a) => {
@@ -78,7 +74,6 @@ export function NewsExplorer({
   const isFiltering = category !== "All" || appliedQuery.trim() !== "";
   const topStories = filteredArticles.slice(0, isFiltering ? 9 : 3);
 
-  // Pagination (view-all stage).
   const totalPages = Math.max(1, Math.ceil(filteredArticles.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
   const pageItems = filteredArticles.slice(
@@ -86,10 +81,7 @@ export function NewsExplorer({
     currentPage * PAGE_SIZE,
   );
 
-  // Scroll the filter panel into view when the user changes what they're
-  // looking at (filter, search, or entering/leaving view-all), so the active
-  // filter stays in context. Pagination scrolls to the results instead (see
-  // the Pagination handler below). Skips the initial mount.
+  // mounted guard skips the scroll on initial render
   const panelRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
   const mounted = useRef(false);
@@ -101,7 +93,6 @@ export function NewsExplorer({
     scrollToElement(panelRef.current);
   }, [category, appliedQuery, viewAll]);
 
-  // Page changes land at the top of the results, not the filter bar.
   const goToPage = (p: number) => {
     setPage(p);
     scrollToElement(resultsRef.current);
@@ -132,15 +123,12 @@ export function NewsExplorer({
   return (
     <div className="pb-20">
       <Container>
-        {/* Everything sits in one white panel that overlaps the hero */}
         <div
           ref={panelRef}
           className="relative z-10 -mt-16 scroll-mt-24 overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-xl"
         >
-          {/* ---- Filter bar ---- */}
           <div className="border-b border-slate-100 p-4 sm:p-5">
             <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-              {/* Category tabs */}
               <div
                 ref={tabsRef}
                 onMouseDown={onTabsMouseDown}
@@ -183,7 +171,6 @@ export function NewsExplorer({
                 })}
               </div>
 
-              {/* Search + sort */}
               <div className="flex shrink-0 items-center gap-2">
                 <div className="relative flex-1 xl:w-56 xl:flex-none">
                   <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
@@ -231,7 +218,6 @@ export function NewsExplorer({
             </div>
           </div>
 
-          {/* ---- Body ---- */}
           <div className="p-5 sm:p-8 lg:p-10">
             {!viewAll && (
               <Reveal>
@@ -247,7 +233,6 @@ export function NewsExplorer({
             >
               <div ref={resultsRef} className="min-w-0 scroll-mt-24">
                 {viewAll ? (
-                  /* ---- View-all: full paginated grid ---- */
                   <div
                     key="viewall"
                     className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300"
@@ -292,7 +277,6 @@ export function NewsExplorer({
                     )}
                   </div>
                 ) : (
-                  /* ---- Default: featured + top stories ---- */
                   <div
                     key="featured"
                     className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300"

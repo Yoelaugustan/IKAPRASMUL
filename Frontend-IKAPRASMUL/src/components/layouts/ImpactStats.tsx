@@ -16,9 +16,6 @@ const ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   events: CalendarCheckIcon,
 };
 
-// "Our Impact in Numbers" — a navy card. With `overlap` it pulls up to sit over
-// the bottom of the hero above it (Home, About); otherwise it sits inline with
-// its own vertical spacing (SIG). Server Component.
 export async function ImpactStats({ overlap = false }: { overlap?: boolean }) {
   const [stats, { t }] = await Promise.all([getImpactStats(), getServerDict()]);
   return (

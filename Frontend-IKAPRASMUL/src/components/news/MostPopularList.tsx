@@ -2,14 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import type { Article } from "@/types";
 import { formatDateUS } from "@/lib/format";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { useLang } from "@/components/shared/LanguageProvider";
 import { ROUTES } from "@/constants/routes";
 
-// "Most Popular" ranked list (by views).
 export function MostPopularList({
   articles,
   onViewAll,
@@ -67,7 +66,7 @@ export function MostPopularList({
                   </span>
                   <span className="mt-0.5 block text-[11px] text-muted-foreground">
                     {isNewsletter ? (
-                      <span className="font-semibold text-primary">View PDF ↗</span>
+                      <span className="inline-flex items-center gap-1 font-semibold text-primary">View PDF <ExternalLink className="size-3" /></span>
                     ) : (
                       <>
                         {formatDateUS(article.publishedAt)} • {article.readMinutes}{" "}

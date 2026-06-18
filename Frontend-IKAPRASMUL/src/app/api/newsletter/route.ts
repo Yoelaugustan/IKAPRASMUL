@@ -2,9 +2,6 @@ import { NextResponse } from "next/server";
 import axios from "axios";
 import { z } from "zod";
 
-// BFF: forwards a newsletter signup to the .NET backend, which stores it
-// (de-duped). Consent is enforced client-side; here we just validate the email
-// and an optional source tag.
 const API_URL = process.env.API_URL ?? "http://localhost:5080";
 
 const bodySchema = z.object({

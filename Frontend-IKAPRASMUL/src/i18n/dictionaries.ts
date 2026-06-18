@@ -416,7 +416,7 @@ const en = {
   detail: {
     upcomingEvent: "Upcoming Event",
     registerNow: "Register Now",
-    alumniOfTheMonth: "Alumni of the Month",
+    alumniOfTheMonth: "Alumni Highlight",
     foundedBy: "Founded by",
     visitWebsite: "Visit Website",
     minRead: "min read",
@@ -883,7 +883,7 @@ const id: Dictionary = {
   detail: {
     upcomingEvent: "Acara Mendatang",
     registerNow: "Daftar Sekarang",
-    alumniOfTheMonth: "Alumni Bulan Ini",
+    alumniOfTheMonth: "Alumni Highlight",
     foundedBy: "Didirikan oleh",
     visitWebsite: "Kunjungi Situs",
     minRead: "menit baca",

@@ -15,13 +15,11 @@ export async function GovernanceStructure() {
         {governanceTitle}
       </h2>
 
-      {/* --- Executive Board (Pengurus Inti) --- */}
       <div className="mt-8">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold">
           {executiveBoardLabel}
         </p>
         <div className="mt-3 border-t border-gray-200 pt-4">
-          {/* Uses 5 columns. First 5 members (Ketum + WKs) on top row, next 4 members on bottom row */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-6">
             {EXECUTIVE_BOARD.map((m) => (
               <MemberAvatarModal key={m.name} member={m} roleLabel={roleLabel(m.role)} />
@@ -30,13 +28,11 @@ export async function GovernanceStructure() {
         </div>
       </div>
 
-      {/* --- Board Members by Division (Dewan Inti) --- */}
       <div className="mt-14">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-gold">
           {boardMembersLabel}
         </p>
-        <div className="mt-3 border-t border-gray-200 pt-4">
-          {/* 4 Distinct Columns for 4 Divisions */}
+        <div className="mt-3">
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
             {BOARD_DIVISIONS.map((division, index) => (
               <div

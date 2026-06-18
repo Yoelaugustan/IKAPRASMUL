@@ -15,10 +15,9 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-// Seeds the ContentItems table from SeedData/seed.json on first startup.
 builder.Services.AddHostedService<ContentSeederHostedService>();
 
-// CORS — only the configured frontend origin(s) (security-standard §6.2).
+// CORS
 var allowedOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
 builder.Services.AddCors(options =>
@@ -46,7 +45,6 @@ var app = builder.Build();
 // --- Pipeline ---------------------------------------------------------------
 app.UseExceptionHandler();
 app.UseMiddleware<SecurityHeadersMiddleware>();
-// Serve content images from wwwroot (e.g. /media/sig/runners-club.jpg).
 app.UseStaticFiles();
 app.UseCors("frontend");
 app.UseRateLimiter();

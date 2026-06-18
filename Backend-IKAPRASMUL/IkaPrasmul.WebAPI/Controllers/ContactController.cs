@@ -20,7 +20,6 @@ public class ContactController : ControllerBase
         _mediator = mediator;
     }
 
-    /// <summary>Submit a "Get in Touch" inquiry. Stores it and emails the admin.</summary>
     [HttpPost]
     public async Task<ActionResult<SubmitInquiryResponse>> Submit(
         [FromBody] SubmitInquiryRequest request,

@@ -1,6 +1,5 @@
 namespace IkaPrasmul.WebAPI.Middleware;
 
-/// <summary>Adds baseline security response headers (security-standard §4.5).</summary>
 public class SecurityHeadersMiddleware
 {
     private readonly RequestDelegate _next;

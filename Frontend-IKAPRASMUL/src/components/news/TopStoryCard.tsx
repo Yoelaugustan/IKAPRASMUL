@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import type { Article } from "@/types";
 import { formatDateUS } from "@/lib/format";
 import { ROUTES } from "@/constants/routes";
@@ -31,7 +32,7 @@ export function TopStoryCard({ article }: { article: Article }) {
         </h3>
         <p className="mt-2 text-[11px] text-muted-foreground">
           {isNewsletter ? (
-            <span className="font-semibold text-primary">View PDF ↗</span>
+            <span className="inline-flex items-center gap-1 font-semibold text-primary">View PDF <ExternalLink className="size-3" /></span>
           ) : (
             <>
               {formatDateUS(article.publishedAt)} • {article.readMinutes}{" "}

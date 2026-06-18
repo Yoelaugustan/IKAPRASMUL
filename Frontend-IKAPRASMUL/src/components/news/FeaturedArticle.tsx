@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { ExternalLink } from "lucide-react";
 import type { Article } from "@/types";
 import { formatDateUS } from "@/lib/format";
 import { ROUTES } from "@/constants/routes";
@@ -75,7 +76,7 @@ export function FeaturedArticle({ article }: { article: Article }) {
           {isNewsletter && (
             <>
               <span className="hidden h-4 w-px bg-white/30 sm:block" />
-              <span className="font-semibold">View PDF ↗</span>
+              <span className="inline-flex items-center gap-1 font-semibold">View PDF <ExternalLink className="size-3" /></span>
             </>
           )}
         </div>

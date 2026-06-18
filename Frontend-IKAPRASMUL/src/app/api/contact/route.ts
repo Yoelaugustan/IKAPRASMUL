@@ -2,9 +2,6 @@ import { NextResponse } from "next/server";
 import axios from "axios";
 import { contactSchema } from "@/types/schemas";
 
-// BFF: forwards the "Get in Touch" inquiry to the .NET backend (server-to-server,
-// so no CORS and the backend URL stays off the client). The backend stores the
-// inquiry and emails the admin (with the optional image attached).
 const API_URL = process.env.API_URL ?? "http://localhost:5080";
 
 export async function POST(request: Request) {

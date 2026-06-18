@@ -20,7 +20,6 @@ public class NewsletterController : ControllerBase
         _mediator = mediator;
     }
 
-    /// <summary>Subscribe an email to the newsletter list.</summary>
     [HttpPost("subscribe")]
     public async Task<ActionResult<SubscribeResponse>> Subscribe(
         [FromBody] SubscribeRequest request,
