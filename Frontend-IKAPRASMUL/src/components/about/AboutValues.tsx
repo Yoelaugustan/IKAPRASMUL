@@ -9,7 +9,6 @@ import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
 import { getServerDict } from "@/i18n/server";
 
-// One icon per value (the four C's). Falls back to Compass if a value is renamed.
 const VALUE_ICONS: Record<string, LucideIcon> = {
   Character: Compass,
   Competency: Target,
@@ -24,7 +23,7 @@ export async function AboutValues() {
     <section className="bg-slate-50 py-16 sm:py-20">
       <Container>
         <Reveal>
-          <div className="mx-auto mb-10 w-fit text-center">
+          <div className="mx-auto mb-12 w-fit text-center">
             <h2 className="text-2xl font-bold uppercase tracking-tight text-primary sm:text-3xl">
               {valuesTitle}
             </h2>
@@ -32,14 +31,14 @@ export async function AboutValues() {
           </div>
         </Reveal>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-y-10 sm:gap-y-12 lg:grid-cols-4 lg:divide-x lg:divide-gray-200">
           {values.map((value, i) => {
             const Icon = VALUE_ICONS[value] ?? Compass;
             return (
-              <Reveal key={value} delay={i * 90} className="h-full">
-                <div className="flex h-full flex-col items-center justify-center gap-4 rounded-xl border-2 border-primary/10 bg-white px-6 py-8 text-center transition-[transform,box-shadow] duration-300 hover:scale-[1.04] hover:shadow-lg">
-                  <Icon className="size-8 text-gold" strokeWidth={1.5} />
-                  <p className="text-base font-bold uppercase tracking-wide text-primary sm:text-lg">
+              <Reveal key={value} delay={i * 90}>
+                <div className="flex flex-col items-center gap-3 px-8 text-center">
+                  <Icon className="size-7 text-gold" strokeWidth={1.5} />
+                  <p className="text-sm font-bold uppercase tracking-widest text-primary">
                     {value}
                   </p>
                 </div>
