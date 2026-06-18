@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BusinessHero } from "@/components/business/BusinessHero";
 import { BusinessExplorer } from "@/components/business/BusinessExplorer";
+import { Reveal } from "@/components/shared/Reveal";
 import { getBusinesses } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -15,9 +16,11 @@ export default async function BusinessPage() {
   return (
     <>
       <BusinessHero />
-      <div id="featured-businesses">
-        <BusinessExplorer businesses={businesses} />
-      </div>
+      <Reveal>
+        <div id="featured-businesses">
+          <BusinessExplorer businesses={businesses} />
+        </div>
+      </Reveal>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/layouts/PageHero";
+import { Reveal } from "@/components/shared/Reveal";
 import { NewsExplorer } from "@/components/news/NewsExplorer";
 import {
   getArticles,
@@ -38,11 +39,13 @@ export default async function NewsPage() {
         overlap
       />
 
-      <NewsExplorer
-        articles={articles}
-        featured={featured}
-        mostPopular={mostPopular}
-      />
+      <Reveal>
+        <NewsExplorer
+          articles={articles}
+          featured={featured}
+          mostPopular={mostPopular}
+        />
+      </Reveal>
     </>
   );
 }

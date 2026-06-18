@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import type { Article } from "@/types";
 import { NEWS_CATEGORIES } from "@/constants/categories";
@@ -81,17 +81,11 @@ export function NewsExplorer({
     currentPage * PAGE_SIZE,
   );
 
-  // mounted guard skips the scroll on initial render
   const panelRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
-  const mounted = useRef(false);
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-      return;
-    }
-    scrollToElement(panelRef.current);
-  }, [category, appliedQuery, viewAll]);
+
+  const scrollToPanel = () =>
+    requestAnimationFrame(() => scrollToElement(panelRef.current));
 
   const goToPage = (p: number) => {
     setPage(p);
@@ -102,15 +96,18 @@ export function NewsExplorer({
     setAppliedQuery(draftQuery);
     setViewAll(true);
     setPage(1);
+    scrollToPanel();
   };
   const selectCategory = (tab: string) => {
     setCategory(tab);
     setViewAll(true);
     setPage(1);
+    scrollToPanel();
   };
   const enterViewAll = () => {
     setViewAll(true);
     setPage(1);
+    scrollToPanel();
   };
   const backToFeatured = () => {
     setViewAll(false);
@@ -118,6 +115,7 @@ export function NewsExplorer({
     setDraftQuery("");
     setAppliedQuery("");
     setPage(1);
+    scrollToPanel();
   };
 
   return (

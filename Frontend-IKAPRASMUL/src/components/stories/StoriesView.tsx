@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Story } from "@/types";
@@ -66,26 +66,16 @@ export function StoriesView({
     router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   };
 
-  const handleSelectCategory = (cat: string) =>
-    setParams({ category: cat, view: "all", page: 1 });
-
-  // Scroll the stories content into view on category / stage changes — both
-  // here and from the separate navy category bar (they share the URL). The
-  // ref attaches to whichever branch (default / view-all) is rendered. Skips
-  // the initial mount so the page doesn't jump on load.
   const contentRef = useRef<HTMLDivElement>(null);
-  const mounted = useRef(false);
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-      return;
-    }
-    scrollToElement(contentRef.current);
-  }, [category, viewAll]);
 
-  // Pagination navigates via the URL, so the scroll is handled explicitly here
-  // (deferred a frame so it lands after the navigation commits) rather than via
-  // the effect above, which can race with the router re-render.
+  const scrollToContent = () =>
+    requestAnimationFrame(() => scrollToElement(contentRef.current));
+
+  const handleSelectCategory = (cat: string) => {
+    setParams({ category: cat, view: "all", page: 1 });
+    scrollToContent();
+  };
+
   const goToPage = (p: number) => {
     setParams({ page: p });
     requestAnimationFrame(() => scrollToElement(contentRef.current));
@@ -117,7 +107,7 @@ export function StoriesView({
             title={t.lists.storiesHighlight}
             action={
               <button
-                onClick={() => setParams({ view: "all", page: 1 })}
+                onClick={() => { setParams({ view: "all", page: 1 }); scrollToContent(); }}
                 className="inline-flex items-center gap-1 text-[13px] font-bold text-[#c6b273] transition-colors hover:text-[#b4a05e]"
               >
                 {t.lists.viewAllStories} <ArrowRight className="size-4" />
@@ -176,7 +166,7 @@ export function StoriesView({
           title={heading}
           action={
             <button
-              onClick={() => setParams({ view: null, category: null, page: 1 })}
+              onClick={() => { setParams({ view: null, category: null, page: 1 }); scrollToContent(); }}
               className="inline-flex items-center gap-1 text-[13px] font-bold text-[#c6b273] transition-colors hover:text-[#b4a05e]"
             >
               <ChevronLeft className="size-4" /> {t.lists.backToFeatured}

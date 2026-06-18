@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useDragScroll } from "@/hooks/useDragScroll";
 import { scrollToElement } from "@/lib/scroll";
 import { ArrowRight, Bookmark, ChevronLeft, ChevronRight } from "lucide-react";
@@ -32,6 +32,8 @@ import { useLang } from "@/components/shared/LanguageProvider";
 import { INDUSTRY_ICONS } from "./industryMeta";
 
 const INDUSTRY_TABS = ["All", ...INDUSTRIES];
+const INDUSTRY_SET = new Set<string>(INDUSTRIES);
+const normalizeIndustry = (ind: string) => INDUSTRY_SET.has(ind) ? ind : "Other";
 const fieldClass =
   "h-11 rounded-lg border border-white/10 bg-[#06203f] text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-gold/40";
 
@@ -80,7 +82,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
     const q = applied.query.trim().toLowerCase();
     return businesses.filter((b) => {
       const ms = !savedOnly || savedSlugs.includes(b.slug);
-      const mi = applied.industry === "All" || b.industry === applied.industry;
+      const mi = applied.industry === "All" || normalizeIndustry(b.industry) === applied.industry;
       const ml = applied.location === "All" || b.location === applied.location;
       const mf = applied.founder === "All" || b.founder.name === applied.founder;
       const mq =
@@ -100,21 +102,21 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
     currentPage * PAGE_SIZE,
   );
 
-  // Search button: commit drafts and enter the view-all stage.
   const applySearch = () => {
     setApplied({ query, industry, location, founder });
     setSavedOnly(false);
     setViewAll(true);
     setPage(1);
+    scrollToPanel();
   };
 
-  // Industry tab: filter + enter view-all (and keep the dropdown in sync).
   const selectIndustry = (value: string) => {
     setIndustry(value);
     setApplied((prev) => ({ ...prev, industry: value }));
     setSavedOnly(false);
     setViewAll(true);
     setPage(1);
+    scrollToPanel();
   };
 
   const {
@@ -123,20 +125,11 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
     wasDragged: tabsWasDragged,
   } = useDragScroll();
 
-  // Bring the filter panel into view when the user filters, searches, or
-  // toggles the saved/view-all stage, so the active filter stays in context.
-  // Pagination scrolls to the results instead (see goToPage). Skips the
-  // initial mount.
   const panelRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
-  const mounted = useRef(false);
-  useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true;
-      return;
-    }
-    scrollToElement(panelRef.current);
-  }, [applied, viewAll, savedOnly]);
+
+  const scrollToPanel = () =>
+    requestAnimationFrame(() => scrollToElement(panelRef.current));
 
   // Page changes land at the top of the results, not the filter bar.
   const goToPage = (p: number) => {
@@ -153,30 +146,30 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
     setSavedOnly(false);
   };
 
-  // "View All Businesses": show everything, no filter.
   const openViewAll = () => {
     resetFilters();
     setViewAll(true);
     setPage(1);
+    scrollToPanel();
   };
 
-  // "Saved": view-all stage limited to bookmarked businesses.
   const openSaved = () => {
     resetFilters();
     setSavedOnly(true);
     setViewAll(true);
     setPage(1);
+    scrollToPanel();
   };
 
-  // Back to the curated featured + spotlight view.
   const backToFeatured = () => {
     resetFilters();
     setViewAll(false);
     setPage(1);
+    scrollToPanel();
   };
 
   return (
-    <div className="bg-slate-50 pb-16">
+    <div className="pb-16">
       {/* ---- Search bar (overlaps the hero) ---- */}
       <Container>
         <form
@@ -230,7 +223,8 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
       </Container>
 
       {/* ---- Browse by Industry + Featured + Spotlight ---- */}
-      <Container className="mt-10">
+      <div className="mt-6 bg-slate-50 pb-4">
+      <Container className="pt-8">
         <div
           ref={panelRef}
           className="scroll-mt-24 rounded-2xl bg-white p-6 shadow-sm sm:p-8"
@@ -393,6 +387,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
           )}
         </div>
       </Container>
+      </div>
     </div>
   );
 }

@@ -44,6 +44,8 @@ export const INDUSTRY_BADGE: Record<string, string> = {
   Healthcare: "bg-emerald-100 text-emerald-700",
   Education: "bg-sky-100 text-sky-700",
   Other: "bg-slate-100 text-slate-700",
+  Fashion: "bg-fuchsia-100 text-fuchsia-700",
+  Beauty: "bg-purple-100 text-purple-700",
 };
 
 export const industryBadgeClass = (industry: string) =>

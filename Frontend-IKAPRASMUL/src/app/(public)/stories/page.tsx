@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/layouts/PageHero";
 import { Section } from "@/components/layouts/Section";
 import { Container } from "@/components/layouts/Container";
+import { Reveal } from "@/components/shared/Reveal";
 import { StoryCategoryTabs } from "@/components/stories/StoryCategoryTabs";
 import { StoriesView } from "@/components/stories/StoriesView";
 import { getStories, getStoryCategoryCounts } from "@/lib/content";
@@ -45,13 +46,15 @@ export default async function StoriesPage() {
 
       <Section className="pb-24 pt-16">
         <Container>
-          <Suspense fallback={<div className="h-96" />}>
-            <StoriesView
-              featuredStories={featuredStories}
-              stories={stories}
-              counts={counts}
-            />
-          </Suspense>
+          <Reveal>
+            <Suspense fallback={<div className="h-96" />}>
+              <StoriesView
+                featuredStories={featuredStories}
+                stories={stories}
+                counts={counts}
+              />
+            </Suspense>
+          </Reveal>
         </Container>
       </Section>
     </>
