@@ -3,20 +3,10 @@ import { cn } from "@/lib/utils";
 export function ArticleContent({
   html,
   className,
-  autoGrid = false,
 }: {
   html: string;
   className?: string;
-  /** When true, enables auto-enhancements for stories/business content:
-   *  1. Consecutive <img> tags → 2-column grid
-   *  2. <p> starting with " (U+201C curly) or " (U+0022 straight) → <blockquote>
-   *  Not used for news articles which already have manual wrappers. */
-  autoGrid?: boolean;
 }) {
-  const processed = autoGrid
-    ? processQuoteBlocks(groupConsecutiveImages(html))
-    : html;
-
   return (
     <div
       className={cn(
@@ -29,22 +19,7 @@ export function ArticleContent({
         "[&_.auto-img-grid_img]:!m-0 [&_.auto-img-grid_img]:w-full [&_.auto-img-grid_img]:rounded-lg [&_.auto-img-grid_img]:object-cover",
         className,
       )}
-      dangerouslySetInnerHTML={{ __html: processed }}
+      dangerouslySetInnerHTML={{ __html: html }}
     />
-  );
-}
-
-function groupConsecutiveImages(html: string): string {
-  return html.replace(
-    /((?:<img\b[^>]*>[ \t\r\n]*){2,})/g,
-    (match) => `<div class="auto-img-grid">${match}</div>`,
-  );
-}
-
-// “ = left curly double quote; " = straight double quote
-function processQuoteBlocks(html: string): string {
-  return html.replace(
-    new RegExp("<p>([\u201c\u0022][^<]*)<\/p>", "g"),
-    "<blockquote><p>$1</p></blockquote>",
   );
 }
