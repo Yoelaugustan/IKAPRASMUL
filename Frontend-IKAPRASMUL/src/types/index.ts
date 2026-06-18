@@ -49,6 +49,8 @@ export type Story = {
   publishedAt: string; // ISO date
   readMinutes: number;
   isFeatured?: boolean;
+  /** Controls the Alumni of the Month slot on the home page (max 1 shown). */
+  isFeaturedHome?: boolean;
 };
 
 export type Business = {
@@ -62,7 +64,10 @@ export type Business = {
   logo: string;
   coverImage: string;
   website?: string;
+  /** Controls the big spotlight card on the business listing page. */
   isSpotlight?: boolean;
+  /** Controls the featured business slots on the home page (max 2 shown). */
+  isFeaturedHome?: boolean;
 };
 
 export type Article = {

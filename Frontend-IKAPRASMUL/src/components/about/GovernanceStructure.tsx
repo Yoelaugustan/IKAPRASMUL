@@ -64,12 +64,17 @@ export async function GovernanceStructure() {
         <div className="mt-3 border-t border-gray-200 pt-4">
           {/* 4 Distinct Columns for 4 Divisions */}
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
-            {BOARD_DIVISIONS.map((division) => (
-              <div 
-                key={division.id} 
-                className="flex flex-col gap-y-2 border-l border-gray-200 first:border-none pl-2 first:pl-0 h-fit"
+            {BOARD_DIVISIONS.map((division, index) => (
+              <div
+                key={division.id}
+                className={cn(
+                  "flex flex-col gap-y-2",
+                  // index 1 & 3 are always in the right column at both sm (2-col) and lg (4-col)
+                  index % 2 === 1 && "sm:relative sm:pl-4 sm:before:content-[''] sm:before:absolute sm:before:left-0 sm:before:top-0 sm:before:h-full sm:before:w-px sm:before:bg-gray-200",
+                  // index 2 is first column at sm (no divider), third column only at lg
+                  index === 2 && "lg:relative lg:pl-4 lg:before:content-[''] lg:before:absolute lg:before:left-0 lg:before:top-0 lg:before:h-full lg:before:w-px lg:before:bg-gray-200"
+                )}
               >
-                {/* Map members vertically inside their specific division column */}
                 {division.members.map((m) => (
                   <MemberAvatar
                     key={m.name}

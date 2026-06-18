@@ -314,7 +314,8 @@
       "coverImage": "/media/stories/taekwondo-1.png",
       "publishedAt": "2024-04-13",
       "readMinutes": 3,
-      "isFeatured": false
+      "isFeatured": false,
+      "isFeaturedHome": true
     },
     {
       "slug": "sanitaryan-banyumu-ryandito-mahendradani",
@@ -336,229 +337,218 @@
   ],
   "business": [
     {
-      "slug": "kopi-prasmul",
-      "name": "Kopi Prasmul",
+      "slug": "puyo-silky-desserts",
+      "name": "Puyo Silky Desserts",
       "industry": "F&B",
       "founder": {
-        "name": "Andi Prasetya",
-        "class": "MM '08"
+        "name": "Eugenie Patricia",
+        "class": "S1 Business '13"
       },
-      "location": "Jakarta, Indonesia",
-      "shortDescription": "Brewing quality coffee, building meaningful connections.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-kopi/200/200",
-      "coverImage": "/images/home/business-kopi.jpg",
+      "location": "Jabodetabek, Bandung, Cirebon, Surabaya",
+      "shortDescription": "Silky dessert brand born from a family recipe, now in 100+ malls across Indonesia.",
+      "description": "<p><strong>Wajah Prasmul di Balik Kesuksesan Puyo Desserts</strong></p><p>Warna merah muda, biru, jingga, dan ungu menghiasi lemari kaca suatu gerai dessert di sebuah mall. Pemandangan menggiurkan ini yang membuat langkah seorang pengunjung melambat sampai terhenti. Setelah pergelutan sengit antara dua warna, si pengunjung akhirnya menentukan pilihannya dengan mantap dan bergerak menuju kasir untuk melakukan transaksi.</p><p>Berdiri sejak tahun 2013, bukan tampilan cantik saja yang membuat konsumen tertarik dengan produk dari Puyo Silky Desserts. Puding lembut bak kain sutera tersebut juga sangat lezat dan sehat, sehingga tak buat ragu untuk membelinya lagi dan lagi. Seperti bisnis lainnya, Puyo tidak hadir dengan sendiri dalam semalam. Ada dua sosok muda di balik kesuksesan penganan elok tersebut, salah satunya adalah Eugenie Patricia.</p><img src='/media/business/puyo-1.png' alt='Puyo Silky Desserts' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Saat masih berumur 19 tahun, Eugenie dan kakaknya, Adrian Agus, mendirikan Puyo Silky Desserts menggunakan resep pudding sang ayah. Kini, dua sosok peraih titel '30 Under 30' dari Forbes Asia ini telah membuka 40 cabang Puyo di Jabodetabek, Karawang, dan Bandung, serta merekrut lebih dari 200 karyawan. Sebagai co-founder, ia bertanggung jawab mengelola karyawannya, serta memahami dan mengatasi segala masalah yang dihadapi bisnisnya.</p><p>Bukan hanya Puyo yang sekarang dikelola oleh Eugenie. Ia melebarkan sayap bisnisnya dengan membuka Nash Eyelash Extension dan mempelopori komunitas Youth of Indonesia.</p><p><strong>Bagaimana awal mula Puyo Desserts Berdiri?</strong></p><p>Semua berawal dari Papaku yang pintar masak. Resep silky dessert ini awalnya dari eksperimen beliau, kemudian aku dan kakak yang melihat bahwa Puyo punya potensi. Di tahun 2013, kami melihat opportunity dimana belum ada brand puding yang ada di top-of-mind orang-orang. Disitulah kami yakin kalau Puyo bisa mengisi posisi tersebut.</p><p><strong>Puyo terbukti sebagai brand yang fenomenal sekaligus sustainable. Apa tipsnya?</strong></p><p>Yang utama adalah memastikan kualitas produknya. Kemudian, cara kami maintain dan memastikan supaya customer datang kembali adalah dengan mengkombinasikan marketing dan service excellent. Hal-hal kecil itulah yang kita perhatikan selama 5 tahun ini.</p><p><em>\"Entrepreneur skills bukan hanya tentang berbisnis dan menghitung profit. Kemampuan problem solving juga termasuk di dalamnya. Inilah skills yang dibutuhkan untuk profesi apapun.\"</em></p><img src='/media/business/puyo-2.png' alt='Puyo Silky Desserts produk' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Apa tantangan yang dilalui dalam proses pengembangan Puyo?</strong></p><p>Saat membangun bisnis di usia muda, aku dan kakak harus memperkerjakan orang-orang yang lebih dewasa dari kami. Harus bisa di-respect dan juga me-respect orang-orang tersebut. Bagaimana caranya kami dilihat sebagai owner, namun juga memberi respect dan mau belajar dari mereka yang kami ajak di tim Puyo. Itu pelajaran yang menantang buatku.</p><p><strong>Bagaimana Eugenie menanggapi demotivasi di usia muda?</strong></p><p>Biasanya baca buku, menonton film atau talk show yang memotivasi. Mungkin terdengar cliché, tapi dari situ aku langsung mendapatkan banyak ide. Kalian juga bisa cari mentor atau orang-orang yang bisa memotivasi. Selain itu, yang terpenting adalah memiliki goal. Aku dan kakak selalu nulis apa yang harus dicapai Puyo tahun ini. Itu yang jadi motivasi untuk terus bergerak tiap harinya.</p><p><em>\"Tips time management adalah balance dalam segalanya. Main tetap harus.\"</em></p><p><strong>Apa yang harus dipersiapkan dalam membesarkan bisnis startup?</strong></p><p>Pertama, tidak boleh malu. Dari awal aku bikin Puyo, pasti selalu ada yang berkomentar negatif. Dibanding aku malu dan stop, lebih baik lanjutkan saja. Kedua, jangan berhenti belajar. Aku selalu tanamkan di diri untuk tidak close-minded. Kita harus terima masukan dari siapapun, belajar dari buku, dari pelajaran di kampus, di sekolah, kita serap ilmu itu sebanyak-banyaknya agar saat menjalankan bisnis, itu bisa dipraktekkan.</p><p><strong>Ilmu apa saja dari Prasmul yang berperan dalam perkembangan Puyo?</strong></p><p>Aku selalu bilang ke semua orang dan teman-temanku, yang paling seru dari Prasmul adalah praktik. Aku dapat kesempatan untuk jalanin praktik business model yang berbeda-beda. Selama di Prasmul, aku membuat Eat Express dan Melu Culinary Tours. Yang pertama merupakan F&amp;B juga, tapi makanan berat. Melu Culinary Tours adalah business project aku, dan itu bidang jasa. Banyak case di Puyo yang aku gunakan untuk tugas-tugas di Prasmul, dan banyak juga case dari Prasmul yang aku terapkan di Puyo.</p><p><em>\"Menurut aku, dengan adanya media sosial, anak-anak muda zaman sekarang harus lebih bisa meng-empower satu sama lain.\"</em></p><p><strong>Apa kelebihan dari networking dengan Prasmul?</strong></p><p>Dilihat dari proses seleksi sendiri, aku tahu kapabilitas orang-orangnya sudah bagus. Kalau aku tahu orang tersebut dari Prasmul, aku langsung percaya. Karena cara penyampaian mereka, pola pikirnya, dan cara menyelesaikan tugas sudah berbeda tolak ukurnya dibandingkan banyak mahasiswa lain.</p><p><strong>Apa milestone yang telah dicapai dan mau dicapai Puyo?</strong></p><p>Setiap tahun, kita ingin give back, karena itu adalah salah satu value yang Puyo miliki. Give back to the community that we serve. Pertama, kita kerjasama dengan The Nature Conservancy, di mana kita mengumpulkan 100 juta untuk melestarikan penyu di NTT. Kedua, kita bekerjasama dengan Taman Bacaan Pelangi dan tahun lalu, kita membangun dua taman bacaan di daerah Flores. Tahun ini kita akan berkolaborasi dengan Chelsea Islan. Kita mau membangun satu lagi taman bacaan, mungkin di daerah Sumba atau Flores.</p><p><strong>Lokasi:</strong> Tersebar di lebih dari 100 mal di wilayah Jabodetabek, Bandung, Cirebon, hingga Surabaya.</p>",
+      "logo": "/media/business/puyo-logo.png",
+      "coverImage": "/media/business/puyo-cover.jpg",
+      "website": "#",
+      "isSpotlight": true,
+      "isFeaturedHome": true
+    },
+    {
+      "slug": "wakacao",
+      "name": "Wakacao",
+      "industry": "F&B",
+      "founder": {
+        "name": "Charles Tantiono",
+        "class": "S1 Business '12"
+      },
+      "location": "Jakarta, Tangerang, Bekasi, Bandung, Jogjakarta, Gresik",
+      "shortDescription": "Indonesia's first local beef pepper rice brand, founded by five Prasmul alumni.",
+      "description": "<p><strong>Charles Tantiono: Selalu Beri Ruang Untuk Ilmu Baru</strong></p><p>Charles Tantiono merupakan salah satu sosok dibalik lahirnya Wakacao, beef pepper rice berlabel lokal pertama di Indonesia yang merupakan buah pemikiran lima alumni S1 Business Prasetiya Mulya angkatan 2012.</p><p>Wakacao diberi panggung di dunia kuliner oleh masyarakat berkat cita rasa, keunikan maupun word of mouth marketing yang kuat. Hingga saat ini, bisnis yang dinaungi Charles, Echa, Fernald, Andika dan Deninda ini mampu berekspansi menjadi 13 cabang dalam kurun waktu 1 tahun.</p><img src='/media/business/wakacao-1.jpg' alt='Wakacao' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Peluh Asa Charles &amp; Tim dalam Mendirikan Wakacao</strong></p><p>Charles bercerita, bisnis yang lahir dari project akhir di Prasmul ini berawal karena ketertarikan 5 tim Wakacao terhadap kuliner beef pepper rice. \"Kami berlima memang pecinta beef pepper rice. Sayangnya, sebelum ada Wakacao, menu beef pepper rice cukup overpriced buat kami. Dari situ terpikir, kenapa gak buat bisnis makanan yang kami suka namun dengan harga terjangkau,\" jelas Charles.</p><p>Mereka memulai Wakacao dari nol. Berjibaku dalam berkuliah sambil menjaga kedai, melewati pertengkaran berkali-kali dengan masalah yang beragam hingga merasakan lidah kelu karena menghabiskan 4 sampai 5 bulan hanya untuk mencoba resep yang selalu gagal.</p><img src='/media/business/wakacao-2.png' alt='Wakacao beef pepper rice' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Berkat usaha yang luar biasa, Wakacao kini sudah bisa menjangkau para penikmat beef pepper rice di daerah Tangerang dan sekitarnya (Alam Sutera, BSD, Bintaro, Gading Serpong, Karawaci), Jakarta (Kemanggisan, Cibubur), Bekasi, Bandung, Jogjakarta dan Gresik.</p><img src='/media/business/wakacao-3.png' alt='Wakacao lokasi' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Sistem Kepemilikan Kontroversial</strong></p><p>Ditanya mengenai rahasia dalam ekspansi bisnisnya, Charles menjawab bahwa sampai saat ini Wakacao belum memutuskan untuk membuka sistem franchise. Setiap kedainya murni dimiliki oleh kelima anggota Wakacao. Masing-masing memiliki kesempatan untuk mengelola dan memperluas cabang sesuai wilayah.</p><p>\"Sistem kepemilikannya memang agak kontroversial, tapi somehow it works. Semua anggota punya kesempatan untuk mengelola dan memperluas cabang, sehingga masing-masing harus multi tasking ngurus segalanya sendiri mulai dari operasional, keuangan, pemasaran hingga pengelolaan SDM,\" paparnya.</p><img src='/media/business/wakacao-4.png' alt='Wakacao tim' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Mewujudkan Impian Mama</strong></p><p>\"Mama punya passion di bidang kuliner dan pengin banget punya usaha makanan. Jadi Wakacao ini sebenarnya salah satu mimpi mama yang aku wujudkan. Disini kami saling kolaborasi dalam besarin cabang Wakacao yang aku pegang. Mama ngurus bagian dapur dan aku di supply chain-nya,\" ceritanya.</p><img src='/media/business/wakacao-5.png' alt='Wakacao' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Selalu Beri Ruang Untuk Ilmu Baru</strong></p><p>Di usia ke 23 tahun, ia tercatat menduduki posisi Supervisor Retail Engagement di Philip Morris Indonesia sekaligus menghandle 2 cabang Kedai Wakacao di Kelapa Gading, Jakarta Utara. Selama berkuliah di Prasmul, Charles pun mengantongi berbagai medali kejuaraan, seperti 1st Runner Up International Gadjah Mada Business Case Competition 2016, National Champion &amp; National Best Speaker EURECA Business Plan Competition 2014 dan Indonesia Representative Audi-Robert Walters Global Business Case Challenge 2015 di Jepang.</p><img src='/media/business/wakacao-6.png' alt='Wakacao penghargaan' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Peraih beasiswa prestasi dari Prasmul ini mengaku bahwa ia bukanlah seorang perfectionist, melainkan seorang lifelong learner. Baginya, selalu ada ruang bagi ilmu yang bermanfaat dan selalu ada usaha bagi keingintahuan yang belum terjawab.</p><p>\"Tingkat curiousity aku sangat tinggi. Aku senang menggali hal baru dan kalau sudah mau tahu satu hal akan kejar terus sampai dapat ilmunya. Bukan tipikal yang perfectionist, tapi asal semua jalan dan sudah kasih performa yang baik, itu udah cukup buatku.\"</p><img src='/media/business/wakacao-7.png' alt='Wakacao Charles' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Charles dan Prasmul</strong></p><p>Peraih IPK 3.93 ini mengungkapkan, Prasmul bukan hanya sekedar tempat untuk menempa wawasan. Lebih dari itu, disinilah ia menemukan teman-teman lintas budaya yang punya pandangan terbuka dan punya kemauan untuk maju.</p><p>\"Dari SD sampai SMA, teman-teman sekolahku mayoritas punya agama dan ras yang sama. Pas masuk Prasmul, aku cukup amazed karena orangnya ga hanya diverse secara kultur, agama dan ras, namun punya pemikiran terbuka. Aku dikelilingi teman-teman yang memang punya niat untuk berhasil, pemikirannya inovatif dan koneksinya luas. Kerasa banget dari auranya.\"</p><img src='/media/business/wakacao-8.png' alt='Wakacao menu' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Charles memandang, Prasmul mampu menghadirkan proses belajar yang komprehensif dan menunjang cita-cita mahasiswanya. \"Mau jadi pebisnis atau profesional, semua dibekali ilmu yang lengkap, program beasiswa dan fasilitas yang menunjang.\"</p><p>\"Pesan untuk adik-adik Prasmulyan, jauhkan diri dari sifat sombong, harus pandai bergaul, tidak sering mengeluh dan selalu berusaha memberikan aura positif bagi banyak orang.\"</p><img src='/media/business/wakacao-9.png' alt='Wakacao' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Lokasi:</strong> Kuliner Alam Tebet, Kuliner Pagi Malam Thamrin, Pasar Modern BSD, Alam Sutera, dan berbagai kota lainnya.</p>",
+      "logo": "/media/business/wakacao-logo.jpg",
+      "coverImage": "/media/business/wakacao-cover.png",
+      "website": "#"
+    },
+    {
+      "slug": "shabu-hachi",
+      "name": "Shabu Hachi",
+      "industry": "F&B",
+      "founder": {
+        "name": "Githa Nafeeza",
+        "class": "MM Business Management '11"
+      },
+      "location": "Bogor, Jakarta, Bandung",
+      "shortDescription": "Japanese shabu-shabu restaurant that earned a presidential visit from Jokowi.",
+      "description": "<p><strong>Jokowi Santap Siang di Resto Shabu Hachi Milik Alumni Prasmul</strong></p><p>Presiden Jokowi memang terkenal sebagai pemimpin negara yang konsisten dalam mendukung geliat dunia usaha di tanah air. Disela-sela lawatannya ke berbagai kota, Pak Jokowi acap kali meluangkan waktunya untuk singgah ke pusat perbelanjaan, restoran hingga barbershop berlabel lokal.</p><p>Menariknya, bisnis besutan alumni Prasmul juga tak ketinggalan disambangi presiden RI ke-7 ini. Kini giliran Restoran Shabu Hachi milik Githa Nafeeza (Alumnus MM Business Management Prasmul angkatan 2011) yang mendapat sorotan karena kedatangan orang nomor 1 di Indonesia.</p><p>Pada Sabtu, 19 Agustus 2017 lalu, Presiden Jokowi memboyong keluarganya ke restoran berkonsep Jepang tersebut untuk makan siang. Restoran yang terletak tak jauh dari Istana Bogor ini, terletak di Jalan Pajajaran nomor 75, Kecamatan Bogor Timur, Kota Bogor. Sekitar pukul 13.30 WIB, Jokowi pun tiba dan disambut oleh Githa Nafeeza beserta tim dari Shabu Hachi.</p><p>Jokowi dan keluarga menyantap ragam pilihan daging dan sayur khas Shabu Hachi. Tak ketinggalan, beliau juga menyempatkan untuk menyapa warga Bogor yang juga sedang berkunjung ke Shabu Hachi. Sekitar 1,5 jam lamanya beliau menghabiskan waktu di Shabu Hachi sebelum akhirnya kembali melanjutkan perjalanannya.</p><p><strong>Sekilas tentang Shabu Hachi</strong></p><p>Restoran yang berdiri sejak 2015 ini sudah tersebar di tiga kota. Meski shabu-shabu merupakan menu andalan yang ditawarkan, Shabu Hachi juga menawarkan menu grill. Terdapat beragam pilihan daging, dari australian beef hingga wagyu beef dengan berbagai soup, sayur dan isian lengkap, side dish dan dessert. Dengan merogoh kocek mulai dari 118.000 hingga 148.000 per orang, kalian bisa makan kenyang, hemat dan nikmat!</p><p>Dengan kualitas yang baik, konsep yang menarik dan strategi bisnis yang tepat, tak heran kalau Shabu Hachi selalu dipadati pengunjung. \"Pembelajaran di Prasmul itu menantang. Kami terbiasa ditantang untuk menyelesaikan real case studies dari industri, lingkungannya juga mendukung banget untuk ngembangin business knowledge. Apa yang saya pelajari di Prasmul sangat informatif, lengkap dan yang paling penting bisa saya aplikasikan dalam menjalani bisnis.\"</p><p><strong>Lokasi:</strong> Jl. Raya Pajajaran No.75 Bogor · Jl. Karang Tengah Raya No.52 Jakarta · Jl. RC Veteran Raya No.20 Jakarta · Jl. Cilaki No.41 Bandung</p>",
+      "logo": "/media/business/hachi-logo.jpg",
+      "coverImage": "/media/business/hachi-cover.png",
+      "website": "#"
+    },
+    {
+      "slug": "nasi-peda-pelangi",
+      "name": "Nasi Peda Pelangi",
+      "industry": "F&B",
+      "founder": {
+        "name": "Nadya Pratiwi",
+        "class": "MM Business Management Batch 37"
+      },
+      "location": "Jakarta Selatan",
+      "shortDescription": "Farm-to-table warung driving the Beras Baik Movement, connecting city consumers to Indonesian farmers.",
+      "description": "<p><strong>Ciptakan Cita Rasa Baru di Karier: Perjalanan Nadya Merintis Nasi Peda Pelangi</strong></p><p>Delapan tahun menyelami kolam yang sama, ternyata bisa jadi membosankan. Inilah yang dirasakan oleh Nadya Pratiwi, yang sudah berkutat dengan bidang akuntansi dan keuangan selama 8 tahun sejak kuliah di jenjang S1. Dan tentunya, sama seperti sebagian orang, career switch pun menjadi jalan. Dari employee korporasi, alumnus FEB UI ini berbelok menjadi seorang entrepreneur.</p><img src='/media/business/nasi-peda-pelangi-1.jpg' alt='Nasi Peda Pelangi' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>My Prasmul, My Playground</strong></p><p>Bisnis yang merupakan tiket masuk Nadya menuju work-life balance ini dimulai pada 2018, bersamaan dengan babak barunya sebagai mahasiswa pascasarjana MM Business Management di Prasmul.</p><p>\"Kalau secara konkrit, Prasetiya Mulya jadi tempat buat aku test product dan test market. Terus temen-temen yang ada di kelas juga semangatnya bisnis semua, jadi pasti kalau ngasih masukan itu apa adanya dan itu yang menurut aku mahal. Yah, walau memang bahasanya suka ketinggian kalau di Prasmul, cocoknya di perusahaan selevel Unilever,\" ungkap Nadya.</p><p>Ketika tanya ke dosen gimana aplikasinya buat UMKM, akhirnya kita bisa dapet strategic plan yang jelas dan relevan buat kelas UMKM.</p><img src='/media/business/nasi-peda-pelangi-2.jpg' alt='Nasi Peda Pelangi warung' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Kindness, from Plate to Palate</strong></p><p>Tahun 2020 menjadi tahun paling menantang bagi semua orang. Tak terkecuali, Nadya dan Nasi Peda Pelangi pun kena imbasnya. \"Waktu itu mau gak mau, warung harus tutup 3 bulan. Kita nggak tau gimana cara maintain karyawan yang nggak bisa kita gaji dan harus kita rumahin, dan lain-lain.\"</p><p>\"Akhirnya ketemu Beras Baik Movement di 2020. Kita bener-bener coret-coret Business Model Canvas lagi. Karena banyak waktu untuk merenung, kita coba pikirin lagi orang butuhnya di masa itu apa sih, kita harus come up dengan narasi Beras Baik Movement.\"</p><p>Pertimbangan Nadya saat itu adalah proses bisnis yang sirkuler, saling berkesinambungan. Sebab, Nasi Peda Pelangi membutuhkan beras, dan petani membutuhkan konsumen.</p><img src='/media/business/nasi-peda-pelangi-3.jpg' alt='Nasi Peda Pelangi Beras Baik' style='width:100%;border-radius:8px;margin:20px 0;' /><p>\"Dari situ, aku sepakat sama Mas Jum (sang petani). Aku bilang, 'Yaudah mas tanemin aja, balik lagi pake cara nenek moyang biar nggak usah ngutang kimia dan segala macem, sehingga utang nggak tambah banyak. Nanti kalau panen, aku beli deh buat warung.'\"</p><p>Sehingga sekarang, gerakan Beras Baik Nasi Peda Pelangi menjadi niatan baik yang selalu mengalir. Mulai dari beli beras langsung ke petani, memberdayakan bisnis sang petani, menghargai warisan ilmu nenek moyang dan alam, hingga menyejahterakan karyawan bisnis sendiri.</p><p>\"Kita mulai dari beli 50kg per bulan waktu itu di 2020 akhir. Alhamdulillah sekarang 2.1 ton per bulan, jadi lumayan happy sih petaninya dan kita yang punya warung. Ternyata orang kota bisa konek sama temen-temen desa lewat sepiring nasi.\"</p><p>Melihat ke belakang, Nadya yang pernah diundang sebagai pembicara TEDx Jakarta ini tentunya merasa bangga akan beragam percapaian. Membangun bisnis memang sulit, tapi mempertahankannya adalah pekerjaan terberat.</p><p><em>\"Enam tahun ngebangun bisnis makanan sih kayak belajarnya gak beres-beres ya, tapi it's a good point, karena masalah yang kita hadapi setiap tahun pasti beda, sesuai dengan step growingnya.\"</em></p><p><strong>Lokasi:</strong> Fairgrounds 5 Senayan · Jl. Taman Setia Budi II No. 28 Kuningan · Jl. Intan No. 68 Cilandak Barat Jakarta Selatan</p>",
+      "logo": "/media/business/nasi-peda-pelangi-logo.jpg",
+      "coverImage": "/media/business/nasi-peda-pelangi-cover.jpg",
+      "website": "#"
+    },
+    {
+      "slug": "toko-kopi-tuku",
+      "name": "Toko Kopi Tuku",
+      "industry": "F&B",
+      "founder": {
+        "name": "Andanu Prasetyo",
+        "class": "S1 Business '07"
+      },
+      "location": "Jakarta",
+      "shortDescription": "Beloved Jakarta coffee shop famous for Kopi Susu Tetangga — visited by President Jokowi.",
+      "description": "<p><strong>Kopi Susu di Kedai Tuku Pikat Keluarga Presiden Jokowi</strong></p><p>Andanu Prasetyo, Alumnus S1 Business Prasmul angkatan 2007 pasti bangga, karena pada Minggu (2/7), kedai kopi miliknya mendapat kunjungan dari orang nomor satu di Indonesia. Kedatangan Presiden Jokowi ke kedai kopi milik alumni Prasetiya Mulya ini lengkap dengan Ibu Negara Iriana beserta ananda tercinta, Kaesang dan Kahiyang.</p><img src='/media/business/tuku-1.png' alt='Toko Kopi Tuku' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Dilansir dari Detik.com, Presiden Jokowi sekeluarga tiba di @tokokopituku sejak pukul 11.30 WIB. Dengan tampilan serba putih nan kasual, presiden Indonesia ke-7 ini menyambangi salah satu cabang Tuku di bilangan Cipete, Jakarta Selatan, untuk mencicipi segelas kopi susu andalan TUKU yaitu Kopi Susu Tetangga.</p><img src='/media/business/tuku-2.png' alt='Toko Kopi Tuku Jokowi' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Menyajikan kopi nikmat dengan harga bersahabat membuat TUKU menjadi 'bahan omongan' para penikmat kopi. Kedai kopi milik alumni Prasmul juga viral di sosial media hingga sampai ke telinga Gibran Rakabuming, anak pertama Pak Jokowi. Meski tak ikut datang pada minggu siang kemarin, Pak Jokowi mengaku mendapat rekomendasi nikmatnya TUKU dari anak sulungnya.</p><img src='/media/business/tuku-3.png' alt='Toko Kopi Tuku suasana' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Apresiasi Jokowi untuk mendukung para pengusaha muda serta pemajuan brand lokal di tanah air memang terlihat nyata. Pada hari itu, beliau tak hanya membeli produk TUKU, namun nampak berbincang hangat bersama tim Kopi TUKU dan tak canggung berbaur dengan pengunjung lainnya. Andanu mengaku tak ada perlakukan khusus bagi Presiden RI tersebut, beliau pun ikut merasakan antre demi mendapatkan segelas kopi susu hits a la TUKU.</p><img src='/media/business/tuku-4.png' alt='Toko Kopi Tuku produk' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Andanu Prasetyo dan Prasetiya Mulya</strong></p><p>Andanu Prasetyo yang akrab disapa Tyo lulus dari Prasmul pada tahun 2013. Kedekatan Tyo dengan bisnis kopi sudah terlihat semenjak ia menjalani Business Project atau proyek akhir semester yang ia bangun demi lulus dari Prasmul. Ia bersama ketujuh mahasiswa Prasmul lainnya yaitu Amatulhay Artsindy S.P., Athalia Ariati Hidayat, Farazandi Fidinansyah, Faradi Pramudito, Jessica Michelle Christian, Stella Tika Lestari dan Timotius Pratama Atmadi mendirikan Komodo Coffee, kedai kopi yang menawarkan sajian kopi dari Nusa Tenggara Timur (NTT).</p><img src='/media/business/tuku-5.png' alt='Toko Kopi Tuku Andanu' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Selain mendirikan TUKU, saat ini Andanu juga sibuk mengurus Toodz House. Cafe kasual yang terletak di Cipete Raya No.79 ini berdiri sejak 2010. Jika TUKU juara dalam menyajikan varian kopi beragam, maka Toodz House dikenal dengan konsep cafe dengan nuansa homey yang menyajikan makanan dan minuman western hingga asian.</p><p><strong>Lokasi:</strong> SPBU bp Simprug Jl. Simprug Garden No. 7 · Blok M Jl. Sultan Hasanuddin Dalam No. 25 · Pasar Santa Lantai Dasar Kios 176-177 Jakarta Selatan</p>",
+      "logo": "/media/business/tuku-logo.png",
+      "coverImage": "/media/business/tuku-cover.jpg",
+      "website": "#",
+      "isFeaturedHome": true
+    },
+    {
+      "slug": "sunyi-house-of-coffee-and-hope",
+      "name": "Sunyi House of Coffee & Hope",
+      "industry": "F&B",
+      "founder": {
+        "name": "Mario Gultom & Almas Nizar",
+        "class": "S1 Branding"
+      },
+      "location": "Cilandak, Jakarta Selatan",
+      "shortDescription": "A coffee house run entirely by persons with disabilities — turning humanity into hospitality.",
+      "description": "<p><em>\"Banyak orang menganggap kemanusiaan sebagai amal. Padahal, kemanusiaan adalah tanggung jawab.\" — Mario Gultom, Founder Sunyi</em></p><p>Di tengah keramaian jalan utama Fatmawati, Jakarta Selatan, berdiri sebuah kedai kopi dengan tembok putih melengkung dan logo biru mencolok. Seluruh pegawainya, mulai dari juru parkir, koki, hingga barista, merupakan penyandang disabilitas. Tidak hanya itu, pengunjung pun diwajibkan menyampaikan pesanan menggunakan bahasa isyarat.</p><img src='/media/business/sunyi-1.png' alt='Sunyi House of Coffee' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Inilah Sunyi, House of Coffee &amp; Hope, sebuah café bertema kemanusiaan yang dirintis oleh dua alumni S1 Branding Prasetiya Mulya, Mario Gultom dan Almas Nizar.</p><p><strong>Ide yang Terkubur Bertahun-tahun</strong></p><p>Sejak berkuliah, Mario telah memupuk passion di bidang kemanusiaan. Mempelajari marketing dan kewirausahaan di Prasmul, keinginannya untuk terjun ke dunia socio-entrepreneurship dan membantu penyandang disabilitas sudah terbentuk sejak 2016. Namun setelah idenya 'diserang' dan disebut 'keanak-anakan', Mario menghilangkan rencana tersebut dari benaknya.</p><p>\"Ada orang pernah bilang ke aku, 'kalau mau tolong orang, kumpulin uang yang banyak, terus kasih ke mereka.' Padahal kalau uang itu habis, mereka akan susah lagi. Seharusnya, kita bikin wadah yang sustainable seumur hidup mereka. Itu baru namanya solusi.\"</p><img src='/media/business/sunyi-2.png' alt='Sunyi cafe suasana' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Memutuskan untuk mematangkan ilmu sembari bekerja full-time, Mario bertemu kembali dengan Almas, kali ini sebagai rekan kerja di sebuah perusahaan. Setelah mencurahkan kembali idenya, Almas akhirnya menjadi orang pertama yang menaruh kepercayaan kepada Mario, sekaligus menyarankan untuk membangun kedai kopi.</p><p>\"I believed in the idea,\" ungkap Almas. \"Tapi tidak asal eksekusi, proses research dan brainstorming kami panjang sampai akhirnya memiliki konsep yang firm, approved, tested, dan bisa launching pada awal 2019 lalu. Integritas itu salah satu hal yang kita dapatkan dari Prasmul.\"</p><img src='/media/business/sunyi-3.png' alt='Sunyi barista' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Menciptakan Indonesia yang Lebih Inklusif</strong></p><p>Salah satu tantangan Mario dan Almas adalah dalam membangun kepercayaan masyarakat disabilitas. Dalam proses tersebut, mereka mendekatkan diri ke komunitas-komunitas disabilitas, serta mempelajari bahasa isyarat di Pusat Bahasa Isyarat Indonesia. Di sini mereka semakin akrab dengan teman-teman tunanetra, tunarungu, tunadaksa, dan lainnya.</p><p>\"Saat kami membuka lowongan, kami tidak memasukkan persyaratan pengalaman kerja. Mereka udah susah cari kerja, masa kami minta pengalaman? Kami mendahulukan high-spirit. Ternyata, ada ratusan orang yang mendaftar. Ini semakin membuktikan betapa banyaknya kaum disabilitas yang menganggur.\"</p><img src='/media/business/sunyi-4.jpg' alt='Sunyi tim disabilitas' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Ketika menjalankan training, Mario dan Almas menggunakan bantuan visual dalam berkomunikasi, lalu memodifikasi mesin dan peralatan agar bisa digunakan oleh karyawan tunadaksa. Saat ini, Sunyi memiliki seorang barista bertangan satu yang dapat mengoperasikan mesin espresso, bahkan membuat latte art.</p><img src='/media/business/sunyi-5.jpg' alt='Sunyi training' style='width:100%;border-radius:8px;margin:20px 0;' /><p><em>\"Datang ke Sunyi dan melihat anaknya bekerja, salah satu orang tua dari karyawan kami hanya menangis. Ia bilang ini pertama kalinya anaknya menjadi manusia. Mendengar itu, kami terenyuh...\"</em></p><img src='/media/business/sunyi-6.jpg' alt='Sunyi kolaborasi' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Upaya mereka dalam mengekspos kemampuan kerja penyandang disabilitas sudah mengundang kolaborasi dari berbagai brand seperti Grab Indonesia, Tropicana Slim, Nutrifood, dan MRT Jakarta. Keduanya pun berharap experience unik Sunyi dapat terus diviralkan oleh para pengunjung, sehingga tercipta Indonesia yang semakin inklusif.</p><p>\"Saat berkunjung ke Sunyi, customer dapat belajar bahasa isyarat secara gratis. Mereka tinggal menghampiri barista kami dan bilang mau belajar. Biasanya, setiap siang, café ramai dengan orang berkelompok, masing-masing dengan guru yang berbeda dari Sunyi.\"</p><img src='/media/business/sunyi-7.jpg' alt='Sunyi bahasa isyarat' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Take the Big Step!</strong></p><p>Mario dan Almas tidak memungkiri fakta bahwa seperti UMKM lainnya, Sunyi juga merasakan dampak dari COVID-19. Tetapi kedua Prasmulyan tersebut tahu bahwa kunci utama berbisnis adalah adaptasi. Selain membuka dine-in terbatas, mereka juga mengonversikan seluruh experience Sunyi menjadi event digital. Mereka pun berencana untuk expand ke Bintaro, bahkan membuka sekolah bahasa isyarat di Kota Tua.</p><p>\"Dari Prasmul, kami belajar bahwa bisnis yang baik itu berdasarkan opportunity dan problem. Kami percaya bahwa diskriminasi terhadap penyandang disabilitas adalah problem yang harus dipecahkan. Dari situlah asal-usul keberanian kami.\"</p><img src='/media/business/sunyi-8.jpg' alt='Sunyi komunitas' style='width:100%;border-radius:8px;margin:20px 0;' /><p>\"Profit, people, planet. Jangan pernah lupa komponen tersebut sebagai pebisnis. Sekecil apapun unsurnya, hal itu bisa memengaruhi satu orang, yang kemudian bisa memengaruhi orang berikutnya.\" \"Memang tidak mudah, but just take the big step. Kami jamin, kedepannya akan sangat rewarding.\"</p><p><strong>Lokasi:</strong> Jl. RS. Fatmawati Raya No.15, RT.1/RW.3, Cilandak Bar., Kec. Cilandak, Jakarta Selatan</p>",
+      "logo": "/media/business/sunyi-logo.jpg",
+      "coverImage": "/media/business/sunyi-cover.jpg",
       "website": "#",
       "isSpotlight": true
     },
     {
-      "slug": "nexora-solutions",
-      "name": "Nexora Solutions",
-      "industry": "Consulting",
+      "slug": "voyej",
+      "name": "Voyej",
+      "industry": "Fashion",
       "founder": {
-        "name": "Maya Kartika",
-        "class": "MBA '08"
+        "name": "Oktavianus Andika",
+        "class": "S1 Business & MM"
       },
-      "location": "Jakarta, Indonesia",
-      "shortDescription": "Strategy and transformation consulting for ambitious teams.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-nexora/200/200",
-      "coverImage": "/images/home/business-analyst.jpg",
+      "location": "Jakarta",
+      "shortDescription": "Premium leather goods brand born from a Prasmul business plan, now stocked in top department stores.",
+      "description": "<p><strong>Voyej: Brand Leather Good Lokal Karya Alumni Prasmul</strong></p><p>Oktavianus Andika, salah satu founder dari Voyej brand leather good, menceritakan pengalaman dirinya dalam membangun bisnis dan berkuliah di Universitas Prasetiya Mulya. Alumni S1 Bisnis dan Magister Manajemen ini mengatakan awal membangun bisnis dirinya membentuk kelompok tugas akhir S1 berjumlah 5 orang.</p><p>\"Awalnya dulu kami ada 5 orang membentuk kelompok tugas akhir S1 Bisnis Prasmul untuk membuat Business Plan 5 tahun dan harus sampai bisa launching. Jaman itu yang sedang trend di kalangan mahasiswa adalah raw denim yaitu celana jeans yang minim diproses atau dicuci sehingga bisa membentuk shade sesuai karakter pemakainya,\" terangnya.</p><img src='/media/business/voyej-1.png' alt='Voyej leather goods' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Dika pun melanjutkan, dari situ kami melihat produk-produk aksesori kulit seperti dompet dan ikat pinggang sangat dekat dengan dunia denim. Kemudian kami mendalami industri kulit dan kerajinan tangan sampai bisa launching dan lulus dari S1 Bisnis Prasmul.</p><p><strong>Lokasi:</strong> SOGO Department Store Plaza Senayan · Lantai 3 THE GOODS DEPT Pondok Indah Mall 2 · Lantai 3 PASERBA Bangga Lokal Senayan Park</p>",
+      "logo": "/media/business/voyej-logo.png",
+      "coverImage": "/media/business/voyej-cover.jpg",
       "website": "#"
     },
     {
-      "slug": "urbana-studio",
-      "name": "Urbana Studio",
-      "industry": "Retail",
+      "slug": "bonvie",
+      "name": "Bonvie",
+      "industry": "Beauty",
       "founder": {
-        "name": "Rizky Wicaksono",
-        "class": "MM '11"
+        "name": "Angela Vernanda Sadikin",
+        "class": "S1 Branding '14"
       },
-      "location": "Bandung, Indonesia",
-      "shortDescription": "A modern retail label bringing local craft to a global audience.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-urbana/200/200",
-      "coverImage": "https://picsum.photos/seed/biz-retail/1200/800",
+      "location": "Kemayoran, Jakarta Pusat",
+      "shortDescription": "Natural, effective, and affordable hair care — built by a Prasmul alumna to fix real hair problems.",
+      "description": "<p><strong>Bangun Bisnis di Tengah Pandemi</strong></p><p>Angela Vernanda Sadikin, alumni S1 Branding, sedang membangun bisnis perawatan rambut bernama Bonvie ketika merawat diri di rumah menjadi sebuah tren di 2020. \"Bonvie lahir saat momentum itu, pada awalnya Bonvie fokus untuk merawat kerontokan karena menurut data 88% wanita mengalami kerontokan,\" ungkap Angela, Founder dari Bonvie.</p><img src='/media/business/bonvie-1.jpg' alt='Bonvie produk' style='width:100%;border-radius:8px;margin:20px 0;' /><p>\"Awalnya Bonvie ini lahir dari permasalahan rambut aku. Saat aku coba perawatan rambut di pasaran, hasilnya nggak efektif, saat aku mau coba cari ingredients yang premium, harganya pricey, jadilah Bonvie ini sebagai natural effective hair care yang harganya affordable.\"</p><p>Resep rahasianya adalah passion. Angela membangun Bonvie tidak hanya untuk mengatasi permasalahan rambutnya sendiri, tapi juga untuk membantu ribuan wanita untuk bisa memiliki rambut yang sehat. \"Salah satu founder Bonvie sekarang sedang mengambil diploma di bidang organic hair care di Inggris dan sekarang jadi formula advisor di Bonvie, jadi kita punya expert di bidang rambut.\"</p><img src='/media/business/bonvie-2.jpg' alt='Bonvie ingredients' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Life-long Learner</strong></p><p>Selama tiga tahun berjalan, Bonvie tidak hanya membawa perubahan besar terhadap hidup Angela, tetapi juga pada pemahaman bisnisnya. Berbagai teori branding yang ia dapatkan di bangku kuliah, satu per satu mulai diterapkan di proses pengembangan Bonvie.</p><p>\"Di Prasmul, jurusan Branding selalu dekat dengan research, observasi, Focus Group Discussion. Aku dan rekan aku yang juga satu jurusan, jadi punya mindset kalau semua harus based on data atau research dan ini kepake banget di bisnis aku sekarang.\"</p><img src='/media/business/bonvie-3.jpg' alt='Bonvie branding' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Angela juga mengungkapkan proses pembelajaran yang ia alami sebagai founder. \"Tantangan besar buat aku sebagai founder adalah belajar hal-hal baru seperti rekrutmen tim, aku belajar bagaimana caranya agar bisa mendapatkan tim dengan visi misi yang sama dengan Bonvie.\"</p><p>Teori AIDA (Awareness, Interest, Desire, Action) juga diterapkan dalam strategi Bonvie. \"Endorsement nggak selalu harus return, kita harus ikuti prosesnya dalam teori AIDA dimana tahap pertama itu awareness. Ada orang yang riset kalau manusia harus melihat merek satu hingga tujuh kali agar punya willingness to buy.\"</p><img src='/media/business/bonvie-4.jpg' alt='Bonvie Angela' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>She is also a Full Time Mom!</strong></p><p>Selama kurang lebih satu tahun lebih menjalankan perannya sebagai orang tua, Angela terus saja menemukan cara ia sendiri untuk bisa menemukan keseimbangan antara kedua peran tersebut. \"Aku tetap passionate di peran aku sebagai mom dan di bisnis.\"</p><p>\"Kuncinya adalah di take your time aja. Sekarang udah kebentuk pola atau rutinitasnya. Pagi-pagi anak akan sama suster, jadi aku bisa update kerjaan sampai jam sepuluh, baru spend time sama anak. Karena kadang aku WFH dan WFO, jadi kalau WFH aku pasti sama anak aku dan kerja saat anak aku tidur siang.\"</p><img src='/media/business/bonvie-5.jpg' alt='Bonvie koleksi' style='width:100%;border-radius:8px;margin:20px 0;' /><p>\"Kalau begitu lulus langsung mau punya bisnis, it's possible. Tapi akan lebih baik kalau kita magang atau kerja full time karena founder akan ditantang untuk belajar semua hal yang sebenarnya bisa kita dapatkan dari pengalaman tersebut.\"</p><img src='/media/business/bonvie-6.jpg' alt='Bonvie' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Lokasi:</strong> Bonvie Haircare (PT Kreasi Semangat Muda), Kemayoran, Jakarta Pusat</p>",
+      "logo": "/media/business/bonvie-logo.jpg",
+      "coverImage": "/media/business/bonvie-cover.jpg",
       "website": "#"
     },
     {
-      "slug": "innovatek-industries",
-      "name": "Innovatek Industries",
-      "industry": "Manufacturing",
+      "slug": "blp-beauty",
+      "name": "BLP Beauty",
+      "industry": "Beauty",
       "founder": {
-        "name": "Kevin Aluwi",
-        "class": "MM '12"
+        "name": "Lizzie Parra, Adinda Ayu & Monica Christa",
+        "class": "S1 Business '05"
       },
-      "location": "Surabaya, Indonesia",
-      "shortDescription": "Precision manufacturing powering the next wave of Indonesian products.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-innovatek/200/200",
-      "coverImage": "https://picsum.photos/seed/biz-office/1200/800",
+      "location": "Jakarta, Bandung, Surabaya",
+      "shortDescription": "By Lizzie Parra — the local beauty brand that sold 4,000 products in its first week.",
+      "description": "<p><strong>4 Rahasia BLP (By Lizzie Parra) Beauty Bisa Eksis di Industri Kecantikan</strong></p><p>Berbagai merek lokal kini mulai merajai hati masyarakat khususnya milenial Indonesia. Salah satu merek yang mencuri perhatian banyak wanita Indonesia bahkan dari hari pertama peluncurannya adalah BLP (By Lizzie Parra). Merek kosmetik ternama ini berhasil menjual sekitar 4000 produk lip coat andalannya pada minggu pertama peluncuran.</p><img src='/media/business/blp-1.png' alt='BLP Beauty' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Mengusung konsep yang sederhana namun elegan serta mementingkan kepraktisan pengguna, BLP sukses merebut perhatian milenial Indonesia untuk beralih, bahkan mencintai produk dalam negeri. Tak hanya membuat para konsumen puas dengan produknya, BLP juga berhasil membuat masyarakat lebih percaya dengan kualitas produk karya anak Indonesia.</p><p>Adinda Ayu selaku Chief Financial Officer BLP Beauty mengaku kesuksesan yang diraih BLP saat ini merupakan buah dari kerja keras tim BLP belajar menghadapi kegagalan. \"Saya percaya kegagalan tersebut dapat diminimalisir ketika pegiat usaha mengerti celah serta step by step yang seharusnya dilakukan dalam menjalankan bisnis.\"</p><img src='/media/business/blp-2.jpg' alt='BLP Beauty produk' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Ilmu yang diperoleh Adinda Ayu, Lizzie Parra selaku Founder dan Monica Christa selaku Chief Operating Officer selama berkuliah di Universitas Prasetiya Mulya memberikan dampak yang besar dalam membangun BLP. Mulai dari perancangan konsep yang mendalam dan detail akan membantu pebisnis untuk tidak kehilangan arah di tengah perjalanan membangun bisnis.</p><p><strong>Pertama, branding yang terkonsep.</strong> Adinda Ayu mengakui di era digital seperti saat ini social media memegang peranan penting dalam branding. \"Menggabungkan konten yang relatable dan real dengan kehidupan wanita Indonesia sehari-hari adalah salah satu trik yang menarik perhatian konsumen.\"</p><img src='/media/business/blp-3.jpg' alt='BLP Beauty store' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Kedua, timing yang tepat,</strong> seperti tim BLP yang merasa 2016 merupakan tahun yang tepat bagi mereka memulai bisnis ini. Telah berbekal ilmu bisnis, memperkirakan perkembangan bidang beauty di Indonesia dan pertimbangan lainnya membuat ketiga Lady Bosses BLP Beauty ini yakin akan waktu terbaik mereka membangun BLP.</p><p><strong>Ketiga adalah konsisten terhadap target market</strong> yang telah ditetapkan sejak awal. Menjadikan diri sendiri sebagai contoh target pasar membuat BLP paham akan kebutuhan calon konsumennya. \"BLP Team bangga dan selalu memprioritaskan penggunaan beauty product dari brand kami sendiri dulu.\"</p><img src='/media/business/blp-4.jpg' alt='BLP Beauty koleksi' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Terakhir adalah menjaga kualitas produk.</strong> BLP selalu berusaha memberikan produk dengan kualitas terbaik dan cocok digunakan oleh wanita Indonesia. Tak jarang untuk meluncurkan satu produk BLP membutuhkan waktu yang cukup lama dan persiapan yang matang demi mendapatkan kualitas produk terbaik dengan harga yang affordable.</p><img src='/media/business/blp-5.jpg' alt='BLP Beauty' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Adinda Ayu berpesan untuk jangan takut mencoba dan siap belajar dari kegagalan dalam berbisnis. Terbuka dengan masukan teman-teman beauty enthusiast juga sangat membantu BLP bisa berada di titik saat ini.</p><img src='/media/business/blp-6.jpg' alt='BLP Beauty team' style='width:100%;border-radius:8px;margin:20px 0;' /><img src='/media/business/blp-7.jpg' alt='BLP Beauty spaces' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Lokasi:</strong> BLP Beauty Space Central Park · BLP Beauty Space Kota Kasablanka · BLP Beauty Space Paris Van Java · BLP Beauty Space Tunjungan Plaza 6 · Kantor: Jln. Limau II No. 3, Kramat Pela, Kebayoran Baru, Jakarta Selatan</p>",
+      "logo": "/media/business/blp-logo.jpg",
+      "coverImage": "/media/business/blp-cover.jpg",
+      "website": "#",
+      "isSpotlight": true
+    },
+    {
+      "slug": "elmer",
+      "name": "Elmer",
+      "industry": "Beauty",
+      "founder": {
+        "name": "Kimberly Nasri",
+        "class": "S1 Business '16"
+      },
+      "location": "Gading Serpong, Tangerang",
+      "shortDescription": "Premium hygiene and fragrance brand turning handwashing into a sensory ritual.",
+      "description": "<p><strong>Growing Sense of Scent in Covid: Kisah Kimberly Nasri Merintis Usaha Kala Pandemi</strong></p><p>Di tengah virus yang menyerang indera penciuman, Elmer memotivasi orang untuk hidup bersih dan mencium lebih banyak aroma.</p><p>Bayangkan sekarang kamu di tahun 2020. Semua berita di layar HP, laptop, dan TV penuh dengan berita merebaknya virus misterius dari Tiongkok. Imbauan-imbauan untuk menjaga kebersihan lebih ekstra disuarakan di mana-mana. Kamu juga banyak di rumah saja supaya menekan angka penularan. Apa yang kamu butuhkan? Tentu saja produk hygiene atau kebersihan yang membuat momen-momen cuci tanganmu tidak sekadar basahin, sabunin, dan bilasin saja.</p><img src='/media/business/elmer-1.jpg' alt='Elmer produk' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Kimberly Nasri memperkenalkan Elmer dan wangi-wangi uniknya ke khalayak. \"Di tengah pandemi, semua orang sibuk untuk bersih-bersih yang kemudian menjadi rutinitas setiap hari yang bisa membuat jenuh, apalagi di tengah PSBB yang aktivitasnya setiap hari hanya di rumah.\"</p><p>\"Nah dari sana kita come up, kenapa nggak kita bikin sesuatu yang menyenangkan walaupun very simple? Saat itu kita launch produk pertama kita handsoap Elmer, dengan harapan kita bisa switch rutinitas kita dari 'cuci tangan saja' jadi sesuatu yang kita tunggu-tunggu.\"</p><img src='/media/business/elmer-2.jpg' alt='Elmer hand soap' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>The Serious Business</strong></p><p>Tantangan marketing Elmer justru terlihat selama pandemi. Di saat semua beralih ke online dan kompetisi produk kebersihan meningkat, di sinilah Kimberly harus memikirkan masak-masak dalam menjalankan bisnisnya.</p><p>\"Kita tetap fokus utamanya di formulation sih. We really take formulation very seriously, especially kebetulan kami develop formulasi di family-owned factory sendiri.\"</p><p>R&amp;D menjadi tahapan yang paling penting bagi Kimberly untuk menjalankan Elmer. \"Biasa kita tuh butuh satu sampai dua tahun. Kemarin kita launching body lotion itu setelah R&amp;D dua tahun. Jadi selama dua tahun kita nggak launching apa-apa karena kita fokus develop body lotion ini.\"</p><img src='/media/business/elmer-3.jpg' alt='Elmer formulation' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Ketelitian Kimberly sendiri menjadi sebuah keunggulan. \"Produk-produk yang related to hygiene, direct to hygiene seperti hand sanitizer, semuanya lab-tested karena tentu dari mata customer, penting bagi produk kebersihan terbukti efektif membunuh kuman. Di samping itu, kita semuanya juga sudah lulus uji BPOM, jadi semuanya itu aman.\"</p><img src='/media/business/elmer-4.jpg' alt='Elmer koleksi' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Lessons for Life</strong></p><p>Elmer sebetulnya adalah bisnis pertama Kim dan partner-nya. Namun dalam kurun waktu hampir dua tahun, mereka berhasil mendapatkan lebih dari 35 ribu followers di Instagram dan ribuan order. Produk-produk mereka pun berjajar di etalase Sociolla dan KKV.</p><p>\"Aku dan partner-ku, banyak banget yang kita pelajari dari nol, karena kita build brand-nya hanya berdua, banyak hal baru yang kita discover along the way, maybe bisa kita sebut learning by doing ya.\"</p><p>Contohnya, pada saat mereka membuka order hampers Natal. Mereka mendapatkan order 3000 paket, sementara pada saat itu, tenaga kerja yang ada hanya Kim dan partner, dan seorang staff. \"Jadi nyadar kalo bikin bisnis itu kamu harus membentuk team yang tepat juga.\"</p><img src='/media/business/elmer-5.jpg' alt='Elmer packaging' style='width:100%;border-radius:8px;margin:20px 0;' /><p>\"Of course pengen go international, let's see ya. Kalau in the near future, kita plan untuk tap in ke offline market untuk meningkatkan eksistensi brand. Kita ingin menonjolkan visual brand Elmer yang identik dengan something pretty with a touch of luxury.\"</p><p><strong>Lokasi:</strong> Ruko Faraday Blok B No. 21, Gading Serpong, Medang, Pagedangan, Kabupaten Tangerang</p>",
+      "logo": "/media/business/elmer-logo.png",
+      "coverImage": "/media/business/elmer-cover.png",
       "website": "#"
     },
     {
-      "slug": "nexora-solutions-2",
-      "name": "Nexora Solutions",
-      "industry": "Consulting",
-      "founder": {
-        "name": "Maya Kartika",
-        "class": "MBA '08"
-      },
-      "location": "Jakarta, Indonesia",
-      "shortDescription": "Strategy and transformation consulting for ambitious teams.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-nexora/200/200",
-      "coverImage": "/images/home/business-analyst.jpg",
-      "website": "#"
-    },
-    {
-      "slug": "urbana-studio-2",
-      "name": "Urbana Studio",
-      "industry": "Retail",
-      "founder": {
-        "name": "Rizky Wicaksono",
-        "class": "MM '11"
-      },
-      "location": "Bandung, Indonesia",
-      "shortDescription": "A modern retail label bringing local craft to a global audience.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-urbana/200/200",
-      "coverImage": "https://picsum.photos/seed/biz-retail/1200/800",
-      "website": "#"
-    },
-    {
-      "slug": "innovatek-industries-2",
-      "name": "Innovatek Industries",
-      "industry": "Manufacturing",
-      "founder": {
-        "name": "Kevin Aluwi",
-        "class": "MM '12"
-      },
-      "location": "Surabaya, Indonesia",
-      "shortDescription": "Precision manufacturing powering the next wave of Indonesian products.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-innovatek/200/200",
-      "coverImage": "https://picsum.photos/seed/biz-office/1200/800",
-      "website": "#"
-    },
-    {
-      "slug": "kopi-prasmul-2",
-      "name": "Kopi Prasmul",
-      "industry": "F&B",
-      "founder": {
-        "name": "Andi Prasetya",
-        "class": "MM '08"
-      },
-      "location": "Jakarta, Indonesia",
-      "shortDescription": "Brewing quality coffee, building meaningful connections.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-kopi/200/200",
-      "coverImage": "/images/home/business-kopi.jpg",
-      "website": "#"
-    },
-    {
-      "slug": "tania-ventures",
-      "name": "Tania Ventures",
-      "industry": "Startup",
-      "founder": {
-        "name": "Sinta Dewi",
-        "class": "MM '13"
-      },
-      "location": "Jakarta, Indonesia",
-      "shortDescription": "Early-stage venture studio backing the next generation of founders.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-tania/200/200",
-      "coverImage": "https://picsum.photos/seed/biz-tania/1200/800",
-      "website": "#"
-    },
-    {
-      "slug": "prima-care",
-      "name": "Prima Care",
-      "industry": "Healthcare",
-      "founder": {
-        "name": "Dr. Adi Surya",
-        "class": "MM '07"
-      },
-      "location": "Surabaya, Indonesia",
-      "shortDescription": "Accessible primary care clinics and a telehealth platform.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-prima/200/200",
-      "coverImage": "https://picsum.photos/seed/biz-prima/1200/800",
-      "website": "#"
-    },
-    {
-      "slug": "pixel-forge",
-      "name": "Pixel Forge",
+      "slug": "tentangkita",
+      "name": "tentangKita",
       "industry": "Creative",
       "founder": {
-        "name": "Dimas Nugroho",
-        "class": "S1 '14"
+        "name": "Clara Vania & Syelin",
+        "class": "S1 Branding '15"
       },
-      "location": "Bandung, Indonesia",
-      "shortDescription": "A product design studio behind fast-growing consumer apps.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-pixel/200/200",
-      "coverImage": "https://picsum.photos/seed/biz-pixel/1200/800",
+      "location": "Online (Tokopedia, Shopee)",
+      "shortDescription": "Card games designed to spark meaningful conversations and help people build healthier relationships.",
+      "description": "<p><strong>Tentang Clara, Tentang Prasmul, dan tentangKita</strong></p><p>Bagi kamu yang punya kesulitan dalam membina hubungan, baik itu bersama teman, pacar, atau keluarga, kartu-kartu yang diproduksi oleh tentangKita mungkin bisa membantu. Clara dan temannya Syelin mendirikan tentangKita dengan misi untuk menciptakan dunia tanpa toxic relationship.</p><img src='/media/business/tentangkita-1.png' alt='tentangKita kartu' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Kartu-kartu dari tentangKita memiliki ragam pertanyaan yang dapat memancing deep conversation; contohnya, salah satu kartu dari Edisi Pasangan berbunyi, \"Bagaimana kamu ingin diperlakukan saat sedang merasa gagal atau sedih?\"</p><p>Di tengah-tengah perjalanan menciptakan permainan untuk berbagai tahap dan jenis hubungan pun, tentangKita juga sempat menggandeng brand-brand lain dalam beberapa kolaborasi, termasuk Good Day. Tidak hanya itu, tentangKita juga mengajak bisnis-bisnis untuk menjalin komunikasi lebih baik dengan tim dan juga pelanggan mereka melalui permainannya.</p><img src='/media/business/tentangkita-2.png' alt='tentangKita koleksi' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Level Up Your Brainstorming Game As a Leader</strong></p><p>Ketika ditanya pengalaman apa saja yang meninggalkan kesan mendalam di Prasmul, Clara Vania Lucas, alumni S1 Branding angkatan 2015, menjawab: banyak. Dari kegiatan panitia, Clara belajar tentang kerjasama tim, koordinasi acara, kepemimpinan, hingga teknis dokumentasi foto dan video.</p><p>\"Yang aku senang di Prasmul, aku bisa eksplor apa yang aku suka. Baru sadar juga, ternyata aku suka banget creative brainstorming.\"</p><img src='/media/business/tentangkita-3.png' alt='tentangKita Clara' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Clara bercerita bahwa dari semua kegiatan panitia yang diikuti, Prasmul Olympics yang paling membantunya berkembang. \"[Pengalaman di Prasmul Olympics] itu bener-bener membekas banget di aku, karena itu kayak the job experience pertama yang aku jalani untuk jadi leader.\"</p><p>\"Waktu jadi PO Creative aku yang nge-lead creative brainstorming. Aku belajar, the idea doesn't always have to come from you, cause you are the leader. You don't have to be the most creative person in the room, but you have to be the leader who keeps asking questions to prompt the creativity flowing out of your team.\"</p><img src='/media/business/tentangkita-4.jpg' alt='tentangKita event' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Your Solution to Your Condition</strong></p><p>Clara juga belajar banyak dari pengalaman mengikuti beberapa kompetisi bergengsi. Pak Fredy hebat banget dalam Consumer Insight. \"Jadi dia tuh bikin suasananya jadi kompetitif; setiap 2 minggu kita ada presentasi dan selalu ada tim yang menang Juara 1. Kritik-kritik beliau tuh sangat membangun, dan bikin critical thinking kita tajam.\"</p><p>Clara pernah mendapat komentar 'Bagus, flawless, tapi useless' dari Pak Fredy atas presentasinya terkait real case dari Traveloka — karena ia mengambil segmen yang terlalu kecil. Namun justru, Traveloka menobatkan kelompok Clara sebagai juara satu. \"Apparently, mereka appreciate lah kita deep dive banget satu age group itu.\"</p><img src='/media/business/tentangkita-5.png' alt='tentangKita produk' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Riset mendalam ini kemudian menjadi mindset yang masih Clara pegang teguh hingga sekarang: focus must be consumer-oriented. Always start with a pain, your product must be the pain killer.</p><p><strong>Believe In Yourself, Live Up to Your Goals</strong></p><p>\"Kita mulai [tentangKita] tuh bener-bener nggak ada modal marketing sama sekali. Modal kita cuma 4,4 juta berdua. Kita open PO.\" Dari 18 pesanan yang kemudian masuk, Clara dan Syelin memproduksi 50 set kartu. Sisa kartu yang tidak terjual dibagi-bagikan secara gratis pada KOL, dengan imbalan review dan tag akun Instagram.</p><img src='/media/business/tentangkita-6.png' alt='tentangKita packaging' style='width:100%;border-radius:8px;margin:20px 0;' /><p>\"Jadi dari situ sih awalnya. Kita bener-bener start small, tapi kita punya mimpi besar untuk tentangKita. Mungkin buat yang masih ragu-ragu mau mulai bisnis, ya udah mulai aja tapi kecil gitu. Nanti pelan-pelan baru ditambah, misalnya dari modalnya. Gitu sih moto aku dalam memulai sesuatu.\"</p><img src='/media/business/tentangkita-7.jpg' alt='tentangKita kolaborasi' style='width:100%;border-radius:8px;margin:20px 0;' /><img src='/media/business/tentangkita-8.jpg' alt='tentangKita' style='width:100%;border-radius:8px;margin:20px 0;' /><img src='/media/business/tentangkita-9.png' alt='tentangKita komunitas' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Lokasi:</strong> Tersedia di Tokopedia, Shopee dan e-commerce lainnya</p>",
+      "logo": "/media/business/tentangkita-logo.jpg",
+      "coverImage": "/media/business/tentangkita-cover.png",
       "website": "#"
     },
     {
-      "slug": "cloudnusa",
-      "name": "CloudNusa",
-      "industry": "Technology",
-      "founder": {
-        "name": "Rama Aditya",
-        "class": "MM '15"
-      },
-      "location": "Jakarta, Indonesia",
-      "shortDescription": "Cloud infrastructure and developer tools built for Indonesia.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-cloud/200/200",
-      "coverImage": "https://picsum.photos/seed/biz-cloud/1200/800",
-      "website": "#"
-    },
-    {
-      "slug": "edumulia",
-      "name": "EduMulia",
-      "industry": "Education",
-      "founder": {
-        "name": "Sarah Tan",
-        "class": "MBA '12"
-      },
-      "location": "Tangerang, Indonesia",
-      "shortDescription": "Upskilling programs and learning experiences for working professionals.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-edu/200/200",
-      "coverImage": "https://picsum.photos/seed/biz-edu/1200/800",
-      "website": "#"
-    },
-    {
-      "slug": "sigap-logistics",
-      "name": "Sigap Logistics",
-      "industry": "Services",
-      "founder": {
-        "name": "Bayu Pratama",
-        "class": "MM '09"
-      },
-      "location": "Jakarta, Indonesia",
-      "shortDescription": "Last-mile logistics and fulfilment for growing businesses.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-sigap/200/200",
-      "coverImage": "https://picsum.photos/seed/biz-sigap/1200/800",
-      "website": "#"
-    },
-    {
-      "slug": "rasa-nusantara",
-      "name": "Rasa Nusantara",
+      "slug": "amate",
+      "name": "AMATE",
       "industry": "F&B",
       "founder": {
-        "name": "Maya Putri",
-        "class": "S1 '16"
+        "name": "Gracia Tania Larisa",
+        "class": "S1 Business '16"
       },
-      "location": "Yogyakarta, Indonesia",
-      "shortDescription": "A modern restaurant group celebrating Indonesian cuisine.",
-      "description": "<p>Founded by an alumnus who saw a gap the market kept ignoring, this venture pairs disciplined operations with a clear sense of purpose. What began as a small team has grown into a trusted brand serving customers across the region.</p>\n<p>The company stays close to the Prasmul community — hiring alumni, mentoring student teams, and partnering with fellow alumni businesses.</p>",
-      "logo": "https://picsum.photos/seed/logo-rasa/200/200",
-      "coverImage": "https://picsum.photos/seed/biz-rasa/1200/800",
+      "location": "Jakarta",
+      "shortDescription": "Indonesia's premium artisan tea — export-grade leaves, locally crafted, conveniently bagged.",
+      "description": "<p><strong>How to Build A TEA-riffic Business: Kisah AMATE, Bisnis Teh Gracia Tania Larisa</strong></p><p>Kadang-kadang bisnis tuh bisa dimulai dari underrated things… seperti dalam perdebatan kopi versus teh.</p><p><strong>Becoming The Local Premium Choice</strong></p><p>Perdebatan kopi atau teh, memang kadang tidak ada habisnya. Namun selama beberapa tahun terakhir ini, tidak bisa dipungkiri kalau bisnis kopi menjamur dimana-mana. Sayangnya, pada masa itu, bisnis teh belum bisa menyaingi level itu. Barangkali, dulu ketika pecinta teh harus menyebutkan 3 merek teh premium asli Indonesia, bakal kesulitan. Inilah yang jadi pintu bagi Gracia Tania Larisa mendobrak dunia bisnis teh dengan brandnya, AMATE.</p><img src='/media/business/amate-1.jpg' alt='AMATE teh' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Bermula dari proyek tugas akhir kuliah di tahun 2019-2020 dan setelah menjalani beragam riset produk dan pasar, AMATE kini menjadi salah satu brand premium tea asli Indonesia.</p><p>\"Sebenarnya, kami baru tahu saat itu kalau teh kita (teh Indonesia) yang berkualitas bagus (grade tertinggi) sebagian besar diekspor ke luar negeri. Lalu kita berpikir, 'Sayang banget kalo orang Indo minum teh premium malah larinya ke brand-brand luar seperti TWG, padahal kita sendiri juga punya daun teh berkualitas tinggi.' Jadi kita pikir, 'Kenapa nggak sekalian kita perkenalkan teh kualitas ekspor kita ke pasar lokal?'\"</p><img src='/media/business/amate-2.jpg' alt='AMATE premium tea' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Selain bahan, ada juga yang menarik perhatian Gracia saat mengonsep AMATE sebagai brand premium tea: penyajian. \"Biasanya kalau mau minum premium artisan tea, cara penyajiannya harus ditakar sedemikian rupa. Tapi seiring perkembangan zaman, rasanya semakin banyak orang lebih suka hal-hal yang praktis. That's why kita bikin premium artisan tea in cotton tea bag. Orang jadi bisa menikmati artisan tea, but skip the hassle.\"</p><img src='/media/business/amate-3.jpg' alt='AMATE tea bag' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>It's All About Creativi-TEA</strong></p><p>Di pengalaman Gracia yang sudah menjalankan AMATE selama kurang lebih 4 tahun, dari proses riset dan pengembangan, uji coba, penjualan, dan segala macam, kreativitas menjadi berguna dalam mencari solusi.</p><p>\"Dari sini yang diajarkan Prasmul adalah be creative. Kalau misalnya ketemu jalan buntu, coba cari jalan yang lain. Karena pasti ada aja jalan lain yang membuat kita bisa mengembangkan bisnis kita.\"</p><img src='/media/business/amate-4.jpg' alt='AMATE koleksi' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Meski sudah berkembang dari penjualan premium tea atau artisan tea sebagai produk untuk dikonsumsi hingga untuk gift dan hampers, Gracia bersama partners-nya pun masih menemukan banyak potensi di dalam AMATE untuk dikembangkan. \"Teh itu bisa jadi gift buat orang-orang terdekat as a thank you gift atau hadiah saat momen-momen spesial. Biasanya customers suka beliin teh yang bagus packagingnya, yang lucu-lucu dan berkualitas untuk dijadikan sebagai gift.\"</p><img src='/media/business/amate-5.jpg' alt='AMATE gift' style='width:100%;border-radius:8px;margin:20px 0;' /><p>\"Kita akan coba develop produk yang berbahan dasar teh. Karena sebenarnya masih banyak yang bisa kita explore dari bahan teh itu sendiri.\"</p>",
+      "logo": "/media/business/amate-logo.png",
+      "coverImage": "/media/business/amate-cover.png",
+      "website": "#"
+    },
+    {
+      "slug": "my-little-island-school",
+      "name": "My Little Island School",
+      "industry": "Education",
+      "founder": {
+        "name": "Edward Salim Buwono",
+        "class": "S1 Finance '15"
+      },
+      "location": "Malang, Jawa Timur",
+      "shortDescription": "Montessori-based early childhood school with 7 branches across Malang, founded by a Prasmul alumnus.",
+      "description": "<p><strong>Mengubah Arah: Kisah Edward Salim Buwono Menemukan Jalan di Dunia Pendidikan</strong></p><p>Perjalanannya dimulai dari finance, berlanjut ke retail, hingga akhirnya menemukan passion di dunia pendidikan. Sekarang, Edward fokus membangun My Little Island School, bisnis pendidikan keluarganya di Malang.</p><p><strong>Tantangan di Prasmul: Bukan Sekedar Kampus Biasa</strong></p><p>\"Aku tertarik sama tantangan dan kompetisi, makanya pilih Prasmul!\" Dari awal, Edward sudah tertarik dengan tantangan yang ditawarkan Prasmul. \"Seleksi Prasmul itu lewat tes. Itu bikin gue ngerasa, wah, berarti mereka benar-benar serius screening mahasiswa dan itu tantangan yang menarik buat gue.\"</p><img src='/media/business/my-little-island-school-1.jpg' alt='My Little Island School' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Program S1 Finance and Banking yang ia pilih memberikan exposure lebih dari sekadar teori. Salah satu penerima beasiswa LPDP ini juga melihat bahwa Prasmul mendorong kompetisi sehat di antara mahasiswa. Ada banyak kesempatan untuk project-based learning, sertifikasi bergengsi seperti CFA, hingga kesempatan studi ke luar negeri.</p><p><strong>Dari Finance ke Pendidikan: Mencari Makna di Setiap Langkah</strong></p><p>Setelah lulus, Edward bekerja sebagai Merchandising Manager di Blibli selama dua setengah tahun. Ia belajar banyak tentang manajemen bisnis, strategi komunikasi, dan kolaborasi tim.</p><p>Yang menarik, passion Edward di dunia pendidikan mulai terasah saat magang di Sinarmas World Academy sebagai Marketing Intern. \"Waktu magang di Sinarmas World Academy, gue belajar banyak tentang gimana sekolah di Jakarta beroperasi, dari handling parents sampai social media mereka. Itu pengalaman yang sangat membuka wawasan gue.\"</p><img src='/media/business/my-little-island-school-2.jpg' alt='My Little Island School kelas' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Keputusan untuk melanjutkan pendidikan ke luar negeri pun semakin bulat. Edward menempuh program Master of Arts in Educational Leadership di The University of Manchester. Studi ini membekali Edward dengan wawasan baru tentang pentingnya pendidikan anak usia dini dan metode Montessori yang menjadi filosofi di sekolah keluarganya.</p><p><strong>Passion di Pendidikan: Tantangan dan Potensi</strong></p><p>Saat kembali ke Indonesia, Edward menghadapi tantangan besar: perbedaan sistem pendidikan antara Indonesia dan Inggris. Namun, ia melihat hal ini sebagai peluang untuk mengembangkan sektor pendidikan swasta di Indonesia. \"Sistem pendidikan di Indonesia itu masih berkembang, dan ini jadi kesempatan buat kita di sektor swasta untuk mengisi gap itu.\"</p><img src='/media/business/my-little-island-school-3.jpg' alt='My Little Island School Montessori' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Edward sangat terinspirasi oleh filosofi Maria Montessori. \"Gue terinspirasi banget sama filosofi Montessori. Anak itu bekerja seperti spons, atau yang lebih dikenal dengan istilah Absorbent Mind, mereka menyerap apapun yang ada di sekitarnya. Jadi penting banget untuk menciptakan lingkungan yang positif, baik di rumah maupun di sekolah.\"</p><p>Dengan pendekatan Montessori dan pengetahuan yang diperolehnya, Edward telah berhasil mengembangkan sekolah keluarganya hingga memiliki 7 cabang di berbagai daerah di Kota Malang dalam kurun waktu 5 tahun. Baginya, pendidikan adalah sektor yang krusial namun belum banyak dilirik oleh generasi muda. Hal ini memberikan peluang besar baginya untuk terus berinovasi dan memberikan dampak positif bagi anak-anak Indonesia.</p><img src='/media/business/my-little-island-school-4.jpg' alt='My Little Island School anak' style='width:100%;border-radius:8px;margin:20px 0;' /><p>\"Gue selalu bilang, Prasmul itu bikin kita siap kerja. Kita terbiasa dengan banyak project yang applicable, jadi sudah tahu realita di dunia kerja sebelum lulus. Itu bikin gue merasa lebih confident pas masuk dunia kerja dan bisnis.\"</p><p><strong>Lokasi:</strong> Jl. Raya Lembah Dieng No.7, Pisang Candi, Kec. Sukun, Kota Malang, Jawa Timur (7 cabang di Kota Malang)</p>",
+      "logo": "/media/business/my-little-island-school-logo.jpg",
+      "coverImage": "/media/business/my-little-island-school-cover.jpg",
+      "website": "#"
+    },
+    {
+      "slug": "filmonkish",
+      "name": "Filmonkish",
+      "industry": "Creative",
+      "founder": {
+        "name": "Ivan Setiawan",
+        "class": "S1 Branding '12"
+      },
+      "location": "Sunter, Jakarta Utara",
+      "shortDescription": "From analog cameras to viral digital vintage — zero marketing budget, billion-rupiah revenue.",
+      "description": "<p><strong>Hampir Bangkrut, Ivan Raih Omzet Milyaran dengan Zero Marketing Budget</strong></p><p>Tidak ada batasan umur bagi seseorang untuk berbisnis. Prinsip inilah yang direalisasikan oleh Ivan Setiawan, yang membangun bisnis semasa kuliah. Menariknya, Filmonkish ia bangun murni keinginan pribadi, bukan karena tugas.</p><p><strong>Cerdik Mencari Celah Bisnis</strong></p><p>Sebenarnya, alumni S1 Branding ini tidak pernah terpikir akan membangun bisnis saat kuliah. Akan tetapi, peluang bisnis justru menghampirinya secara tiba-tiba, bahkan lewat cara yang tak terduga yaitu bazaar. \"Waktu itu, aku datang ke salah satu bazaar di Jakarta Selatan. Nggak sengaja, aku ketemu satu kamera yang unik banget pake roll film dan akhirnya aku beli. Nah, pas ada acara Prasmul, aku bawa kameranya dan ternyata banyak yang tertarik.\"</p><img src='/media/business/filmonkish-1.png' alt='Filmonkish kamera' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Kalau boleh jujur, ia pun kaget dengan antusiasme teman-teman saat melihat kamera baru menggantung di lehernya. Mereka pun bertanya-tanya berapa uang yang dikeluarkan Ivan untuk barang vintage tersebut. Ada yang menebak lima juta, bahkan sepuluh juta. \"Kok mereka perceive mahal ya, berarti bisa nih dibisnisin, akhirnya mulai banyak yang nitip.\"</p><p>Sejak itu, rutinitasnya sebagai mahasiswa mengalami sedikit perubahan. Ia harus pergi ke Pasar Baru, sepulang kuliah, untuk membeli pesanan kamera. \"Yang jual kakek-kakek semua, mereka nggak ngerti OLX, Tokopedia, Shopee, jadi aku bisa masuk ke pasar online.\"</p><img src='/media/business/filmonkish-2.jpg' alt='Filmonkish analog' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Sekali Belajar, Dua Bisnis Dikembangkan</strong></p><p>Karena menjalankan bisnis sembari kuliah, Ivan berkesempatan untuk langsung mengaplikasikan ilmu yang ia pelajari di kelas ke bisnisnya. \"Aku bangun Filmonkish itu sambil kuliah, jadi sambil aku implementasiin. Nah, salah satu yang paling berguna itu market research, selain itu ada consumer behavior, consumer journey, strategic marketing, yang juga kepake banget.\"</p><p>Ia juga menyampaikan bahwa baru menyadari pentingnya melakukan riset pasar ketika diajak untuk berpartisipasi dalam proyek Wonderful Indonesia, milik Kementerian Pariwisata dan Ekonomi Kreatif. \"Selama sebulan, aku pergi ke Bali dan Batam buat riset ke bule-bule.\"</p><img src='/media/business/filmonkish-3.jpg' alt='Filmonkish produk' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Tak berhenti sampai disitu, pengetahuan yang telah diperoleh di kampus juga dimanfaatkan untuk mengembangkan perusahaan lain. Ivan memilih Denim It Up sebagai subjek untuk Project Improvement, tugas akhirnya. Marketing campaign yang dibuat sukses membawa omzet Rp400 juta per bulan, dan ia pun diangkat jadi CMO.</p><p>\"Ternyata, teori-teori tentang influencer marketing dan sales promotion yang aku pelajari bisa works di bisnis orang lain, jadi aku mau coba di bisnisku.\" Ivan pun menerapkan community marketing untuk Filmonkish yang targetnya adalah penggemar budaya Jepang dan Korea.</p><img src='/media/business/filmonkish-4.jpg' alt='Filmonkish community' style='width:100%;border-radius:8px;margin:20px 0;' /><p><strong>Hampir Tutup, Keadaannya Mendadak Berbalik 180 Derajat</strong></p><p>Ivan hanya dibantu oleh dua orang lainnya, serta beberapa pekerja lepas. \"Aku one man show, bahkan sampai packing pun aku kerjakan sendiri, karena aku mau ada personal touch-nya.\"</p><p>Awal 2023 menjadi salah satu mimpi buruk untuk Ivan. \"Awal 2023 kemarin, Filmonkish udah hampir bangkrut karena kamera analog udah gak tren lagi.\" Kala itu, Ivan tidak mau menyerah begitu saja dan kemudian meluncurkan produk baru bernama Digimo, yang merupakan kamera digital yang dilengkapi dengan filter vintage.</p><img src='/media/business/filmonkish-5.jpg' alt='Filmonkish Digimo' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Karena sudah berada di ujung tanduk, produk itu ia rilis tanpa ada budget pemasaran. Tiba-tiba, peristiwa besar terjadi. \"Di hari pertama kita launch, 500 kamera terjual, kita nggak pake iklan, nggak pake ads, ternyata seloyal itu customer kita.\" Kabarnya, ia meraup omzet Rp1,3 miliar selama pertengahan Juni sampai akhir Juli.</p><img src='/media/business/filmonkish-6.png' alt='Filmonkish' style='width:100%;border-radius:8px;margin:20px 0;' /><p>Dalam berbisnis, memang tidak ada yang pasti. Disini lah peran skill dan mentalitas seorang entrepreneur diuji!</p><p><strong>Lokasi:</strong> Sunter, Kecamatan Tanjung Priok, Jakarta Utara</p>",
+      "logo": "/media/business/filmonkish-logo.webp",
+      "coverImage": "/media/business/filmonkish-cover.jpg",
       "website": "#"
     }
   ],
@@ -761,16 +751,6 @@
       "coverImage": "https://picsum.photos/seed/fireside/1200/800",
       "description": "A candid conversation with alumni founders on scaling ventures across the region.",
       "registerUrl": "#"
-    }
-  ],
-  "featuredAlumni": [
-    {
-      "name": "Andi Prasetya",
-      "class": "MM - Marketing Management Class of 2018",
-      "role": "Marketing Director",
-      "company": "Maju Bersama Global",
-      "photo": "/images/home/alumni-andi.jpg",
-      "quote": "IKAPRASMUL gave me a network that believed in the mission before the market did."
     }
   ]
 }

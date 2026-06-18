@@ -43,13 +43,6 @@ async function safeFetch<T>(path: string, fallback: T): Promise<T> {
 /* ---------- Home ---------- */
 // Static — impact numbers rarely change and aren't admin-managed.
 export const getImpactStats = async (): Promise<ImpactStat[]> => IMPACT_STATS;
-export const getFeaturedAlumni = async (): Promise<FeaturedAlumni | undefined> => {
-  const alumni = await safeFetch<FeaturedAlumni | null>(
-    "/home/featured-alumni",
-    null,
-  );
-  return alumni ?? undefined;
-};
 export const getEvents = (): Promise<AlumniEvent[]> =>
   safeFetch<AlumniEvent[]>("/events", []);
 export const getUpcomingEvent = async (): Promise<AlumniEvent | undefined> => {
@@ -76,6 +69,22 @@ export const getSigSpotlightById = async (
 export const getStories = (): Promise<Story[]> => safeFetch<Story[]>("/stories", []);
 export const getFeaturedStories = async (): Promise<Story[]> =>
   (await getStories()).filter((s) => s.isFeatured);
+
+// Derives from the first story with isFeaturedHome — independent of isFeatured
+// (which controls the stories-page highlights). Admin toggles isFeaturedHome to
+// set the Alumni of the Month slot on the home page (max 1).
+export const getFeaturedAlumni = async (): Promise<FeaturedAlumni | undefined> => {
+  const stories = await getStories();
+  const story = stories.find((s) => s.isFeaturedHome);
+  if (!story) return undefined;
+  return {
+    name: story.author.name,
+    class: story.author.class,
+    role: story.author.role,
+    photo: story.coverImage,
+    quote: story.excerpt,
+  };
+};
 export const getStoryBySlug = async (slug: string): Promise<Story | undefined> =>
   (await getStories()).find((s) => s.slug === slug);
 export const getStoryCategoryCounts = async (): Promise<
@@ -101,8 +110,11 @@ export const getBusinessBySlug = async (
   slug: string,
 ): Promise<Business | undefined> =>
   (await getBusinesses()).find((b) => b.slug === slug);
+// Returns businesses marked isFeaturedHome — independent of isSpotlight (which
+// controls the business-page spotlight card). Admin toggles isFeaturedHome to
+// control the home page slots (max 2 shown, matching the 4-card grid).
 export const getFeaturedBusinesses = async (limit = 2): Promise<Business[]> =>
-  (await getBusinesses()).slice(0, limit);
+  (await getBusinesses()).filter((b) => b.isFeaturedHome).slice(0, limit);
 
 /* ---------- News ---------- */
 export const getArticles = (): Promise<Article[]> => safeFetch<Article[]>("/news", []);
