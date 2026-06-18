@@ -13,7 +13,7 @@ export async function FeaturedAlumniCard({
   const { t } = await getServerDict();
   return (
     <Link
-      href={ROUTES.featuredAlumni}
+      href={ROUTES.storyDetail(alumni.slug)}
       className="group flex flex-col overflow-hidden rounded-xl bg-card shadow-md ring-1 ring-border/60 transition-shadow hover:shadow-lg"
     >
       <div className="relative aspect-[16/10] overflow-hidden">

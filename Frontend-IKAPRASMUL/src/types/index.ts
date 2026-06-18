@@ -119,6 +119,7 @@ export type BoardMember = {
 };
 
 export type FeaturedAlumni = Person & {
+  slug: string;
   photo: string;
   quote: string;
 };

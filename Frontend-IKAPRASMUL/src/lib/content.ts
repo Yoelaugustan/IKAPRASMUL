@@ -78,6 +78,7 @@ export const getFeaturedAlumni = async (): Promise<FeaturedAlumni | undefined> =
   const story = stories.find((s) => s.isFeaturedHome);
   if (!story) return undefined;
   return {
+    slug: story.slug,
     name: story.author.name,
     class: story.author.class,
     role: story.author.role,
