@@ -33,25 +33,36 @@ export async function GovernanceStructure() {
           {boardMembersLabel}
         </p>
         <div className="mt-3">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+          {/* Mobile / tablet: independent flex columns */}
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-4 lg:hidden">
             {BOARD_DIVISIONS.map((division, index) => (
               <div
                 key={division.id}
                 className={cn(
                   "flex flex-col gap-y-2",
                   index % 2 === 1 && "sm:relative sm:pl-4 sm:before:content-[''] sm:before:absolute sm:before:left-0 sm:before:top-0 sm:before:h-full sm:before:w-px sm:before:bg-gray-200",
-                  index === 2 && "lg:relative lg:pl-4 lg:before:content-[''] lg:before:absolute lg:before:left-0 lg:before:top-0 lg:before:h-full lg:before:w-px lg:before:bg-gray-200"
                 )}
               >
                 {division.members.map((m) => (
-                  <MemberAvatarModal
-                    key={m.name}
-                    member={m as BoardMember}
-                    roleLabel={roleLabel(m.role)}
-                  />
+                  <MemberAvatarModal key={m.name} member={m as BoardMember} roleLabel={roleLabel(m.role)} />
                 ))}
               </div>
             ))}
+          </div>
+
+          {/* Desktop: flat grid so CSS equalises row heights across all 4 columns */}
+          <div className="hidden lg:grid lg:grid-cols-4 lg:gap-y-3">
+            {BOARD_DIVISIONS.flatMap((division, divIdx) =>
+              division.members.map((m, memberIdx) => (
+                <div
+                  key={m.name}
+                  className={cn("flex items-start justify-center px-2", divIdx > 0 && "border-l border-gray-200")}
+                  style={{ gridColumn: divIdx + 1, gridRow: memberIdx + 1 }}
+                >
+                  <MemberAvatarModal member={m as BoardMember} roleLabel={roleLabel(m.role)} />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
