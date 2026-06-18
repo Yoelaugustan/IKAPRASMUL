@@ -6,6 +6,7 @@ import {
   NewspaperIcon,
   UsersIcon,
 } from "@/components/icons";
+import { Mail } from "lucide-react";
 
 type IconType = React.ComponentType<{ className?: string }>;
 
@@ -17,6 +18,7 @@ export const NEWS_CATEGORY_ICONS: Record<string, IconType> = {
   "Research & Publications": BookOpenIcon,
   "Industry Trends": LineChartIcon,
   "Thought Leadership": BulbIcon,
+  Newsletter: Mail,
 };
 
 // Gold text for the small category eyebrow on cards.

@@ -9,11 +9,10 @@ import { useLang } from "@/components/shared/LanguageProvider";
 
 export function TopStoryCard({ article }: { article: Article }) {
   const { t } = useLang();
-  return (
-    <Link
-      href={ROUTES.articleDetail(article.slug)}
-      className="group flex w-full gap-4 rounded-xl border border-slate-100 bg-white p-3 text-left shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-md"
-    >
+  const isNewsletter = article.type === "newsletter";
+
+  const inner = (
+    <>
       <div className="relative size-20 shrink-0 overflow-hidden rounded-lg bg-slate-100">
         <Image
           src={article.coverImage}
@@ -31,10 +30,38 @@ export function TopStoryCard({ article }: { article: Article }) {
           {article.title}
         </h3>
         <p className="mt-2 text-[11px] text-muted-foreground">
-          {formatDateUS(article.publishedAt)} • {article.readMinutes}{" "}
-          {t.detail.minRead}
+          {isNewsletter ? (
+            <span className="font-semibold text-primary">View PDF ↗</span>
+          ) : (
+            <>
+              {formatDateUS(article.publishedAt)} • {article.readMinutes}{" "}
+              {t.detail.minRead}
+            </>
+          )}
         </p>
       </div>
+    </>
+  );
+
+  if (isNewsletter && article.pdfUrl) {
+    return (
+      <a
+        href={article.pdfUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group flex w-full gap-4 rounded-xl border border-slate-100 bg-white p-3 text-left shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-md"
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      href={ROUTES.articleDetail(article.slug)}
+      className="group flex w-full gap-4 rounded-xl border border-slate-100 bg-white p-3 text-left shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-md"
+    >
+      {inner}
     </Link>
   );
 }

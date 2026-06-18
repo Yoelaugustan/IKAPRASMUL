@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { CalendarDays, Clock, Eye } from "lucide-react";
 import { getArticleBySlug } from "@/lib/content";
 import { Container } from "@/components/layouts/Container";
@@ -26,6 +26,10 @@ export default async function ArticleDetailPage({ params }: Params) {
     getServerDict(),
   ]);
   if (!article) notFound();
+
+  if (article.type === "newsletter" && article.pdfUrl) {
+    redirect(article.pdfUrl);
+  }
 
   return (
     <article className="pb-20 pt-10">

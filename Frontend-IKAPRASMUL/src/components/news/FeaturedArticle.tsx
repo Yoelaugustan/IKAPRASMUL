@@ -9,11 +9,13 @@ import { useLang } from "@/components/shared/LanguageProvider";
 
 export function FeaturedArticle({ article }: { article: Article }) {
   const { t } = useLang();
-  return (
-    <Link
-      href={ROUTES.articleDetail(article.slug)}
-      className="group relative block aspect-[16/11] w-full overflow-hidden rounded-2xl text-left shadow-lg sm:aspect-[16/9]"
-    >
+  const isNewsletter = article.type === "newsletter";
+  const href = isNewsletter && article.pdfUrl
+    ? article.pdfUrl
+    : ROUTES.articleDetail(article.slug);
+
+  const inner = (
+    <>
       <Image
         src={article.coverImage}
         alt={article.title}
@@ -62,12 +64,44 @@ export function FeaturedArticle({ article }: { article: Article }) {
           </span>
           <span className="hidden h-4 w-px bg-white/30 sm:block" />
           <span>{formatDateUS(article.publishedAt)}</span>
-          <span className="hidden h-4 w-px bg-white/30 sm:block" />
-          <span>
-            {article.readMinutes} {t.detail.minRead}
-          </span>
+          {!isNewsletter && (
+            <>
+              <span className="hidden h-4 w-px bg-white/30 sm:block" />
+              <span>
+                {article.readMinutes} {t.detail.minRead}
+              </span>
+            </>
+          )}
+          {isNewsletter && (
+            <>
+              <span className="hidden h-4 w-px bg-white/30 sm:block" />
+              <span className="font-semibold">View PDF ↗</span>
+            </>
+          )}
         </div>
       </div>
+    </>
+  );
+
+  if (isNewsletter && article.pdfUrl) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group relative block aspect-[16/11] w-full overflow-hidden rounded-2xl text-left shadow-lg sm:aspect-[16/9]"
+      >
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      href={href}
+      className="group relative block aspect-[16/11] w-full overflow-hidden rounded-2xl text-left shadow-lg sm:aspect-[16/9]"
+    >
+      {inner}
     </Link>
   );
 }

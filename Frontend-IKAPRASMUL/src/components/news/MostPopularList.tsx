@@ -41,12 +41,14 @@ export function MostPopularList({
         />
       ) : (
         <ol className="space-y-3">
-          {articles.map((article, i) => (
-            <li key={article.slug}>
-              <Link
-                href={ROUTES.articleDetail(article.slug)}
-                className="group flex w-full items-center gap-3 text-left"
-              >
+          {articles.map((article, i) => {
+            const isNewsletter = article.type === "newsletter";
+            const href = isNewsletter && article.pdfUrl
+              ? article.pdfUrl
+              : ROUTES.articleDetail(article.slug);
+
+            const inner = (
+              <>
                 <span className="grid size-7 shrink-0 place-items-center rounded-md bg-[#0a192f] text-xs font-bold text-white">
                   {i + 1}
                 </span>
@@ -64,13 +66,41 @@ export function MostPopularList({
                     {article.title}
                   </span>
                   <span className="mt-0.5 block text-[11px] text-muted-foreground">
-                    {formatDateUS(article.publishedAt)} • {article.readMinutes}{" "}
-                    {t.newsList.minRead}
+                    {isNewsletter ? (
+                      <span className="font-semibold text-primary">View PDF ↗</span>
+                    ) : (
+                      <>
+                        {formatDateUS(article.publishedAt)} • {article.readMinutes}{" "}
+                        {t.newsList.minRead}
+                      </>
+                    )}
                   </span>
                 </span>
-              </Link>
-            </li>
-          ))}
+              </>
+            );
+
+            return (
+              <li key={article.slug}>
+                {isNewsletter && article.pdfUrl ? (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex w-full items-center gap-3 text-left"
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <Link
+                    href={href}
+                    className="group flex w-full items-center gap-3 text-left"
+                  >
+                    {inner}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
         </ol>
       )}
     </div>

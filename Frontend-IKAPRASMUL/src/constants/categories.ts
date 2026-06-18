@@ -14,6 +14,7 @@ export const NEWS_CATEGORIES = [
   "Research & Publications",
   "Industry Trends",
   "Thought Leadership",
+  "Newsletter",
 ] as const;
 export type NewsCategory = (typeof NEWS_CATEGORIES)[number];
 

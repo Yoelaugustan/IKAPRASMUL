@@ -332,6 +332,7 @@ const en = {
       "Research & Publications": "Research & Publications",
       "Industry Trends": "Industry Trends",
       "Thought Leadership": "Thought Leadership",
+      Newsletter: "Newsletter",
     } as Record<string, string>,
     industry: {
       All: "All Industries",
@@ -797,6 +798,7 @@ const id: Dictionary = {
       "Research & Publications": "Riset & Publikasi",
       "Industry Trends": "Tren Industri",
       "Thought Leadership": "Kepemimpinan Pemikiran",
+      Newsletter: "Newsletter",
     },
     industry: {
       All: "Semua Industri",

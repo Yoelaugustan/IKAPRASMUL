@@ -82,6 +82,9 @@ export type Article = {
   readMinutes: number;
   views: number;
   isFeatured?: boolean;
+  /** 'newsletter' cards open a PDF instead of a slug detail page. */
+  type?: "article" | "newsletter";
+  pdfUrl?: string;
 };
 
 export type AlumniEvent = {

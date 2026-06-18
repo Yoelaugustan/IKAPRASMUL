@@ -67,7 +67,7 @@ export default async function StoryDetailPage({ params }: Params) {
           />
         </div>
 
-        <ArticleContent html={story.body} className="mt-8" />
+        <ArticleContent html={story.body} className="mt-8" autoGrid />
 
         <div className="mt-10 border-t border-slate-100 pt-6">
           <BackButton fallback={ROUTES.stories} dynamicLabel />

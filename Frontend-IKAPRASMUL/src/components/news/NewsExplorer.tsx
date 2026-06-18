@@ -53,11 +53,13 @@ export function NewsExplorer({
     wasDragged: tabsWasDragged,
   } = useDragScroll();
 
-  // Filtered + sorted non-featured articles (the full set, unsliced).
+  // Filtered + sorted articles. In the default view the featured article is
+  // excluded (it's shown separately above); in view-all it is included so
+  // users can find it when browsing all articles.
   const filteredArticles = useMemo(() => {
     const q = appliedQuery.trim().toLowerCase();
     const filtered = articles.filter((a) => {
-      if (a.isFeatured) return false;
+      if (!viewAll && a.isFeatured) return false;
       const mc = category === "All" || a.category === category;
       const mq =
         !q ||
@@ -71,7 +73,7 @@ export function NewsExplorer({
       return b.publishedAt.localeCompare(a.publishedAt);
     });
     return filtered;
-  }, [articles, category, appliedQuery, sort]);
+  }, [articles, category, appliedQuery, sort, viewAll]);
 
   const isFiltering = category !== "All" || appliedQuery.trim() !== "";
   const topStories = filteredArticles.slice(0, isFiltering ? 9 : 3);

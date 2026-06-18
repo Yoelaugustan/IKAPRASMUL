@@ -67,7 +67,7 @@ export default async function BusinessDetailPage({ params }: Params) {
           />
         </div>
 
-        <ArticleContent html={business.description} className="mt-6" />
+        <ArticleContent html={business.description} className="mt-6" autoGrid />
 
         {business.website && business.website !== "#" && (
           <div className="mt-6">
