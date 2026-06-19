@@ -21,11 +21,19 @@ docker compose up --build -d
 
 That's it. After it boots:
 
-| Service  | Container port | Published on host | Host nginx proxies |
-|----------|----------------|-------------------|--------------------|
-| frontend | 3000           | `localhost:3000`  | `https://<domain>`      |
-| backend  | 8080           | `localhost:5080`  | `https://<domain>/api`  |
-| db       | 5432           | `localhost:5432`  | (internal / DBeaver)    |
+| Service  | Container port | Published on host | Notes |
+|----------|----------------|-------------------|-------|
+| frontend | 3000           | `localhost:3000`  | Host nginx proxies **all** traffic here |
+| backend  | 8080           | *(not published)* | Internal only — reached by the frontend over the Docker network |
+| db       | 5432           | `localhost:5432`  | Published for restore/DBeaver |
+
+### nginx (host)
+
+Point the host nginx at the **frontend only** — proxy everything to
+`http://localhost:3000`. Do **not** add a separate `/api` route to the backend:
+the Next.js frontend serves its own `/api/*` (contact, newsletter, auth) and
+forwards to the backend internally. The backend is not published to the host, so
+there is nothing external to misroute to.
 
 ## Database
 

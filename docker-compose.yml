@@ -42,9 +42,13 @@ services:
       Smtp__Password: ${SMTP_PASSWORD}
       # Browser origin allowed by CORS, e.g. https://ikaprasmul.com
       Cors__AllowedOrigins__0: ${FRONTEND_ORIGIN}
-    ports:
-      # host:container — host nginx proxies the public /api to localhost:5080.
-      - "5080:8080"
+    # No host port is published on purpose. The backend is reached ONLY by the
+    # frontend over the internal Docker network (http://backend:8080). Keeping it
+    # off the host means nginx physically cannot route to it, so it can never be
+    # misconfigured to bypass the frontend's own /api routes (contact, newsletter,
+    # auth). To debug the API directly from the host, temporarily uncomment:
+    # ports:
+    #   - "5080:8080"
 
   frontend:
     build:
