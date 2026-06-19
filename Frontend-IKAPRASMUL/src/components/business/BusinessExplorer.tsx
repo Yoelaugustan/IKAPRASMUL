@@ -169,7 +169,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
   };
 
   return (
-    <div className="pb-16">
+    <div className="flow-root bg-slate-50">
       {/* ---- Search bar (overlaps the hero) ---- */}
       <Container>
         <form
@@ -223,7 +223,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
       </Container>
 
       {/* ---- Browse by Industry + Featured + Spotlight ---- */}
-      <div className="mt-6 bg-slate-50 pb-4">
+      <div className="bg-slate-50 pb-8">
       <Container className="pt-8">
         <div
           ref={panelRef}
