@@ -6,7 +6,8 @@
 #
 services:
   db:
-    image: postgres:16-alpine
+    # Matches the deployment server's PostgreSQL version.
+    image: postgres:13-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
