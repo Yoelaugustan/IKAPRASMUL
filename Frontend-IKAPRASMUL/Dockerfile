@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 # ---- Dependencies stage ---------------------------------------------------
 FROM node:20-alpine AS deps
 # libc6-compat: needed by some native deps (e.g. sharp) on Alpine.
@@ -18,12 +16,6 @@ COPY . .
 # MUST be passed as build args (per mentor's note), not runtime env.
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-
-# API_URL is read at build time by next.config.ts rewrites() (the /media proxy
-# destination is baked into the routes manifest). Point it at the backend
-# service so server-side proxying works inside the Docker network.
-ARG API_URL=http://backend:8080
-ENV API_URL=${API_URL}
 
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
@@ -47,6 +39,4 @@ COPY --from=build --chown=node:node /app/.next/static ./.next/static
 
 EXPOSE 3000
 
-# API_URL is also read at RUNTIME by the BFF route handlers (/api/contact,
-# /api/newsletter) and server components (content.ts). Supplied via compose.
 CMD ["node", "server.js"]

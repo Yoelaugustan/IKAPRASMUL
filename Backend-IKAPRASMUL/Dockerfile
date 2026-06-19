@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 # ---- Build stage ----------------------------------------------------------
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
@@ -33,6 +31,4 @@ EXPOSE 8080
 
 COPY --from=build /app/publish ./
 
-# Connection string, SMTP creds and CORS origins are supplied at runtime as
-# environment variables (see docker-compose.yml) — never baked into the image.
 ENTRYPOINT ["dotnet", "IkaPrasmul.WebAPI.dll"]
