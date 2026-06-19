@@ -104,10 +104,10 @@ export async function SiteFooter() {
               <li className="flex items-center gap-3">
                 <MailIcon className="size-4 shrink-0 text-gold" />
                 <a
-                  href="mailto:ikaprama@prasetiyamulya.ac.id"
+                  href="mailto:ikaprasmul@prasetiyamulya.ac.id"
                   className="text-primary-foreground/80 hover:text-gold"
                 >
-                  ikaprama@prasetiyamulya.ac.id
+                  ikaprasmul@prasetiyamulya.ac.id
                 </a>
               </li>
             </ul>

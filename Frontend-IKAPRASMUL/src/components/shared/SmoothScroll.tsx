@@ -11,14 +11,11 @@ import { setLenisInstance, scrollToTop } from "@/lib/scroll";
 // wheel inside elements marked `data-lenis-prevent` (modals/sheets).
 export function SmoothScroll() {
   const pathname = usePathname();
-
-  // Land at the top on a new forward navigation, but let the browser/Next
-  // restore the previous scroll position on back/forward (so closing a detail
-  // page returns to where you were). Skips the initial mount and searchParams-
-  // only changes (those drive the in-page scroll-to-content).
   const firstRender = useRef(true);
   const isPopNavigation = useRef(false);
+  const lenisRef = useRef<Lenis | null>(null);
 
+  // Detect browser back/forward button before the pathname updates.
   useEffect(() => {
     const onPopState = () => {
       isPopNavigation.current = true;
@@ -27,15 +24,50 @@ export function SmoothScroll() {
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
+  // Track the latest scroll position for the current page. On cleanup (i.e.
+  // when navigating away) persist it to sessionStorage so back-navigation can
+  // restore it. Using cleanup instead of a debounce avoids any race with the
+  // forward-navigation scrollToTop that fires right after.
+  useEffect(() => {
+    const key = `scroll:${pathname}`;
+    let lastY = window.scrollY;
+    const onScroll = () => {
+      lastY = window.scrollY;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (lastY > 0) sessionStorage.setItem(key, String(lastY));
+      else sessionStorage.removeItem(key);
+    };
+  }, [pathname]);
+
+  // On forward navigation scroll to the top. On back navigation re-sync Lenis
+  // to the saved position (the browser restores window.scrollY but Lenis's
+  // internal state doesn't know, so its RAF loop would override it).
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
       return;
     }
+
     if (isPopNavigation.current) {
       isPopNavigation.current = false;
+      const saved = sessionStorage.getItem(`scroll:${pathname}`);
+      if (saved) {
+        const y = Number(saved);
+        // Two rAF frames: first lets Next.js commit the new DOM, second lets
+        // the browser apply its own scroll restoration before we override it.
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => {
+            if (lenisRef.current) lenisRef.current.scrollTo(y, { immediate: true });
+            else window.scrollTo(0, y);
+          }),
+        );
+      }
       return;
     }
+
     scrollToTop(true);
   }, [pathname]);
 
@@ -48,6 +80,7 @@ export function SmoothScroll() {
       smoothWheel: true,
     });
     setLenisInstance(lenis);
+    lenisRef.current = lenis;
 
     let raf = 0;
     const loop = (time: number) => {
@@ -75,6 +108,7 @@ export function SmoothScroll() {
       document.removeEventListener("click", onClick);
       lenis.destroy();
       setLenisInstance(null);
+      lenisRef.current = null;
     };
   }, []);
 

@@ -41,7 +41,6 @@ export const INQUIRY_SUBJECTS = [
   "List Your Business",
   "Submit Your Story",
   "Contact Alumni Network",
-  "Partnership",
-  "Media & Press",
+  "Others",
 ] as const;
 export type InquirySubject = (typeof INQUIRY_SUBJECTS)[number];

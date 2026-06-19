@@ -17,7 +17,7 @@ const en = {
     news: "News & Insight",
   },
   header: {
-    login: "Login / Register",
+    login: "Alumni Login",
     contact: "Contact Us",
   },
   footer: {
@@ -255,9 +255,9 @@ const en = {
       "Contact information and a form to send the alumni network a message.",
     sendAMessage: "Send a Message",
     fullName: "Full Name",
-    fullNamePlaceholder: "John Doe",
+    fullNamePlaceholder: "Alumni Name",
     emailAddress: "Email Address",
-    emailPlaceholder: "john@example.com",
+    emailPlaceholder: "alumniname@company.com",
     subject: "Subject",
     subjectPlaceholder: "Choose a subject",
     message: "Message",
@@ -278,8 +278,7 @@ const en = {
       "List Your Business": "List Your Business",
       "Submit Your Story": "Submit Your Story",
       "Contact Alumni Network": "Contact Alumni Network",
-      Partnership: "Partnership",
-      "Media & Press": "Media & Press",
+      Others: "Others",
     } as Record<string, string>,
   },
   newsletter: {
@@ -478,7 +477,7 @@ const id: Dictionary = {
     news: "Berita & Wawasan",
   },
   header: {
-    login: "Masuk / Daftar",
+    login: "Alumni Login",
     contact: "Hubungi Kami",
   },
   footer: {
@@ -719,9 +718,9 @@ const id: Dictionary = {
       "Informasi kontak dan formulir untuk mengirim pesan ke jaringan alumni.",
     sendAMessage: "Kirim Pesan",
     fullName: "Nama Lengkap",
-    fullNamePlaceholder: "John Doe",
+    fullNamePlaceholder: "Nama Alumni",
     emailAddress: "Alamat Email",
-    emailPlaceholder: "john@example.com",
+    emailPlaceholder: "namaalumni@perusahaan.com",
     subject: "Subjek",
     subjectPlaceholder: "Pilih subjek",
     message: "Pesan",
@@ -742,8 +741,7 @@ const id: Dictionary = {
       "List Your Business": "Daftarkan Bisnis Anda",
       "Submit Your Story": "Kirim Cerita Anda",
       "Contact Alumni Network": "Hubungi Jaringan Alumni",
-      Partnership: "Kemitraan",
-      "Media & Press": "Media & Pers",
+      Others: "Lainnya",
     },
   },
   newsletter: {

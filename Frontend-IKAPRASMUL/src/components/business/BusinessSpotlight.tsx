@@ -43,13 +43,14 @@ export function BusinessSpotlight({ business }: { business?: Business }) {
       <SpotlightHeader title={t.detail.spotlightTitle} />
 
       <div className="overflow-hidden rounded-2xl bg-[#00396c] shadow-lg">
-        <div className="relative aspect-[16/9]">
+        <div className="relative" style={{ paddingBottom: "56.25%" }}>
           <Image
             src={business.coverImage}
             alt={business.name}
             fill
             sizes="360px"
-            className="object-cover"
+            style={{ objectFit: "cover" }}
+            className=""
           />
         </div>
         <div className="p-6">

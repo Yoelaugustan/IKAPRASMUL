@@ -36,7 +36,7 @@ export function ContactModal() {
     <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogContent
         showCloseButton={false}
-        className="max-h-[92vh] gap-0 overflow-y-auto border-0 p-0 sm:max-w-3xl"
+        className="max-h-[92vh] gap-0 overflow-y-auto border-0 p-0 sm:max-w-4xl"
       >
         {/* Navy header bar — sticky so the title and the close button stay
             reachable while scrolling the form on mobile. */}
@@ -80,10 +80,10 @@ export function ContactModal() {
                   <PhoneIcon className="size-[18px]" />
                 </span>
                 <a
-                  href="tel:+622130450500"
+                  href="tel:+6281371908225"
                   className="text-sm font-semibold text-[#001B3D] transition-colors hover:text-[#805600]"
                 >
-                  +62 21 304 50 500
+                  +62 813 7190 8225
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -91,10 +91,10 @@ export function ContactModal() {
                   <MailIcon className="size-[18px]" />
                 </span>
                 <a
-                  href="mailto:alumni@prasetiyamulya.ac.id"
+                  href="mailto:ikaprasmul@prasetiyamulya.ac.id"
                   className="text-sm font-semibold text-[#001B3D] transition-colors hover:text-[#805600]"
                 >
-                  alumni@prasetiyamulya.ac.id
+                  ikaprasmul@prasetiyamulya.ac.id
                 </a>
               </li>
             </ul>
