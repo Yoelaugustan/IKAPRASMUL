@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Emit a self-contained .next/standalone build (server.js + minimal
+  // node_modules) so the Docker runtime image stays small. See output.md.
+  output: "standalone",
+
   // React Compiler (automatic memoization) — see fe-standard §11.
   // Requires the babel-plugin-react-compiler devDependency.
   reactCompiler: true,

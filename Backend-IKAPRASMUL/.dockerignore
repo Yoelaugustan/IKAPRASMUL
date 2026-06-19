@@ -1,0 +1,19 @@
+# Build output — rebuilt inside the image
+**/bin/
+**/obj/
+
+# Local dev / IDE
+**/.vs/
+**/.vscode/
+*.user
+
+# Secrets must never enter the image (supplied as env vars at runtime)
+**/secrets.json
+secrets.example.json
+
+# Misc
+**/.git/
+**/.gitignore
+Dockerfile
+.dockerignore
+README.md

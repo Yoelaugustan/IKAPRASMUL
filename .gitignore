@@ -34,6 +34,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# database dumps (provided out-of-band, never committed)
+db-init/*.sql
 
 # vercel
 .vercel
