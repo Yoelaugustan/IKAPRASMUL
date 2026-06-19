@@ -1,0 +1,29 @@
+services:
+
+  #ikaprasmul BE
+  ikaprasmul-backend:
+    build:
+      context: ./Backend-IKAPRASMUL
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__DefaultConnection: ${POSTGRES_CONSTRING}
+      Smtp__Username: ${SMTP_USERNAME}
+      Smtp__Password: ${SMTP_PASSWORD}
+      Cors__AllowedOrigins__0: ${FRONTEND_ORIGIN}
+
+  #ikaprasmul FE (ikaprasmul.id)
+  ikaprasmul-frontend:
+    build:
+      context: ./Frontend-IKAPRASMUL
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+    restart: unless-stopped
+    depends_on:
+      - ikaprasmul-backend
+    environment:
+      API_URL: http://ikaprasmul-backend:8080
+    ports:
+      - "3000:3000"
