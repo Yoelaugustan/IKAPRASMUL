@@ -29,9 +29,13 @@ That's it. After it boots:
 
 ## Database
 
-- The `db` service is a Postgres 16 container with a persistent `pgdata` volume.
+- The `db` service is a **Postgres 13** container (matches the deployment
+  server's version) with a persistent `pgdata` volume.
 - Any `*.sql` placed in `./db-init/` is restored **once**, on the first boot
   (when the volume is empty). See [db-init/README.md](db-init/README.md).
+- The provided `ikaprasmul.sql` is a **plain-SQL** dump, already tested to
+  restore cleanly on Postgres 13. (Do not use a custom-format `pg_dump` dump
+  here — `/docker-entrypoint-initdb.d` only runs plain `.sql`.)
 - Prefer your own host PostgreSQL instead? Delete the `db` service from
   `docker-compose.yml` and point `ConnectionStrings__DefaultConnection`
   (in the `backend` service) at your host DB.
