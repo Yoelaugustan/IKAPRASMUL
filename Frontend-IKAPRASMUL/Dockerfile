@@ -17,6 +17,12 @@ COPY . .
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
+# API_URL is read at build time by next.config.ts rewrites() (the /media proxy
+# destination is baked into the routes manifest). Point it at the backend
+# service so server-side proxying works inside the Docker network.
+ARG API_URL=http://ikaprasmul-backend:8080
+ENV API_URL=${API_URL}
+
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
