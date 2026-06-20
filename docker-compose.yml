@@ -19,6 +19,7 @@ services:
       context: ./Frontend-IKAPRASMUL
       dockerfile: Dockerfile
       args:
+        API_URL: http://ikaprasmul-backend:8080
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
     restart: unless-stopped
     depends_on:
