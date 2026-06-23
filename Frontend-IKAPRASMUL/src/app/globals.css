@@ -203,3 +203,90 @@
     transform: scaleX(1);
   }
 }
+
+/* Admin CMS rich-text editor (and rendered rich content). Mirrors the
+   Admin Dashboard design's .rte ruleset, using the app's design tokens. */
+.rte {
+  outline: none;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+.rte:empty:before {
+  content: attr(data-ph);
+  color: var(--muted-foreground);
+}
+.rte p {
+  margin: 0 0 0.625rem;
+}
+.rte h3 {
+  margin: 0.875rem 0 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+.rte blockquote {
+  margin: 0.625rem 0;
+  padding: 0.375rem 0.875rem;
+  border-left: 3px solid var(--gold);
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+.rte ul {
+  margin: 0.5rem 0;
+  padding-left: 1.375rem;
+  list-style: disc;
+}
+.rte a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+.rte img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0.5rem 0;
+  border-radius: 6px;
+}
+
+/* Custom Navy Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--sidebar-border);
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Never show a horizontal scrollbar (category/tab rows scroll via drag) */
+::-webkit-scrollbar:horizontal {
+  height: 0;
+  display: none;
+}
+
+/* Utility to fully suppress scrollbars (used on drag-scrollable tab rows) */
+.no-scrollbar {
+  scrollbar-width: none !important;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}

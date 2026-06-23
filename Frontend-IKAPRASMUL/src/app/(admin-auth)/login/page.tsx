@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div>
+    <div className="rounded-2xl bg-card px-12 py-10 shadow-xl">
       <h2 className="text-2xl font-bold tracking-tight text-primary">
         Sign in to the admin console
       </h2>

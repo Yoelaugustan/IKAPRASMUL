@@ -234,7 +234,7 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
           <div
             ref={tabsRef}
             onMouseDown={onTabsMouseDown}
-            className="mt-5 flex cursor-grab gap-3 overflow-x-auto pb-2 select-none [scrollbar-width:none] active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+            className="no-scrollbar mt-5 flex cursor-grab gap-3 overflow-x-auto pb-2 select-none active:cursor-grabbing"
           >
             {INDUSTRY_TABS.map((tab) => {
               const Icon = INDUSTRY_ICONS[tab] ?? BriefcaseIcon;

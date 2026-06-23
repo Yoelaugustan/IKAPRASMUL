@@ -9,6 +9,8 @@ import {
   HeartPulseIcon,
   PaletteIcon,
   RocketIcon,
+  ShirtIcon,
+  SparklesFilledIcon,
   StoreIcon,
   ThreeDotsIcon,
 } from "@/components/icons";
@@ -28,6 +30,8 @@ export const INDUSTRY_ICONS: Record<string, IconType> = {
   Technology: CpuIcon,
   Healthcare: HeartPulseIcon,
   Education: GraduationCapIcon,
+  Fashion: ShirtIcon,
+  Beauty: SparklesFilledIcon,
   Other: ThreeDotsIcon,
 };
 

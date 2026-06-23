@@ -130,7 +130,7 @@ export function NewsExplorer({
               <div
                 ref={tabsRef}
                 onMouseDown={onTabsMouseDown}
-                className="flex cursor-grab gap-1 overflow-x-auto pb-1 select-none [scrollbar-width:none] active:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+                className="no-scrollbar flex cursor-grab gap-1 overflow-x-auto pb-1 select-none active:cursor-grabbing"
               >
                 {TABS.map((tab) => {
                   const Icon = NEWS_CATEGORY_ICONS[tab];

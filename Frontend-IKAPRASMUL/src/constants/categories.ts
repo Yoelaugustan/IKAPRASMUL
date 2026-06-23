@@ -29,6 +29,8 @@ export const INDUSTRIES = [
   "Technology",
   "Healthcare",
   "Education",
+  "Fashion",
+  "Beauty",
   "Other",
 ] as const;
 export type Industry = (typeof INDUSTRIES)[number];
