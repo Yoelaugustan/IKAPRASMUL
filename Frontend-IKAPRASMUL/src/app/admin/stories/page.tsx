@@ -1,10 +1,13 @@
-import { AdminPlaceholder } from "@/components/admin/AdminPlaceholder";
+import type { Metadata } from "next";
+import { getStories } from "@/lib/content";
+import { StoriesManager } from "@/components/admin/cms/StoriesManager";
 
-export default function AdminStoriesPage() {
-  return (
-    <AdminPlaceholder
-      title="Alumni Stories"
-      description="Author and manage Alumni Stories — set featured stories and assign categories."
-    />
-  );
+export const metadata: Metadata = {
+  title: "Alumni Stories",
+  robots: { index: false, follow: false },
+};
+
+export default async function AdminStoriesPage() {
+  const items = await getStories();
+  return <StoriesManager items={items} />;
 }

@@ -678,3 +678,21 @@ export function YoutubeIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function ShirtIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
+      <path d="M21.58 4.66l-4-2A1 1 0 0 0 17 2.55a4.5 4.5 0 0 1-10 0 1 1 0 0 0-.58-.11l-4 2A1 1 0 0 0 2 5.5v4a1 1 0 0 0 .74 1L5 11v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9l2.26-.52A1 1 0 0 0 22 9.5v-4a1 1 0 0 0-.42-.84z"/>
+    </svg>
+  );
+}
+
+export function SparklesFilledIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden {...props}>
+      <path d="M12 2l1.8 5.4L19 9l-4.5 3.6 1.5 5.4L12 15l-4 3 1.5-5.4L5 9l5.2-1.6L12 2z"/>
+      <path d="M5 2l.9 2.7L8.5 5.5 6 7l.75 2.7L5 8.5l-1.75 1.2L4 7 1.5 5.5l2.6-0.8L5 2z"/>
+      <path d="M19 14l.9 2.7L22.5 17.5 20 19l.75 2.7L19 20.5l-1.75 1.2L18 19l-2.5-1.5 2.6-0.8L19 14z"/>
+    </svg>
+  );
+}

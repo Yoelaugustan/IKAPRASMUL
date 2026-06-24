@@ -1,10 +1,13 @@
-import { AdminPlaceholder } from "@/components/admin/AdminPlaceholder";
+import type { Metadata } from "next";
+import { getBusinesses } from "@/lib/content";
+import { BusinessManager } from "@/components/admin/cms/BusinessManager";
 
-export default function AdminBusinessPage() {
-  return (
-    <AdminPlaceholder
-      title="Alumni Business"
-      description="Manage business listings and set the Alumni Business Spotlight."
-    />
-  );
+export const metadata: Metadata = {
+  title: "Alumni Business",
+  robots: { index: false, follow: false },
+};
+
+export default async function AdminBusinessPage() {
+  const items = await getBusinesses();
+  return <BusinessManager items={items} />;
 }
