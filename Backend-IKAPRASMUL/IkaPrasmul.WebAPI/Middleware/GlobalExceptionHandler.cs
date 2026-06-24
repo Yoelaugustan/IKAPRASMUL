@@ -1,4 +1,5 @@
 using FluentValidation;
+using IkaPrasmul.Commons.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,8 @@ public class GlobalExceptionHandler : IExceptionHandler
         var (statusCode, title) = exception switch
         {
             ValidationException => (StatusCodes.Status400BadRequest, "Validation failed"),
+            UnauthorizedException => (StatusCodes.Status401Unauthorized, "Unauthorized"),
+            NotFoundException => (StatusCodes.Status404NotFound, "Not found"),
             _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred"),
         };
 
