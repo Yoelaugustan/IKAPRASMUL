@@ -4,6 +4,8 @@
     <PackageReference Include="FluentValidation" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
     <PackageReference Include="Microsoft.Extensions.Options" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" />
+    <PackageReference Include="HtmlSanitizer" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../IkaPrasmul.Contracts/IkaPrasmul.Contracts.csproj" />
