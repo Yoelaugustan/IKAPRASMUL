@@ -1,5 +1,4 @@
-using IkaPrasmul.Commons.Constants;
-using IkaPrasmul.Contracts.RequestModels.Content;
+using IkaPrasmul.Contracts.RequestModels.Public;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +16,9 @@ public class SigController : ControllerBase
 
     [HttpGet("groups")]
     public async Task<IActionResult> Groups(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetContentListRequest(ContentType.SigGroup), ct));
+        Ok(await _mediator.Send(new GetSigGroupsRequest(), ct));
 
     [HttpGet("spotlight")]
     public async Task<IActionResult> Spotlight(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetContentListRequest(ContentType.SigSpotlight), ct));
+        Ok(await _mediator.Send(new GetSigSpotlightsRequest(), ct));
 }

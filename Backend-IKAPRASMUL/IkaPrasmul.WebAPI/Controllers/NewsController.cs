@@ -1,5 +1,4 @@
-using IkaPrasmul.Commons.Constants;
-using IkaPrasmul.Contracts.RequestModels.Content;
+using IkaPrasmul.Contracts.RequestModels.Public;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,5 +16,5 @@ public class NewsController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> Get(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetContentListRequest(ContentType.Article), ct));
+        Ok(await _mediator.Send(new GetArticlesRequest(), ct));
 }
