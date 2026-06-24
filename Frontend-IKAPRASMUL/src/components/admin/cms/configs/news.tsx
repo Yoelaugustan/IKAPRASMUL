@@ -12,6 +12,7 @@ export const newsConfig: ResourceConfig<Article> = {
   kicker: "News & Insights",
   searchPlaceholder: "Search articles…",
   keyField: "slug",
+  slugSource: "title",
   getLabel: (article) => article.title,
   matches: (article, q) =>
     (article.title || "").toLowerCase().includes(q) ||
@@ -49,15 +50,27 @@ export const newsConfig: ResourceConfig<Article> = {
         </span>
       ),
     },
+    {
+      header: "Status",
+      width: "86px",
+      cell: (article) =>
+        article.isDraft ? (
+          <Badge variant="outline" className="text-muted-foreground">Draft</Badge>
+        ) : article.isFeatured ? (
+          <Badge className="bg-gold/20 text-gold-foreground">★ Featured</Badge>
+        ) : (
+          <span className="text-xs text-muted-foreground">Published</span>
+        ),
+    },
   ],
   fields: [
     { key: "title", label: "Title", type: "text", full: true },
     {
       key: "slug",
-      label: "Slug",
+      label: "Page URL",
       type: "text",
-      placeholder: "article-slug",
-      hint: "Used in the URL.",
+      placeholder: "article-page-url",
+      hint: "Auto-generated from the title. You can customise it.",
     },
     {
       key: "category",
@@ -68,15 +81,34 @@ export const newsConfig: ResourceConfig<Article> = {
     { key: "author.name", label: "Author name", type: "text" },
     {
       key: "excerpt",
-      label: "Excerpt",
+      label: "Short summary",
       type: "textarea",
       rows: 2,
+      placeholder: "A brief preview shown on listing cards…",
       full: true,
     },
-    { key: "body", label: "Body", type: "rich", full: true },
+    {
+      key: "body",
+      label: "Body",
+      type: "rich",
+      full: true,
+      hidden: (form) => (form as Article).category === "Newsletter",
+    },
+    {
+      key: "pdfUrl",
+      label: "Newsletter PDF",
+      type: "pdf",
+      full: true,
+      hidden: (form) => (form as Article).category !== "Newsletter",
+    },
     { key: "coverImage", label: "Cover image", type: "image", full: true },
     { key: "publishedAt", label: "Published date", type: "date" },
-    { key: "readMinutes", label: "Read minutes", type: "number" },
+    {
+      key: "readMinutes",
+      label: "Read minutes",
+      type: "number",
+      hidden: (form) => (form as Article).category === "Newsletter",
+    },
     {
       key: "isFeatured",
       label: "Feature in News & Insights",
@@ -96,5 +128,6 @@ export const newsConfig: ResourceConfig<Article> = {
     readMinutes: 3,
     views: 0,
     isFeatured: false,
+    isDraft: false,
   }),
 };

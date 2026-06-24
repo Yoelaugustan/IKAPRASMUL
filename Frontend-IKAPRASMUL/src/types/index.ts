@@ -32,6 +32,7 @@ export interface SigSpotlight {
   name: string;
   image: string;
   description: string;
+  isDraft?: boolean;
 };
 
 export type Story = {
@@ -47,6 +48,7 @@ export type Story = {
   isFeatured?: boolean;
   /** Controls the Alumni of the Month slot on the home page (max 1 shown). */
   isFeaturedHome?: boolean;
+  isDraft?: boolean;
 };
 
 export type Business = {
@@ -64,6 +66,7 @@ export type Business = {
   isSpotlight?: boolean;
   /** Controls the featured business slots on the home page (max 2 shown). */
   isFeaturedHome?: boolean;
+  isDraft?: boolean;
 };
 
 export type Article = {
@@ -81,6 +84,7 @@ export type Article = {
   /** 'newsletter' cards open a PDF instead of a slug detail page. */
   type?: "article" | "newsletter";
   pdfUrl?: string;
+  isDraft?: boolean;
 };
 
 export type AlumniEvent = {

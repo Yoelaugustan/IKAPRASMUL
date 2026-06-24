@@ -1,4 +1,5 @@
 import type { SigSpotlight } from "@/types";
+import { Badge } from "@/components/ui/badge";
 import { Thumb } from "../Thumb";
 import type { ResourceConfig } from "../types";
 
@@ -9,6 +10,8 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
   kicker: "SIG Spotlight",
   searchPlaceholder: "Search spotlights…",
   keyField: "id",
+  slugSource: "name",
+  slugTarget: "id",
   getLabel: (item) => item.name,
   matches: (item, q) =>
     item.name.toLowerCase().includes(q) ||
@@ -31,6 +34,16 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
         </div>
       ),
     },
+    {
+      header: "Status",
+      width: "86px",
+      cell: (item) =>
+        item.isDraft ? (
+          <Badge variant="outline" className="text-muted-foreground">Draft</Badge>
+        ) : (
+          <span className="text-xs text-muted-foreground">Published</span>
+        ),
+    },
   ],
   fields: [
     {
@@ -39,6 +52,13 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
       type: "text",
       placeholder: "Spotlight headline",
       full: true,
+    },
+    {
+      key: "id",
+      label: "Page URL",
+      type: "text",
+      placeholder: "spotlight-page-url",
+      hint: "Auto-generated from the title. You can customise it.",
     },
     { key: "image", label: "Cover image", type: "image", full: true },
     {
@@ -49,5 +69,5 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
       full: true,
     },
   ],
-  blank: () => ({ id: "", name: "", image: "", description: "" }),
+  blank: () => ({ id: "", name: "", image: "", description: "", isDraft: false }),
 };

@@ -12,6 +12,7 @@ export const storiesConfig: ResourceConfig<Story> = {
   kicker: "Alumni Story",
   searchPlaceholder: "Search stories…",
   keyField: "slug",
+  slugSource: "title",
   getLabel: (story) => story.title,
   matches: (story, q) =>
     story.title.toLowerCase().includes(q) ||
@@ -53,7 +54,9 @@ export const storiesConfig: ResourceConfig<Story> = {
       header: "Status",
       width: "86px",
       cell: (story) =>
-        story.isFeatured ? (
+        story.isDraft ? (
+          <Badge variant="outline" className="text-muted-foreground">Draft</Badge>
+        ) : story.isFeatured ? (
           <Badge className="bg-gold/20 text-gold-foreground">★ Featured</Badge>
         ) : (
           <span className="text-xs text-muted-foreground">Published</span>
@@ -64,10 +67,10 @@ export const storiesConfig: ResourceConfig<Story> = {
     { key: "title", label: "Title", type: "text", full: true },
     {
       key: "slug",
-      label: "Slug",
+      label: "Page URL",
       type: "text",
-      placeholder: "story-slug",
-      hint: "Used in the URL.",
+      placeholder: "story-page-url",
+      hint: "Auto-generated from the title. You can customise it.",
     },
     {
       key: "category",
@@ -84,9 +87,10 @@ export const storiesConfig: ResourceConfig<Story> = {
     },
     {
       key: "excerpt",
-      label: "Excerpt",
+      label: "Short summary",
       type: "textarea",
       rows: 2,
+      placeholder: "A brief preview shown on listing cards…",
       full: true,
     },
     { key: "body", label: "Body", type: "rich", full: true },
@@ -116,5 +120,6 @@ export const storiesConfig: ResourceConfig<Story> = {
     readMinutes: 3,
     isFeatured: false,
     isFeaturedHome: false,
+    isDraft: false,
   }),
 };

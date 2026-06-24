@@ -43,13 +43,6 @@ export const sigGroupsConfig: ResourceConfig<SigGroup> = {
       placeholder: "e.g. Cycling Club",
       full: true,
     },
-    {
-      key: "id",
-      label: "ID / Slug",
-      type: "text",
-      placeholder: "cycling-club",
-      hint: "Lowercase, used in the URL.",
-    },
     { key: "image", label: "Logo / image", type: "image", full: true },
   ],
   blank: () => ({ id: "", name: "", image: "", icon: "" }),

@@ -12,6 +12,7 @@ export const businessConfig: ResourceConfig<Business> = {
   kicker: "Alumni Business",
   searchPlaceholder: "Search businesses…",
   keyField: "slug",
+  slugSource: "name",
   getLabel: (business) => business.name,
   matches: (business, q) =>
     business.name.toLowerCase().includes(q) ||
@@ -58,7 +59,9 @@ export const businessConfig: ResourceConfig<Business> = {
       header: "Status",
       width: "104px",
       cell: (business) =>
-        business.isSpotlight ? (
+        business.isDraft ? (
+          <Badge variant="outline" className="text-muted-foreground">Draft</Badge>
+        ) : business.isSpotlight ? (
           <Badge variant="secondary">★ Spotlight</Badge>
         ) : (
           <span className="text-xs text-muted-foreground">Listed</span>
@@ -74,10 +77,10 @@ export const businessConfig: ResourceConfig<Business> = {
     },
     {
       key: "slug",
-      label: "Slug",
+      label: "Page URL",
       type: "text",
-      placeholder: "puyo-silky-desserts",
-      hint: "Used in the URL.",
+      placeholder: "business-page-url",
+      hint: "Auto-generated from the business name. You can customise it.",
     },
     {
       key: "industry",
@@ -144,5 +147,6 @@ export const businessConfig: ResourceConfig<Business> = {
     website: "",
     isSpotlight: false,
     isFeaturedHome: false,
+    isDraft: false,
   }),
 };

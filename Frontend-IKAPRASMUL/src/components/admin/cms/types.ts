@@ -7,6 +7,7 @@ export type FieldType =
   | "textarea"
   | "rich"
   | "image"
+  | "pdf"
   | "select"
   | "date"
   | "number"
@@ -24,6 +25,8 @@ export interface FieldConfig {
   hint?: string;
   /** Span both columns of the 2-col form grid. */
   full?: boolean;
+  /** Hide this field based on the current form state. */
+  hidden?: (form: unknown) => boolean;
 }
 
 export interface ColumnConfig<T> {
@@ -45,6 +48,10 @@ export interface ResourceConfig<T> {
   searchPlaceholder?: string;
   /** Dot-path to the entity's unique key (used for list keys + de-dupe). */
   keyField: string;
+  /** Field key whose value auto-populates the slug/id field for new records. */
+  slugSource?: string;
+  /** Field key that receives the auto-generated value. Defaults to "slug". */
+  slugTarget?: string;
   /** Human label for the delete-confirm + generated keys. */
   getLabel: (item: T) => string;
   /** `q` is already lower-cased. */
