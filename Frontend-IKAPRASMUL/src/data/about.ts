@@ -9,7 +9,7 @@ export const EXECUTIVE_BOARD: BoardMember[] = [
   { name: "Meidy Ferdiansyah", role: "Vice President 4", photo: "/images/about/pengurus_inti/WK_4-Meidy_Ferdiansyah.jpeg", tier: "executive" },
   { name: "Fera Damayanti", role: "Secretary General", photo: "/images/about/pengurus_inti/SEKJEN-Fera_Damayanti.png", tier: "executive" },
   { name: "SM Widyasari", role: "Deputy Secretary General 1", photo: "/images/about/pengurus_inti/WASEKJEN_1-SM_Widyasari.jpeg", tier: "executive" },
-  { name: "Nandana", role: "Deputy Secretary General 2", photo: "/images/about/pengurus_inti/WASEKJEN_2-Nandana.JPG", tier: "executive" },
+  { name: "Nandana Kusuma", role: "Deputy Secretary General 2", photo: "/images/about/pengurus_inti/WASEKJEN_2-Nandana.JPG", tier: "executive" },
   { name: "Zefanya Angeline", role: "General Treasurer", photo: "/images/about/pengurus_inti/BENDUM-Zefanya_Angeline.jpeg", tier: "executive" },
 ];
 

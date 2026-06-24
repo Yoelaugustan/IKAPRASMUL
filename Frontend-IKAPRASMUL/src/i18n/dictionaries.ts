@@ -173,7 +173,7 @@ const en = {
       {
         year: "2025 – 2029",
         description:
-          "IKAPRAMA was renamed to IKA PRASMUL. Led by Mr. Edy Sutrisman, MM (MMSM 47 - President Commissioner of Rekind).",
+          "IKAPRAMA was renamed to IKA PRASMUL. Led by Mr. Edy Sutrisman, MM (MMSM 47 - President Commissioner of PT Rekayasa Engineering).",
       },
     ],
     governanceTitle: "Governance Structure",
@@ -633,7 +633,7 @@ const id: Dictionary = {
       {
         year: "2025 – 2029",
         description:
-          "IKAPRAMA berubah nama menjadi IKA PRASMUL. Dipimpin oleh Bapak Edy Sutrisman, MM (MMSM 47 - Komisaris Utama Rekind).",
+          "IKAPRAMA berubah nama menjadi IKA PRASMUL. Dipimpin oleh Bapak Edy Sutrisman, MM (MMSM 47 - Komisaris Utama PT Rekayasa Engineering).",
       },
     ],
     governanceTitle: "Struktur Organisasi",

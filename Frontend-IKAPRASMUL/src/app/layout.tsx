@@ -16,14 +16,14 @@ const sans = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "IKAPRASMUL — Prasmul Alumni Association",
+    default: "IKAPRASMUL - Prasmul Alumni Association",
     template: "%s · IKAPRASMUL",
   },
   description:
     "The digital home for Prasetiya Mulya alumni. Connect. Grow. Give Back. Discover alumni stories, businesses, shared interest groups, and news.",
-  metadataBase: new URL("https://ikaprasmul.example"),
+  metadataBase: new URL("https://Ikaprasmul.id"),
   openGraph: {
-    title: "IKAPRASMUL — Prasmul Alumni Association",
+    title: "IKAPRASMUL - Prasmul Alumni Association",
     description: "Connect. Grow. Give Back.",
     type: "website",
   },
