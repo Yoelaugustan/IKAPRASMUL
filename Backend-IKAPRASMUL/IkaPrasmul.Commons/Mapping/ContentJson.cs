@@ -51,6 +51,7 @@ public static class ContentJson
         publishedAt = s.PublishedAt,
         readMinutes = s.ReadMinutes,
         isFeatured = s.IsFeatured,
+        isHighlight = s.IsHighlight,
         isFeaturedHome = s.IsFeaturedHome,
         isDraft = IsDraft(s.Status),
     });
@@ -85,6 +86,7 @@ public static class ContentJson
         readMinutes = a.ReadMinutes,
         views = a.Views,
         isFeatured = a.IsFeatured,
+        isTopStory = a.IsTopStory,
         type = a.Type,
         pdfUrl = a.PdfUrl,
         isDraft = IsDraft(a.Status),

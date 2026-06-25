@@ -1,5 +1,6 @@
 using System.Text.Json;
 using IkaPrasmul.Commons.Constants;
+using IkaPrasmul.Commons.Exceptions;
 using IkaPrasmul.Commons.Mapping;
 using IkaPrasmul.Commons.Services;
 using IkaPrasmul.Contracts.RequestModels.Story;
@@ -42,6 +43,23 @@ public class UpsertStoryRequestHandler : IRequestHandler<UpsertStoryRequest, Jso
             entity.UpdatedBy = request.Actor;
         }
 
+        if (request.IsHighlight && request.IsFeatured)
+            throw new BusinessRuleException("A story cannot be both Highlighted and Featured at the same time.");
+
+        if (request.IsHighlight)
+        {
+            var highlightCount = await _db.Stories.CountAsync(s => s.IsHighlight && s.Id != entity.Id, ct);
+            if (highlightCount >= 3)
+                throw new BusinessRuleException("Only 3 stories can be highlighted at a time. Remove a highlight before adding another.");
+        }
+
+        if (request.IsFeatured)
+        {
+            var featuredCount = await _db.Stories.CountAsync(s => s.IsFeatured && s.Id != entity.Id, ct);
+            if (featuredCount >= 4)
+                throw new BusinessRuleException("Only 4 stories can be featured at a time. Unfeature a story before featuring another.");
+        }
+
         var desiredSlug = SlugService.Slugify(
             !string.IsNullOrWhiteSpace(request.Slug) ? request.Slug : request.Title);
         entity.Slug = await EnsureUniqueSlugAsync(desiredSlug, entity.Id, ct);
@@ -57,6 +75,7 @@ public class UpsertStoryRequestHandler : IRequestHandler<UpsertStoryRequest, Jso
         entity.PublishedAt = request.PublishedAt;
         entity.ReadMinutes = request.ReadMinutes;
         entity.IsFeatured = request.IsFeatured;
+        entity.IsHighlight = request.IsHighlight;
         entity.IsFeaturedHome = request.IsFeaturedHome;
         entity.Status = request.IsDraft ? ContentStatus.Draft : ContentStatus.Published;
 

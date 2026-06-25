@@ -17,7 +17,7 @@ public class GetAdminStoryListRequestHandler
     public async Task<List<JsonElement>> Handle(GetAdminStoryListRequest request, CancellationToken ct)
     {
         var rows = await _db.Stories
-            .OrderBy(s => s.SortOrder)
+            .OrderByDescending(s => s.CreatedAt)
             .ToListAsync(ct);
         return rows.Select(ContentJson.Story).ToList();
     }

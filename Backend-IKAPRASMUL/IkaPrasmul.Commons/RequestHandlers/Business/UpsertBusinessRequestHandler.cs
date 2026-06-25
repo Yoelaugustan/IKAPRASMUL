@@ -1,5 +1,6 @@
 using System.Text.Json;
 using IkaPrasmul.Commons.Constants;
+using IkaPrasmul.Commons.Exceptions;
 using IkaPrasmul.Commons.Mapping;
 using IkaPrasmul.Commons.Services;
 using IkaPrasmul.Contracts.RequestModels.Business;
@@ -40,6 +41,13 @@ public class UpsertBusinessRequestHandler : IRequestHandler<UpsertBusinessReques
         {
             entity.UpdatedAt = now;
             entity.UpdatedBy = request.Actor;
+        }
+
+        if (request.IsSpotlight)
+        {
+            var spotlightCount = await _db.BusinessListings.CountAsync(b => b.IsSpotlight && b.Id != entity.Id, ct);
+            if (spotlightCount >= 1)
+                throw new BusinessRuleException("Only 1 business can be spotlighted at a time. Remove the current spotlight before setting a new one.");
         }
 
         var desiredSlug = SlugService.Slugify(

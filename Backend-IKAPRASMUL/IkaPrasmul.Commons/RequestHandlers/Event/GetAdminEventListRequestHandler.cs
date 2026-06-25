@@ -16,7 +16,7 @@ public class GetAdminEventListRequestHandler
 
     public async Task<List<JsonElement>> Handle(GetAdminEventListRequest request, CancellationToken ct)
     {
-        var rows = await _db.Events.OrderBy(e => e.SortOrder).ToListAsync(ct);
+        var rows = await _db.Events.OrderByDescending(e => e.CreatedAt).ToListAsync(ct);
         return rows.Select(ContentJson.Event).ToList();
     }
 }

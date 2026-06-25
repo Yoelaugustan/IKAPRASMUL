@@ -16,7 +16,7 @@ public class GetAdminBusinessListRequestHandler
 
     public async Task<List<JsonElement>> Handle(GetAdminBusinessListRequest request, CancellationToken ct)
     {
-        var rows = await _db.BusinessListings.OrderBy(b => b.SortOrder).ToListAsync(ct);
+        var rows = await _db.BusinessListings.OrderByDescending(b => b.CreatedAt).ToListAsync(ct);
         return rows.Select(ContentJson.Business).ToList();
     }
 }

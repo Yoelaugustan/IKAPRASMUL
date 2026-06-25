@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using IkaPrasmul.Commons.Services;
 using IkaPrasmul.Contracts.RequestModels.Sig;
 using IkaPrasmul.Entities;
@@ -23,12 +24,22 @@ public class DeleteSigSpotlightRequestHandler : IRequestHandler<DeleteSigSpotlig
         if (entity is not null)
         {
             var imageUrl = entity.ImageUrl;
+            var descriptionImageUrls = ExtractLocalImageUrls(entity.Description);
 
             _db.SigSpotlights.Remove(entity);
             await _db.SaveChangesAsync(ct);
 
             await _files.DeleteAsync(imageUrl, ct);
+            foreach (var url in descriptionImageUrls)
+                await _files.DeleteAsync(url, ct);
         }
         return Unit.Value;
+    }
+
+    private static IEnumerable<string> ExtractLocalImageUrls(string? html)
+    {
+        if (string.IsNullOrWhiteSpace(html)) yield break;
+        foreach (Match m in Regex.Matches(html, @"src=""(/media/[^""]+)""", RegexOptions.IgnoreCase))
+            yield return m.Groups[1].Value;
     }
 }

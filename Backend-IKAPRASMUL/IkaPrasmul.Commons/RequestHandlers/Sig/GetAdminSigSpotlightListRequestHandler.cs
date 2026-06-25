@@ -16,7 +16,7 @@ public class GetAdminSigSpotlightListRequestHandler
 
     public async Task<List<JsonElement>> Handle(GetAdminSigSpotlightListRequest request, CancellationToken ct)
     {
-        var rows = await _db.SigSpotlights.OrderBy(s => s.SortOrder).ToListAsync(ct);
+        var rows = await _db.SigSpotlights.OrderByDescending(s => s.CreatedAt).ToListAsync(ct);
         return rows.Select(ContentJson.SigSpotlight).ToList();
     }
 }

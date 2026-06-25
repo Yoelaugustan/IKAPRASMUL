@@ -16,7 +16,7 @@ public class GetAdminSigGroupListRequestHandler
 
     public async Task<List<JsonElement>> Handle(GetAdminSigGroupListRequest request, CancellationToken ct)
     {
-        var rows = await _db.SigGroups.OrderBy(g => g.SortOrder).ToListAsync(ct);
+        var rows = await _db.SigGroups.OrderByDescending(g => g.CreatedAt).ToListAsync(ct);
         return rows.Select(ContentJson.SigGroup).ToList();
     }
 }

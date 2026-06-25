@@ -1,5 +1,6 @@
 using System.Text.Json;
 using IkaPrasmul.Commons.Constants;
+using IkaPrasmul.Commons.Exceptions;
 using IkaPrasmul.Commons.Mapping;
 using IkaPrasmul.Commons.Services;
 using IkaPrasmul.Contracts.RequestModels.News;
@@ -46,6 +47,20 @@ public class UpsertArticleRequestHandler : IRequestHandler<UpsertArticleRequest,
             // Views is preserved across edits.
         }
 
+        if (request.IsFeatured)
+        {
+            var featuredCount = await _db.Articles.CountAsync(a => a.IsFeatured && a.Id != entity.Id, ct);
+            if (featuredCount >= 1)
+                throw new BusinessRuleException("Only 1 article can be featured at a time. Unfeature the current article before featuring another.");
+        }
+
+        if (request.IsTopStory)
+        {
+            var topStoryCount = await _db.Articles.CountAsync(a => a.IsTopStory && a.Id != entity.Id, ct);
+            if (topStoryCount >= 3)
+                throw new BusinessRuleException("Only 3 articles can be Top Stories at a time. Remove a Top Story before adding another.");
+        }
+
         var desiredSlug = SlugService.Slugify(
             !string.IsNullOrWhiteSpace(request.Slug) ? request.Slug : request.Title);
         entity.Slug = await EnsureUniqueSlugAsync(desiredSlug, entity.Id, ct);
@@ -60,6 +75,7 @@ public class UpsertArticleRequestHandler : IRequestHandler<UpsertArticleRequest,
         entity.PublishedAt = request.PublishedAt;
         entity.ReadMinutes = request.ReadMinutes;
         entity.IsFeatured = request.IsFeatured;
+        entity.IsTopStory = request.IsTopStory;
         // A Newsletter article opens a PDF instead of a body page.
         var isNewsletter = string.Equals(request.Category, NewsletterCategory, StringComparison.OrdinalIgnoreCase);
         entity.Type = isNewsletter ? "newsletter" : "article";

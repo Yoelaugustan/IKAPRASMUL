@@ -16,7 +16,7 @@ public class GetAdminArticleListRequestHandler
 
     public async Task<List<JsonElement>> Handle(GetAdminArticleListRequest request, CancellationToken ct)
     {
-        var rows = await _db.Articles.OrderBy(a => a.SortOrder).ToListAsync(ct);
+        var rows = await _db.Articles.OrderByDescending(a => a.CreatedAt).ToListAsync(ct);
         return rows.Select(ContentJson.Article).ToList();
     }
 }

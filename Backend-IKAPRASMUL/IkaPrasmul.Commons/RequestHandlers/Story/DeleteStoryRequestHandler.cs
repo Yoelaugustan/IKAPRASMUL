@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using IkaPrasmul.Commons.Services;
 using IkaPrasmul.Contracts.RequestModels.Story;
 using IkaPrasmul.Entities;
@@ -23,12 +24,22 @@ public class DeleteStoryRequestHandler : IRequestHandler<DeleteStoryRequest, Uni
         if (entity is not null)
         {
             var coverImage = entity.CoverImage;
+            var bodyImageUrls = ExtractLocalImageUrls(entity.Body);
 
             _db.Stories.Remove(entity);
             await _db.SaveChangesAsync(ct);
 
             await _files.DeleteAsync(coverImage, ct);
+            foreach (var url in bodyImageUrls)
+                await _files.DeleteAsync(url, ct);
         }
         return Unit.Value;
+    }
+
+    private static IEnumerable<string> ExtractLocalImageUrls(string? html)
+    {
+        if (string.IsNullOrWhiteSpace(html)) yield break;
+        foreach (Match m in Regex.Matches(html, @"src=""(/media/[^""]+)""", RegexOptions.IgnoreCase))
+            yield return m.Groups[1].Value;
     }
 }
