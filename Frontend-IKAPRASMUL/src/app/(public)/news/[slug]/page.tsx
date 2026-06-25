@@ -6,6 +6,7 @@ import { getArticleBySlug } from "@/lib/content";
 import { Container } from "@/components/layouts/Container";
 import { ArticleContent } from "@/components/shared/ArticleContent";
 import { BackButton } from "@/components/shared/BackButton";
+import { ViewTracker } from "@/components/shared/ViewTracker";
 import { ROUTES } from "@/constants/routes";
 import { formatCompactNumber, formatDateUS } from "@/lib/format";
 import { getServerDict } from "@/i18n/server";
@@ -33,6 +34,7 @@ export default async function ArticleDetailPage({ params }: Params) {
 
   return (
     <article className="pb-20 pt-10">
+      <ViewTracker slug={article.slug} />
       <Container className="max-w-3xl">
         <div className="mb-6">
           <BackButton fallback={ROUTES.news} />

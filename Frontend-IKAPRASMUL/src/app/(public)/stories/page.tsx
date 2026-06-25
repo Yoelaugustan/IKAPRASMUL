@@ -6,7 +6,7 @@ import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
 import { StoryCategoryTabs } from "@/components/stories/StoryCategoryTabs";
 import { StoriesView } from "@/components/stories/StoriesView";
-import { getStories, getStoryCategoryCounts } from "@/lib/content";
+import { getHighlightStories, getStories, getStoryCategoryCounts } from "@/lib/content";
 import { getServerDict } from "@/i18n/server";
 
 export const metadata: Metadata = {
@@ -16,9 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default async function StoriesPage() {
-  const [{ t }, stories, counts] = await Promise.all([
+  const [{ t }, stories, highlightStories, counts] = await Promise.all([
     getServerDict(),
     getStories(),
+    getHighlightStories(),
     getStoryCategoryCounts(),
   ]);
 
@@ -50,6 +51,7 @@ export default async function StoriesPage() {
             <Suspense fallback={<div className="h-96" />}>
               <StoriesView
                 featuredStories={featuredStories}
+                highlightStories={highlightStories}
                 stories={stories}
                 counts={counts}
               />

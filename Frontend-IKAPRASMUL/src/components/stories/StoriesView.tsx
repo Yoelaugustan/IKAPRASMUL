@@ -18,10 +18,13 @@ const HIGHLIGHT_COUNT = 3;
 
 export function StoriesView({
   featuredStories,
+  highlightStories,
   stories,
   counts,
 }: {
   featuredStories: Story[];
+  /** Admin-curated highlight stories (isHighlight flag). Falls back to the first 3 non-featured stories when empty. */
+  highlightStories: Story[];
   stories: Story[];
   counts: { category: string; count: number }[];
 }) {
@@ -84,11 +87,13 @@ export function StoriesView({
   /* ------------------------- DEFAULT MODE ------------------------- */
   if (!viewAll) {
     // Highlights are NOT category-filtered — the category tabs only apply in the
-    // view-all stage. Always show the latest non-featured stories here.
+    // view-all stage. Use admin-curated isHighlight stories; fall back to the
+    // first HIGHLIGHT_COUNT non-featured stories when none are flagged.
     const featuredSlugs = new Set(featuredStories.map((s) => s.slug));
-    const highlights = stories
-      .filter((s) => !featuredSlugs.has(s.slug))
-      .slice(0, HIGHLIGHT_COUNT);
+    const highlights =
+      highlightStories.length > 0
+        ? highlightStories
+        : stories.filter((s) => !featuredSlugs.has(s.slug)).slice(0, HIGHLIGHT_COUNT);
 
     return (
       <div

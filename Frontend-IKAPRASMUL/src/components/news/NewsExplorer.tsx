@@ -32,10 +32,13 @@ type Sort = "latest" | "oldest" | "popular";
 export function NewsExplorer({
   articles,
   featured,
+  topStories: topStoriesProp,
   mostPopular,
 }: {
   articles: Article[];
   featured?: Article;
+  /** Admin-curated top stories (isTopStory flag). Falls back to the first 3 latest non-featured articles when empty. */
+  topStories: Article[];
   mostPopular: Article[];
 }) {
   const { t } = useLang();
@@ -72,7 +75,12 @@ export function NewsExplorer({
   }, [articles, category, appliedQuery, sort, viewAll]);
 
   const isFiltering = category !== "All" || appliedQuery.trim() !== "";
-  const topStories = filteredArticles.slice(0, isFiltering ? 9 : 3);
+  // Use admin-curated isTopStory articles in the default view; fall back to the
+  // first 3 latest non-featured articles so the section is never empty.
+  const topStories =
+    !viewAll && topStoriesProp.length > 0
+      ? topStoriesProp
+      : filteredArticles.slice(0, isFiltering ? 9 : 3);
 
   const totalPages = Math.max(1, Math.ceil(filteredArticles.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);

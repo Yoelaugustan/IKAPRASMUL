@@ -6,6 +6,7 @@ import {
   getArticles,
   getFeaturedArticle,
   getMostPopularArticles,
+  getTopStories,
 } from "@/lib/content";
 import { getServerDict } from "@/i18n/server";
 
@@ -16,10 +17,11 @@ export const metadata: Metadata = {
 };
 
 export default async function NewsPage() {
-  const [{ t }, articles, featured, mostPopular] = await Promise.all([
+  const [{ t }, articles, featured, topStories, mostPopular] = await Promise.all([
     getServerDict(),
     getArticles(),
     getFeaturedArticle(),
+    getTopStories(),
     getMostPopularArticles(7),
   ]);
 
@@ -43,6 +45,7 @@ export default async function NewsPage() {
         <NewsExplorer
           articles={articles}
           featured={featured}
+          topStories={topStories}
           mostPopular={mostPopular}
         />
       </Reveal>
