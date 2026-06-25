@@ -297,7 +297,8 @@
       "coverImage": "/media/stories/cosplayer-1.png",
       "publishedAt": "2024-08-16",
       "readMinutes": 4,
-      "isFeatured": false
+      "isFeatured": false,
+      "isHighlight": true
     },
     {
       "slug": "taekwondo-lakeshia-erlino-kuswoyo",
@@ -315,6 +316,7 @@
       "publishedAt": "2024-04-13",
       "readMinutes": 3,
       "isFeatured": false,
+      "isHighlight": true,
       "isFeaturedHome": true
     },
     {
@@ -332,7 +334,8 @@
       "coverImage": "/media/stories/ryan-1.png",
       "publishedAt": "2023-04-11",
       "readMinutes": 5,
-      "isFeatured": false
+      "isFeatured": false,
+      "isHighlight": true
     }
   ],
   "business": [
@@ -568,7 +571,8 @@
       "publishedAt": "2026-05-16",
       "readMinutes": 5,
       "views": 3200,
-      "isFeatured": false
+      "isFeatured": false,
+      "isTopStory": true
     },
     {
       "slug": "prasmul-new-look-collaborative-learning-ai",
@@ -583,7 +587,8 @@
       "coverImage": "/media/news/ai-learning-1.jpeg",
       "publishedAt": "2026-05-23",
       "readMinutes": 6,
-      "views": 2800
+      "views": 2800,
+      "isTopStory": true
     },
     {
       "slug": "prasmul-new-look-transformasi-ekosistem-pendidikan",
@@ -598,7 +603,8 @@
       "coverImage": "/media/news/peresmian-bsd-1.jpeg",
       "publishedAt": "2026-05-23",
       "readMinutes": 7,
-      "views": 2500
+      "views": 2500,
+      "isTopStory": true
     },
     {
       "slug": "kolaborasi-lintas-negara-asia-business-case",
