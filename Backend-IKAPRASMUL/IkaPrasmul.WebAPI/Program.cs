@@ -6,6 +6,7 @@ using IkaPrasmul.Commons;
 using IkaPrasmul.Commons.Constants;
 using IkaPrasmul.Commons.Options;
 using IkaPrasmul.Entities;
+using Microsoft.EntityFrameworkCore;
 using IkaPrasmul.Entities.Models;
 using IkaPrasmul.Infrastructure;
 using IkaPrasmul.Infrastructure.Security;
@@ -116,6 +117,13 @@ builder.Services.AddRateLimiter(options =>
 });
 
 var app = builder.Build();
+
+// Apply any pending EF Core migrations automatically on startup.
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    await db.Database.MigrateAsync();
+}
 
 // --- Pipeline ---------------------------------------------------------------
 app.UseExceptionHandler();

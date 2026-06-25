@@ -9,6 +9,6 @@ public class JwtOptions
     public string Secret { get; set; } = string.Empty;
     public string Issuer { get; set; } = "ikaprasmul-api";
     public string Audience { get; set; } = "ikaprasmul-web";
-    public int AccessTokenExpiryMinutes { get; set; } = 60;
-    public int RefreshTokenExpiryDays { get; set; } = 7;
+    public int AccessTokenExpiryMinutes { get; set; } = 15;
+    public int RefreshTokenExpiryDays { get; set; } = 1;
 }
