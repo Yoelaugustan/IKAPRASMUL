@@ -32,6 +32,7 @@ export interface SigSpotlight {
   name: string;
   image: string;
   description: string;
+  isSpotlight?: boolean;
   isDraft?: boolean;
 };
 

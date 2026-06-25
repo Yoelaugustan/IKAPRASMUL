@@ -11,6 +11,7 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
   searchPlaceholder: "Search spotlights…",
   keyField: "id",
   resourcePath: "sig/spotlight",
+  publicPath: "/sig",
   slugSource: "name",
   slugTarget: "id",
   getLabel: (item) => item.name,
@@ -37,10 +38,12 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
     },
     {
       header: "Status",
-      width: "86px",
+      width: "104px",
       cell: (item) =>
         item.isDraft ? (
           <Badge variant="outline" className="text-muted-foreground">Draft</Badge>
+        ) : item.isSpotlight ? (
+          <Badge className="bg-amber-100 text-amber-700">★ Spotlight</Badge>
         ) : (
           <span className="text-xs text-muted-foreground">Published</span>
         ),
@@ -73,6 +76,13 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
       required: true,
       uploadFolder: "media/sig",
     },
+    {
+      key: "isSpotlight",
+      label: "Show in SIG spotlight sidebar (max 2)",
+      type: "toggle",
+      full: true,
+    },
   ],
-  blank: () => ({ id: "", name: "", image: "", description: "", isDraft: false }),
+  blank: () => ({ id: "", name: "", image: "", description: "", isSpotlight: false, isDraft: false }),
+  toggleLimits: { isSpotlight: 2 },
 };

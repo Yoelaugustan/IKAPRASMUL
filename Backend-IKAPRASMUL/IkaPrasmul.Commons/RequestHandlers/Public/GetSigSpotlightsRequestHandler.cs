@@ -17,7 +17,7 @@ public class GetSigSpotlightsRequestHandler : IRequestHandler<GetSigSpotlightsRe
     public async Task<List<JsonElement>> Handle(GetSigSpotlightsRequest request, CancellationToken ct)
     {
         var rows = await _db.SigSpotlights
-            .Where(s => s.Status == ContentStatus.Published)
+            .Where(s => s.Status == ContentStatus.Published && s.IsSpotlight)
             .OrderBy(s => s.SortOrder)
             .ToListAsync(ct);
         return rows.Select(ContentJson.SigSpotlight).ToList();

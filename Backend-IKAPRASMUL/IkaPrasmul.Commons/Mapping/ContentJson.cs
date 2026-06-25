@@ -36,6 +36,7 @@ public static class ContentJson
         name = s.Name,
         image = s.ImageUrl,
         description = s.Description,
+        isSpotlight = s.IsSpotlight,
         isDraft = IsDraft(s.Status),
     });
 

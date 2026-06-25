@@ -24,6 +24,9 @@ public class SigSpotlight : IHaveCreateAndUpdateAudit
     /// <summary>Authored HTML — sanitized on save (security-standard §4.3).</summary>
     public string? Description { get; set; }
 
+    /// <summary>Pinned to the SIG spotlight sidebar on the public SIG page (max 2).</summary>
+    public bool IsSpotlight { get; set; }
+
     public int SortOrder { get; set; }
 
     /// <summary>Draft or Published. Only Published is publicly readable.</summary>

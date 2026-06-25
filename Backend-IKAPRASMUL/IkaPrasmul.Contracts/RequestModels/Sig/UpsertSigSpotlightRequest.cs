@@ -12,6 +12,7 @@ public class UpsertSigSpotlightRequest : IRequest<JsonElement>
     public string Name { get; set; } = string.Empty;
     public string? Image { get; set; }
     public string? Description { get; set; }
+    public bool IsSpotlight { get; set; }
     public bool IsDraft { get; set; }
 
     public string? Actor { get; set; }

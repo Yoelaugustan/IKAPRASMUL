@@ -111,6 +111,7 @@ public class ContentSeederHostedService : IHostedService
         Name = Str(e, "name") ?? string.Empty,
         ImageUrl = Str(e, "image"),
         Description = Str(e, "description"),
+        IsSpotlight = Bool(e, "isSpotlight"),
         Status = "Published",
         SortOrder = order,
         CreatedAt = DateTime.UtcNow,
