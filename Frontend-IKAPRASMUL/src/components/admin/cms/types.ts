@@ -27,6 +27,12 @@ export interface FieldConfig {
   full?: boolean;
   /** Hide this field based on the current form state. */
   hidden?: (form: unknown) => boolean;
+  /** Validated as non-empty before publishing (drafts skip this check). */
+  required?: boolean;
+  /** wwwroot subfolder where uploads for this field are stored, e.g. "media/news". */
+  uploadFolder?: string;
+  /** When this toggle is turned ON, also turn OFF the field with this key (mutual exclusivity). */
+  linkedToggleOff?: string;
 }
 
 export interface ColumnConfig<T> {
@@ -48,6 +54,8 @@ export interface ResourceConfig<T> {
   searchPlaceholder?: string;
   /** Dot-path to the entity's unique key (used for list keys + de-dupe). */
   keyField: string;
+  /** Admin API path under /api/admin (e.g. "stories", "sig/groups"). */
+  resourcePath: string;
   /** Field key whose value auto-populates the slug/id field for new records. */
   slugSource?: string;
   /** Field key that receives the auto-generated value. Defaults to "slug". */
@@ -60,4 +68,6 @@ export interface ResourceConfig<T> {
   fields: FieldConfig[];
   /** Fresh empty draft for the "New" action. */
   blank: () => T;
+  /** Max number of items that can have a given toggle flag set (e.g. { isFeatured: 4, isHighlight: 3 }). */
+  toggleLimits?: Partial<Record<string, number>>;
 }

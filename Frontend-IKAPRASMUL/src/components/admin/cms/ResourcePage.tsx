@@ -1,10 +1,17 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Plus, Search, Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Plus, Search, Pencil, Trash2, ChevronLeft, ChevronRight, ArrowUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useResource } from "./useResource";
 import { EditDialog } from "./EditDialog";
 import { DeleteDialog } from "./DeleteDialog";
@@ -30,7 +37,7 @@ export function ResourcePage<T>({
 
   return (
     <div className="mx-auto max-w-[1180px]">
-      <div className="flex items-end justify-between gap-5">
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-primary">
             {config.title}
@@ -39,7 +46,7 @@ export function ResourcePage<T>({
             {config.subtitle}
           </p>
         </div>
-        <Button onClick={r.openNew} className="gap-2">
+        <Button onClick={r.openNew} className="gap-2 shrink-0">
           <Plus className="size-4" />
           New {config.name}
         </Button>
@@ -47,8 +54,8 @@ export function ResourcePage<T>({
 
       {subTabs ? <div className="mt-5">{subTabs}</div> : null}
 
-      <div className="mt-5 flex items-center justify-between gap-4">
-        <div className="relative w-full max-w-[340px]">
+      <div className="mt-5 flex flex-wrap items-center gap-3">
+        <div className="relative min-w-0 flex-1 basis-40 max-w-[340px]">
           <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             value={r.query}
@@ -57,68 +64,83 @@ export function ResourcePage<T>({
             className="pl-9"
           />
         </div>
-        <span className="shrink-0 text-sm text-muted-foreground">
+
+        <Select value={r.sortBy} onValueChange={(v) => r.setSortBy(v as typeof r.sortBy)}>
+          <SelectTrigger className="w-[140px] shrink-0 sm:w-[160px]">
+            <ArrowUpDown className="mr-2 size-3.5 text-muted-foreground" />
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="newest">Newest first</SelectItem>
+            <SelectItem value="oldest">Oldest first</SelectItem>
+            <SelectItem value="az">A → Z</SelectItem>
+            <SelectItem value="za">Z → A</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <span className="ml-auto shrink-0 text-sm text-muted-foreground">
           {count} {count === 1 ? config.name : `${config.name}s`}
         </span>
       </div>
 
-      <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-        <span className="size-1.5 rounded-full bg-gold" />
-        Local preview — create, edit and delete aren&apos;t saved to the server
-        yet.
-      </p>
-
       <div className="mt-4 overflow-hidden rounded-xl shadow-sm bg-card">
-        <div
-          className="grid items-center gap-2 bg-card px-5 py-4 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
-          style={{ gridTemplateColumns }}
-        >
-          {columns.map((column) => (
-            <span key={column.header} className={cn(column.align === "right" && "text-right")}>
-              {column.header}
-            </span>
-          ))}
-          <span className="text-right">Actions</span>
-        </div>
+        {/* overflow-x-auto lets the grid table scroll horizontally on narrow screens;
+            min-w-[560px] gives a concrete floor while still letting the table fill
+            wider containers so truncate on the title column actually fires. */}
+        <div className="overflow-x-auto">
+          <div className="min-w-[560px]">
+            <div
+              className="grid items-center gap-2 bg-card px-5 py-4 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground"
+              style={{ gridTemplateColumns }}
+            >
+              {columns.map((column) => (
+                <span key={column.header} className={cn(column.align === "right" && "text-right")}>
+                  {column.header}
+                </span>
+              ))}
+              <span className="text-right">Actions</span>
+            </div>
 
-        {r.paginatedItems.map((row) => (
-          <div
-            key={r.getKey(row)}
-            className="grid items-center gap-2 border-t border-slate-100 px-5 py-4 transition-colors hover:bg-slate-50/50"
-            style={{ gridTemplateColumns }}
-          >
-            {columns.map((column, index) => (
+            {r.paginatedItems.map((row) => (
               <div
-                key={index}
-                className={cn("min-w-0 text-sm", column.align === "right" && "text-right")}
+                key={r.getKey(row)}
+                className="grid items-center gap-2 border-t border-slate-100 px-5 py-4 transition-colors hover:bg-slate-50/50"
+                style={{ gridTemplateColumns }}
               >
-                {column.cell(row)}
+                {columns.map((column, index) => (
+                  <div
+                    key={index}
+                    className={cn("min-w-0 text-sm", column.align === "right" && "text-right")}
+                  >
+                    {column.cell(row)}
+                  </div>
+                ))}
+                <div className="flex justify-end gap-1">
+                  <button
+                    onClick={() => r.openEdit(row)}
+                    title="Edit"
+                    className="grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
+                  >
+                    <Pencil className="size-4" />
+                  </button>
+                  <button
+                    onClick={() => r.askDelete(row)}
+                    title="Delete"
+                    className="grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+                  >
+                    <Trash2 className="size-4" />
+                  </button>
+                </div>
               </div>
             ))}
-            <div className="flex justify-end gap-1">
-              <button
-                onClick={() => r.openEdit(row)}
-                title="Edit"
-                className="grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
-              >
-                <Pencil className="size-4" />
-              </button>
-              <button
-                onClick={() => r.askDelete(row)}
-                title="Delete"
-                className="grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
-              >
-                <Trash2 className="size-4" />
-              </button>
-            </div>
-          </div>
-        ))}
 
-        {count === 0 && (
-          <div className="border-t px-6 py-12 text-center text-sm text-muted-foreground">
-            No {config.name.toLowerCase()}s match your search.
+            {count === 0 && (
+              <div className="border-t px-6 py-12 text-center text-sm text-muted-foreground">
+                No {config.name.toLowerCase()}s match your search.
+              </div>
+            )}
           </div>
-        )}
+        </div>
 
         {r.totalPages > 1 && (
           <div className="flex items-center justify-between border-t border-slate-100 bg-card px-5 py-4">
@@ -154,6 +176,7 @@ export function ResourcePage<T>({
         open={r.editing !== null}
         item={r.editing?.item ?? null}
         isNew={r.editing?.isNew ?? false}
+        allItems={r.items}
         onClose={r.closeEdit}
         onSave={r.save}
       />

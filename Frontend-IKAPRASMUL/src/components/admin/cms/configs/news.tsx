@@ -12,6 +12,7 @@ export const newsConfig: ResourceConfig<Article> = {
   kicker: "News & Insights",
   searchPlaceholder: "Search articles…",
   keyField: "slug",
+  resourcePath: "news",
   slugSource: "title",
   getLabel: (article) => article.title,
   matches: (article, q) =>
@@ -52,33 +53,37 @@ export const newsConfig: ResourceConfig<Article> = {
     },
     {
       header: "Status",
-      width: "86px",
+      width: "96px",
       cell: (article) =>
         article.isDraft ? (
           <Badge variant="outline" className="text-muted-foreground">Draft</Badge>
         ) : article.isFeatured ? (
           <Badge className="bg-gold/20 text-gold-foreground">★ Featured</Badge>
+        ) : article.isTopStory ? (
+          <Badge className="bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">◆ Top Story</Badge>
         ) : (
           <span className="text-xs text-muted-foreground">Published</span>
         ),
     },
   ],
   fields: [
-    { key: "title", label: "Title", type: "text", full: true },
+    { key: "title", label: "Title", type: "text", full: true, required: true },
     {
       key: "slug",
       label: "Page URL",
       type: "text",
       placeholder: "article-page-url",
       hint: "Auto-generated from the title. You can customise it.",
+      required: true,
     },
     {
       key: "category",
       label: "Category",
       type: "select",
       options: NEWS_CATEGORIES,
+      required: true,
     },
-    { key: "author.name", label: "Author name", type: "text" },
+    { key: "author.name", label: "Author name", type: "text", required: true },
     {
       key: "excerpt",
       label: "Short summary",
@@ -86,6 +91,7 @@ export const newsConfig: ResourceConfig<Article> = {
       rows: 2,
       placeholder: "A brief preview shown on listing cards…",
       full: true,
+      required: true,
     },
     {
       key: "body",
@@ -93,6 +99,8 @@ export const newsConfig: ResourceConfig<Article> = {
       type: "rich",
       full: true,
       hidden: (form) => (form as Article).category === "Newsletter",
+      required: true,
+      uploadFolder: "media/news",
     },
     {
       key: "pdfUrl",
@@ -100,8 +108,17 @@ export const newsConfig: ResourceConfig<Article> = {
       type: "pdf",
       full: true,
       hidden: (form) => (form as Article).category !== "Newsletter",
+      required: true,
+      uploadFolder: "media/news/newsletters",
     },
-    { key: "coverImage", label: "Cover image", type: "image", full: true },
+    {
+      key: "coverImage",
+      label: "Cover image",
+      type: "image",
+      full: true,
+      required: true,
+      uploadFolder: "media/news",
+    },
     { key: "publishedAt", label: "Published date", type: "date" },
     {
       key: "readMinutes",
@@ -111,7 +128,13 @@ export const newsConfig: ResourceConfig<Article> = {
     },
     {
       key: "isFeatured",
-      label: "Feature in News & Insights",
+      label: "Feature in News & Insights (max 1)",
+      type: "toggle",
+      full: true,
+    },
+    {
+      key: "isTopStory",
+      label: "Pin to Top Stories (max 3)",
       type: "toggle",
       full: true,
     },
@@ -128,6 +151,8 @@ export const newsConfig: ResourceConfig<Article> = {
     readMinutes: 3,
     views: 0,
     isFeatured: false,
+    isTopStory: false,
     isDraft: false,
   }),
+  toggleLimits: { isFeatured: 1, isTopStory: 3 },
 };

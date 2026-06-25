@@ -12,6 +12,7 @@ export const storiesConfig: ResourceConfig<Story> = {
   kicker: "Alumni Story",
   searchPlaceholder: "Search stories…",
   keyField: "slug",
+  resourcePath: "stories",
   slugSource: "title",
   getLabel: (story) => story.title,
   matches: (story, q) =>
@@ -52,10 +53,12 @@ export const storiesConfig: ResourceConfig<Story> = {
     },
     {
       header: "Status",
-      width: "86px",
+      width: "96px",
       cell: (story) =>
         story.isDraft ? (
           <Badge variant="outline" className="text-muted-foreground">Draft</Badge>
+        ) : story.isHighlight ? (
+          <Badge className="bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">◆ Highlight</Badge>
         ) : story.isFeatured ? (
           <Badge className="bg-gold/20 text-gold-foreground">★ Featured</Badge>
         ) : (
@@ -64,26 +67,29 @@ export const storiesConfig: ResourceConfig<Story> = {
     },
   ],
   fields: [
-    { key: "title", label: "Title", type: "text", full: true },
+    { key: "title", label: "Title", type: "text", full: true, required: true },
     {
       key: "slug",
       label: "Page URL",
       type: "text",
       placeholder: "story-page-url",
       hint: "Auto-generated from the title. You can customise it.",
+      required: true,
     },
     {
       key: "category",
       label: "Category",
       type: "select",
       options: STORY_CATEGORIES,
+      required: true,
     },
-    { key: "author.name", label: "Author name", type: "text" },
+    { key: "author.name", label: "Author name", type: "text", required: true },
     {
       key: "author.class",
       label: "Author class",
       type: "text",
       placeholder: "S1 Business '13",
+      required: true,
     },
     {
       key: "excerpt",
@@ -92,15 +98,23 @@ export const storiesConfig: ResourceConfig<Story> = {
       rows: 2,
       placeholder: "A brief preview shown on listing cards…",
       full: true,
+      required: true,
     },
-    { key: "body", label: "Body", type: "rich", full: true },
-    { key: "coverImage", label: "Cover image", type: "image", full: true },
+    { key: "body", label: "Body", type: "rich", full: true, required: true, uploadFolder: "media/stories" },
+    { key: "coverImage", label: "Cover image", type: "image", full: true, required: true, uploadFolder: "media/stories" },
     { key: "publishedAt", label: "Published date", type: "date" },
     { key: "readMinutes", label: "Read minutes", type: "number" },
     {
-      key: "isFeatured",
-      label: "Feature in Alumni Stories",
+      key: "isHighlight",
+      label: "Pin to Highlights (max 3)",
       type: "toggle",
+      linkedToggleOff: "isFeatured",
+    },
+    {
+      key: "isFeatured",
+      label: "Feature in Alumni Stories (max 4)",
+      type: "toggle",
+      linkedToggleOff: "isHighlight",
     },
     {
       key: "isFeaturedHome",
@@ -119,7 +133,9 @@ export const storiesConfig: ResourceConfig<Story> = {
     publishedAt: new Date().toISOString().slice(0, 10),
     readMinutes: 3,
     isFeatured: false,
+    isHighlight: false,
     isFeaturedHome: false,
     isDraft: false,
   }),
+  toggleLimits: { isFeatured: 4, isHighlight: 3 },
 };

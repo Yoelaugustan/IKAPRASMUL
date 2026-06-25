@@ -17,8 +17,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { uploadFile } from "@/lib/adminApi";
 import { ToggleField } from "./ToggleField";
 import { ImageField } from "./ImageField";
 import { PdfField } from "./PdfField";
@@ -31,6 +33,8 @@ interface EditDialogProps<T> {
   open: boolean;
   item: T | null;
   isNew: boolean;
+  /** Full unfiltered list used to enforce toggle slot limits. */
+  allItems?: T[];
   onClose: () => void;
   onSave: (draft: T) => void;
 }
@@ -40,40 +44,87 @@ export function EditDialog<T>({
   open,
   item,
   isNew,
+  allItems = [],
   onClose,
   onSave,
 }: EditDialogProps<T>) {
   const [form, setForm] = useState<T | null>(item);
+  const [saving, setSaving] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<Set<string>>(new Set());
   const slugTouched = useRef(false);
-  // Snapshot of the form state when the dialog opened — used to detect changes.
   const initialForm = useRef<T | null>(item);
+  const pendingFiles = useRef<Map<string, File>>(new Map());
+  // blob URL → { file, folder } for images inserted into rich text fields.
+  // Uploaded and replaced with real URLs on save; revoked on cancel/close.
+  const pendingBodyImages = useRef<Map<string, { file: File; folder: string }>>(new Map());
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Sync form when the dialog opens with a new item, and clear it after close.
-  // eslint-disable-next-line react-hooks/set-state-in-effect
+  const revokePendingBodyImages = () => {
+    for (const blobUrl of pendingBodyImages.current.keys()) URL.revokeObjectURL(blobUrl);
+    pendingBodyImages.current.clear();
+  };
+
+  // Sync form when dialog opens; clear it after close animation finishes.
   useEffect(() => {
     if (open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setForm(item);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setFieldErrors(new Set());
       slugTouched.current = false;
       initialForm.current = item;
+      pendingFiles.current.clear();
+      revokePendingBodyImages();
     } else {
+      pendingFiles.current.clear();
+      revokePendingBodyImages();
       const t = setTimeout(() => setForm(null), 300);
       return () => clearTimeout(t);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, item]);
+
+  // Scroll to top so the error banner is visible when validation fails.
+  useEffect(() => {
+    if (fieldErrors.size > 0) {
+      scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [fieldErrors]);
 
   const slugTarget = config.slugTarget ?? "slug";
 
+  const clearError = (key: string) =>
+    setFieldErrors((prev) => {
+      if (!prev.has(key)) return prev;
+      const next = new Set(prev);
+      next.delete(key);
+      return next;
+    });
+
   const setField = (key: string, value: unknown) => {
     if (key === slugTarget) slugTouched.current = true;
+    clearError(key);
     setForm((current) => {
       if (!current) return current;
       let next = setPath(current, key, value);
-      // Auto-fill the slug/id field from the designated source field for new records only.
       if (isNew && !slugTouched.current && config.slugSource === key) {
         next = setPath(next, slugTarget, slugify(String(value)));
       }
       return next;
     });
+  };
+
+  const handleFileQueued = (key: string, file: File | null) => {
+    if (file) {
+      pendingFiles.current.set(key, file);
+      clearError(key);
+    } else {
+      pendingFiles.current.delete(key);
+    }
+  };
+
+  const handleBodyImageQueued = (folder: string) => (blobUrl: string, file: File) => {
+    pendingBodyImages.current.set(blobUrl, { file, folder });
   };
 
   const str = (key: string) => {
@@ -82,6 +133,8 @@ export function EditDialog<T>({
   };
 
   const renderField = (field: FieldConfig) => {
+    const error = fieldErrors.has(field.key);
+    const errClass = error ? "border-destructive focus-visible:ring-destructive" : "";
     switch (field.type) {
       case "textarea":
         return (
@@ -89,6 +142,7 @@ export function EditDialog<T>({
             value={str(field.key)}
             rows={field.rows ?? 3}
             placeholder={field.placeholder}
+            className={errClass}
             onChange={(event) => setField(field.key, event.target.value)}
           />
         );
@@ -97,22 +151,28 @@ export function EditDialog<T>({
           <RichTextEditor
             value={str(field.key)}
             placeholder={field.placeholder}
+            error={error}
             onChange={(html) => setField(field.key, html)}
+            uploadFolder={field.uploadFolder}
+            onFileQueued={field.uploadFolder ? handleBodyImageQueued(field.uploadFolder) : undefined}
           />
         );
       case "pdf":
         return (
           <PdfField
             value={str(field.key)}
+            error={error}
             onChange={(value) => setField(field.key, value)}
+            onFileQueued={(file) => handleFileQueued(field.key, file)}
           />
         );
       case "image":
         return (
           <ImageField
             value={str(field.key)}
-            placeholder={field.placeholder}
+            error={error}
             onChange={(value) => setField(field.key, value)}
+            onFileQueued={(file) => handleFileQueued(field.key, file)}
           />
         );
       case "select":
@@ -121,7 +181,7 @@ export function EditDialog<T>({
             value={str(field.key)}
             onValueChange={(value) => setField(field.key, value)}
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger className={cn("w-full", errClass)}>
               <SelectValue placeholder={field.placeholder ?? "Select…"} />
             </SelectTrigger>
             <SelectContent>
@@ -138,6 +198,7 @@ export function EditDialog<T>({
           <Input
             type="date"
             value={str(field.key).slice(0, 10)}
+            className={errClass}
             onChange={(event) => setField(field.key, event.target.value)}
           />
         );
@@ -147,6 +208,7 @@ export function EditDialog<T>({
             type="number"
             value={str(field.key)}
             placeholder={field.placeholder}
+            className={errClass}
             onChange={(event) =>
               setField(
                 field.key,
@@ -155,19 +217,38 @@ export function EditDialog<T>({
             }
           />
         );
-      case "toggle":
+      case "toggle": {
+        const limitMax = config.toggleLimits?.[field.key];
+        const currentKey = String(getPath(form, config.keyField) ?? "");
+        const atLimit =
+          limitMax !== undefined &&
+          !getPath(form, field.key) &&
+          allItems.filter(
+            (i) =>
+              Boolean(getPath(i, field.key)) &&
+              String(getPath(i, config.keyField) ?? "") !== currentKey,
+          ).length >= limitMax;
         return (
           <ToggleField
             label={field.label}
             checked={Boolean(getPath(form, field.key))}
-            onChange={(value) => setField(field.key, value)}
+            disabled={atLimit}
+            hint={atLimit ? `Limit of ${limitMax} reached — remove one first.` : undefined}
+            onChange={(value) => {
+              setField(field.key, value);
+              if (value && field.linkedToggleOff) {
+                setField(field.linkedToggleOff, false);
+              }
+            }}
           />
         );
+      }
       default:
         return (
           <Input
             value={str(field.key)}
             placeholder={field.placeholder}
+            className={errClass}
             onChange={(event) => setField(field.key, event.target.value)}
           />
         );
@@ -185,18 +266,86 @@ export function EditDialog<T>({
       ? "Publish"
       : "Save changes";
 
-  const saveAs = (draft: boolean) => {
+  const visibleFields = () =>
+    config.fields.filter((f) => !f.hidden?.(form));
+
+  const saveAs = async (asDraft: boolean) => {
     if (!form) return;
-    onSave(hasDraftSupport ? setPath(form, "isDraft", draft) : form);
+
+    // Validate required visible fields only when publishing (drafts are intentionally incomplete).
+    if (!asDraft) {
+      const emptyKeys = visibleFields()
+        .filter((f) => f.required)
+        .filter((f) => {
+          const val = getPath(form, f.key);
+          // Also treat a queued-but-not-yet-uploaded file as non-empty.
+          if (pendingFiles.current.has(f.key)) return false;
+          return typeof val === "string"
+            ? val.trim() === ""
+            : val === null || val === undefined;
+        })
+        .map((f) => f.key);
+
+      if (emptyKeys.length > 0) {
+        setFieldErrors(new Set(emptyKeys));
+        return;
+      }
+    }
+
+    setSaving(true);
+    let current = form;
+
+    // Upload any queued files now — only on actual save, never on file select.
+    for (const [key, file] of pendingFiles.current) {
+      try {
+        const fieldDef = config.fields.find((f) => f.key === key);
+        const url = await uploadFile(file, fieldDef?.uploadFolder);
+        current = setPath(current, key, url);
+      } catch (err) {
+        toast.error(err instanceof Error ? err.message : `Upload failed for ${key}.`);
+        setSaving(false);
+        return;
+      }
+    }
+    pendingFiles.current.clear();
+
+    // Upload body images that are still referenced in the HTML, replace blob URLs.
+    const richFields = config.fields.filter((f) => f.type === "rich");
+    for (const [blobUrl, { file, folder }] of pendingBodyImages.current) {
+      const inUse = richFields.some((f) =>
+        (getPath(current, f.key) as string ?? "").includes(blobUrl),
+      );
+      if (inUse) {
+        try {
+          const realUrl = await uploadFile(file, folder);
+          for (const f of richFields) {
+            const html = getPath(current, f.key) as string ?? "";
+            if (html.includes(blobUrl)) {
+              current = setPath(current, f.key, html.replaceAll(blobUrl, realUrl));
+            }
+          }
+        } catch (err) {
+          toast.error(err instanceof Error ? err.message : "Body image upload failed.");
+          setSaving(false);
+          return;
+        }
+      }
+      URL.revokeObjectURL(blobUrl);
+    }
+    pendingBodyImages.current.clear();
+
+    setSaving(false);
+
+    onSave(hasDraftSupport ? setPath(current, "isDraft", asDraft) : current);
   };
 
-  // On close, auto-save as draft for new items if the user already typed something.
+  // On close, auto-save as draft for new items if something was typed.
   const handleClose = () => {
     if (isNew && form && hasDraftSupport) {
       const hasChanges =
         JSON.stringify(form) !== JSON.stringify(initialForm.current);
       if (hasChanges) {
-        onSave(setPath(form, "isDraft", true));
+        void saveAs(true);
         return;
       }
     }
@@ -223,15 +372,21 @@ export function EditDialog<T>({
             <button
               type="button"
               onClick={handleClose}
-              className="absolute right-4 top-4 grid size-7 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              disabled={saving}
+              className="absolute right-4 top-4 grid size-7 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground disabled:opacity-50"
             >
               <X className="size-4" />
             </button>
           </div>
 
-          <div className="flex-1 overflow-y-auto px-6 py-5">
+          <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 py-5">
+            {fieldErrors.size > 0 && (
+              <p className="mb-4 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs font-medium text-destructive">
+                Please fill in all required fields marked with *.
+              </p>
+            )}
             <div className="grid grid-cols-1 gap-x-3.5 gap-y-4 sm:grid-cols-2">
-              {config.fields.filter((field) => !field.hidden?.(form)).map((field) => (
+              {visibleFields().map((field) => (
                 <div
                   key={field.key}
                   className={cn(field.full && "sm:col-span-2")}
@@ -239,6 +394,9 @@ export function EditDialog<T>({
                   {field.type !== "toggle" && (
                     <label className="mb-1.5 block text-xs font-semibold text-foreground">
                       {field.label}
+                      {field.required && (
+                        <span className="ml-1 text-destructive">*</span>
+                      )}
                     </label>
                   )}
                   {renderField(field)}
@@ -253,19 +411,27 @@ export function EditDialog<T>({
           </div>
 
           <div className="flex items-center justify-between gap-3 border-t bg-surface px-6 py-4">
-            <span className="hidden text-xs text-muted-foreground sm:block">
-              Local preview — not saved to the server yet.
-            </span>
+            {saving && (
+              <span className="hidden text-xs text-muted-foreground sm:block">
+                Uploading files…
+              </span>
+            )}
             <div className="flex gap-2.5">
-              <Button variant="outline" onClick={handleClose}>
+              <Button variant="outline" onClick={handleClose} disabled={saving}>
                 Cancel
               </Button>
               {hasDraftSupport && (
-                <Button variant="outline" onClick={() => saveAs(true)}>
+                <Button
+                  variant="outline"
+                  disabled={saving}
+                  onClick={() => void saveAs(true)}
+                >
+                  {saving && <Loader2 className="mr-1.5 size-3.5 animate-spin" />}
                   Save as Draft
                 </Button>
               )}
-              <Button onClick={() => saveAs(false)}>
+              <Button disabled={saving} onClick={() => void saveAs(false)}>
+                {saving && <Loader2 className="mr-1.5 size-3.5 animate-spin" />}
                 {primaryLabel}
               </Button>
             </div>

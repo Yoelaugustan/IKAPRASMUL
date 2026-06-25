@@ -46,6 +46,8 @@ export type Story = {
   publishedAt: string; // ISO date
   readMinutes: number;
   isFeatured?: boolean;
+  /** Pinned to the Highlights carousel on the Stories page (max 3). Mutually exclusive with isFeatured. */
+  isHighlight?: boolean;
   /** Controls the Alumni of the Month slot on the home page (max 1 shown). */
   isFeaturedHome?: boolean;
   isDraft?: boolean;
@@ -81,6 +83,8 @@ export type Article = {
   readMinutes: number;
   views: number;
   isFeatured?: boolean;
+  /** Pinned to the Top Stories section on the news page (max 3). Independent of isFeatured. */
+  isTopStory?: boolean;
   /** 'newsletter' cards open a PDF instead of a slug detail page. */
   type?: "article" | "newsletter";
   pdfUrl?: string;

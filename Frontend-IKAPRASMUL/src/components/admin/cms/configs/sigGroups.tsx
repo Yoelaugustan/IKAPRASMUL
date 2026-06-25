@@ -9,6 +9,7 @@ export const sigGroupsConfig: ResourceConfig<SigGroup> = {
   kicker: "SIG Group",
   searchPlaceholder: "Search groups…",
   keyField: "id",
+  resourcePath: "sig/groups",
   getLabel: (group) => group.name,
   matches: (group, q) =>
     group.name.toLowerCase().includes(q) || group.id.toLowerCase().includes(q),
@@ -42,8 +43,9 @@ export const sigGroupsConfig: ResourceConfig<SigGroup> = {
       type: "text",
       placeholder: "e.g. Cycling Club",
       full: true,
+      required: true,
     },
-    { key: "image", label: "Logo / image", type: "image", full: true },
+    { key: "image", label: "Logo / image", type: "image", full: true, required: true, uploadFolder: "media/sig" },
   ],
   blank: () => ({ id: "", name: "", image: "", icon: "" }),
 };
