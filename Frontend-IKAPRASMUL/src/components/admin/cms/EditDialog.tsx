@@ -417,9 +417,6 @@ export function EditDialog<T>({
               </span>
             )}
             <div className="flex gap-2.5">
-              <Button variant="outline" onClick={handleClose} disabled={saving}>
-                Cancel
-              </Button>
               {hasDraftSupport && (
                 <Button
                   variant="outline"
