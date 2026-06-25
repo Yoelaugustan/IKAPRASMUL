@@ -16,7 +16,7 @@ const sans = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "IKAPRASMUL - Prasmul Alumni Association",
+    default: "IKAPRASMUL - Ikatan Alumni Prasetiya Mulya",
     template: "%s · IKAPRASMUL",
   },
   description:
