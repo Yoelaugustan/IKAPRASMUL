@@ -50,6 +50,13 @@ public class UpsertBusinessRequestHandler : IRequestHandler<UpsertBusinessReques
                 throw new BusinessRuleException("Only 1 business can be spotlighted at a time. Remove the current spotlight before setting a new one.");
         }
 
+        if (request.IsFeatured)
+        {
+            var featuredCount = await _db.BusinessListings.CountAsync(b => b.IsFeatured && b.Id != entity.Id, ct);
+            if (featuredCount >= 8)
+                throw new BusinessRuleException("Only 8 businesses can be featured at a time. Unfeature one before featuring another.");
+        }
+
         var desiredSlug = SlugService.Slugify(
             !string.IsNullOrWhiteSpace(request.Slug) ? request.Slug : request.Name);
         entity.Slug = await EnsureUniqueSlugAsync(desiredSlug, entity.Id, ct);
@@ -65,6 +72,7 @@ public class UpsertBusinessRequestHandler : IRequestHandler<UpsertBusinessReques
         entity.CoverImage = request.CoverImage;
         entity.Website = request.Website;
         entity.IsSpotlight = request.IsSpotlight;
+        entity.IsFeatured = request.IsFeatured;
         entity.IsFeaturedHome = request.IsFeaturedHome;
         entity.Status = request.IsDraft ? ContentStatus.Draft : ContentStatus.Published;
 

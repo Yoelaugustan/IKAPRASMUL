@@ -69,6 +69,7 @@ public static class ContentJson
         coverImage = b.CoverImage,
         website = b.Website,
         isSpotlight = b.IsSpotlight,
+        isFeatured = b.IsFeatured,
         isFeaturedHome = b.IsFeaturedHome,
         isDraft = IsDraft(b.Status),
     });

@@ -20,6 +20,7 @@ public class UpsertBusinessRequest : IRequest<JsonElement>
     public string? CoverImage { get; set; }
     public string? Website { get; set; }
     public bool IsSpotlight { get; set; }
+    public bool IsFeatured { get; set; }
     public bool IsFeaturedHome { get; set; }
     public bool IsDraft { get; set; }
 

@@ -51,6 +51,9 @@ public class BusinessListing : IHaveCreateAndUpdateAudit
     /// <summary>Drives the large spotlight card on the business listing page.</summary>
     public bool IsSpotlight { get; set; }
 
+    /// <summary>Drives the featured grid on the business listing page (max 8).</summary>
+    public bool IsFeatured { get; set; }
+
     /// <summary>Drives the featured business slots on the home page (max 2).</summary>
     public bool IsFeaturedHome { get; set; }
 

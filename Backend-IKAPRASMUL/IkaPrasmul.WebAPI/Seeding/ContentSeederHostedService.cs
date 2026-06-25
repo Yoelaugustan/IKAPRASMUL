@@ -153,6 +153,7 @@ public class ContentSeederHostedService : IHostedService
         CoverImage = Str(e, "coverImage"),
         Website = Str(e, "website"),
         IsSpotlight = Bool(e, "isSpotlight"),
+        IsFeatured = Bool(e, "isFeatured"),
         IsFeaturedHome = Bool(e, "isFeaturedHome"),
         Status = "Published",
         SortOrder = order,
