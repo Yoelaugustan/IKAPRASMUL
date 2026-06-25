@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Plus, Search, Pencil, Trash2, ChevronLeft, ChevronRight, ArrowUpDown } from "lucide-react";
+import { Plus, Search, Pencil, Trash2, ChevronLeft, ChevronRight, ArrowUpDown, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -46,10 +46,20 @@ export function ResourcePage<T>({
             {config.subtitle}
           </p>
         </div>
-        <Button onClick={r.openNew} className="gap-2 shrink-0">
-          <Plus className="size-4" />
-          New {config.name}
-        </Button>
+        <div className="flex shrink-0 items-center gap-2.5">
+          {config.publicPath && (
+            <Button asChild variant="outline" className="gap-2">
+              <a href={config.publicPath} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="size-4" />
+                View website
+              </a>
+            </Button>
+          )}
+          <Button onClick={r.openNew} className="gap-2">
+            <Plus className="size-4" />
+            New {config.name}
+          </Button>
+        </div>
       </div>
 
       {subTabs ? <div className="mt-5">{subTabs}</div> : null}

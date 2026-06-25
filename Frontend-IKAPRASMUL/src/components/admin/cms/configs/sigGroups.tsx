@@ -10,6 +10,7 @@ export const sigGroupsConfig: ResourceConfig<SigGroup> = {
   searchPlaceholder: "Search groups…",
   keyField: "id",
   resourcePath: "sig/groups",
+  publicPath: "/sig",
   getLabel: (group) => group.name,
   matches: (group, q) =>
     group.name.toLowerCase().includes(q) || group.id.toLowerCase().includes(q),
@@ -24,15 +25,6 @@ export const sigGroupsConfig: ResourceConfig<SigGroup> = {
             {group.name}
           </span>
         </div>
-      ),
-    },
-    {
-      header: "ID / Slug",
-      width: "150px",
-      cell: (group) => (
-        <span className="block truncate font-mono text-xs text-muted-foreground">
-          {group.id}
-        </span>
       ),
     },
   ],

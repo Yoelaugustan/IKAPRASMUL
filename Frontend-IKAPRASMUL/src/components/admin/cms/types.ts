@@ -56,6 +56,9 @@ export interface ResourceConfig<T> {
   keyField: string;
   /** Admin API path under /api/admin (e.g. "stories", "sig/groups"). */
   resourcePath: string;
+  /** Public site path this resource appears on (e.g. "/sig"). Renders a
+   * "View website" button in the page header that opens it in a new tab. */
+  publicPath?: string;
   /** Field key whose value auto-populates the slug/id field for new records. */
   slugSource?: string;
   /** Field key that receives the auto-generated value. Defaults to "slug". */

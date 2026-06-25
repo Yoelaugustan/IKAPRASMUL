@@ -13,6 +13,7 @@ export const businessConfig: ResourceConfig<Business> = {
   searchPlaceholder: "Search businesses…",
   keyField: "slug",
   resourcePath: "business",
+  publicPath: "/business",
   slugSource: "name",
   getLabel: (business) => business.name,
   matches: (business, q) =>

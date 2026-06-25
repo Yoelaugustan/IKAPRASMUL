@@ -13,6 +13,7 @@ export const newsConfig: ResourceConfig<Article> = {
   searchPlaceholder: "Search articles…",
   keyField: "slug",
   resourcePath: "news",
+  publicPath: "/news",
   slugSource: "title",
   getLabel: (article) => article.title,
   matches: (article, q) =>

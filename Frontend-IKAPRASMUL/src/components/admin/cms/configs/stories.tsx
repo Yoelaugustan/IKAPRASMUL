@@ -13,6 +13,7 @@ export const storiesConfig: ResourceConfig<Story> = {
   searchPlaceholder: "Search stories…",
   keyField: "slug",
   resourcePath: "stories",
+  publicPath: "/stories",
   slugSource: "title",
   getLabel: (story) => story.title,
   matches: (story, q) =>
