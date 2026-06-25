@@ -13,15 +13,12 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # NEXT_PUBLIC_* vars are inlined into the client bundle at BUILD time, so they
-# MUST be passed as build args (per mentor's note), not runtime env.
+# MUST be passed as build args, not runtime env.
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
 
-# API_URL is read at build time by next.config.ts rewrites() (the /media proxy
-# destination is baked into the routes manifest). Point it at the backend
-# service so server-side proxying works inside the Docker network.
-ARG API_URL=http://ikaprasmul-backend:8080
-ENV API_URL=${API_URL}
+# API_URL is read at runtime by server-side code and the /media Route Handler.
+# It is NOT needed at build time — do not add it as a build arg.
 
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build

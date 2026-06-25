@@ -12,6 +12,11 @@ services:
       Smtp__Username: ${SMTP_USERNAME}
       Smtp__Password: ${SMTP_PASSWORD}
       Cors__AllowedOrigins__0: ${FRONTEND_ORIGIN}
+      Jwt__Secret: ${JWT_SECRET}
+      Admin__Email: ${ADMIN_EMAIL}
+      Admin__Password: ${ADMIN_PASSWORD}
+    volumes:
+      - media_uploads:/app/wwwroot/media
 
   #ikaprasmul FE (ikaprasmul.id)
   ikaprasmul-frontend:
@@ -19,7 +24,6 @@ services:
       context: ./Frontend-IKAPRASMUL
       dockerfile: Dockerfile
       args:
-        API_URL: http://ikaprasmul-backend:8080
         NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
     restart: unless-stopped
     depends_on:
@@ -28,3 +32,6 @@ services:
       API_URL: http://ikaprasmul-backend:8080
     ports:
       - "3000:3000"
+
+volumes:
+  media_uploads:
