@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getSigGroups, getSigSpotlights } from "@/lib/content";
+import { getAdminSigGroups, getAdminSigSpotlights } from "@/lib/adminContent";
 import { SigManager } from "@/components/admin/cms/SigManager";
 
 export const metadata: Metadata = {
@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 export default async function AdminSigPage() {
   const [groups, spotlights] = await Promise.all([
-    getSigGroups(),
-    getSigSpotlights(),
+    getAdminSigGroups(),
+    getAdminSigSpotlights(),
   ]);
 
   return <SigManager groups={groups} spotlights={spotlights} />;

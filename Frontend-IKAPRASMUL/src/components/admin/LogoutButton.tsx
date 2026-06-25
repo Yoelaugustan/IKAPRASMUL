@@ -5,7 +5,7 @@ import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
 
-interface LogoutButtonProps extends React.ComponentProps<typeof Button> {}
+type LogoutButtonProps = React.ComponentProps<typeof Button>;
 
 export function LogoutButton({ className, variant = "outline", size = "sm", ...props }: LogoutButtonProps) {
   const router = useRouter();

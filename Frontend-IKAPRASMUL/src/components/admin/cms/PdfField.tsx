@@ -1,37 +1,50 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { FileText, Upload, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
-// File picker for PDF uploads. Stores a blob URL locally (non-persistent) or
-// accepts a pasted URL for an already-hosted PDF. When the backend upload
-// endpoint is wired, replace the blob URL path with a real upload call here.
+// File is NOT uploaded immediately. The parent (EditDialog) collects queued
+// files and uploads them right before calling onSave.
 export function PdfField({
   value,
   onChange,
+  onFileQueued,
+  error,
 }: {
   value: string;
   onChange: (value: string) => void;
+  onFileQueued?: (file: File | null) => void;
+  error?: boolean;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    e.target.value = "";
     if (!file) return;
-    const url = URL.createObjectURL(file);
-    onChange(url);
+    setPendingFile(file);
+    onFileQueued?.(file);
   };
 
-  const displayName = value
-    ? value.startsWith("blob:")
-      ? "Local file — not uploaded yet"
-      : value.split("/").pop() ?? value
-    : null;
+  const clearAll = () => {
+    setPendingFile(null);
+    onFileQueued?.(null);
+    onChange("");
+  };
+
+  const displayName = pendingFile
+    ? pendingFile.name
+    : value
+      ? (value.split("/").pop() ?? value)
+      : null;
+
+  const hasSomething = pendingFile !== null || Boolean(value);
 
   return (
-    <div className="space-y-2">
+    <div className={cn("space-y-2 rounded-md", error && "outline outline-1 outline-destructive p-2")}>
       <div className="flex items-center gap-2">
         <Button
           type="button"
@@ -41,7 +54,7 @@ export function PdfField({
           onClick={() => inputRef.current?.click()}
         >
           <Upload className="size-4" />
-          Choose PDF
+          Upload PDF
         </Button>
         <input
           ref={inputRef}
@@ -50,11 +63,11 @@ export function PdfField({
           className="hidden"
           onChange={handleFile}
         />
-        {value && (
+        {hasSomething && (
           <button
             type="button"
             title="Remove"
-            onClick={() => onChange("")}
+            onClick={clearAll}
             className="grid size-7 place-items-center rounded text-muted-foreground hover:text-destructive"
           >
             <X className="size-4" />
@@ -62,13 +75,17 @@ export function PdfField({
         )}
       </div>
 
-      {displayName ? (
+      {displayName && (
         <div className="flex items-center gap-2 rounded-md border border-input bg-surface px-3 py-2">
           <FileText className="size-4 shrink-0 text-primary" />
           <span className="truncate text-sm text-muted-foreground">
             {displayName}
           </span>
-          {value && !value.startsWith("blob:") && (
+          {pendingFile ? (
+            <span className="ml-auto shrink-0 text-xs text-amber-600 dark:text-amber-400">
+              Pending — uploads on save
+            </span>
+          ) : value ? (
             <a
               href={value}
               target="_blank"
@@ -77,17 +94,7 @@ export function PdfField({
             >
               Open
             </a>
-          )}
-        </div>
-      ) : (
-        <div className="rounded-md border border-dashed border-input px-3 py-3 text-center text-xs text-muted-foreground">
-          Or paste a URL to an already-hosted PDF
-          <Input
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder="https://…/newsletter.pdf"
-            className="mt-2 text-xs"
-          />
+          ) : null}
         </div>
       )}
     </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getArticles } from "@/lib/content";
+import { getAdminArticles } from "@/lib/adminContent";
 import { NewsManager } from "@/components/admin/cms/NewsManager";
 
 export const metadata: Metadata = {
@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminNewsPage() {
-  const items = await getArticles();
+  const items = await getAdminArticles();
   return <NewsManager items={items} />;
 }

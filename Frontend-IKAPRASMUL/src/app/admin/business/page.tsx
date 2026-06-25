@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getBusinesses } from "@/lib/content";
+import { getAdminBusinesses } from "@/lib/adminContent";
 import { BusinessManager } from "@/components/admin/cms/BusinessManager";
 
 export const metadata: Metadata = {
@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminBusinessPage() {
-  const items = await getBusinesses();
+  const items = await getAdminBusinesses();
   return <BusinessManager items={items} />;
 }

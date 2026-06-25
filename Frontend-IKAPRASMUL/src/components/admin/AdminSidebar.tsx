@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
+  X,
   LayoutDashboard,
   Users2,
   Building2,
@@ -14,7 +15,6 @@ import { cn } from "@/lib/utils";
 import { ROUTES } from "@/constants/routes";
 import { LogoutButton } from "@/components/admin/LogoutButton";
 
-// Content Admin nav — the five sections from the Admin Dashboard design.
 const NAV = [
   { label: "Dashboard", href: ROUTES.admin, Icon: LayoutDashboard },
   { label: "SIG Groups", href: ROUTES.adminSig, Icon: Users2 },
@@ -23,14 +23,28 @@ const NAV = [
   { label: "News & Insights", href: ROUTES.adminNews, Icon: Newspaper },
 ];
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
   const isActive = (href: string) =>
     href === ROUTES.admin ? pathname === href : pathname.startsWith(href);
 
   return (
-    <aside className="hidden w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground lg:flex">
-      <div className="flex items-center gap-3 border-b border-sidebar-border p-5">
+    <aside
+      className={cn(
+        // Mobile: fixed overlay that slides in from the left
+        "fixed inset-y-0 left-0 z-30 flex w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground",
+        "transform transition-transform duration-300 ease-in-out",
+        isOpen ? "translate-x-0" : "-translate-x-full",
+        // Desktop: static in-flow column, always visible
+        "lg:static lg:translate-x-0",
+      )}
+    >
+      <div className="flex items-center justify-between border-b border-sidebar-border p-5">
         <Image
           src="/images/logo-white.png"
           alt="IKAPRASMUL Logo"
@@ -38,6 +52,15 @@ export function AdminSidebar() {
           height={40}
           className="object-contain"
         />
+        {/* Close button — mobile only */}
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={onClose}
+          className="grid size-7 place-items-center rounded-md text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-foreground lg:hidden"
+        >
+          <X className="size-4" />
+        </button>
       </div>
 
       <nav className="flex-1 space-y-1 p-3">
@@ -45,6 +68,7 @@ export function AdminSidebar() {
           <Link
             key={href}
             href={href}
+            onClick={() => onClose?.()}
             className={cn(
               "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors",
               isActive(href)

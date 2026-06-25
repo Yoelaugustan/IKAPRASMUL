@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getStories } from "@/lib/content";
+import { getAdminStories } from "@/lib/adminContent";
 import { StoriesManager } from "@/components/admin/cms/StoriesManager";
 
 export const metadata: Metadata = {
@@ -8,6 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminStoriesPage() {
-  const items = await getStories();
+  const items = await getAdminStories();
   return <StoriesManager items={items} />;
 }

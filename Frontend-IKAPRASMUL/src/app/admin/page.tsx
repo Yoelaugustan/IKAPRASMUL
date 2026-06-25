@@ -5,12 +5,12 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ROUTES } from "@/constants/routes";
 import {
-  getArticles,
-  getBusinesses,
-  getSigGroups,
-  getSigSpotlights,
-  getStories,
-} from "@/lib/content";
+  getAdminArticles,
+  getAdminBusinesses,
+  getAdminSigGroups,
+  getAdminSigSpotlights,
+  getAdminStories,
+} from "@/lib/adminContent";
 import { formatDate } from "@/components/admin/cms/utils";
 
 export const metadata: Metadata = {
@@ -20,11 +20,11 @@ export const metadata: Metadata = {
 
 export default async function AdminDashboardPage() {
   const [groups, spotlights, businesses, stories, articles] = await Promise.all([
-    getSigGroups(),
-    getSigSpotlights(),
-    getBusinesses(),
-    getStories(),
-    getArticles(),
+    getAdminSigGroups(),
+    getAdminSigSpotlights(),
+    getAdminBusinesses(),
+    getAdminStories(),
+    getAdminArticles(),
   ]);
 
   const stats = [
