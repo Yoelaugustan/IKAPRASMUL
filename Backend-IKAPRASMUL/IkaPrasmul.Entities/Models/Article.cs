@@ -50,6 +50,9 @@ public class Article : IHaveCreateAndUpdateAudit
 
     public bool IsFeatured { get; set; }
 
+    /// <summary>Pinned to the Top Stories section on the news page (max 3). Independent of <see cref="IsFeatured"/>.</summary>
+    public bool IsTopStory { get; set; }
+
     /// <summary>"article" | "newsletter".</summary>
     [StringLength(20)]
     public string? Type { get; set; }

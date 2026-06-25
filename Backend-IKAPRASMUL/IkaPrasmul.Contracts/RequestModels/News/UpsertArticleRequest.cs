@@ -21,6 +21,7 @@ public class UpsertArticleRequest : IRequest<JsonElement>
     public string? PublishedAt { get; set; }
     public int ReadMinutes { get; set; }
     public bool IsFeatured { get; set; }
+    public bool IsTopStory { get; set; }
     public string? PdfUrl { get; set; }
     public bool IsDraft { get; set; }
 

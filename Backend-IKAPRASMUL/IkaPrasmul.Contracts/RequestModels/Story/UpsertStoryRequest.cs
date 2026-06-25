@@ -23,6 +23,7 @@ public class UpsertStoryRequest : IRequest<JsonElement>
     public string? PublishedAt { get; set; }
     public int ReadMinutes { get; set; }
     public bool IsFeatured { get; set; }
+    public bool IsHighlight { get; set; }
     public bool IsFeaturedHome { get; set; }
     public bool IsDraft { get; set; }
 

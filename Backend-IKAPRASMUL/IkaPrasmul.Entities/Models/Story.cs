@@ -52,6 +52,9 @@ public class Story : IHaveCreateAndUpdateAudit
 
     public bool IsFeatured { get; set; }
 
+    /// <summary>Pinned to the Highlights carousel on the Stories page (max 3). Mutually exclusive with <see cref="IsFeatured"/>.</summary>
+    public bool IsHighlight { get; set; }
+
     /// <summary>Drives the home page Alumni-of-the-Month slot (max 1).</summary>
     public bool IsFeaturedHome { get; set; }
 
