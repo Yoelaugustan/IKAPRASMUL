@@ -64,6 +64,8 @@ export const businessConfig: ResourceConfig<Business> = {
           <Badge variant="outline" className="text-muted-foreground">Draft</Badge>
         ) : business.isSpotlight ? (
           <Badge variant="secondary">★ Spotlight</Badge>
+        ) : business.isFeatured ? (
+          <Badge className="bg-blue-100 text-blue-700">◆ Featured</Badge>
         ) : (
           <span className="text-xs text-muted-foreground">Listed</span>
         ),
@@ -134,6 +136,13 @@ export const businessConfig: ResourceConfig<Business> = {
       key: "isSpotlight",
       label: "Spotlight on the business page (max 1)",
       type: "toggle",
+      full: true,
+    },
+    {
+      key: "isFeatured",
+      label: "Feature on the business page (max 8)",
+      type: "toggle",
+      full: true,
     },
     {
       key: "isFeaturedHome",
@@ -153,8 +162,9 @@ export const businessConfig: ResourceConfig<Business> = {
     coverImage: "",
     website: "",
     isSpotlight: false,
+    isFeatured: false,
     isFeaturedHome: false,
     isDraft: false,
   }),
-  toggleLimits: { isSpotlight: 1 },
+  toggleLimits: { isSpotlight: 1, isFeatured: 8 },
 };

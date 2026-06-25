@@ -66,6 +66,8 @@ export type Business = {
   website?: string;
   /** Controls the big spotlight card on the business listing page. */
   isSpotlight?: boolean;
+  /** Pinned to the Featured grid on the business listing page (max 8). */
+  isFeatured?: boolean;
   /** Controls the featured business slots on the home page (max 2 shown). */
   isFeaturedHome?: boolean;
   isDraft?: boolean;

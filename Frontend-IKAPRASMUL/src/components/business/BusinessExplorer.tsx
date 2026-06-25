@@ -44,10 +44,16 @@ const EMPTY_FILTERS = {
   founder: "All",
 };
 
-const FEATURED_COUNT = 8; // curated default grid (shown beside the spotlight)
 const PAGE_SIZE = 12; // view-all grid, per page
 
-export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
+export function BusinessExplorer({
+  businesses,
+  featuredBusinesses,
+}: {
+  businesses: Business[];
+  /** Admin-curated featured businesses (isFeatured flag). Falls back to the first 8 when empty. */
+  featuredBusinesses: Business[];
+}) {
   const { t } = useLang();
   // Draft values being edited in the search bar.
   const [query, setQuery] = useState("");
@@ -73,8 +79,6 @@ export function BusinessExplorer({ businesses }: { businesses: Business[] }) {
     [businesses],
   );
 
-  // Default stage shows a curated set; view-all shows everything (filtered).
-  const featuredBusinesses = businesses.slice(0, FEATURED_COUNT);
   // Spotlight: the flagged business, else the first listing (undefined if none).
   const spotlight = businesses.find((b) => b.isSpotlight) ?? businesses[0];
 

@@ -91,6 +91,11 @@ export const getBusinessSpotlight = async (): Promise<Business | undefined> => {
   const businesses = await getBusinesses();
   return businesses.find((b) => b.isSpotlight) ?? businesses[0];
 };
+export const getBusinessPageFeatured = async (): Promise<Business[]> => {
+  const businesses = await getBusinesses();
+  const flagged = businesses.filter((b) => b.isFeatured);
+  return flagged.length > 0 ? flagged : businesses.slice(0, 8);
+};
 export const getBusinessBySlug = async (
   slug: string,
 ): Promise<Business | undefined> =>
