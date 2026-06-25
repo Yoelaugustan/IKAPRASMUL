@@ -64,14 +64,14 @@ export function PageHero({
       >
         <div
           className={cn(
-            "max-w-3xl animate-in fade-in-0 slide-in-from-bottom-4 duration-700 ease-out motion-reduce:animate-none",
+            "max-w-3xl [&>*]:fill-mode-both [&>*]:duration-700 [&>*]:ease-out motion-reduce:[&>*]:animate-none",
             align === "center" && "mx-auto text-center",
           )}
         >
           {eyebrow && (
             <p
               className={cn(
-                "mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-wider text-gold",
+                "mb-4 flex animate-in items-center gap-3 text-sm font-semibold uppercase tracking-wider text-gold fade-in-0 slide-in-from-bottom-4",
                 align === "center" && "justify-center",
               )}
             >
@@ -79,15 +79,28 @@ export function PageHero({
               <span className="h-px w-12 bg-gold" />
             </p>
           )}
-          <h1 className="text-balance text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+          <h1 className={cn(
+            "animate-in text-balance text-4xl font-bold leading-tight tracking-tight fade-in-0 slide-in-from-bottom-4 sm:text-5xl",
+            eyebrow ? "delay-100" : "",
+          )}>
             {title}
           </h1>
           {subtitle && (
-            <p className="mt-5 max-w-2xl text-base leading-7 text-primary-foreground/80 sm:text-lg">
+            <p className={cn(
+              "mt-5 max-w-2xl animate-in text-base leading-7 text-primary-foreground/80 fade-in-0 slide-in-from-bottom-4 sm:text-lg",
+              eyebrow ? "delay-200" : "delay-100",
+            )}>
               {subtitle}
             </p>
           )}
-          {children && <div className="mt-8">{children}</div>}
+          {children && (
+            <div className={cn(
+              "mt-8 animate-in fade-in-0 slide-in-from-bottom-4",
+              eyebrow ? "delay-300" : "delay-200",
+            )}>
+              {children}
+            </div>
+          )}
         </div>
       </Container>
     </section>

@@ -25,7 +25,7 @@ export function BusinessCard({ business }: { business: Business }) {
     <Link
       href={ROUTES.businessDetail(business.slug)}
       aria-label={`${t.cards.viewAria} ${business.name}`}
-      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00396c] focus-visible:ring-offset-2"
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-[transform,box-shadow] duration-300 ease-expo hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-18px_rgba(0,57,108,0.30)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00396c] focus-visible:ring-offset-2"
     >
       <div className="relative">
         <div className="relative overflow-hidden" style={{ paddingBottom: "62.5%" }}>
@@ -35,7 +35,7 @@ export function BusinessCard({ business }: { business: Business }) {
             fill
             sizes="(min-width: 1024px) 22vw, (min-width: 640px) 50vw, 100vw"
             style={{ objectFit: "cover" }}
-            className="transition-transform duration-500 group-hover:scale-105"
+            className="transition-transform duration-700 ease-expo group-hover:scale-[1.06]"
           />
         </div>
 
