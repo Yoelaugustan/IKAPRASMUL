@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { Container } from "./Container";
 import { Logo } from "./Logo";
 import { NewsletterForm } from "@/components/newsletter/NewsletterForm";
+import { ROUTES } from "@/constants/routes";
 import { getServerDict } from "@/i18n/server";
 import {
   Building2Icon,
@@ -159,6 +161,9 @@ export async function SiteFooter() {
             <a href="#" className="hover:text-gold">
               {t.footer.terms}
             </a>
+            <Link href={ROUTES.login} className="text-primary-foreground/20">
+              {t.footer.admin}
+            </Link>
           </div>
         </div>
       </Container>

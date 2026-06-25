@@ -31,6 +31,7 @@ const en = {
     rights: "© 2024 IKAPRASMUL. All rights reserved.",
     privacy: "Privacy Policy",
     terms: "Terms of Service",
+    admin: "Admin",
   },
   home: {
     heroTitleLine1: "Welcome Home,",
@@ -491,6 +492,7 @@ const id: Dictionary = {
     rights: "© 2024 IKAPRASMUL. Hak cipta dilindungi.",
     privacy: "Kebijakan Privasi",
     terms: "Ketentuan Layanan",
+    admin: "Admin",
   },
   home: {
     heroTitleLine1: "Selamat Datang,",
