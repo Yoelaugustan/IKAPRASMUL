@@ -1,3 +1,4 @@
+using IkaPrasmul.Contracts.RequestModels.News;
 using IkaPrasmul.Contracts.RequestModels.Public;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -17,4 +18,11 @@ public class NewsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get(CancellationToken ct) =>
         Ok(await _mediator.Send(new GetArticlesRequest(), ct));
+
+    [HttpPost("{slug}/view")]
+    public async Task<IActionResult> IncrementView(string slug, CancellationToken ct)
+    {
+        await _mediator.Send(new IncrementArticleViewsRequest(slug), ct);
+        return NoContent();
+    }
 }
