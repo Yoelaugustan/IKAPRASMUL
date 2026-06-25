@@ -14,7 +14,7 @@ export function AdminShell({ email, children }: AdminShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-surface">
+    <div className="flex h-dvh overflow-hidden bg-surface">
       {/* Mobile backdrop — tapping it closes the sidebar */}
       {sidebarOpen && (
         <div
