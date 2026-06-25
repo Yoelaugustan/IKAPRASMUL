@@ -25,7 +25,7 @@ export function LoginForm() {
 
   const form = useForm<AdminLoginInput>({
     resolver: zodResolver(adminLoginSchema),
-    defaultValues: { email: "", password: "", remember: false },
+    defaultValues: { email: "", password: "" },
   });
 
   const onSubmit = async (data: AdminLoginInput) => {
@@ -95,14 +95,6 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <label className="flex items-center gap-2 text-sm text-muted-foreground">
-          <input
-            type="checkbox"
-            className="size-4 rounded border-input accent-primary"
-            {...form.register("remember")}
-          />
-          Keep me signed in
-        </label>
         <Button
           type="submit"
           variant="gold"

@@ -1,32 +1,59 @@
 import { cookies } from "next/headers";
 
-// Session helpers (server-side). The auth cookie is httpOnly and set by the BFF
-// route handler (app/api/auth/*). The browser never reads the token directly.
+// Session helpers (server-side). The JWTs are delivered to the browser only via
+// httpOnly cookies set by the BFF route handlers (app/api/auth/*); the browser
+// never reads them directly (security-standard §2.4/§7.1).
 //
-// NOTE (static phase): there is no real backend yet, so the session is a dummy
-// opaque token. When the .NET API is wired, validate/refresh the token here and
-// derive the real role. Keep the signature stable.
-export const SESSION_COOKIE = "ikap_session";
+// Two cookies: a 1-hour access JWT (lifetime enforced by the API) and a 7-day
+// refresh token. The COOKIE lifetime is decoupled from the JWT's internal expiry
+// — the access cookie persists for the refresh window and is rewritten by the BFF
+// proxy whenever the API returns 401 (see lib/adminFetch.ts). Once the refresh
+// token is gone too, admin calls 401 and the app redirects to /login.
+export const ACCESS_COOKIE = "ikap_at";
+export const REFRESH_COOKIE = "ikap_rt";
+
+const COOKIE_MAX_AGE = 60 * 60 * 24; // 1 day, matching the refresh token
 
 export type AdminSession = {
   email: string;
   role: "Admin";
 };
 
-export async function getAdminSession(): Promise<AdminSession | null> {
-  // Next.js 16: cookies() is async — always await it.
-  const cookieStore = await cookies();
-  const token = cookieStore.get(SESSION_COOKIE)?.value;
-  if (!token) return null;
+export function authCookieOptions(maxAge: number = COOKIE_MAX_AGE) {
+  return {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax" as const,
+    path: "/",
+    maxAge,
+  };
+}
 
-  // Dummy decode. Replace with real JWT validation against the .NET backend.
+/** Decodes a JWT payload without verifying the signature (the API verifies it on
+ * every call). Used only to surface the admin's email/role for display + the gate. */
+function decodeJwtPayload(token: string): Record<string, unknown> | null {
   try {
-    const decoded = JSON.parse(
-      Buffer.from(token, "base64").toString("utf-8"),
-    ) as { email?: string };
-    if (!decoded.email) return null;
-    return { email: decoded.email, role: "Admin" };
+    const segment = token.split(".")[1];
+    if (!segment) return null;
+    const normalized = segment.replace(/-/g, "+").replace(/_/g, "/");
+    const json = Buffer.from(normalized, "base64").toString("utf-8");
+    return JSON.parse(json) as Record<string, unknown>;
   } catch {
     return null;
   }
+}
+
+export async function getAdminSession(): Promise<AdminSession | null> {
+  // Next.js 16: cookies() is async — always await it.
+  const cookieStore = await cookies();
+  const token = cookieStore.get(ACCESS_COOKIE)?.value;
+  if (!token) return null;
+
+  const payload = decodeJwtPayload(token);
+  const email = payload && typeof payload.email === "string" ? payload.email : undefined;
+  if (!email) return null;
+
+  // Only admins are ever issued a token by the backend; the API re-checks the
+  // role on every protected request, so this is a coarse display-level gate.
+  return { email, role: "Admin" };
 }
