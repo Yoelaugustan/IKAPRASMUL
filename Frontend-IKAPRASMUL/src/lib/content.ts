@@ -113,3 +113,57 @@ export const getMostPopularArticles = async (limit = 5): Promise<Article[]> =>
   [...(await getArticles())].sort((a, b) => b.views - a.views).slice(0, limit);
 export const getArticleBySlug = async (slug: string): Promise<Article | undefined> =>
   (await getArticles()).find((a) => a.slug === slug);
+
+/* ---------- Home featured highlights ---------- */
+export type FeaturedHighlight =
+  | { type: "event"; event: AlumniEvent }
+  | { type: "alumni"; alumni: FeaturedAlumni }
+  | { type: "business"; business: Business }
+  | { type: "story"; story: Story };
+
+// Curated-but-resilient home highlights. Pass 1 aims for the editorial mix
+// (event · alumni · business · business) honoring per-type caps; pass 2 relaxes
+// those caps to backfill from whatever else is available so the grid always
+// fills up to 4 cards instead of leaving a gap. Hard cap: 4.
+export const getFeaturedHighlights = async (): Promise<FeaturedHighlight[]> => {
+  const [event, alumni, businesses, stories] = await Promise.all([
+    getUpcomingEvent(),
+    getFeaturedAlumni(),
+    getFeaturedBusinesses(4),
+    getStories(),
+  ]);
+
+  // Home-worthy stories, minus the one already shown as the Alumni card.
+  const storyPool = stories.filter(
+    (s) => (s.isHighlight || s.isFeatured) && s.slug !== alumni?.slug,
+  );
+
+  const pools: Record<string, FeaturedHighlight[]> = {
+    event: event ? [{ type: "event", event }] : [],
+    alumni: alumni ? [{ type: "alumni", alumni }] : [],
+    business: businesses.map((business) => ({ type: "business", business })),
+    story: storyPool.map((story) => ({ type: "story", story })),
+  };
+
+  const MAX = 4;
+  const ORDER = ["event", "alumni", "business", "story"];
+  const CAPS: Record<string, number> = { event: 1, alumni: 1, business: 2, story: 2 };
+
+  const picked: FeaturedHighlight[] = [];
+
+  // Pass 1 — balanced mix (per-type caps).
+  for (const key of ORDER) {
+    for (const item of pools[key].slice(0, CAPS[key])) {
+      if (picked.length >= MAX) break;
+      picked.push(item);
+    }
+  }
+  // Pass 2 — backfill to 4 from any remaining content.
+  for (const key of ORDER) {
+    for (const item of pools[key]) {
+      if (picked.length >= MAX) break;
+      if (!picked.includes(item)) picked.push(item);
+    }
+  }
+  return picked.slice(0, MAX);
+};

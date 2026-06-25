@@ -1,27 +1,23 @@
 import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
 import { EmptyState } from "@/components/shared/EmptyState";
-import {
-  getFeaturedAlumni,
-  getFeaturedBusinesses,
-  getUpcomingEvent,
-} from "@/lib/content";
+import { getFeaturedHighlights } from "@/lib/content";
 import { getServerDict } from "@/i18n/server";
 import { EventCard } from "./EventCard";
 import { FeaturedAlumniCard } from "./FeaturedAlumniCard";
 import { FeaturedBusinessCard } from "./FeaturedBusinessCard";
+import { FeaturedStoryCard } from "./FeaturedStoryCard";
 
-// "Featured Highlights" — Upcoming Event, Featured Alumni, and two Featured
-// Businesses. Server Component: composes the curated home content.
+// "Featured Highlights" — a curated-but-resilient mix of up to 4 cards. Aims for
+// Event · Alumni · Business · Business, backfilling from other content types so
+// the grid never shows a gap. Server Component: composes the curated home content.
 export async function FeaturedHighlights() {
-  const [{ t }, event, alumni, businesses] = await Promise.all([
+  const [{ t }, highlights] = await Promise.all([
     getServerDict(),
-    getUpcomingEvent(),
-    getFeaturedAlumni(),
-    getFeaturedBusinesses(2),
+    getFeaturedHighlights(),
   ]);
 
-  const hasContent = Boolean(event) || Boolean(alumni) || businesses.length > 0;
+  const hasContent = highlights.length > 0;
 
   return (
     <section className="py-16 sm:py-20">
@@ -34,12 +30,19 @@ export async function FeaturedHighlights() {
         </div>
 
         {hasContent ? (
-          <Reveal className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {event && <EventCard event={event} />}
-            {alumni && <FeaturedAlumniCard alumni={alumni} />}
-            {businesses.map((b) => (
-              <FeaturedBusinessCard key={b.slug} business={b} />
-            ))}
+          <Reveal stagger={110} className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {highlights.map((h) => {
+              switch (h.type) {
+                case "event":
+                  return <EventCard key={`event-${h.event.slug}`} event={h.event} />;
+                case "alumni":
+                  return <FeaturedAlumniCard key={`alumni-${h.alumni.slug}`} alumni={h.alumni} />;
+                case "business":
+                  return <FeaturedBusinessCard key={`business-${h.business.slug}`} business={h.business} />;
+                case "story":
+                  return <FeaturedStoryCard key={`story-${h.story.slug}`} story={h.story} />;
+              }
+            })}
           </Reveal>
         ) : (
           <EmptyState
