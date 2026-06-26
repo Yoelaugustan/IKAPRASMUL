@@ -8,7 +8,7 @@ import { ArticleContent } from "@/components/shared/ArticleContent";
 import { BackButton } from "@/components/shared/BackButton";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
-import { formatDate } from "@/lib/format";
+import { formatDate, htmlToText } from "@/lib/format";
 import { getServerDict } from "@/i18n/server";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const event = await getEventBySlug(slug);
   if (!event) return { title: "Event not found" };
-  return { title: event.title, description: event.description };
+  return { title: event.title, description: htmlToText(event.description) };
 }
 
 export default async function EventDetailPage({ params }: Params) {

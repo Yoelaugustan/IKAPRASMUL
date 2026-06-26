@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { SigSpotlight } from "@/types";
 import { ROUTES } from "@/constants/routes";
+import { htmlToText } from "@/lib/format";
 import { getServerDict } from "@/i18n/server";
 
 // Spotlight SIG card (news-like) — links to its detail page.
@@ -26,7 +27,7 @@ export async function SigSpotlightCard({
       <div className="mt-5 px-1 pb-2">
         <h4 className="text-[17px] font-bold text-slate-900">{spotlight.name}</h4>
         <p className="mt-1.5 line-clamp-3 text-[14px] leading-relaxed text-slate-500">
-          {spotlight.description}
+          {htmlToText(spotlight.description)}
         </p>
         <Link
           href={ROUTES.sigDetail(spotlight.id)}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getSigSpotlightById } from "@/lib/content";
+import { htmlToText } from "@/lib/format";
 import { Container } from "@/components/layouts/Container";
 import { BackButton } from "@/components/shared/BackButton";
 import { ArticleContent } from "@/components/shared/ArticleContent";
@@ -13,7 +14,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = await params;
   const spotlight = await getSigSpotlightById(id);
   if (!spotlight) return { title: "SIG not found" };
-  return { title: spotlight.name, description: spotlight.description };
+  return { title: spotlight.name, description: htmlToText(spotlight.description) };
 }
 
 export default async function SigSpotlightDetailPage({ params }: Params) {
