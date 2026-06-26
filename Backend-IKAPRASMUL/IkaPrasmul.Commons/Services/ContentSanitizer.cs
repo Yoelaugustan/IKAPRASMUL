@@ -23,13 +23,14 @@ public static class ContentSanitizer
                  {
                      "p", "br", "strong", "b", "em", "i", "u", "h3",
                      "blockquote", "ul", "ol", "li", "a", "img", "span",
+                     "div", // used for auto-img-grid photo layouts
                  })
         {
             sanitizer.AllowedTags.Add(tag);
         }
 
         sanitizer.AllowedAttributes.Clear();
-        foreach (var attr in new[] { "href", "src", "alt", "title", "target", "rel" })
+        foreach (var attr in new[] { "href", "src", "alt", "title", "target", "rel", "class" })
         {
             sanitizer.AllowedAttributes.Add(attr);
         }
