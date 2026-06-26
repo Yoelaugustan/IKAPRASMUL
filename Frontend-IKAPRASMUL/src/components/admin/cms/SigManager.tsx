@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { ResourcePage } from "./ResourcePage";
 import { sigGroupsConfig } from "./configs/sigGroups";
 import { sigSpotlightConfig } from "./configs/sigSpotlight";
+import { useLang } from "@/components/shared/LanguageProvider";
 
 type Tab = "groups" | "spotlight";
 
@@ -16,16 +17,17 @@ export function SigManager({
   groups: SigGroup[];
   spotlights: SigSpotlight[];
 }) {
+  const { t } = useLang();
   const [tab, setTab] = useState<Tab>("groups");
+
+  const tabs: { key: Tab; label: string }[] = [
+    { key: "groups", label: t.admin.tabSigGroups },
+    { key: "spotlight", label: t.admin.tabSigSpotlight },
+  ];
 
   const subTabs = (
     <div className="inline-flex gap-1 rounded-lg bg-accent p-1">
-      {(
-        [
-          ["groups", "SIG Groups"],
-          ["spotlight", "SIG Spotlight"],
-        ] as const
-      ).map(([key, label]) => (
+      {tabs.map(({ key, label }) => (
         <button
           key={key}
           onClick={() => setTab(key)}
@@ -42,18 +44,17 @@ export function SigManager({
     </div>
   );
 
-  // Keyed so each tab gets its own fresh local CRUD state.
   return tab === "groups" ? (
     <ResourcePage
       key="groups"
-      config={sigGroupsConfig}
+      config={sigGroupsConfig(t.admin)}
       initialItems={groups}
       subTabs={subTabs}
     />
   ) : (
     <ResourcePage
       key="spotlight"
-      config={sigSpotlightConfig}
+      config={sigSpotlightConfig(t.admin)}
       initialItems={spotlights}
       subTabs={subTabs}
     />

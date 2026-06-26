@@ -4,14 +4,15 @@ import { Badge } from "@/components/ui/badge";
 import { Thumb } from "../Thumb";
 import { formatDate } from "../utils";
 import type { ResourceConfig } from "../types";
+import type { Dictionary } from "@/i18n/dictionaries";
 
-export const eventsConfig: ResourceConfig<AlumniEvent> = {
-  name: "Event",
-  title: "Events",
-  subtitle:
-    "Events shown on the public Events page. The Featured Event headlines the page.",
-  kicker: "Events",
-  searchPlaceholder: "Search events…",
+type A = Dictionary["admin"];
+
+export const eventsConfig = (a: A): ResourceConfig<AlumniEvent> => ({
+  name: a.nameEvent,
+  title: a.titleEvents,
+  subtitle: a.subtitleEvents,
+  searchPlaceholder: a.searchEvents,
   keyField: "slug",
   resourcePath: "events",
   publicPath: "/events",
@@ -23,7 +24,7 @@ export const eventsConfig: ResourceConfig<AlumniEvent> = {
     (event.category || "").toLowerCase().includes(q),
   columns: [
     {
-      header: "Event",
+      header: a.colEvent,
       width: "minmax(0,1.5fr)",
       cell: (event) => (
         <div className="flex min-w-0 items-center gap-3">
@@ -40,7 +41,7 @@ export const eventsConfig: ResourceConfig<AlumniEvent> = {
       ),
     },
     {
-      header: "Category",
+      header: a.colCategory,
       width: "112px",
       cell: (event) =>
         event.category ? (
@@ -50,7 +51,7 @@ export const eventsConfig: ResourceConfig<AlumniEvent> = {
         ),
     },
     {
-      header: "Date",
+      header: a.colDate,
       width: "104px",
       cell: (event) => (
         <span className="text-xs text-muted-foreground">
@@ -59,7 +60,7 @@ export const eventsConfig: ResourceConfig<AlumniEvent> = {
       ),
     },
     {
-      header: "Status",
+      header: a.colStatus,
       width: "104px",
       cell: (event) =>
         event.isDraft ? (
@@ -72,33 +73,33 @@ export const eventsConfig: ResourceConfig<AlumniEvent> = {
     },
   ],
   fields: [
-    { key: "title", label: "Title", type: "text", full: true, required: true },
+    { key: "title", label: a.fieldTitle, type: "text", full: true, required: true },
     {
       key: "slug",
-      label: "Page URL",
+      label: a.fieldPageUrl,
       type: "text",
       placeholder: "event-page-url",
-      hint: "Auto-generated from the title. You can customise it.",
+      hint: a.hintPageUrl,
       required: true,
     },
     {
       key: "category",
-      label: "Category",
+      label: a.fieldCategory,
       type: "select",
       options: EVENT_CATEGORIES,
       required: true,
     },
-    { key: "date", label: "Event date", type: "date", required: true },
+    { key: "date", label: a.fieldEventDate, type: "date", required: true },
     {
       key: "location",
-      label: "Location",
+      label: a.fieldLocation,
       type: "text",
       placeholder: "e.g. BSD Campus, Jakarta",
       required: true,
     },
     {
       key: "description",
-      label: "Description",
+      label: a.fieldDescription,
       type: "rich",
       placeholder: "What the event is about…",
       full: true,
@@ -107,7 +108,7 @@ export const eventsConfig: ResourceConfig<AlumniEvent> = {
     },
     {
       key: "coverImage",
-      label: "Cover image",
+      label: a.fieldCoverImage,
       type: "image",
       full: true,
       required: true,
@@ -115,20 +116,20 @@ export const eventsConfig: ResourceConfig<AlumniEvent> = {
     },
     {
       key: "registerUrl",
-      label: "Registration link",
+      label: a.fieldRegistrationLink,
       type: "text",
       placeholder: "https://…",
       full: true,
     },
     {
       key: "isFeatured",
-      label: "Feature on the events page (max 1)",
+      label: a.toggleEventFeatured,
       type: "toggle",
       full: true,
     },
     {
       key: "isFeaturedHome",
-      label: "Show on the home page as Upcoming Event (max 1)",
+      label: a.toggleEventHome,
       type: "toggle",
       full: true,
     },
@@ -147,4 +148,4 @@ export const eventsConfig: ResourceConfig<AlumniEvent> = {
     isDraft: false,
   }),
   toggleLimits: { isFeatured: 1, isFeaturedHome: 1 },
-};
+});

@@ -1,13 +1,15 @@
 import type { SigGroup } from "@/types";
 import { Thumb } from "../Thumb";
 import type { ResourceConfig } from "../types";
+import type { Dictionary } from "@/i18n/dictionaries";
 
-export const sigGroupsConfig: ResourceConfig<SigGroup> = {
-  name: "SIG Group",
-  title: "SIG Groups",
-  subtitle: "Shared Interest Groups shown on the public SIG page.",
-  kicker: "SIG Group",
-  searchPlaceholder: "Search groups…",
+type A = Dictionary["admin"];
+
+export const sigGroupsConfig = (a: A): ResourceConfig<SigGroup> => ({
+  name: a.nameSigGroup,
+  title: a.titleSigGroups,
+  subtitle: a.subtitleSigGroups,
+  searchPlaceholder: a.searchSigGroups,
   keyField: "id",
   resourcePath: "sig/groups",
   publicPath: "/sig",
@@ -16,7 +18,7 @@ export const sigGroupsConfig: ResourceConfig<SigGroup> = {
     group.name.toLowerCase().includes(q) || group.id.toLowerCase().includes(q),
   columns: [
     {
-      header: "Group",
+      header: a.colGroup,
       width: "minmax(0,1fr)",
       cell: (group) => (
         <div className="flex min-w-0 items-center gap-3">
@@ -31,13 +33,13 @@ export const sigGroupsConfig: ResourceConfig<SigGroup> = {
   fields: [
     {
       key: "name",
-      label: "Group name",
+      label: a.fieldGroupName,
       type: "text",
       placeholder: "e.g. Cycling Club",
       full: true,
       required: true,
     },
-    { key: "image", label: "Logo / image", type: "image", full: true, required: true, uploadFolder: "media/sig" },
+    { key: "image", label: a.fieldLogoImage, type: "image", full: true, required: true, uploadFolder: "media/sig" },
   ],
   blank: () => ({ id: "", name: "", image: "", icon: "" }),
-};
+});

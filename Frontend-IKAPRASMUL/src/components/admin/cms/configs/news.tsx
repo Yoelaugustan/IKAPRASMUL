@@ -4,13 +4,16 @@ import { Badge } from "@/components/ui/badge";
 import { Thumb } from "../Thumb";
 import { formatDate } from "../utils";
 import type { ResourceConfig } from "../types";
+import type { Dictionary } from "@/i18n/dictionaries";
 
-export const newsConfig: ResourceConfig<Article> = {
-  name: "Article",
-  title: "News & Insights",
-  subtitle: "News posts and articles published on the public site.",
-  kicker: "News & Insights",
-  searchPlaceholder: "Search articles…",
+type A = Dictionary["admin"];
+
+export const newsConfig = (a: A): ResourceConfig<Article> => ({
+  name: a.nameArticle,
+  title: a.titleNews,
+  subtitle: a.subtitleNews,
+  kicker: a.kickerNews,
+  searchPlaceholder: a.searchNews,
   keyField: "slug",
   resourcePath: "news",
   publicPath: "/news",
@@ -22,7 +25,7 @@ export const newsConfig: ResourceConfig<Article> = {
     (article.category || "").toLowerCase().includes(q),
   columns: [
     {
-      header: "Article",
+      header: a.colArticle,
       width: "minmax(0,1fr)",
       cell: (article) => (
         <div className="flex min-w-0 items-center gap-3">
@@ -39,12 +42,12 @@ export const newsConfig: ResourceConfig<Article> = {
       ),
     },
     {
-      header: "Category",
+      header: a.colCategory,
       width: "118px",
       cell: (article) => <Badge variant="secondary">{article.category}</Badge>,
     },
     {
-      header: "Published",
+      header: a.colPublished,
       width: "96px",
       cell: (article) => (
         <span className="text-xs text-muted-foreground">
@@ -53,7 +56,7 @@ export const newsConfig: ResourceConfig<Article> = {
       ),
     },
     {
-      header: "Status",
+      header: a.colStatus,
       width: "96px",
       cell: (article) =>
         article.isDraft ? (
@@ -68,26 +71,26 @@ export const newsConfig: ResourceConfig<Article> = {
     },
   ],
   fields: [
-    { key: "title", label: "Title", type: "text", full: true, required: true },
+    { key: "title", label: a.fieldTitle, type: "text", full: true, required: true },
     {
       key: "slug",
-      label: "Page URL",
+      label: a.fieldPageUrl,
       type: "text",
       placeholder: "article-page-url",
-      hint: "Auto-generated from the title. You can customise it.",
+      hint: a.hintPageUrl,
       required: true,
     },
     {
       key: "category",
-      label: "Category",
+      label: a.fieldCategory,
       type: "select",
       options: NEWS_CATEGORIES,
       required: true,
     },
-    { key: "author.name", label: "Author name", type: "text", required: true },
+    { key: "author.name", label: a.fieldAuthorName, type: "text", required: true },
     {
       key: "excerpt",
-      label: "Short summary",
+      label: a.fieldShortSummary,
       type: "textarea",
       rows: 2,
       placeholder: "A brief preview shown on listing cards…",
@@ -96,7 +99,7 @@ export const newsConfig: ResourceConfig<Article> = {
     },
     {
       key: "body",
-      label: "Body",
+      label: a.fieldBody,
       type: "rich",
       full: true,
       hidden: (form) => (form as Article).category === "Newsletter",
@@ -105,7 +108,7 @@ export const newsConfig: ResourceConfig<Article> = {
     },
     {
       key: "pdfUrl",
-      label: "Newsletter PDF",
+      label: a.fieldNewsletterPdf,
       type: "pdf",
       full: true,
       hidden: (form) => (form as Article).category !== "Newsletter",
@@ -114,28 +117,28 @@ export const newsConfig: ResourceConfig<Article> = {
     },
     {
       key: "coverImage",
-      label: "Cover image",
+      label: a.fieldCoverImage,
       type: "image",
       full: true,
       required: true,
       uploadFolder: "media/news",
     },
-    { key: "publishedAt", label: "Published date", type: "date" },
+    { key: "publishedAt", label: a.fieldPublishedDate, type: "date" },
     {
       key: "readMinutes",
-      label: "Read minutes",
+      label: a.fieldReadMinutes,
       type: "number",
       hidden: (form) => (form as Article).category === "Newsletter",
     },
     {
       key: "isFeatured",
-      label: "Feature in News & Insights (max 1)",
+      label: a.toggleNewsFeatured,
       type: "toggle",
       full: true,
     },
     {
       key: "isTopStory",
-      label: "Pin to Top Stories (max 3)",
+      label: a.toggleNewsTopStory,
       type: "toggle",
       full: true,
     },
@@ -156,4 +159,4 @@ export const newsConfig: ResourceConfig<Article> = {
     isDraft: false,
   }),
   toggleLimits: { isFeatured: 1, isTopStory: 3 },
-};
+});

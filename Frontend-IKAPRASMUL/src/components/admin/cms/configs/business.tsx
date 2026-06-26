@@ -4,13 +4,16 @@ import { Badge } from "@/components/ui/badge";
 import { industryBadgeClass } from "@/components/business/industryMeta";
 import { Thumb } from "../Thumb";
 import type { ResourceConfig } from "../types";
+import type { Dictionary } from "@/i18n/dictionaries";
 
-export const businessConfig: ResourceConfig<Business> = {
-  name: "Business",
-  title: "Alumni Business",
-  subtitle: "Alumni-founded businesses featured across the public site.",
-  kicker: "Alumni Business",
-  searchPlaceholder: "Search businesses…",
+type A = Dictionary["admin"];
+
+export const businessConfig = (a: A): ResourceConfig<Business> => ({
+  name: a.nameBusiness,
+  title: a.titleBusiness,
+  subtitle: a.subtitleBusiness,
+  kicker: a.kickerBusiness,
+  searchPlaceholder: a.searchBusiness,
   keyField: "slug",
   resourcePath: "business",
   publicPath: "/business",
@@ -23,7 +26,7 @@ export const businessConfig: ResourceConfig<Business> = {
     business.industry.toLowerCase().includes(q),
   columns: [
     {
-      header: "Business",
+      header: a.colBusiness,
       width: "minmax(0,1.5fr)",
       cell: (business) => (
         <div className="flex min-w-0 items-center gap-3">
@@ -40,7 +43,7 @@ export const businessConfig: ResourceConfig<Business> = {
       ),
     },
     {
-      header: "Industry",
+      header: a.colIndustry,
       width: "96px",
       cell: (business) => (
         <Badge className={industryBadgeClass(business.industry)}>
@@ -49,7 +52,7 @@ export const businessConfig: ResourceConfig<Business> = {
       ),
     },
     {
-      header: "Founder",
+      header: a.colFounder,
       width: "minmax(0,1fr)",
       cell: (business) => (
         <span className="block truncate text-sm text-foreground">
@@ -58,7 +61,7 @@ export const businessConfig: ResourceConfig<Business> = {
       ),
     },
     {
-      header: "Status",
+      header: a.colStatus,
       width: "104px",
       cell: (business) =>
         business.isDraft ? (
@@ -75,43 +78,43 @@ export const businessConfig: ResourceConfig<Business> = {
   fields: [
     {
       key: "name",
-      label: "Business name",
+      label: a.fieldBusinessName,
       type: "text",
       placeholder: "e.g. Puyo Silky Desserts",
       required: true,
     },
     {
       key: "slug",
-      label: "Page URL",
+      label: a.fieldPageUrl,
       type: "text",
       placeholder: "business-page-url",
-      hint: "Auto-generated from the business name. You can customise it.",
+      hint: a.hintBusinessUrl,
       required: true,
     },
     {
       key: "industry",
-      label: "Industry",
+      label: a.fieldIndustry,
       type: "select",
       options: INDUSTRIES,
       required: true,
     },
     {
       key: "website",
-      label: "Website",
+      label: a.fieldWebsite,
       type: "text",
       placeholder: "https://…",
     },
-    { key: "founder.name", label: "Founder name", type: "text", required: true },
+    { key: "founder.name", label: a.fieldFounderName, type: "text", required: true },
     {
       key: "founder.class",
-      label: "Founder class",
+      label: a.fieldFounderClass,
       type: "text",
       placeholder: "S1 Business '13",
       required: true,
     },
     {
       key: "location",
-      label: "Location",
+      label: a.fieldLocation,
       type: "text",
       placeholder: "Jakarta",
       full: true,
@@ -119,7 +122,7 @@ export const businessConfig: ResourceConfig<Business> = {
     },
     {
       key: "shortDescription",
-      label: "Short description",
+      label: a.fieldShortDescription,
       type: "textarea",
       rows: 2,
       full: true,
@@ -127,28 +130,28 @@ export const businessConfig: ResourceConfig<Business> = {
     },
     {
       key: "description",
-      label: "Full description",
+      label: a.fieldFullDescription,
       type: "rich",
       full: true,
       uploadFolder: "media/business",
     },
-    { key: "logo", label: "Logo", type: "image", uploadFolder: "media/business", required: true },
-    { key: "coverImage", label: "Cover image", type: "image", uploadFolder: "media/business", required: true },
+    { key: "logo", label: a.fieldLogo, type: "image", uploadFolder: "media/business", required: true },
+    { key: "coverImage", label: a.fieldCoverImage, type: "image", uploadFolder: "media/business", required: true },
     {
       key: "isSpotlight",
-      label: "Spotlight on the business page (max 1)",
+      label: a.toggleBusinessSpotlight,
       type: "toggle",
       full: true,
     },
     {
       key: "isFeatured",
-      label: "Feature on the business page (max 8)",
+      label: a.toggleBusinessFeatured,
       type: "toggle",
       full: true,
     },
     {
       key: "isFeaturedHome",
-      label: "Feature on the home page",
+      label: a.toggleBusinessHome,
       type: "toggle",
     },
   ],
@@ -169,4 +172,4 @@ export const businessConfig: ResourceConfig<Business> = {
     isDraft: false,
   }),
   toggleLimits: { isSpotlight: 1, isFeatured: 8 },
-};
+});

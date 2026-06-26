@@ -1,14 +1,18 @@
 import type { SigSpotlight } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Thumb } from "../Thumb";
+import { htmlToText } from "@/lib/format";
 import type { ResourceConfig } from "../types";
+import type { Dictionary } from "@/i18n/dictionaries";
 
-export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
-  name: "SIG Spotlight",
-  title: "SIG Spotlight",
-  subtitle: "Featured SIG activities highlighted on the public site.",
-  kicker: "SIG Spotlight",
-  searchPlaceholder: "Search spotlights…",
+type A = Dictionary["admin"];
+
+export const sigSpotlightConfig = (a: A): ResourceConfig<SigSpotlight> => ({
+  name: a.nameSigSpotlight,
+  title: a.titleSigSpotlight,
+  subtitle: a.subtitleSigSpotlight,
+  kicker: a.titleSigSpotlight,
+  searchPlaceholder: a.searchSigSpotlight,
   keyField: "id",
   resourcePath: "sig/spotlight",
   publicPath: "/sig",
@@ -20,7 +24,7 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
     item.description.toLowerCase().includes(q),
   columns: [
     {
-      header: "Spotlight",
+      header: a.colSpotlight,
       width: "minmax(0,1fr)",
       cell: (item) => (
         <div className="flex min-w-0 items-center gap-3">
@@ -30,14 +34,14 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
               {item.name}
             </div>
             <div className="truncate text-xs text-muted-foreground">
-              {item.description}
+              {htmlToText(item.description)}
             </div>
           </div>
         </div>
       ),
     },
     {
-      header: "Status",
+      header: a.colStatus,
       width: "104px",
       cell: (item) =>
         item.isDraft ? (
@@ -52,7 +56,7 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
   fields: [
     {
       key: "name",
-      label: "Title",
+      label: a.fieldTitle,
       type: "text",
       placeholder: "Spotlight headline",
       full: true,
@@ -60,16 +64,16 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
     },
     {
       key: "id",
-      label: "Page URL",
+      label: a.fieldPageUrl,
       type: "text",
       placeholder: "spotlight-page-url",
-      hint: "Auto-generated from the title. You can customise it.",
+      hint: a.hintPageUrl,
       required: true,
     },
-    { key: "image", label: "Cover image", type: "image", full: true, required: true, uploadFolder: "media/sig" },
+    { key: "image", label: a.fieldCoverImage, type: "image", full: true, required: true, uploadFolder: "media/sig" },
     {
       key: "description",
-      label: "Description",
+      label: a.fieldDescription,
       type: "rich",
       placeholder: "Describe the activity…",
       full: true,
@@ -78,11 +82,11 @@ export const sigSpotlightConfig: ResourceConfig<SigSpotlight> = {
     },
     {
       key: "isSpotlight",
-      label: "Show in SIG spotlight sidebar (max 2)",
+      label: a.toggleSigSpotlight,
       type: "toggle",
       full: true,
     },
   ],
   blank: () => ({ id: "", name: "", image: "", description: "", isSpotlight: false, isDraft: false }),
   toggleLimits: { isSpotlight: 2 },
-};
+});

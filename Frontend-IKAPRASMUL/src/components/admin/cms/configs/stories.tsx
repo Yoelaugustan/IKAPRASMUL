@@ -4,13 +4,16 @@ import { Badge } from "@/components/ui/badge";
 import { Thumb } from "../Thumb";
 import { formatDate } from "../utils";
 import type { ResourceConfig } from "../types";
+import type { Dictionary } from "@/i18n/dictionaries";
 
-export const storiesConfig: ResourceConfig<Story> = {
-  name: "Story",
-  title: "Alumni Stories",
-  subtitle: "Long-form alumni features published on the public site.",
-  kicker: "Alumni Story",
-  searchPlaceholder: "Search stories…",
+type A = Dictionary["admin"];
+
+export const storiesConfig = (a: A): ResourceConfig<Story> => ({
+  name: a.nameStory,
+  title: a.titleStories,
+  subtitle: a.subtitleStories,
+  kicker: a.kickerStory,
+  searchPlaceholder: a.searchStories,
   keyField: "slug",
   resourcePath: "stories",
   publicPath: "/stories",
@@ -22,7 +25,7 @@ export const storiesConfig: ResourceConfig<Story> = {
     story.category.toLowerCase().includes(q),
   columns: [
     {
-      header: "Story",
+      header: a.colStory,
       width: "minmax(0,1fr)",
       cell: (story) => (
         <div className="flex min-w-0 items-center gap-3">
@@ -39,12 +42,12 @@ export const storiesConfig: ResourceConfig<Story> = {
       ),
     },
     {
-      header: "Category",
+      header: a.colCategory,
       width: "118px",
       cell: (story) => <Badge variant="secondary">{story.category}</Badge>,
     },
     {
-      header: "Published",
+      header: a.colPublished,
       width: "96px",
       cell: (story) => (
         <span className="text-xs text-muted-foreground">
@@ -53,7 +56,7 @@ export const storiesConfig: ResourceConfig<Story> = {
       ),
     },
     {
-      header: "Status",
+      header: a.colStatus,
       width: "96px",
       cell: (story) =>
         story.isDraft ? (
@@ -68,58 +71,58 @@ export const storiesConfig: ResourceConfig<Story> = {
     },
   ],
   fields: [
-    { key: "title", label: "Title", type: "text", full: true, required: true },
+    { key: "title", label: a.fieldTitle, type: "text", full: true, required: true },
     {
       key: "slug",
-      label: "Page URL",
+      label: a.fieldPageUrl,
       type: "text",
       placeholder: "story-page-url",
-      hint: "Auto-generated from the title. You can customise it.",
+      hint: a.hintPageUrl,
       required: true,
     },
     {
       key: "category",
-      label: "Category",
+      label: a.fieldCategory,
       type: "select",
       options: STORY_CATEGORIES,
       required: true,
     },
-    { key: "author.name", label: "Author name", type: "text", required: true },
+    { key: "author.name", label: a.fieldAlumniName, type: "text", required: true },
     {
       key: "author.class",
-      label: "Author class",
+      label: a.fieldAlumniClass,
       type: "text",
       placeholder: "S1 Business '13",
       required: true,
     },
     {
       key: "excerpt",
-      label: "Short summary",
+      label: a.fieldShortSummary,
       type: "textarea",
       rows: 2,
       placeholder: "A brief preview shown on listing cards…",
       full: true,
       required: true,
     },
-    { key: "body", label: "Body", type: "rich", full: true, required: true, uploadFolder: "media/stories" },
-    { key: "coverImage", label: "Cover image", type: "image", full: true, required: true, uploadFolder: "media/stories" },
-    { key: "publishedAt", label: "Published date", type: "date" },
-    { key: "readMinutes", label: "Read minutes", type: "number" },
+    { key: "body", label: a.fieldBody, type: "rich", full: true, required: true, uploadFolder: "media/stories" },
+    { key: "coverImage", label: a.fieldCoverImage, type: "image", full: true, required: true, uploadFolder: "media/stories" },
+    { key: "publishedAt", label: a.fieldPublishedDate, type: "date" },
+    { key: "readMinutes", label: a.fieldReadMinutes, type: "number" },
     {
       key: "isHighlight",
-      label: "Pin to Highlights (max 3)",
+      label: a.toggleStoriesHighlight,
       type: "toggle",
       linkedToggleOff: "isFeatured",
     },
     {
       key: "isFeatured",
-      label: "Feature in Alumni Stories (max 4)",
+      label: a.toggleStoriesFeatured,
       type: "toggle",
       linkedToggleOff: "isHighlight",
     },
     {
       key: "isFeaturedHome",
-      label: "Alumni of the Month (home page)",
+      label: a.toggleAlumniOfMonth,
       type: "toggle",
     },
   ],
@@ -139,4 +142,4 @@ export const storiesConfig: ResourceConfig<Story> = {
     isDraft: false,
   }),
   toggleLimits: { isFeatured: 4, isHighlight: 3 },
-};
+});
