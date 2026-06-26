@@ -12,13 +12,22 @@ namespace IkaPrasmul.Commons.RequestHandlers.Sig;
 public class UpsertSigGroupRequestHandler : IRequestHandler<UpsertSigGroupRequest, JsonElement>
 {
     private readonly ApplicationDbContext _db;
+    private readonly IFileStorageService _files;
 
-    public UpsertSigGroupRequestHandler(ApplicationDbContext db) => _db = db;
+    public UpsertSigGroupRequestHandler(ApplicationDbContext db, IFileStorageService files)
+    {
+        _db = db;
+        _files = files;
+    }
 
     public async Task<JsonElement> Handle(UpsertSigGroupRequest request, CancellationToken ct)
     {
         var lookup = !string.IsNullOrWhiteSpace(request.OriginalId) ? request.OriginalId! : request.Id;
         var entity = await _db.SigGroups.FirstOrDefaultAsync(g => g.Key == lookup, ct);
+        bool isUpdate = entity is not null;
+
+        var oldImage = entity?.ImageUrl;
+
         var now = DateTime.UtcNow;
 
         if (entity is null)
@@ -47,6 +56,10 @@ public class UpsertSigGroupRequestHandler : IRequestHandler<UpsertSigGroupReques
         entity.Icon = request.Icon;
 
         await _db.SaveChangesAsync(ct);
+
+        if (isUpdate && oldImage != entity.ImageUrl)
+            await _files.DeleteAsync(oldImage, ct);
+
         return ContentJson.SigGroup(entity);
     }
 

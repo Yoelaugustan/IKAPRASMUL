@@ -16,8 +16,13 @@ public class UpsertArticleRequestHandler : IRequestHandler<UpsertArticleRequest,
     private const string NewsletterCategory = "Newsletter";
 
     private readonly ApplicationDbContext _db;
+    private readonly IFileStorageService _files;
 
-    public UpsertArticleRequestHandler(ApplicationDbContext db) => _db = db;
+    public UpsertArticleRequestHandler(ApplicationDbContext db, IFileStorageService files)
+    {
+        _db = db;
+        _files = files;
+    }
 
     public async Task<JsonElement> Handle(UpsertArticleRequest request, CancellationToken ct)
     {
@@ -26,6 +31,12 @@ public class UpsertArticleRequestHandler : IRequestHandler<UpsertArticleRequest,
             : request.Slug;
 
         var entity = await _db.Articles.FirstOrDefaultAsync(a => a.Slug == lookup, ct);
+        bool isUpdate = entity is not null;
+
+        var oldCover = entity?.CoverImage;
+        var oldPdf = entity?.PdfUrl;
+        var oldBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity?.Body).ToHashSet();
+
         var now = DateTime.UtcNow;
 
         if (entity is null)
@@ -83,6 +94,16 @@ public class UpsertArticleRequestHandler : IRequestHandler<UpsertArticleRequest,
         entity.Status = request.IsDraft ? ContentStatus.Draft : ContentStatus.Published;
 
         await _db.SaveChangesAsync(ct);
+
+        if (isUpdate)
+        {
+            if (oldCover != entity.CoverImage) await _files.DeleteAsync(oldCover, ct);
+            if (oldPdf != entity.PdfUrl) await _files.DeleteAsync(oldPdf, ct);
+            var newBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity.Body).ToHashSet();
+            foreach (var url in oldBodyUrls.Except(newBodyUrls))
+                await _files.DeleteAsync(url, ct);
+        }
+
         return ContentJson.Article(entity);
     }
 

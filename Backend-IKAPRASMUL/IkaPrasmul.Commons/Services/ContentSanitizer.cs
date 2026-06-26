@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Ganss.Xss;
 
 namespace IkaPrasmul.Commons.Services;
@@ -42,5 +43,17 @@ public static class ContentSanitizer
         sanitizer.AllowedSchemes.Add("mailto");
 
         return sanitizer;
+    }
+
+    /// <summary>
+    /// Returns all local /media/… src URLs embedded in an HTML string.
+    /// Used by upsert handlers to find images that were removed during an edit
+    /// so they can be deleted from disk.
+    /// </summary>
+    public static IEnumerable<string> ExtractLocalImageUrls(string? html)
+    {
+        if (string.IsNullOrWhiteSpace(html)) yield break;
+        foreach (Match m in Regex.Matches(html, @"src=""(/media/[^""]+)""", RegexOptions.IgnoreCase))
+            yield return m.Groups[1].Value;
     }
 }

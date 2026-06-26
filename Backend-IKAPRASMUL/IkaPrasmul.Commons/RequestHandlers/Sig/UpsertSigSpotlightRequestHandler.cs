@@ -14,13 +14,23 @@ namespace IkaPrasmul.Commons.RequestHandlers.Sig;
 public class UpsertSigSpotlightRequestHandler : IRequestHandler<UpsertSigSpotlightRequest, JsonElement>
 {
     private readonly ApplicationDbContext _db;
+    private readonly IFileStorageService _files;
 
-    public UpsertSigSpotlightRequestHandler(ApplicationDbContext db) => _db = db;
+    public UpsertSigSpotlightRequestHandler(ApplicationDbContext db, IFileStorageService files)
+    {
+        _db = db;
+        _files = files;
+    }
 
     public async Task<JsonElement> Handle(UpsertSigSpotlightRequest request, CancellationToken ct)
     {
         var lookup = !string.IsNullOrWhiteSpace(request.OriginalId) ? request.OriginalId! : request.Id;
         var entity = await _db.SigSpotlights.FirstOrDefaultAsync(s => s.Key == lookup, ct);
+        bool isUpdate = entity is not null;
+
+        var oldImage = entity?.ImageUrl;
+        var oldBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity?.Description).ToHashSet();
+
         var now = DateTime.UtcNow;
 
         if (entity is null)
@@ -58,6 +68,15 @@ public class UpsertSigSpotlightRequestHandler : IRequestHandler<UpsertSigSpotlig
         entity.Status = request.IsDraft ? ContentStatus.Draft : ContentStatus.Published;
 
         await _db.SaveChangesAsync(ct);
+
+        if (isUpdate)
+        {
+            if (oldImage != entity.ImageUrl) await _files.DeleteAsync(oldImage, ct);
+            var newBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity.Description).ToHashSet();
+            foreach (var url in oldBodyUrls.Except(newBodyUrls))
+                await _files.DeleteAsync(url, ct);
+        }
+
         return ContentJson.SigSpotlight(entity);
     }
 

@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using IkaPrasmul.Commons.Services;
 using IkaPrasmul.Contracts.RequestModels.Business;
 using IkaPrasmul.Entities;
@@ -25,7 +24,7 @@ public class DeleteBusinessRequestHandler : IRequestHandler<DeleteBusinessReques
         {
             var logo = entity.Logo;
             var coverImage = entity.CoverImage;
-            var bodyImageUrls = ExtractLocalImageUrls(entity.Description);
+            var bodyImageUrls = ContentSanitizer.ExtractLocalImageUrls(entity.Description);
 
             _db.BusinessListings.Remove(entity);
             await _db.SaveChangesAsync(ct);
@@ -38,10 +37,4 @@ public class DeleteBusinessRequestHandler : IRequestHandler<DeleteBusinessReques
         return Unit.Value;
     }
 
-    private static IEnumerable<string> ExtractLocalImageUrls(string? html)
-    {
-        if (string.IsNullOrWhiteSpace(html)) yield break;
-        foreach (Match m in Regex.Matches(html, @"src=""(/media/[^""]+)""", RegexOptions.IgnoreCase))
-            yield return m.Groups[1].Value;
-    }
 }

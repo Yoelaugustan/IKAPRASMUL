@@ -14,8 +14,13 @@ namespace IkaPrasmul.Commons.RequestHandlers.Business;
 public class UpsertBusinessRequestHandler : IRequestHandler<UpsertBusinessRequest, JsonElement>
 {
     private readonly ApplicationDbContext _db;
+    private readonly IFileStorageService _files;
 
-    public UpsertBusinessRequestHandler(ApplicationDbContext db) => _db = db;
+    public UpsertBusinessRequestHandler(ApplicationDbContext db, IFileStorageService files)
+    {
+        _db = db;
+        _files = files;
+    }
 
     public async Task<JsonElement> Handle(UpsertBusinessRequest request, CancellationToken ct)
     {
@@ -24,6 +29,13 @@ public class UpsertBusinessRequestHandler : IRequestHandler<UpsertBusinessReques
             : request.Slug;
 
         var entity = await _db.BusinessListings.FirstOrDefaultAsync(b => b.Slug == lookup, ct);
+        bool isUpdate = entity is not null;
+
+        // Snapshot old local file URLs before overwriting (update path only).
+        var oldLogo = entity?.Logo;
+        var oldCover = entity?.CoverImage;
+        var oldBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity?.Description).ToHashSet();
+
         var now = DateTime.UtcNow;
 
         if (entity is null)
@@ -77,6 +89,16 @@ public class UpsertBusinessRequestHandler : IRequestHandler<UpsertBusinessReques
         entity.Status = request.IsDraft ? ContentStatus.Draft : ContentStatus.Published;
 
         await _db.SaveChangesAsync(ct);
+
+        if (isUpdate)
+        {
+            if (oldLogo != entity.Logo) await _files.DeleteAsync(oldLogo, ct);
+            if (oldCover != entity.CoverImage) await _files.DeleteAsync(oldCover, ct);
+            var newBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity.Description).ToHashSet();
+            foreach (var url in oldBodyUrls.Except(newBodyUrls))
+                await _files.DeleteAsync(url, ct);
+        }
+
         return ContentJson.Business(entity);
     }
 

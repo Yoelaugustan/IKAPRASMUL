@@ -14,8 +14,13 @@ namespace IkaPrasmul.Commons.RequestHandlers.Event;
 public class UpsertEventRequestHandler : IRequestHandler<UpsertEventRequest, JsonElement>
 {
     private readonly ApplicationDbContext _db;
+    private readonly IFileStorageService _files;
 
-    public UpsertEventRequestHandler(ApplicationDbContext db) => _db = db;
+    public UpsertEventRequestHandler(ApplicationDbContext db, IFileStorageService files)
+    {
+        _db = db;
+        _files = files;
+    }
 
     public async Task<JsonElement> Handle(UpsertEventRequest request, CancellationToken ct)
     {
@@ -24,6 +29,11 @@ public class UpsertEventRequestHandler : IRequestHandler<UpsertEventRequest, Jso
             : request.Slug;
 
         var entity = await _db.Events.FirstOrDefaultAsync(e => e.Slug == lookup, ct);
+        bool isUpdate = entity is not null;
+
+        var oldCover = entity?.CoverImage;
+        var oldBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity?.Description).ToHashSet();
+
         var now = DateTime.UtcNow;
 
         if (entity is null)
@@ -73,6 +83,15 @@ public class UpsertEventRequestHandler : IRequestHandler<UpsertEventRequest, Jso
         entity.Status = request.IsDraft ? ContentStatus.Draft : ContentStatus.Published;
 
         await _db.SaveChangesAsync(ct);
+
+        if (isUpdate)
+        {
+            if (oldCover != entity.CoverImage) await _files.DeleteAsync(oldCover, ct);
+            var newBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity.Description).ToHashSet();
+            foreach (var url in oldBodyUrls.Except(newBodyUrls))
+                await _files.DeleteAsync(url, ct);
+        }
+
         return ContentJson.Event(entity);
     }
 

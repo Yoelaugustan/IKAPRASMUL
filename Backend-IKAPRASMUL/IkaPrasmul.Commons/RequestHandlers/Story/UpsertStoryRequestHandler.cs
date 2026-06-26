@@ -14,8 +14,13 @@ namespace IkaPrasmul.Commons.RequestHandlers.Story;
 public class UpsertStoryRequestHandler : IRequestHandler<UpsertStoryRequest, JsonElement>
 {
     private readonly ApplicationDbContext _db;
+    private readonly IFileStorageService _files;
 
-    public UpsertStoryRequestHandler(ApplicationDbContext db) => _db = db;
+    public UpsertStoryRequestHandler(ApplicationDbContext db, IFileStorageService files)
+    {
+        _db = db;
+        _files = files;
+    }
 
     public async Task<JsonElement> Handle(UpsertStoryRequest request, CancellationToken ct)
     {
@@ -24,6 +29,11 @@ public class UpsertStoryRequestHandler : IRequestHandler<UpsertStoryRequest, Jso
             : request.Slug;
 
         var entity = await _db.Stories.FirstOrDefaultAsync(s => s.Slug == lookup, ct);
+        bool isUpdate = entity is not null;
+
+        var oldCover = entity?.CoverImage;
+        var oldBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity?.Body).ToHashSet();
+
         var now = DateTime.UtcNow;
 
         if (entity is null)
@@ -80,6 +90,15 @@ public class UpsertStoryRequestHandler : IRequestHandler<UpsertStoryRequest, Jso
         entity.Status = request.IsDraft ? ContentStatus.Draft : ContentStatus.Published;
 
         await _db.SaveChangesAsync(ct);
+
+        if (isUpdate)
+        {
+            if (oldCover != entity.CoverImage) await _files.DeleteAsync(oldCover, ct);
+            var newBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity.Body).ToHashSet();
+            foreach (var url in oldBodyUrls.Except(newBodyUrls))
+                await _files.DeleteAsync(url, ct);
+        }
+
         return ContentJson.Story(entity);
     }
 
