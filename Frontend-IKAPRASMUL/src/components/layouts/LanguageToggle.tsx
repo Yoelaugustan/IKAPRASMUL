@@ -4,8 +4,16 @@ import { useLang } from "@/components/shared/LanguageProvider";
 import { LANGS, LANG_LABELS } from "@/i18n/config";
 import { cn } from "@/lib/utils";
 
-// Segmented EN | ID switch. Designed for the navy header (uses inverted colors).
-export function LanguageToggle({ className }: { className?: string }) {
+// Segmented EN | ID switch.
+// variant="inverted" — for dark/navy headers (default)
+// variant="default"  — for light backgrounds (admin panel)
+export function LanguageToggle({
+  className,
+  variant = "inverted",
+}: {
+  className?: string;
+  variant?: "inverted" | "default";
+}) {
   const { lang, setLang } = useLang();
 
   return (
@@ -13,7 +21,8 @@ export function LanguageToggle({ className }: { className?: string }) {
       role="group"
       aria-label="Language"
       className={cn(
-        "inline-flex items-center rounded-full border border-white/30 p-0.5",
+        "inline-flex items-center rounded-full p-0.5",
+        variant === "inverted" ? "border border-white/30" : "border border-border",
         className,
       )}
     >
@@ -27,7 +36,9 @@ export function LanguageToggle({ className }: { className?: string }) {
             "rounded-full px-2.5 py-1 text-xs font-bold transition-colors",
             lang === l
               ? "bg-gold text-gold-foreground"
-              : "text-primary-foreground/70 hover:text-white",
+              : variant === "inverted"
+                ? "text-primary-foreground/70 hover:text-white"
+                : "text-muted-foreground hover:text-foreground",
           )}
         >
           {LANG_LABELS[l]}

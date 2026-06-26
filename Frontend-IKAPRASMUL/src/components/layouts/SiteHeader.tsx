@@ -45,9 +45,11 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative whitespace-nowrap py-1 text-[13px] font-medium text-primary-foreground/85 transition-colors hover:text-white",
-                  isActive(item.href) &&
-                    "text-gold after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:bg-gold",
+                  "relative whitespace-nowrap py-1 text-[13px] font-medium transition-colors",
+                  "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:rounded-full after:bg-gold after:transition-[width] after:duration-300 after:ease-expo",
+                  isActive(item.href)
+                    ? "text-gold after:w-full"
+                    : "text-primary-foreground/85 hover:text-white after:w-0 hover:after:w-full hover:after:opacity-60",
                 )}
               >
                 {t.nav[item.key]}
