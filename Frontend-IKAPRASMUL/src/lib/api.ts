@@ -1,26 +1,31 @@
-// Typed API client (axios). Base URL comes from env — never hardcoded.
-// `api.get<T>()` resolves to the response body directly (not the AxiosResponse),
-// keeping call sites terse. Used for direct calls to the .NET backend; the
-// public forms go through same-origin BFF routes (see the form hooks).
+// Shared browser-side axios instance for same-origin BFF calls (/api/*).
+// Normalises error messages from the backend shape ({ error?, title? }) so
+// callers always catch plain Error instances.
+// 401 on any non-login route means the refresh token has expired — auto-redirect
+// to sign-in so the user never sees a raw auth error.
 
-import axios, { type AxiosRequestConfig } from "axios";
+import axios, { type AxiosError } from "axios";
 
 export const client = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL ?? "",
   headers: { "Content-Type": "application/json" },
-  // Auth cookie is httpOnly and forwarded by the browser / BFF route handler.
   withCredentials: true,
 });
 
-export const api = {
-  get: <T>(path: string, config?: AxiosRequestConfig) =>
-    client.get<T>(path, config).then((r) => r.data),
-  post: <T>(path: string, body?: unknown, config?: AxiosRequestConfig) =>
-    client.post<T>(path, body, config).then((r) => r.data),
-  put: <T>(path: string, body?: unknown, config?: AxiosRequestConfig) =>
-    client.put<T>(path, body, config).then((r) => r.data),
-  patch: <T>(path: string, body?: unknown, config?: AxiosRequestConfig) =>
-    client.patch<T>(path, body, config).then((r) => r.data),
-  delete: <T>(path: string, config?: AxiosRequestConfig) =>
-    client.delete<T>(path, config).then((r) => r.data),
-};
+client.interceptors.response.use(
+  (res) => res,
+  (err: AxiosError<{ error?: string; title?: string }>) => {
+    const url = err.config?.url ?? "";
+    if (
+      err.response?.status === 401 &&
+      typeof window !== "undefined" &&
+      !url.includes("/auth/login")
+    ) {
+      window.location.href = `/login?from=${encodeURIComponent(window.location.pathname)}`;
+    }
+    const message =
+      err.response?.data?.error ??
+      err.response?.data?.title ??
+      err.message;
+    return Promise.reject(new Error(message));
+  },
+);

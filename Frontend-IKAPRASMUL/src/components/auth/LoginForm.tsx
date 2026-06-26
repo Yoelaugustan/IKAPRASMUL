@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { adminLoginSchema, type AdminLoginInput } from "@/types/schemas";
+import { useLogin } from "./hooks/useLogin";
+import { useLang } from "@/components/shared/LanguageProvider";
 import {
   Form,
   FormControl,
@@ -21,7 +22,8 @@ import { ROUTES } from "@/constants/routes";
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [error, setError] = useState<string | null>(null);
+  const login = useLogin();
+  const { t } = useLang();
 
   const form = useForm<AdminLoginInput>({
     resolver: zodResolver(adminLoginSchema),
@@ -29,34 +31,25 @@ export function LoginForm() {
   });
 
   const onSubmit = async (data: AdminLoginInput) => {
-    setError(null);
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) {
-        setError("Invalid email or password.");
-        return;
-      }
+      await login.mutateAsync(data);
       const from = searchParams.get("from") ?? ROUTES.admin;
       router.push(from);
       router.refresh();
     } catch {
-      setError("Something went wrong. Please try again.");
+      // error displayed via login.error below
     }
   };
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {error && (
+        {login.error && (
           <p
             role="alert"
             className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive"
           >
-            {error}
+            {login.error.message}
           </p>
         )}
         <FormField
@@ -64,7 +57,7 @@ export function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t.admin.emailLabel}</FormLabel>
               <FormControl>
                 <Input
                   type="email"
@@ -82,7 +75,7 @@ export function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t.admin.passwordLabel}</FormLabel>
               <FormControl>
                 <Input
                   type="password"
@@ -99,12 +92,12 @@ export function LoginForm() {
           type="submit"
           variant="gold"
           className="w-full"
-          disabled={form.formState.isSubmitting}
+          disabled={login.isPending}
         >
-          {form.formState.isSubmitting ? (
+          {login.isPending ? (
             <Loader2 className="animate-spin" />
           ) : (
-            "Sign in"
+            t.admin.signIn
           )}
         </Button>
       </form>
