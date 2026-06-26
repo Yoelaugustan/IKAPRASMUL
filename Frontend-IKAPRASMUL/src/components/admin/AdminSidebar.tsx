@@ -11,29 +11,42 @@ import {
   BookOpen,
   Newspaper,
   CalendarDays,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/constants/routes";
 import { LogoutButton } from "@/components/admin/LogoutButton";
-
-const NAV = [
-  { label: "Dashboard", href: ROUTES.admin, Icon: LayoutDashboard },
-  { label: "SIG Groups", href: ROUTES.adminSig, Icon: Users2 },
-  { label: "Alumni Business", href: ROUTES.adminBusiness, Icon: Building2 },
-  { label: "Alumni Stories", href: ROUTES.adminStories, Icon: BookOpen },
-  { label: "News & Insights", href: ROUTES.adminNews, Icon: Newspaper },
-  { label: "Events", href: ROUTES.adminEvents, Icon: CalendarDays },
-];
+import { useLang } from "@/components/shared/LanguageProvider";
 
 interface AdminSidebarProps {
   isOpen?: boolean;
   onClose?: () => void;
+  isSuperAdmin?: boolean;
+  permissions?: string[];
 }
 
-export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
+export function AdminSidebar({ isOpen, onClose, isSuperAdmin = false, permissions = [] }: AdminSidebarProps) {
   const pathname = usePathname();
+  const { t } = useLang();
   const isActive = (href: string) =>
     href === ROUTES.admin ? pathname === href : pathname.startsWith(href);
+
+  const ALL_NAV = [
+    { label: t.admin.dashboard, href: ROUTES.admin, Icon: LayoutDashboard, section: null },
+    { label: t.admin.sigGroups, href: ROUTES.adminSig, Icon: Users2, section: "sig" },
+    { label: t.admin.alumniBusiness, href: ROUTES.adminBusiness, Icon: Building2, section: "business" },
+    { label: t.admin.alumniStories, href: ROUTES.adminStories, Icon: BookOpen, section: "stories" },
+    { label: t.admin.newsInsights, href: ROUTES.adminNews, Icon: Newspaper, section: "news" },
+    { label: t.admin.events, href: ROUTES.adminEvents, Icon: CalendarDays, section: "events" },
+    // section: null = always visible regardless of permissions
+    { label: t.admin.userManagement, href: ROUTES.adminUsers, Icon: ShieldCheck, section: null },
+  ];
+
+  // SuperAdmin sees all content sections; normal Admin sees only permitted ones.
+  // Items with section: null (Dashboard, User Management) are always visible.
+  const NAV = ALL_NAV.filter(
+    (item) => item.section === null || isSuperAdmin || permissions.includes(item.section),
+  );
 
   return (
     <aside
@@ -57,7 +70,7 @@ export function AdminSidebar({ isOpen, onClose }: AdminSidebarProps) {
         {/* Close button — mobile only */}
         <button
           type="button"
-          aria-label="Close menu"
+          aria-label={t.admin.openMenu}
           onClick={onClose}
           className="grid size-7 place-items-center rounded-md text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-foreground lg:hidden"
         >

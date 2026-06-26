@@ -4,14 +4,19 @@ import { useState } from "react";
 import { Menu } from "lucide-react";
 import { AdminSidebar } from "./AdminSidebar";
 import { AdminBreadcrumb } from "./AdminBreadcrumb";
+import { LanguageToggle } from "@/components/layouts/LanguageToggle";
+import { useLang } from "@/components/shared/LanguageProvider";
 
 interface AdminShellProps {
   email: string;
+  isSuperAdmin?: boolean;
+  permissions?: string[];
   children: React.ReactNode;
 }
 
-export function AdminShell({ email, children }: AdminShellProps) {
+export function AdminShell({ email, isSuperAdmin = false, permissions = [], children }: AdminShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { t } = useLang();
 
   return (
     <div className="flex h-dvh overflow-hidden bg-surface">
@@ -23,7 +28,12 @@ export function AdminShell({ email, children }: AdminShellProps) {
         />
       )}
 
-      <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <AdminSidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        isSuperAdmin={isSuperAdmin}
+        permissions={permissions}
+      />
 
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <header className="flex h-16 shrink-0 items-center justify-between border-b bg-background px-4 sm:px-6">
@@ -31,7 +41,7 @@ export function AdminShell({ email, children }: AdminShellProps) {
             {/* Hamburger — only visible on mobile */}
             <button
               type="button"
-              aria-label="Open menu"
+              aria-label={t.admin.openMenu}
               className="grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground lg:hidden"
               onClick={() => setSidebarOpen(true)}
             >
@@ -41,8 +51,9 @@ export function AdminShell({ email, children }: AdminShellProps) {
           </div>
 
           <div className="flex items-center gap-3">
+            <LanguageToggle variant="default" />
             <p className="hidden text-sm text-muted-foreground sm:block">
-              Signed in as{" "}
+              {t.admin.signedInAs}{" "}
               <span className="font-medium text-foreground">{email}</span>
             </p>
             <span className="grid size-8 place-items-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">

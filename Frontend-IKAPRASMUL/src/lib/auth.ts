@@ -16,7 +16,8 @@ const COOKIE_MAX_AGE = 60 * 60 * 24; // 1 day, matching the refresh token
 
 export type AdminSession = {
   email: string;
-  role: "Admin";
+  role: "Admin" | "SuperAdmin";
+  permissions: string[];
 };
 
 export function authCookieOptions(maxAge: number = COOKIE_MAX_AGE) {
@@ -53,7 +54,18 @@ export async function getAdminSession(): Promise<AdminSession | null> {
   const email = payload && typeof payload.email === "string" ? payload.email : undefined;
   if (!email) return null;
 
-  // Only admins are ever issued a token by the backend; the API re-checks the
-  // role on every protected request, so this is a coarse display-level gate.
-  return { email, role: "Admin" };
+  // Read role from JWT; backend enforces this on every request.
+  const rawRole = payload?.["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+    ?? payload?.role;
+  const role: "Admin" | "SuperAdmin" =
+    rawRole === "SuperAdmin" ? "SuperAdmin" : "Admin";
+
+  // Normal admins carry a comma-separated `perms` claim; SuperAdmins don't
+  // (they bypass all section checks server-side).
+  const rawPerms = typeof payload?.perms === "string" ? payload.perms : "";
+  const permissions = role === "SuperAdmin"
+    ? []
+    : rawPerms.split(",").map((s) => s.trim()).filter(Boolean);
+
+  return { email, role, permissions };
 }

@@ -9,9 +9,17 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const session = await getAdminSession();
-  if (!session || session.role !== "Admin") {
+  if (!session || (session.role !== "Admin" && session.role !== "SuperAdmin")) {
     redirect(ROUTES.login);
   }
 
-  return <AdminShell email={session.email}>{children}</AdminShell>;
+  return (
+    <AdminShell
+      email={session.email}
+      isSuperAdmin={session.role === "SuperAdmin"}
+      permissions={session.permissions}
+    >
+      {children}
+    </AdminShell>
+  );
 }
