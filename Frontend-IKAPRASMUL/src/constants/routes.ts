@@ -7,6 +7,7 @@ export const ROUTES = {
   stories: "/stories",
   business: "/business",
   news: "/news",
+  events: "/events",
 
   // Dynamic content detail pages
   storyDetail: (slug: string) => `/stories/${slug}`,
@@ -43,4 +44,5 @@ export const MAIN_NAV = [
   { key: "stories", label: "Alumni Stories", href: ROUTES.stories },
   { key: "business", label: "Alumni Business", href: ROUTES.business },
   { key: "news", label: "News & Insight", href: ROUTES.news },
+  { key: "events", label: "Events", href: ROUTES.events },
 ] as const;

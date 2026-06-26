@@ -18,6 +18,16 @@ export const NEWS_CATEGORIES = [
 ] as const;
 export type NewsCategory = (typeof NEWS_CATEGORIES)[number];
 
+export const EVENT_CATEGORIES = [
+  "Networking",
+  "Workshop",
+  "Seminar",
+  "Reunion",
+  "Career",
+  "Sports",
+] as const;
+export type EventCategory = (typeof EVENT_CATEGORIES)[number];
+
 export const INDUSTRIES = [
   "Retail",
   "Startup",

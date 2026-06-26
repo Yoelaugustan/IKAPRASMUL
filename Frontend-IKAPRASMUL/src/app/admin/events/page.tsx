@@ -1,10 +1,13 @@
-import { AdminPlaceholder } from "@/components/admin/AdminPlaceholder";
+import type { Metadata } from "next";
+import { getAdminEvents } from "@/lib/adminContent";
+import { EventsManager } from "@/components/admin/cms/EventsManager";
 
-export default function AdminEventsPage() {
-  return (
-    <AdminPlaceholder
-      title="Events"
-      description="Create and manage events. The next upcoming event surfaces as the Home page highlight."
-    />
-  );
+export const metadata: Metadata = {
+  title: "Events",
+  robots: { index: false, follow: false },
+};
+
+export default async function AdminEventsPage() {
+  const items = await getAdminEvents();
+  return <EventsManager items={items} />;
 }

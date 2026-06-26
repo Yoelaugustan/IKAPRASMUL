@@ -686,18 +686,42 @@
       "title": "Career Fair 2026 – The Graduate Gateway: Explore, Connect, and Enter the Professional World",
       "date": "2026-06-23T09:00:00+07:00",
       "location": "Universitas Prasetiya Mulya – BSD Campus",
+      "category": "Career",
       "coverImage": "/media/events/career-fair-2026.jpg",
-      "description": "Saatnya kembali ke kampus, memperluas jaringan profesional, dan menjelajahi berbagai peluang karier dari perusahaan-perusahaan terkemuka yang hadir di Career Fair 2026.\n\nTemui langsung recruiter dari berbagai industri, termasuk: PT CND International Trade Indonesia, PT HM Sampoerna Tbk., PT Bank OCBC NISP Tbk., Sinarmas Mining & Financial Services, PT Toyota-Astra Motor, Astra Credit Companies, PT Midea Electronics Indonesia, PT Onda Mega Integra, PT Sinergi Medika Utama, Time International, BCA Digital, Cake Global, PT Delta Sukses Teknologi, DPO&Co., Toyota Astra Financial Services (TAF), PT Lippo Karawaci Tbk., dan PT Bank Tabungan Negara (Persero) Tbk.\n\nManfaatkan kesempatan ini untuk terhubung langsung dengan perusahaan impian, menemukan peluang karier baru, serta memperluas dan memperkuat jaringan profesional Anda.\n\nJangan lupa membawa CV terbaru Anda!",
-      "registerUrl": "https://forms.cloud.microsoft/r/p6Pr3Uim86"
+      "description": "<p>Halo Alumni Universitas Prasetiya Mulya! Saatnya kembali ke kampus, memperluas jaringan profesional, dan menjelajahi berbagai peluang karier dari perusahaan-perusahaan terkemuka yang hadir di Career Fair 2026.</p><p>Temui langsung recruiter dari berbagai industri, termasuk: PT CND International Trade Indonesia, PT HM Sampoerna Tbk., PT Bank OCBC NISP Tbk., Sinarmas Mining & Financial Services, PT Toyota-Astra Motor, Astra Credit Companies, PT Midea Electronics Indonesia, PT Onda Mega Integra, PT Sinergi Medika Utama, Time International, BCA Digital, Cake Global, PT Delta Sukses Teknologi, DPO&Co., Toyota Astra Financial Services (TAF), PT Lippo Karawaci Tbk., dan PT Bank Tabungan Negara (Persero) Tbk.</p><p>Manfaatkan kesempatan ini untuk terhubung langsung dengan perusahaan impian, menemukan peluang karier baru, serta memperluas dan memperkuat jaringan profesional Anda.</p><p>Waktu: Selasa, 23 Juni 2026, pukul 09.00 – 16.00 WIB.</p><p>Jangan lupa membawa CV terbaru Anda dan jadilah bagian dari perjalanan karier yang penuh peluang dan inspirasi!</p>",
+      "registerUrl": "https://forms.cloud.microsoft/r/p6Pr3Uim86",
+      "isFeatured": true
     },
     {
-      "slug": "founders-fireside-q3",
-      "title": "Founders Fireside: Building in Southeast Asia",
-      "date": "2026-07-03T18:30:00+07:00",
-      "location": "Cilandak Campus, Jakarta",
-      "coverImage": "https://picsum.photos/seed/fireside/1200/800",
-      "description": "A candid conversation with alumni founders on scaling ventures across the region.",
-      "registerUrl": "#"
+      "slug": "indonesia-coaching-conference-2026",
+      "title": "Indonesia Coaching Conference (ICC) 2026 – Coaching The Next Human Transformation",
+      "date": "2026-06-27T08:30:00+07:00",
+      "location": "Hotel Grand Sahid Jaya, Jl. Jend. Sudirman Kav. 86, Jakarta Pusat",
+      "category": "Seminar",
+      "coverImage": "/media/events/indonesia-coaching-conference-2026.jpeg",
+      "description": "<p>Dunia sedang berubah dengan sangat cepat. Strategi bisnis, teknologi, pola kerja, kepemimpinan, dan cara manusia bertumbuh ikut mengalami transformasi besar. Dengan menghadirkan 30+ Expert Speakers & Prominent Coach dari berbagai industri, ICC 2026 menjadi momentum penting untuk mendapatkan insight, strategi, pengalaman, dan koneksi strategis dalam menghadapi masa depan.</p><p>Mengapa Anda perlu hadir?</p><ul><li>Belajar langsung dari para thought leaders, Prominent Coach, dan expert terbaik</li><li>Memperluas networking dengan leader, HR, entrepreneur, dan professional coach</li><li>Mendapatkan perspektif baru tentang personal, leadership, organization, dan business transformation melalui Coaching</li><li>Membuka peluang kolaborasi, partnership, dan pengembangan bisnis</li></ul><p>Waktu: Sabtu, 27 Juni 2026, pukul 08.30 – 18.00 WIB.</p><p>Rate khusus member Prasetiya Mulya (potongan Rp100.000): gunakan kode kupon PMREG (tiket reguler) atau PMVIP (tiket VIP). Informasi & registrasi: 0811 940 750 / 0811 9949 006.</p>",
+      "registerUrl": "https://indonesiacoachingconference.com/",
+      "isFeaturedHome": true
+    },
+    {
+      "slug": "power-of-resilient-mindset",
+      "title": "The Power of Resilient Mindset – Bouncing Back Stronger",
+      "date": "2026-06-23T18:30:00+07:00",
+      "location": "Auditorium Lt. 3, Gedung William Soeryadjaya, Kampus Prasetiya Mulya BSD",
+      "category": "Workshop",
+      "coverImage": "/media/events/resilient-mindset.jpeg",
+      "description": "<p>IKAPRASMUL bersama AMA Indonesia dan Pakar Talenta menghadirkan sesi inspiratif untuk memperkuat daya tahan mental, membangun pola pikir adaptif, dan menghadapi berbagai tantangan dengan lebih tangguh. Dalam rangkaian acara ini juga dilaksanakan Penandatanganan Nota Kesepahaman (MoU) dengan Ikatan Alumni Prasetiya Mulya serta Pelantikan Pengurus BPC AMA Indonesia Tangerang.</p><p>Bersama narasumber Dr. Alex Denni, Ketua Umum Asosiasi Manajemen Indonesia (AMA Indonesia).</p><p>Waktu: Selasa, 23 Juni 2026, pukul 18.30 – 21.00 WIB.</p><p>Gratis untuk AMA Member. Non AMA: Rp200.000. Mari bergabung dan temukan kekuatan dari resilient mindset untuk terus bertumbuh, beradaptasi, dan bangkit lebih kuat.</p>",
+      "registerUrl": "https://forms.gle/a41iXTfuBFd3KKAZ8"
+    },
+    {
+      "slug": "social-padel-networking",
+      "title": "Social Padel – Networking Through Sport",
+      "date": "2026-06-28T15:30:00+07:00",
+      "location": "The Riserra Padel Club, Pondok Pinang, Kebayoran Lama, Jakarta Selatan",
+      "category": "Sports",
+      "coverImage": "/media/events/social-padel-networking.jpeg",
+      "description": "<p>Sehatnya dapet, jejaringnya juga nambah! Ajakan untuk para pemilik dan pengelola bisnis F&B untuk ikut bermain padel bareng ILUNI UI, IKA PPM School, Prasetiya Mulya, dan IPMI.</p><p>Peserta: F&B Business Owner & Management Only — Alumni UI, PPM School, Prasetiya Mulya & IPMI. Kuota terbatas: 24 selected participants (curated admission).</p><p>Waktu: Minggu, 28 Juni 2026, pukul 15.30 WIB – selesai.</p><p>Commitment Fee Rp100.000 (detail akan diinformasikan melalui WhatsApp oleh panitia). Daftar segera karena tempat terbatas!</p>",
+      "registerUrl": "https://bit.ly/Padeluni-03"
     }
   ],
   "alumniStories": []

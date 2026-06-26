@@ -1,4 +1,5 @@
 import type {
+  EventCategory,
   Industry,
   NewsCategory,
   StoryCategory,
@@ -102,6 +103,12 @@ export type AlumniEvent = {
   coverImage: string;
   description: string;
   registerUrl?: string;
+  category?: EventCategory;
+  /** Pinned as the single Featured Event on the events page (max 1). */
+  isFeatured?: boolean;
+  /** Surfaced as the "Upcoming Event" highlight on the home page (max 1). */
+  isFeaturedHome?: boolean;
+  isDraft?: boolean;
 };
 
 export type Pillar = {

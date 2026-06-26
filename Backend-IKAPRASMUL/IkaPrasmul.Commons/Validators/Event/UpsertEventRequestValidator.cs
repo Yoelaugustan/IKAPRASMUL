@@ -11,6 +11,7 @@ public class UpsertEventRequestValidator : AbstractValidator<UpsertEventRequest>
         RuleFor(x => x.Slug).MaximumLength(220);
         RuleFor(x => x.Date).MaximumLength(40);
         RuleFor(x => x.Location).MaximumLength(300);
+        RuleFor(x => x.Category).MaximumLength(60);
         RuleFor(x => x.CoverImage).MaximumLength(500);
         RuleFor(x => x.RegisterUrl).MaximumLength(255);
     }

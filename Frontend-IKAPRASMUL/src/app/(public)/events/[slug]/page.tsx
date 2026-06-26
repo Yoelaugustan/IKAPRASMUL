@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CalendarDays, MapPin } from "lucide-react";
 import { getEventBySlug } from "@/lib/content";
 import { Container } from "@/components/layouts/Container";
+import { ArticleContent } from "@/components/shared/ArticleContent";
 import { BackButton } from "@/components/shared/BackButton";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
@@ -51,20 +52,17 @@ export default async function EventDetailPage({ params }: Params) {
           </p>
         </div>
 
-        <div className="relative mt-6 aspect-[16/10] overflow-hidden rounded-xl">
-          <Image
-            src={event.coverImage}
-            alt={event.title}
-            fill
-            priority
-            sizes="(min-width: 768px) 720px, 100vw"
-            className="object-cover"
-          />
-        </div>
+        <Image
+          src={event.coverImage}
+          alt={event.title}
+          width={0}
+          height={0}
+          priority
+          sizes="(min-width: 768px) 720px, 100vw"
+          className="mt-6 h-auto w-full rounded-xl"
+        />
 
-        <p className="mt-6 whitespace-pre-wrap text-base leading-7 text-foreground/85">
-          {event.description}
-        </p>
+        <ArticleContent html={event.description} className="mt-6" />
 
         {event.registerUrl && event.registerUrl !== "#" && (
           <div className="mt-6">

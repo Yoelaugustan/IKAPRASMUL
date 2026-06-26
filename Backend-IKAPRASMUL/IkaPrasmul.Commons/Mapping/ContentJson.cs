@@ -100,8 +100,12 @@ public static class ContentJson
         title = e.Title,
         date = e.Date,
         location = e.Location,
+        category = e.Category,
         coverImage = e.CoverImage,
         description = e.Description,
         registerUrl = e.RegisterUrl,
+        isFeatured = e.IsFeatured,
+        isFeaturedHome = e.IsFeaturedHome,
+        isDraft = IsDraft(e.Status),
     });
 }

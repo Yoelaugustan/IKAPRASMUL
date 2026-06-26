@@ -31,9 +31,25 @@ async function safeFetch<T>(path: string, fallback: T, tag?: string): Promise<T>
 export const getImpactStats = async (): Promise<ImpactStat[]> => IMPACT_STATS;
 export const getEvents = (): Promise<AlumniEvent[]> =>
   safeFetch<AlumniEvent[]>("/events", [], "events");
+// The home page "Upcoming Event" slot: prefer the admin-flagged event
+// (isFeaturedHome), then fall back to the soonest upcoming, then the earliest.
 export const getUpcomingEvent = async (): Promise<AlumniEvent | undefined> => {
   const events = await getEvents();
-  return [...events].sort((a, b) => a.date.localeCompare(b.date))[0];
+  const flagged = events.find((e) => e.isFeaturedHome);
+  if (flagged) return flagged;
+  const now = new Date().toISOString();
+  const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
+  return sorted.find((e) => e.date >= now) ?? sorted[0];
+};
+// The admin-curated Featured Event (isFeatured). Falls back to the soonest
+// upcoming event, then to the earliest event, so the slot is never empty.
+export const getFeaturedEvent = async (): Promise<AlumniEvent | undefined> => {
+  const events = await getEvents();
+  const flagged = events.find((e) => e.isFeatured);
+  if (flagged) return flagged;
+  const now = new Date().toISOString();
+  const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
+  return sorted.find((e) => e.date >= now) ?? sorted[0];
 };
 export const getEventBySlug = async (
   slug: string,

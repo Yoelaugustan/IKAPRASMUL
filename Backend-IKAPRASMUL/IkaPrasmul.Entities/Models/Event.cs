@@ -24,6 +24,10 @@ public class Event : IHaveCreateAndUpdateAudit
     [StringLength(300)]
     public string? Location { get; set; }
 
+    /// <summary>Editorial category (e.g. Networking, Workshop) for the public filter tabs.</summary>
+    [StringLength(60)]
+    public string? Category { get; set; }
+
     [StringLength(500)]
     public string? CoverImage { get; set; }
 
@@ -31,6 +35,12 @@ public class Event : IHaveCreateAndUpdateAudit
 
     [StringLength(255)]
     public string? RegisterUrl { get; set; }
+
+    /// <summary>Pinned as the single Featured Event on the public events page (max 1).</summary>
+    public bool IsFeatured { get; set; }
+
+    /// <summary>Surfaced as the "Upcoming Event" highlight on the home page (max 1).</summary>
+    public bool IsFeaturedHome { get; set; }
 
     [Required]
     [StringLength(20)]

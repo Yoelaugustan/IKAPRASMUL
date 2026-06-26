@@ -10,6 +10,7 @@ import {
   Building2,
   BookOpen,
   Newspaper,
+  CalendarDays,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/constants/routes";
@@ -21,6 +22,7 @@ const NAV = [
   { label: "Alumni Business", href: ROUTES.adminBusiness, Icon: Building2 },
   { label: "Alumni Stories", href: ROUTES.adminStories, Icon: BookOpen },
   { label: "News & Insights", href: ROUTES.adminNews, Icon: Newspaper },
+  { label: "Events", href: ROUTES.adminEvents, Icon: CalendarDays },
 ];
 
 interface AdminSidebarProps {

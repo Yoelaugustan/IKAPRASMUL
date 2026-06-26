@@ -33,3 +33,18 @@ export function formatDateUS(iso: string) {
     year: "numeric",
   }).format(new Date(iso));
 }
+
+// Strip HTML tags down to a single-spaced plain-text string. Used to derive a
+// short preview from rich (HTML) body fields. Works on the server (no DOM).
+export function htmlToText(html: string) {
+  return (html || "")
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}

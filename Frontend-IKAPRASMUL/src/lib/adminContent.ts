@@ -1,7 +1,14 @@
 import "server-only";
 
 import { redirect } from "next/navigation";
-import type { Article, Business, SigGroup, SigSpotlight, Story } from "@/types";
+import type {
+  AlumniEvent,
+  Article,
+  Business,
+  SigGroup,
+  SigSpotlight,
+  Story,
+} from "@/types";
 import { ROUTES } from "@/constants/routes";
 import { adminFetch } from "@/lib/adminFetch";
 
@@ -33,3 +40,4 @@ export const getAdminSigSpotlights = () => adminList<SigSpotlight>("sig/spotligh
 export const getAdminStories = () => adminList<Story>("stories");
 export const getAdminBusinesses = () => adminList<Business>("business");
 export const getAdminArticles = () => adminList<Article>("news");
+export const getAdminEvents = () => adminList<AlumniEvent>("events");
