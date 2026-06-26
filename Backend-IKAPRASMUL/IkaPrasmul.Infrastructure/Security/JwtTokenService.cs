@@ -23,7 +23,7 @@ public class JwtTokenService : ITokenService
         _options = options.Value;
     }
 
-    public AccessToken CreateAccessToken(User user, IEnumerable<string> roles)
+    public AccessToken CreateAccessToken(User user, IEnumerable<string> roles, IEnumerable<string>? permissions = null)
     {
         var now = DateTime.UtcNow;
         var expires = now.AddMinutes(_options.AccessTokenExpiryMinutes);
@@ -35,6 +35,13 @@ public class JwtTokenService : ITokenService
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+
+        if (permissions != null)
+        {
+            var permsValue = string.Join(",", permissions);
+            if (!string.IsNullOrEmpty(permsValue))
+                claims.Add(new Claim("perms", permsValue));
+        }
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Secret));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

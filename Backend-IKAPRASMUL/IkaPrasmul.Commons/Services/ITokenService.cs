@@ -8,7 +8,10 @@ public record AccessToken(string Token, DateTime ExpiresAt);
 /// <summary>Issues JWT access tokens and opaque refresh tokens (security-standard §2.3).</summary>
 public interface ITokenService
 {
-    AccessToken CreateAccessToken(User user, IEnumerable<string> roles);
+    /// <summary>Creates an access token. Pass <paramref name="permissions"/> for normal
+    /// Admin users (embedded as the <c>perms</c> claim). SuperAdmins pass null — they
+    /// bypass all section checks server-side.</summary>
+    AccessToken CreateAccessToken(User user, IEnumerable<string> roles, IEnumerable<string>? permissions = null);
 
     /// <summary>A new cryptographically-random opaque refresh token (raw value).</summary>
     string GenerateRefreshToken();

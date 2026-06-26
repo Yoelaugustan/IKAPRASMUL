@@ -1,3 +1,4 @@
+using IkaPrasmul.Commons.Constants;
 using IkaPrasmul.Commons.Exceptions;
 using IkaPrasmul.Commons.Options;
 using IkaPrasmul.Commons.Services;
@@ -48,7 +49,9 @@ public class RefreshTokenRequestHandler : IRequestHandler<RefreshTokenRequest, L
             ?? throw new UnauthorizedException("Invalid or expired refresh token");
 
         var roles = await _users.GetRolesAsync(user);
-        var access = _tokens.CreateAccessToken(user, roles);
+        IEnumerable<string>? permissions = roles.Contains(Roles.SuperAdmin) ? null
+            : user.Permissions?.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries) ?? [];
+        var access = _tokens.CreateAccessToken(user, roles, permissions);
 
         var now = DateTime.UtcNow;
         var newRaw = _tokens.GenerateRefreshToken();

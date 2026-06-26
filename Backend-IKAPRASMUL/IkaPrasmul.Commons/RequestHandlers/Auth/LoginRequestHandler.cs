@@ -1,3 +1,4 @@
+using IkaPrasmul.Commons.Constants;
 using IkaPrasmul.Commons.Exceptions;
 using IkaPrasmul.Commons.Options;
 using IkaPrasmul.Commons.Services;
@@ -46,7 +47,8 @@ public class LoginRequestHandler : IRequestHandler<LoginRequest, LoginResponse>
         }
 
         var roles = await _users.GetRolesAsync(user);
-        var access = _tokens.CreateAccessToken(user, roles);
+        var permissions = GetPermissions(user, roles);
+        var access = _tokens.CreateAccessToken(user, roles, permissions);
         var refreshRaw = _tokens.GenerateRefreshToken();
 
         var now = DateTime.UtcNow;
@@ -69,5 +71,13 @@ public class LoginRequestHandler : IRequestHandler<LoginRequest, LoginResponse>
             ExpiresAt = access.ExpiresAt,
             Email = user.Email ?? string.Empty,
         };
+    }
+
+    private static IEnumerable<string>? GetPermissions(User user, IList<string> roles)
+    {
+        if (roles.Contains(Roles.SuperAdmin)) return null;
+        return user.Permissions?
+            .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            ?? [];
     }
 }

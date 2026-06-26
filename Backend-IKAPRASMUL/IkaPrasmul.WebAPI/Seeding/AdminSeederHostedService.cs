@@ -30,12 +30,14 @@ public class AdminSeederHostedService : IHostedService
         try
         {
             using var scope = _services.CreateScope();
-            var roles = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
-            var users = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
-            if (!await roles.RoleExistsAsync(Roles.Admin))
+            // Ensure both roles exist.
+            foreach (var roleName in new[] { Roles.SuperAdmin, Roles.Admin })
             {
-                await roles.CreateAsync(new IdentityRole<Guid>(Roles.Admin) { Id = Guid.NewGuid() });
+                if (!await roleManager.RoleExistsAsync(roleName))
+                    await roleManager.CreateAsync(new IdentityRole<Guid>(roleName) { Id = Guid.NewGuid() });
             }
 
             var email = _configuration["Admin:Email"];
@@ -44,12 +46,20 @@ public class AdminSeederHostedService : IHostedService
             {
                 _logger.LogWarning(
                     "Admin:Email / Admin:Password not configured — skipping admin seed. "
-                    + "Set them via user-secrets to create the first admin.");
+                    + "Set them via user-secrets to create the first super-admin.");
                 return;
             }
 
-            if (await users.FindByEmailAsync(email) is not null)
+            var existingUser = await userManager.FindByEmailAsync(email);
+            if (existingUser is not null)
             {
+                // Promote to SuperAdmin on existing installs that still have Admin role.
+                if (!await userManager.IsInRoleAsync(existingUser, Roles.SuperAdmin))
+                {
+                    await userManager.RemoveFromRoleAsync(existingUser, Roles.Admin);
+                    await userManager.AddToRoleAsync(existingUser, Roles.SuperAdmin);
+                    _logger.LogInformation("Promoted admin {UserId} to SuperAdmin.", existingUser.Id);
+                }
                 return;
             }
 
@@ -61,15 +71,15 @@ public class AdminSeederHostedService : IHostedService
                 EmailConfirmed = true,
             };
 
-            var result = await users.CreateAsync(user, password);
+            var result = await userManager.CreateAsync(user, password);
             if (result.Succeeded)
             {
-                await users.AddToRoleAsync(user, Roles.Admin);
-                _logger.LogInformation("Seeded admin user {UserId}.", user.Id);
+                await userManager.AddToRoleAsync(user, Roles.SuperAdmin);
+                _logger.LogInformation("Seeded super-admin user {UserId}.", user.Id);
             }
             else
             {
-                _logger.LogError("Failed to seed admin user: {Errors}",
+                _logger.LogError("Failed to seed super-admin user: {Errors}",
                     string.Join("; ", result.Errors.Select(e => e.Description)));
             }
         }

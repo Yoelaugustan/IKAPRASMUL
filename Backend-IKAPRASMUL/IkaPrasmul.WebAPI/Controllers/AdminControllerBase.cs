@@ -12,7 +12,7 @@ namespace IkaPrasmul.WebAPI.Controllers;
 /// validated token, never from the request body.
 /// </summary>
 [ApiController]
-[Authorize(Roles = Roles.Admin)]
+[Authorize(Roles = $"{Roles.Admin},{Roles.SuperAdmin}")]
 public abstract class AdminControllerBase : ControllerBase
 {
     protected string? ActorEmail =>

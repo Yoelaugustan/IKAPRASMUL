@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
 namespace IkaPrasmul.Entities.Models;
@@ -10,4 +11,9 @@ namespace IkaPrasmul.Entities.Models;
 public class User : IdentityUser<Guid>
 {
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    /// <summary>Comma-separated CMS section keys (e.g. <c>"news,sig"</c>) this
+    /// Admin may access. Null / empty = no access. Ignored for SuperAdmin.</summary>
+    [MaxLength(500)]
+    public string? Permissions { get; set; }
 }
