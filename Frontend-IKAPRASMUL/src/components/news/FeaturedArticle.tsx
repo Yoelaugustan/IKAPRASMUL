@@ -90,7 +90,7 @@ export function FeaturedArticle({ article }: { article: Article }) {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative block aspect-[16/11] w-full overflow-hidden rounded-2xl text-left shadow-lg sm:aspect-[16/9]"
+        className="group relative block aspect-[16/11] w-full overflow-hidden rounded-2xl text-left shadow-lg transition-transform duration-300 ease-expo active:scale-[0.99] sm:aspect-[16/9]"
       >
         {inner}
       </a>

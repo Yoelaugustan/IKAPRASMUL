@@ -50,7 +50,7 @@ export function TopStoryCard({ article }: { article: Article }) {
         href={article.pdfUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="group flex w-full gap-4 rounded-xl border border-slate-100 bg-white p-3 text-left shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-[transform,box-shadow,border-color] duration-300 ease-expo hover:-translate-y-0.5 hover:border-slate-200 hover:shadow-md"
+        className="group flex w-full gap-4 rounded-xl border border-slate-100 bg-white p-3 text-left shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-[transform,box-shadow,border-color] duration-300 ease-expo hover:-translate-y-0.5 hover:border-slate-200 hover:shadow-md active:scale-[0.98] active:shadow-sm"
       >
         {inner}
       </a>
@@ -60,7 +60,7 @@ export function TopStoryCard({ article }: { article: Article }) {
   return (
     <Link
       href={ROUTES.articleDetail(article.slug)}
-      className="group flex w-full gap-4 rounded-xl border border-slate-100 bg-white p-3 text-left shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-md"
+      className="group flex w-full gap-4 rounded-xl border border-slate-100 bg-white p-3 text-left shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-[transform,box-shadow] hover:shadow-md active:scale-[0.98] active:shadow-sm"
     >
       {inner}
     </Link>

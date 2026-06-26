@@ -112,6 +112,7 @@ export function StoriesView({
             title={t.lists.storiesHighlight}
             action={
               <button
+                type="button"
                 onClick={() => { setParams({ view: "all", page: 1 }); scrollToContent(); }}
                 className="inline-flex items-center gap-1 text-[13px] font-bold text-[#c6b273] transition-colors hover:text-[#b4a05e]"
               >
@@ -126,8 +127,14 @@ export function StoriesView({
             />
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {highlights.map((s) => (
-                <StoryCard key={s.slug} story={s} />
+              {highlights.map((s, i) => (
+                <div
+                  key={s.slug}
+                  className="h-full motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-3 [animation-fill-mode:both] duration-500"
+                  style={{ animationDelay: `${i * 70}ms` }}
+                >
+                  <StoryCard story={s} />
+                </div>
               ))}
             </div>
           )}
@@ -171,6 +178,7 @@ export function StoriesView({
           title={heading}
           action={
             <button
+              type="button"
               onClick={() => { setParams({ view: null, category: null, page: 1 }); scrollToContent(); }}
               className="inline-flex items-center gap-1 text-[13px] font-bold text-[#c6b273] transition-colors hover:text-[#b4a05e]"
             >
@@ -187,10 +195,16 @@ export function StoriesView({
           <>
             <div
               key={`${category}-${currentPage}`}
-              className="grid gap-6 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:duration-300 sm:grid-cols-2 lg:grid-cols-3"
+              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
             >
-              {pageItems.map((s) => (
-                <StoryCard key={s.slug} story={s} />
+              {pageItems.map((s, i) => (
+                <div
+                  key={s.slug}
+                  className="h-full motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-3 [animation-fill-mode:both] duration-500"
+                  style={{ animationDelay: `${i * 70}ms` }}
+                >
+                  <StoryCard story={s} />
+                </div>
               ))}
             </div>
             {totalPages > 1 && (
@@ -253,6 +267,7 @@ function Pagination({
       className="mt-10 flex items-center justify-center gap-2"
     >
       <button
+        type="button"
         onClick={() => onPage(currentPage - 1)}
         disabled={currentPage === 1}
         aria-label={t.lists.prevPage}
@@ -263,6 +278,7 @@ function Pagination({
       {pages.map((p) => (
         <button
           key={p}
+          type="button"
           onClick={() => onPage(p)}
           aria-current={p === currentPage ? "page" : undefined}
           className={cn(
@@ -276,6 +292,7 @@ function Pagination({
         </button>
       ))}
       <button
+        type="button"
         onClick={() => onPage(currentPage + 1)}
         disabled={currentPage === totalPages}
         aria-label={t.lists.nextPage}

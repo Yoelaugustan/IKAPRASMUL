@@ -252,7 +252,7 @@ export function BusinessExplorer({
                     selectIndustry(tab);
                   }}
                   className={cn(
-                    "flex w-24 shrink-0 flex-col items-center gap-2 rounded-xl px-3 py-4 text-center transition-colors",
+                    "relative flex w-24 shrink-0 flex-col items-center gap-2 rounded-xl px-3 py-4 text-center transition-colors",
                     active
                       ? "bg-[#0a192f] text-white"
                       : "bg-slate-50 text-slate-600 hover:bg-slate-100",
@@ -267,6 +267,10 @@ export function BusinessExplorer({
                   <span className="text-[11px] font-semibold leading-tight">
                     {t.categories.industry[tab] ?? tab}
                   </span>
+                  <span className={cn(
+                    "absolute inset-x-3 bottom-1.5 h-0.5 origin-center rounded-full bg-gold transition-[transform,opacity] duration-300",
+                    active ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0",
+                  )} />
                 </button>
               );
             })}
@@ -309,8 +313,14 @@ export function BusinessExplorer({
                   />
                 ) : (
                   <div className="grid grid-cols-2 gap-5 lg:grid-cols-3 xl:grid-cols-4">
-                    {featuredBusinesses.map((b) => (
-                      <BusinessCard key={b.slug} business={b} />
+                    {featuredBusinesses.map((b, i) => (
+                      <div
+                        key={b.slug}
+                        className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-3 [animation-fill-mode:both] duration-500"
+                        style={{ animationDelay: `${i * 60}ms` }}
+                      >
+                        <BusinessCard business={b} />
+                      </div>
                     ))}
                   </div>
                 )}
@@ -372,10 +382,16 @@ export function BusinessExplorer({
                 <>
                   <div
                     key={`${applied.industry}|${applied.location}|${applied.founder}|${applied.query}|${savedOnly}|${currentPage}`}
-                    className="grid grid-cols-2 gap-5 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:duration-300 sm:grid-cols-3 lg:grid-cols-4"
+                    className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4"
                   >
-                    {pageItems.map((b) => (
-                      <BusinessCard key={b.slug} business={b} />
+                    {pageItems.map((b, i) => (
+                      <div
+                        key={b.slug}
+                        className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-3 [animation-fill-mode:both] duration-500"
+                        style={{ animationDelay: `${i * 60}ms` }}
+                      >
+                        <BusinessCard business={b} />
+                      </div>
                     ))}
                   </div>
                   {totalPages > 1 && (

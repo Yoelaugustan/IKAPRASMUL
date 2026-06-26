@@ -14,7 +14,7 @@ export async function FeaturedBusinessCard({
   return (
     <Link
       href={ROUTES.businessDetail(business.slug)}
-      className="group flex flex-col overflow-hidden rounded-xl bg-card shadow-md ring-1 ring-border/60 transition-[transform,box-shadow] duration-300 ease-expo hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-18px_rgba(0,57,108,0.30)]"
+      className="group flex flex-col overflow-hidden rounded-xl bg-card shadow-md ring-1 ring-border/60 transition-[transform,box-shadow] duration-300 ease-expo hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-18px_rgba(0,57,108,0.30)] active:scale-[0.98] active:shadow-sm"
     >
       <div className="relative overflow-hidden" style={{ paddingBottom: "62.5%" }}>
         <Image
@@ -41,7 +41,7 @@ export async function FeaturedBusinessCard({
           {business.location}
         </p>
         <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-primary transition-all group-hover:gap-2.5 group-hover:underline">
-          {t.cards.viewDetail} <ArrowRight className="size-4" />
+          {t.cards.viewDetail} <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
         </span>
       </div>
     </Link>

@@ -1,5 +1,6 @@
 import type { SigGroup } from "@/types";
 import { EmptyState } from "@/components/shared/EmptyState";
+import { Reveal } from "@/components/shared/Reveal";
 import { getServerDict } from "@/i18n/server";
 import { SigCard } from "./SigCard";
 
@@ -16,10 +17,10 @@ export async function SigGroupsGrid({ groups }: { groups: SigGroup[] }) {
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <Reveal stagger={80} className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {groups.map((group) => (
         <SigCard key={group.id} sig={group} />
       ))}
-    </div>
+    </Reveal>
   );
 }

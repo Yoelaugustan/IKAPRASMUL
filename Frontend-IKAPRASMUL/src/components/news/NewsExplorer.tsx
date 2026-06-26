@@ -169,9 +169,10 @@ export function NewsExplorer({
                       <span className="whitespace-nowrap text-[11px] font-semibold leading-tight">
                         {t.categories.news[tab] ?? tab}
                       </span>
-                      {active && (
-                        <span className="absolute inset-x-4 bottom-1.5 h-1 rounded-full bg-gold" />
-                      )}
+                      <span className={cn(
+                        "absolute inset-x-4 bottom-1.5 h-1 origin-center rounded-full bg-gold transition-[transform,opacity] duration-300",
+                        active ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0",
+                      )} />
                     </button>
                   );
                 })}
@@ -259,17 +260,27 @@ export function NewsExplorer({
                     </div>
                     {pageItems.length === 0 ? (
                       <EmptyState
-                        title={t.newsList.noArticlesTitle}
+                        title={
+                          appliedQuery.trim()
+                            ? `${t.newsList.noResultsFor} "${appliedQuery.trim()}"`
+                            : t.newsList.noArticlesTitle
+                        }
                         description={t.newsList.noArticlesDesc}
                       />
                     ) : (
                       <>
                         <div
                           key={`${category}-${currentPage}`}
-                          className="grid gap-4 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:duration-300 sm:grid-cols-2"
+                          className="grid gap-4 sm:grid-cols-2"
                         >
-                          {pageItems.map((a) => (
-                            <TopStoryCard key={a.slug} article={a} />
+                          {pageItems.map((a, i) => (
+                            <div
+                              key={a.slug}
+                              className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-3 [animation-fill-mode:both] duration-500"
+                              style={{ animationDelay: `${i * 70}ms` }}
+                            >
+                              <TopStoryCard article={a} />
+                            </div>
                           ))}
                         </div>
                         {totalPages > 1 && (
@@ -319,8 +330,14 @@ export function NewsExplorer({
                       />
                     ) : (
                       <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-3">
-                        {topStories.map((a) => (
-                          <TopStoryCard key={a.slug} article={a} />
+                        {topStories.map((a, i) => (
+                          <div
+                            key={a.slug}
+                            className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-3 [animation-fill-mode:both] duration-500"
+                            style={{ animationDelay: `${i * 70}ms` }}
+                          >
+                            <TopStoryCard article={a} />
+                          </div>
                         ))}
                       </div>
                     )}

@@ -15,7 +15,7 @@ export function StoryCard({ story }: { story: Story }) {
     <Link
       href={ROUTES.storyDetail(story.slug)}
       aria-label={`${t.cards.readStoryAria} ${story.title}`}
-      className="group block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00396c] focus-visible:ring-offset-2"
+      className="group block h-full rounded-2xl transition-transform duration-300 ease-expo active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00396c] focus-visible:ring-offset-2"
     >
       <Card className="h-full overflow-hidden p-0 border border-slate-100/80 shadow-[0_2px_8px_rgba(0,0,0,0.03)] rounded-2xl transition-[transform,box-shadow] duration-300 ease-expo group-hover:-translate-y-1.5 group-hover:shadow-[0_20px_45px_-18px_rgba(0,57,108,0.30)]">
         <div className="flex h-full flex-col">
@@ -41,7 +41,7 @@ export function StoryCard({ story }: { story: Story }) {
             </div>
             <div className="mt-auto pt-6">
               <p className="inline-flex items-center gap-1 text-[13px] font-bold text-slate-900 transition-all group-hover:gap-2 group-hover:text-[#c6b273]">
-                {t.cards.readStory} <ArrowRight className="size-4 transition-transform" />
+                {t.cards.readStory} <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
               </p>
             </div>
           </div>

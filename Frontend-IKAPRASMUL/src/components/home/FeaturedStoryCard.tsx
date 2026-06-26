@@ -13,7 +13,7 @@ export async function FeaturedStoryCard({ story }: { story: Story }) {
   return (
     <Link
       href={ROUTES.storyDetail(story.slug)}
-      className="group flex flex-col overflow-hidden rounded-xl bg-card shadow-md ring-1 ring-border/60 transition-[transform,box-shadow] duration-300 ease-expo hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-18px_rgba(0,57,108,0.30)]"
+      className="group flex flex-col overflow-hidden rounded-xl bg-card shadow-md ring-1 ring-border/60 transition-[transform,box-shadow] duration-300 ease-expo hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-18px_rgba(0,57,108,0.30)] active:scale-[0.98] active:shadow-sm"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <Image
@@ -35,7 +35,7 @@ export async function FeaturedStoryCard({ story }: { story: Story }) {
           {story.author.name} ({story.author.class})
         </p>
         <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-primary transition-all group-hover:gap-2.5 group-hover:underline">
-          {t.cards.readStory} <ArrowRight className="size-4" />
+          {t.cards.readStory} <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
         </span>
       </div>
     </Link>
