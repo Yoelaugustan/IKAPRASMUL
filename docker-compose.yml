@@ -23,8 +23,6 @@ services:
     build:
       context: ./Frontend-IKAPRASMUL
       dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
     restart: unless-stopped
     depends_on:
       - ikaprasmul-backend

@@ -2,6 +2,7 @@ import "server-only";
 
 import { redirect } from "next/navigation";
 import type {
+  AdminUser,
   AlumniEvent,
   Article,
   Business,
@@ -41,3 +42,4 @@ export const getAdminStories = () => adminList<Story>("stories");
 export const getAdminBusinesses = () => adminList<Business>("business");
 export const getAdminArticles = () => adminList<Article>("news");
 export const getAdminEvents = () => adminList<AlumniEvent>("events");
+export const getAdminUsers = () => adminList<AdminUser>("users");

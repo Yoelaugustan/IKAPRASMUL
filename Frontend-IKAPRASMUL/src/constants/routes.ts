@@ -29,6 +29,7 @@ export const ROUTES = {
   adminNews: "/admin/news",
   adminBusiness: "/admin/business",
   adminEvents: "/admin/events",
+  adminUsers: "/admin/users",
   adminAbout: "/admin/about",
   adminHome: "/admin/home",
   adminInquiries: "/admin/inquiries",

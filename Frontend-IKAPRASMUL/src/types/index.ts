@@ -5,6 +5,14 @@ import type {
   StoryCategory,
 } from "@/constants/categories";
 
+export type AdminUser = {
+  id: string;
+  email: string;
+  role: "Admin" | "SuperAdmin";
+  permissions: string[];
+  createdAt: string;
+};
+
 export type Person = {
   name: string;
   /** Program + graduation class, e.g. "MM '08". */
