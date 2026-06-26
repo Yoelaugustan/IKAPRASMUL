@@ -15,6 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
@@ -77,8 +78,7 @@ export function LoginForm() {
             <FormItem>
               <FormLabel>{t.admin.passwordLabel}</FormLabel>
               <FormControl>
-                <Input
-                  type="password"
+                <PasswordInput
                   placeholder="••••••••"
                   autoComplete="current-password"
                   {...field}
@@ -100,6 +100,11 @@ export function LoginForm() {
             t.admin.signIn
           )}
         </Button>
+
+        <div className="space-y-1.5 border-t pt-4 text-xs text-muted-foreground">
+          <p>{t.admin.loginForgotPassword}</p>
+          <p>{t.admin.loginNoAccount}</p>
+        </div>
       </form>
     </Form>
   );

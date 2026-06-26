@@ -557,6 +557,8 @@ const en = {
     emailLabel: "Email",
     passwordLabel: "Password",
     signIn: "Sign in",
+    loginForgotPassword: "Forgot your password? Contact the IT team to have it reset.",
+    loginNoAccount: "Don't have an account? Reach out to the IT team to get access.",
     // User management
     userManagement: "User Management",
     userManagementSubtitle: "Manage admin accounts and section permissions.",
@@ -1224,6 +1226,8 @@ const id: Dictionary = {
     emailLabel: "Email",
     passwordLabel: "Kata sandi",
     signIn: "Masuk",
+    loginForgotPassword: "Lupa kata sandi? Hubungi tim IT untuk meresetnya.",
+    loginNoAccount: "Belum punya akun? Hubungi tim IT untuk mendapatkan akses.",
     // User management
     userManagement: "Manajemen Pengguna",
     userManagementSubtitle: "Kelola akun admin dan izin akses per seksi.",
