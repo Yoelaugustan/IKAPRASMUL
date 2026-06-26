@@ -25,6 +25,7 @@ import { ToggleField } from "./ToggleField";
 import { ImageField } from "./ImageField";
 import { PdfField } from "./PdfField";
 import { RichTextEditor } from "./RichTextEditor";
+import { DatePickerField } from "./DatePickerField";
 import { getPath, setPath, slugify } from "./utils";
 import type { FieldConfig, ResourceConfig } from "./types";
 import { useLang } from "@/components/shared/LanguageProvider";
@@ -197,11 +198,10 @@ export function EditDialog<T>({
         );
       case "date":
         return (
-          <Input
-            type="date"
+          <DatePickerField
             value={str(field.key).slice(0, 10)}
-            className={errClass}
-            onChange={(event) => setField(field.key, event.target.value)}
+            error={error}
+            onChange={(value) => setField(field.key, value)}
           />
         );
       case "number":
