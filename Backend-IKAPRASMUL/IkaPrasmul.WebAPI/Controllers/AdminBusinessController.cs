@@ -1,10 +1,13 @@
+using IkaPrasmul.Commons.Constants;
 using IkaPrasmul.Contracts.RequestModels.Business;
+using IkaPrasmul.WebAPI.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IkaPrasmul.WebAPI.Controllers;
 
 [Route("api/admin/business")]
+[RequiresSection(Sections.Business)]
 public class AdminBusinessController : AdminControllerBase
 {
     private readonly IMediator _mediator;

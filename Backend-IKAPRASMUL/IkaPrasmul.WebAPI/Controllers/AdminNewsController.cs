@@ -1,10 +1,13 @@
+using IkaPrasmul.Commons.Constants;
 using IkaPrasmul.Contracts.RequestModels.News;
+using IkaPrasmul.WebAPI.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IkaPrasmul.WebAPI.Controllers;
 
 [Route("api/admin/news")]
+[RequiresSection(Sections.News)]
 public class AdminNewsController : AdminControllerBase
 {
     private readonly IMediator _mediator;

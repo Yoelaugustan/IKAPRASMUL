@@ -1,4 +1,6 @@
+using IkaPrasmul.Commons.Constants;
 using IkaPrasmul.Contracts.RequestModels.Sig;
+using IkaPrasmul.WebAPI.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,6 +8,7 @@ namespace IkaPrasmul.WebAPI.Controllers;
 
 /// <summary>Admin authoring for both SIG sub-tabs (groups + spotlight).</summary>
 [Route("api/admin/sig")]
+[RequiresSection(Sections.Sig)]
 public class AdminSigController : AdminControllerBase
 {
     private readonly IMediator _mediator;

@@ -1,12 +1,10 @@
 using IkaPrasmul.Commons.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.RateLimiting;
 
 namespace IkaPrasmul.WebAPI.Controllers;
 
 /// <summary>Admin image / newsletter-PDF upload (security-standard §8). Admin only.</summary>
 [Route("api/admin/upload")]
-[EnableRateLimiting(Program.PublicWritePolicy)]
 public class AdminUploadController : AdminControllerBase
 {
     private static readonly HashSet<string> AllowedFolders = new(StringComparer.OrdinalIgnoreCase)

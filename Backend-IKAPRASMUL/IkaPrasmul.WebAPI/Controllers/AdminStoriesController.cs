@@ -1,10 +1,13 @@
+using IkaPrasmul.Commons.Constants;
 using IkaPrasmul.Contracts.RequestModels.Story;
+using IkaPrasmul.WebAPI.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IkaPrasmul.WebAPI.Controllers;
 
 [Route("api/admin/stories")]
+[RequiresSection(Sections.Stories)]
 public class AdminStoriesController : AdminControllerBase
 {
     private readonly IMediator _mediator;

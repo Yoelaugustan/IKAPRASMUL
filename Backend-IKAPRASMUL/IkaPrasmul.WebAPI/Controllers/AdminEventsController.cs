@@ -1,10 +1,13 @@
+using IkaPrasmul.Commons.Constants;
 using IkaPrasmul.Contracts.RequestModels.Event;
+using IkaPrasmul.WebAPI.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IkaPrasmul.WebAPI.Controllers;
 
 [Route("api/admin/events")]
+[RequiresSection(Sections.Events)]
 public class AdminEventsController : AdminControllerBase
 {
     private readonly IMediator _mediator;
