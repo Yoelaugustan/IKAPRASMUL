@@ -64,16 +64,15 @@ export default async function ArticleDetailPage({ params }: Params) {
           </span>
         </div>
 
-        <div className="relative mt-6 aspect-[16/10] overflow-hidden rounded-xl">
-          <Image
-            src={article.coverImage}
-            alt={article.title}
-            fill
-            priority
-            sizes="(min-width: 768px) 720px, 100vw"
-            className="object-cover"
-          />
-        </div>
+        <Image
+          src={article.coverImage}
+          alt={article.title}
+          width={0}
+          height={0}
+          priority
+          sizes="(min-width: 768px) 720px, 100vw"
+          className="mt-6 h-auto w-full rounded-xl"
+        />
 
         <ArticleContent html={article.body} className="mt-8" />
 

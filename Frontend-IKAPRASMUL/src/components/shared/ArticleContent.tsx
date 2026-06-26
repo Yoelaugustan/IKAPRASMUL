@@ -16,7 +16,7 @@ export function ArticleContent({
         "[&_h3]:mt-6 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-primary",
         "[&_blockquote]:border-l-4 [&_blockquote]:border-gold [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-foreground/70 [&_blockquote]:my-2",
         "[&_.auto-img-grid]:grid [&_.auto-img-grid]:grid-cols-2 [&_.auto-img-grid]:gap-2",
-        "[&_.auto-img-grid_img]:!m-0 [&_.auto-img-grid_img]:w-full [&_.auto-img-grid_img]:rounded-lg [&_.auto-img-grid_img]:object-cover",
+        "[&_.auto-img-grid_img]:!m-0 [&_.auto-img-grid_img]:h-auto [&_.auto-img-grid_img]:w-full [&_.auto-img-grid_img]:rounded-lg",
         className,
       )}
       dangerouslySetInnerHTML={{ __html: html }}

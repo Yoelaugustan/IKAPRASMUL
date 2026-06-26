@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getSigSpotlightById } from "@/lib/content";
 import { Container } from "@/components/layouts/Container";
 import { BackButton } from "@/components/shared/BackButton";
+import { ArticleContent } from "@/components/shared/ArticleContent";
 import { ROUTES } from "@/constants/routes";
 
 type Params = { params: Promise<{ id: string }> };
@@ -42,9 +43,7 @@ export default async function SigSpotlightDetailPage({ params }: Params) {
           />
         </div>
 
-        <p className="mt-6 whitespace-pre-wrap text-base leading-7 text-foreground/85">
-          {spotlight.description}
-        </p>
+        <ArticleContent html={spotlight.description} className="mt-6" />
 
         <div className="mt-10 border-t border-slate-100 pt-6">
           <BackButton fallback={ROUTES.sig} dynamicLabel />

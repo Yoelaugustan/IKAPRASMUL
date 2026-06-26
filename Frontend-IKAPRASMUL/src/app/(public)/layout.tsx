@@ -2,6 +2,7 @@ import { SiteHeader } from "@/components/layouts/SiteHeader";
 import { SiteFooter } from "@/components/layouts/SiteFooter";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { ScrollToTop } from "@/components/shared/ScrollToTop";
+import { PageWrapper } from "@/components/shared/PageWrapper";
 
 // Public site chrome: sticky header, footer, and the global "Get in Touch"
 // modal (mounted once here so every public page can open it).
@@ -13,7 +14,9 @@ export default function PublicLayout({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1">
+        <PageWrapper>{children}</PageWrapper>
+      </main>
       <SiteFooter />
       <ContactModal />
       <ScrollToTop />
