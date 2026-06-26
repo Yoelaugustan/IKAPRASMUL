@@ -16,6 +16,7 @@ import { useResource } from "./useResource";
 import { EditDialog } from "./EditDialog";
 import { DeleteDialog } from "./DeleteDialog";
 import type { ResourceConfig } from "./types";
+import { useLang } from "@/components/shared/LanguageProvider";
 
 // Shared list shell for a single resource: header + "New" button, optional
 // sub-tabs slot, search toolbar, config-driven table, and the edit/delete
@@ -30,6 +31,7 @@ export function ResourcePage<T>({
   subTabs?: ReactNode;
 }) {
   const r = useResource(config, initialItems);
+  const { t } = useLang();
   const { columns } = config;
   // One track per column plus a fixed 76px track for the actions cell.
   const gridTemplateColumns = [...columns.map((c) => c.width), "76px"].join(" ");
@@ -51,13 +53,13 @@ export function ResourcePage<T>({
             <Button asChild variant="outline" className="gap-2">
               <a href={config.publicPath} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="size-4" />
-                View website
+                {t.admin.viewWebsite}
               </a>
             </Button>
           )}
           <Button onClick={r.openNew} className="gap-2">
             <Plus className="size-4" />
-            New {config.name}
+            {t.admin.newItem} {config.name}
           </Button>
         </div>
       </div>
@@ -81,10 +83,10 @@ export function ResourcePage<T>({
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="newest">Newest first</SelectItem>
-            <SelectItem value="oldest">Oldest first</SelectItem>
-            <SelectItem value="az">A → Z</SelectItem>
-            <SelectItem value="za">Z → A</SelectItem>
+            <SelectItem value="newest">{t.admin.sortNewest}</SelectItem>
+            <SelectItem value="oldest">{t.admin.sortOldest}</SelectItem>
+            <SelectItem value="az">{t.admin.sortAZ}</SelectItem>
+            <SelectItem value="za">{t.admin.sortZA}</SelectItem>
           </SelectContent>
         </Select>
 
@@ -97,6 +99,7 @@ export function ResourcePage<T>({
         {/* overflow-x-auto lets the grid table scroll horizontally on narrow screens;
             min-w-[560px] gives a concrete floor while still letting the table fill
             wider containers so truncate on the title column actually fires. */}
+        <div className="relative">
         <div className="overflow-x-auto">
           <div className="min-w-[560px]">
             <div
@@ -108,7 +111,7 @@ export function ResourcePage<T>({
                   {column.header}
                 </span>
               ))}
-              <span className="text-right">Actions</span>
+              <span className="text-right">{t.admin.actions}</span>
             </div>
 
             {r.paginatedItems.map((row) => (
@@ -127,6 +130,7 @@ export function ResourcePage<T>({
                 ))}
                 <div className="flex justify-end gap-1">
                   <button
+                    type="button"
                     onClick={() => r.openEdit(row)}
                     title="Edit"
                     className="grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
@@ -134,6 +138,7 @@ export function ResourcePage<T>({
                     <Pencil className="size-4" />
                   </button>
                   <button
+                    type="button"
                     onClick={() => r.askDelete(row)}
                     title="Delete"
                     className="grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
@@ -146,16 +151,18 @@ export function ResourcePage<T>({
 
             {count === 0 && (
               <div className="border-t px-6 py-12 text-center text-sm text-muted-foreground">
-                No {config.name.toLowerCase()}s match your search.
+                No {config.name.toLowerCase()}s {t.admin.noResults}
               </div>
             )}
           </div>
+        </div>
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-card to-transparent sm:hidden" />
         </div>
 
         {r.totalPages > 1 && (
           <div className="flex items-center justify-between border-t border-slate-100 bg-card px-5 py-4">
             <span className="text-sm text-muted-foreground">
-              Page {r.currentPage} of {r.totalPages}
+              {t.admin.page} {r.currentPage} {t.admin.of} {r.totalPages}
             </span>
             <div className="flex items-center gap-2">
               <Button
@@ -165,7 +172,7 @@ export function ResourcePage<T>({
                 disabled={r.currentPage === 1}
               >
                 <ChevronLeft className="mr-1 size-4" />
-                Previous
+                {t.admin.previous}
               </Button>
               <Button
                 variant="outline"
@@ -173,7 +180,7 @@ export function ResourcePage<T>({
                 onClick={() => r.setCurrentPage(Math.min(r.totalPages, r.currentPage + 1))}
                 disabled={r.currentPage === r.totalPages}
               >
-                Next
+                {t.admin.next}
                 <ChevronRight className="ml-1 size-4" />
               </Button>
             </div>

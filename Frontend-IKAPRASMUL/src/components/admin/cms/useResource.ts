@@ -91,7 +91,14 @@ export function useResource<T>(config: ResourceConfig<T>, initial: T[]) {
           ? prev.map((item) => (getKey(item) === savedKey ? saved : item))
           : [saved, ...prev];
       });
-      toast.success(`${config.name} ${isNew ? "created" : "updated"}`);
+      const savedRec = saved as Record<string, unknown>;
+      const hasDraftField = "isDraft" in savedRec;
+      const isDraft = hasDraftField && Boolean(savedRec.isDraft);
+      const action = !hasDraftField
+        ? isNew ? "created" : "updated"
+        : isDraft ? "saved as draft"
+        : isNew ? "published" : "updated";
+      toast.success(`${config.name} ${action}`);
       setEditing(null);
       router.refresh();
     } catch (error) {

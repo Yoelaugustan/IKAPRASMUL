@@ -130,9 +130,10 @@ export const businessConfig: ResourceConfig<Business> = {
       label: "Full description",
       type: "rich",
       full: true,
+      uploadFolder: "media/business",
     },
-    { key: "logo", label: "Logo", type: "image", uploadFolder: "media/business" },
-    { key: "coverImage", label: "Cover image", type: "image", uploadFolder: "media/business" },
+    { key: "logo", label: "Logo", type: "image", uploadFolder: "media/business", required: true },
+    { key: "coverImage", label: "Cover image", type: "image", uploadFolder: "media/business", required: true },
     {
       key: "isSpotlight",
       label: "Spotlight on the business page (max 1)",

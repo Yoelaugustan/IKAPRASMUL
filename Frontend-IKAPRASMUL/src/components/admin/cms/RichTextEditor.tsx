@@ -73,34 +73,57 @@ export function RichTextEditor({
     if (url) run("createLink", url);
   };
 
-  const handleImageFile = (file: File) => {
-    if (!ACCEPTED.includes(file.type)) {
-      toast.error("Only JPG, PNG, or WebP images are allowed.");
-      return;
-    }
-    if (file.size > MAX_BYTES) {
-      toast.error("Image must be 5 MB or smaller.");
-      return;
+  const handleImageFiles = (files: File[]) => {
+    const valid = files.filter((f) => {
+      if (!ACCEPTED.includes(f.type)) {
+        toast.error(`${f.name}: only JPG, PNG, or WebP images are allowed.`);
+        return false;
+      }
+      if (f.size > MAX_BYTES) {
+        toast.error(`${f.name}: image must be 5 MB or smaller.`);
+        return false;
+      }
+      return true;
+    });
+    if (valid.length === 0) return;
+
+    if (valid.length === 1) {
+      // Single image — insert inline.
+      const blobUrl = URL.createObjectURL(valid[0]);
+      if (ref.current) {
+        const img = document.createElement("img");
+        img.src = blobUrl;
+        img.alt = "";
+        img.style.maxWidth = "100%";
+        img.style.height = "auto";
+        img.style.display = "block";
+        img.style.margin = "0.5rem 0";
+        ref.current.appendChild(img);
+        onChange(ref.current.innerHTML);
+        img.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        ref.current.focus();
+      }
+      onFileQueued?.(blobUrl, valid[0]);
+    } else {
+      // Multiple images — wrap in a 2-column photo grid.
+      const wrapper = document.createElement("div");
+      wrapper.className = "auto-img-grid";
+      valid.forEach((file) => {
+        const blobUrl = URL.createObjectURL(file);
+        const img = document.createElement("img");
+        img.src = blobUrl;
+        img.alt = "";
+        wrapper.appendChild(img);
+        onFileQueued?.(blobUrl, file);
+      });
+      if (ref.current) {
+        ref.current.appendChild(wrapper);
+        onChange(ref.current.innerHTML);
+        wrapper.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        ref.current.focus();
+      }
     }
 
-    // Create a local blob URL for instant preview — the real upload happens
-    // when the user clicks Save Draft or Publish, via onFileQueued.
-    const blobUrl = URL.createObjectURL(file);
-    if (ref.current) {
-      const img = document.createElement("img");
-      img.src = blobUrl;
-      img.alt = "";
-      img.style.maxWidth = "100%";
-      img.style.height = "auto";
-      img.style.display = "block";
-      img.style.margin = "0.5rem 0";
-      ref.current.appendChild(img);
-      onChange(ref.current.innerHTML);
-      img.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      ref.current.focus();
-    }
-
-    onFileQueued?.(blobUrl, file);
     if (fileRef.current) fileRef.current.value = "";
   };
 
@@ -126,17 +149,18 @@ export function RichTextEditor({
         {uploadFolder && (
           <>
             <div className="mx-1 h-4 w-px bg-border" />
-            <ToolButton title="Insert image" onClick={() => fileRef.current?.click()}>
+            <ToolButton title="Insert image (select multiple for grid)" onClick={() => fileRef.current?.click()}>
               <ImageIcon className="size-4" />
             </ToolButton>
             <input
               ref={fileRef}
               type="file"
               accept={ACCEPTED.join(",")}
+              multiple
               className="sr-only"
               onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) handleImageFile(file);
+                const files = Array.from(e.target.files ?? []);
+                if (files.length > 0) handleImageFiles(files);
               }}
             />
           </>

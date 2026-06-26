@@ -27,6 +27,7 @@ import { PdfField } from "./PdfField";
 import { RichTextEditor } from "./RichTextEditor";
 import { getPath, setPath, slugify } from "./utils";
 import type { FieldConfig, ResourceConfig } from "./types";
+import { useLang } from "@/components/shared/LanguageProvider";
 
 interface EditDialogProps<T> {
   config: ResourceConfig<T>;
@@ -48,6 +49,7 @@ export function EditDialog<T>({
   onClose,
   onSave,
 }: EditDialogProps<T>) {
+  const { t } = useLang();
   const [form, setForm] = useState<T | null>(item);
   const [saving, setSaving] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Set<string>>(new Set());
@@ -233,7 +235,7 @@ export function EditDialog<T>({
             label={field.label}
             checked={Boolean(getPath(form, field.key))}
             disabled={atLimit}
-            hint={atLimit ? `Limit of ${limitMax} reached — remove one first.` : undefined}
+            hint={atLimit ? t.admin.limitReached.replace("{n}", String(limitMax)) : undefined}
             onChange={(value) => {
               setField(field.key, value);
               if (value && field.linkedToggleOff) {
@@ -260,11 +262,11 @@ export function EditDialog<T>({
   const isCurrentlyDraft = hasDraftSupport && Boolean(getPath(form, "isDraft"));
   const primaryLabel = isNew
     ? hasDraftSupport
-      ? "Publish"
-      : `Create ${config.name}`
+      ? t.admin.publish
+      : `${t.admin.create} ${config.name}`
     : isCurrentlyDraft
-      ? "Publish"
-      : "Save changes";
+      ? t.admin.publish
+      : t.admin.saveChanges;
 
   const visibleFields = () =>
     config.fields.filter((f) => !f.hidden?.(form));
@@ -272,8 +274,19 @@ export function EditDialog<T>({
   const saveAs = async (asDraft: boolean) => {
     if (!form) return;
 
-    // Validate required visible fields only when publishing (drafts are intentionally incomplete).
-    if (!asDraft) {
+    if (asDraft) {
+      // Drafts skip most validation, but need at minimum a title/name so the
+      // record can be identified in the table. slugSource is always the label field.
+      const labelKey = config.slugSource;
+      if (labelKey) {
+        const labelVal = getPath(form, labelKey);
+        if (!labelVal || String(labelVal).trim() === "") {
+          setFieldErrors(new Set([labelKey]));
+          return;
+        }
+      }
+    } else {
+      // Full validation when publishing.
       const emptyKeys = visibleFields()
         .filter((f) => f.required)
         .filter((f) => {
@@ -339,12 +352,18 @@ export function EditDialog<T>({
     onSave(hasDraftSupport ? setPath(current, "isDraft", asDraft) : current);
   };
 
-  // On close, auto-save as draft for new items if something was typed.
+  // On close, auto-save as draft for new items only when the label field is
+  // filled in — otherwise silently discard the empty form.
   const handleClose = () => {
     if (isNew && form && hasDraftSupport) {
       const hasChanges =
         JSON.stringify(form) !== JSON.stringify(initialForm.current);
-      if (hasChanges) {
+      const labelKey = config.slugSource;
+      const hasLabel = labelKey
+        ? Boolean(String(getPath(form, labelKey) ?? "").trim())
+        : hasChanges;
+      if (hasChanges && hasLabel) {
+        toast.info(t.admin.savingDraft);
         void saveAs(true);
         return;
       }
@@ -364,10 +383,10 @@ export function EditDialog<T>({
               {config.kicker ?? config.name}
             </div>
             <DialogTitle className="mt-1 text-lg text-primary">
-              {isNew ? `New ${config.name}` : `Edit ${config.name}`}
+              {isNew ? `${t.admin.newLabel} ${config.name}` : `${t.admin.editLabel} ${config.name}`}
             </DialogTitle>
             <DialogDescription className="sr-only">
-              {isNew ? `Create a new ${config.name}` : `Edit ${config.name}`}
+              {isNew ? `${t.admin.create} ${config.name}` : `${t.admin.editLabel} ${config.name}`}
             </DialogDescription>
             <button
               type="button"
@@ -382,7 +401,7 @@ export function EditDialog<T>({
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 py-5">
             {fieldErrors.size > 0 && (
               <p className="mb-4 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs font-medium text-destructive">
-                Please fill in all required fields marked with *.
+                {t.admin.requiredError}
               </p>
             )}
             <div className="grid grid-cols-1 gap-x-3.5 gap-y-4 sm:grid-cols-2">
@@ -412,8 +431,8 @@ export function EditDialog<T>({
 
           <div className="flex items-center justify-between gap-3 border-t bg-surface px-6 py-4">
             {saving && (
-              <span className="hidden text-xs text-muted-foreground sm:block">
-                Uploading files…
+              <span className="text-xs text-muted-foreground">
+                {t.admin.uploading}
               </span>
             )}
             <div className="flex gap-2.5">
@@ -424,7 +443,7 @@ export function EditDialog<T>({
                   onClick={() => void saveAs(true)}
                 >
                   {saving && <Loader2 className="mr-1.5 size-3.5 animate-spin" />}
-                  Save as Draft
+                  {t.admin.saveAsDraft}
                 </Button>
               )}
               <Button disabled={saving} onClick={() => void saveAs(false)}>

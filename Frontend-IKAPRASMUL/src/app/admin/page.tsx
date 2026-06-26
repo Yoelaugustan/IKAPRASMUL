@@ -12,6 +12,7 @@ import {
   getAdminStories,
 } from "@/lib/adminContent";
 import { formatDate } from "@/components/admin/cms/utils";
+import { getServerDict } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -19,40 +20,42 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminDashboardPage() {
-  const [groups, spotlights, businesses, stories, articles] = await Promise.all([
-    getAdminSigGroups(),
-    getAdminSigSpotlights(),
-    getAdminBusinesses(),
-    getAdminStories(),
-    getAdminArticles(),
-  ]);
+  const [groups, spotlights, businesses, stories, articles, { t }] =
+    await Promise.all([
+      getAdminSigGroups(),
+      getAdminSigSpotlights(),
+      getAdminBusinesses(),
+      getAdminStories(),
+      getAdminArticles(),
+      getServerDict(),
+    ]);
 
   const stats = [
     {
-      label: "SIG Groups",
+      label: t.admin.sigGroups,
       value: groups.length,
-      sub: `${spotlights.length} spotlight`,
+      sub: `${spotlights.length} ${t.admin.spotlight}`,
       href: ROUTES.adminSig,
       Icon: Users2,
     },
     {
-      label: "Alumni Business",
+      label: t.admin.alumniBusiness,
       value: businesses.length,
-      sub: `${businesses.filter((b) => b.isSpotlight).length} spotlight`,
+      sub: `${businesses.filter((b) => b.isSpotlight).length} ${t.admin.spotlight}`,
       href: ROUTES.adminBusiness,
       Icon: Building2,
     },
     {
-      label: "Alumni Stories",
+      label: t.admin.alumniStories,
       value: stories.length,
-      sub: `${stories.filter((s) => s.isFeatured).length} featured`,
+      sub: `${stories.filter((s) => s.isFeatured).length} ${t.admin.featured}`,
       href: ROUTES.adminStories,
       Icon: BookOpen,
     },
     {
-      label: "News & Insights",
+      label: t.admin.newsInsights,
       value: articles.length,
-      sub: `${articles.filter((a) => a.isFeatured).length} featured`,
+      sub: `${articles.filter((a) => a.isFeatured).length} ${t.admin.featured}`,
       href: ROUTES.adminNews,
       Icon: Newspaper,
     },
@@ -63,32 +66,32 @@ export default async function AdminDashboardPage() {
       title: s.title,
       meta: s.author.name,
       date: s.publishedAt,
-      kind: "Story" as const,
+      kind: "story" as const,
     })),
     ...articles.map((a) => ({
       title: a.title,
       meta: a.author.name,
       date: a.publishedAt,
-      kind: "News" as const,
+      kind: "news" as const,
     })),
   ]
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, 5);
 
   const quickActions = [
-    { label: "New SIG Group", href: `${ROUTES.adminSig}?new=1` },
-    { label: "New business", href: `${ROUTES.adminBusiness}?new=1` },
-    { label: "New story", href: `${ROUTES.adminStories}?new=1` },
-    { label: "New article", href: `${ROUTES.adminNews}?new=1` },
+    { label: t.admin.newSigGroup, href: `${ROUTES.adminSig}?new=1` },
+    { label: t.admin.newBusiness, href: `${ROUTES.adminBusiness}?new=1` },
+    { label: t.admin.newStory, href: `${ROUTES.adminStories}?new=1` },
+    { label: t.admin.newArticle, href: `${ROUTES.adminNews}?new=1` },
   ];
 
   return (
     <div className="mx-auto max-w-[1080px]">
       <h1 className="text-2xl font-bold tracking-tight text-primary">
-        Dashboard
+        {t.admin.dashboard}
       </h1>
       <p className="mt-1.5 text-sm text-muted-foreground">
-        Overview of published content across the public site.
+        {t.admin.dashboardSubtitle}
       </p>
 
       <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -114,15 +117,15 @@ export default async function AdminDashboardPage() {
         <Card className="gap-0 overflow-hidden p-0 border-0 shadow-md">
           <div className="flex items-center justify-between border-b border-slate-100 bg-white px-6 py-5">
             <h2 className="text-sm font-semibold text-foreground">
-              Recently published
+              {t.admin.recentlyPublished}
             </h2>
             <span className="text-xs text-muted-foreground">
-              Latest stories &amp; news
+              {t.admin.latestContent}
             </span>
           </div>
           {recent.length === 0 ? (
             <p className="px-5 py-10 text-center text-sm text-muted-foreground">
-              No published content yet.
+              {t.admin.noContent}
             </p>
           ) : (
             recent.map((item, index) => (
@@ -138,8 +141,8 @@ export default async function AdminDashboardPage() {
                     {item.meta} · {formatDate(item.date)}
                   </div>
                 </div>
-                <Badge variant={item.kind === "Story" ? "secondary" : "outline"}>
-                  {item.kind}
+                <Badge variant={item.kind === "story" ? "secondary" : "outline"}>
+                  {item.kind === "story" ? t.admin.storyBadge : t.admin.newsBadge}
                 </Badge>
               </div>
             ))
@@ -147,7 +150,7 @@ export default async function AdminDashboardPage() {
         </Card>
 
         <Card className="gap-0 p-5">
-          <h2 className="text-sm font-semibold text-foreground">Quick actions</h2>
+          <h2 className="text-sm font-semibold text-foreground">{t.admin.quickActions}</h2>
           <div className="mt-3.5 flex flex-col gap-2.5">
             {quickActions.map((action) => (
               <Link
