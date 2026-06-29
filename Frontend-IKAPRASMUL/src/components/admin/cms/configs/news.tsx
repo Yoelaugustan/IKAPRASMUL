@@ -10,6 +10,23 @@ type A = Dictionary["admin"];
 
 export const newsConfig = (a: A): ResourceConfig<Article> => ({
   name: a.nameArticle,
+  namePlural: a.nameArticle,
+  createLabel: a.createNews,
+  formTabs: [
+    {
+      label: a.tabArticle,
+      field: "category",
+      value: "Campus News",
+      isActive: (form) => (form as Article).category !== "Newsletter",
+      formName: a.tabArticle,
+    },
+    {
+      label: a.tabNewsletter,
+      field: "category",
+      value: "Newsletter",
+      formName: a.tabNewsletter,
+    },
+  ],
   title: a.titleNews,
   subtitle: a.subtitleNews,
   kicker: a.kickerNews,
@@ -84,7 +101,8 @@ export const newsConfig = (a: A): ResourceConfig<Article> => ({
       key: "category",
       label: a.fieldCategory,
       type: "select",
-      options: NEWS_CATEGORIES,
+      options: NEWS_CATEGORIES.filter((c) => c !== "Newsletter"),
+      hidden: (form) => (form as Article).category === "Newsletter",
       required: true,
     },
     { key: "author.name", label: a.fieldAuthorName, type: "text", required: true },
@@ -142,6 +160,12 @@ export const newsConfig = (a: A): ResourceConfig<Article> => ({
       type: "toggle",
       full: true,
     },
+    {
+      key: "isFeaturedHome",
+      label: a.toggleNewsHome,
+      type: "toggle",
+      full: true,
+    },
   ],
   blank: () => ({
     slug: "",
@@ -156,7 +180,8 @@ export const newsConfig = (a: A): ResourceConfig<Article> => ({
     views: 0,
     isFeatured: false,
     isTopStory: false,
+    isFeaturedHome: false,
     isDraft: false,
   }),
-  toggleLimits: { isFeatured: 1, isTopStory: 3 },
+  toggleLimits: { isFeatured: 1, isTopStory: 3, isFeaturedHome: 1 },
 });

@@ -112,18 +112,21 @@ export const storiesConfig = (a: A): ResourceConfig<Story> => ({
       key: "isHighlight",
       label: a.toggleStoriesHighlight,
       type: "toggle",
+      full: true,
       linkedToggleOff: "isFeatured",
     },
     {
       key: "isFeatured",
       label: a.toggleStoriesFeatured,
       type: "toggle",
+      full: true,
       linkedToggleOff: "isHighlight",
     },
     {
       key: "isFeaturedHome",
       label: a.toggleAlumniOfMonth,
       type: "toggle",
+      full: true,
     },
   ],
   blank: () => ({
@@ -141,5 +144,5 @@ export const storiesConfig = (a: A): ResourceConfig<Story> => ({
     isFeaturedHome: false,
     isDraft: false,
   }),
-  toggleLimits: { isFeatured: 4, isHighlight: 3 },
+  toggleLimits: { isFeatured: 4, isHighlight: 3, isFeaturedHome: 1 },
 });

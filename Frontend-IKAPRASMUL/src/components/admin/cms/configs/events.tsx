@@ -147,5 +147,5 @@ export const eventsConfig = (a: A): ResourceConfig<AlumniEvent> => ({
     isFeaturedHome: false,
     isDraft: false,
   }),
-  toggleLimits: { isFeatured: 1, isFeaturedHome: 1 },
+  toggleLimits: { isFeatured: 4, isFeaturedHome: 1 },
 });

@@ -171,5 +171,5 @@ export const businessConfig = (a: A): ResourceConfig<Business> => ({
     isFeaturedHome: false,
     isDraft: false,
   }),
-  toggleLimits: { isSpotlight: 1, isFeatured: 8 },
+  toggleLimits: { isSpotlight: 1, isFeatured: 8, isFeaturedHome: 1 },
 });
