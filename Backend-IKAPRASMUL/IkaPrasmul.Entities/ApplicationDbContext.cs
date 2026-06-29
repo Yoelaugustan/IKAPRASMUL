@@ -22,7 +22,7 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
     public DbSet<SigSpotlight> SigSpotlights => Set<SigSpotlight>();
     public DbSet<Story> Stories => Set<Story>();
     public DbSet<BusinessListing> BusinessListings => Set<BusinessListing>();
-    public DbSet<Article> Articles => Set<Article>();
+    public DbSet<News> News => Set<News>();
     public DbSet<Event> Events => Set<Event>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -52,7 +52,11 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
         modelBuilder.Entity<SigSpotlight>(e => e.HasIndex(x => x.Key).IsUnique());
         modelBuilder.Entity<Story>(e => e.HasIndex(x => x.Slug).IsUnique());
         modelBuilder.Entity<BusinessListing>(e => e.HasIndex(x => x.Slug).IsUnique());
-        modelBuilder.Entity<Article>(e => e.HasIndex(x => x.Slug).IsUnique());
+        modelBuilder.Entity<News>(e =>
+        {
+            e.ToTable("News");
+            e.HasIndex(x => x.Slug).IsUnique();
+        });
         modelBuilder.Entity<Event>(e => e.HasIndex(x => x.Slug).IsUnique());
     }
 }

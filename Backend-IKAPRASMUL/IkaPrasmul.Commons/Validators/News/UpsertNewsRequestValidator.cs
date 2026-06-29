@@ -4,9 +4,9 @@ using IkaPrasmul.Contracts.RequestModels.News;
 
 namespace IkaPrasmul.Commons.Validators.News;
 
-public class UpsertArticleRequestValidator : AbstractValidator<UpsertArticleRequest>
+public class UpsertNewsRequestValidator : AbstractValidator<UpsertNewsRequest>
 {
-    public UpsertArticleRequestValidator()
+    public UpsertNewsRequestValidator()
     {
         RuleFor(x => x.Title).NotEmpty().MaximumLength(200);
         RuleFor(x => x.Slug).MaximumLength(220);

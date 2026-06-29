@@ -5,32 +5,32 @@ using IkaPrasmul.Commons.Mapping;
 using IkaPrasmul.Commons.Services;
 using IkaPrasmul.Contracts.RequestModels.News;
 using IkaPrasmul.Entities;
-using IkaPrasmul.Entities.Models;
+using NewsEntity = IkaPrasmul.Entities.Models.News;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace IkaPrasmul.Commons.RequestHandlers.News;
 
-public class UpsertArticleRequestHandler : IRequestHandler<UpsertArticleRequest, JsonElement>
+public class UpsertNewsRequestHandler : IRequestHandler<UpsertNewsRequest, JsonElement>
 {
     private const string NewsletterCategory = "Newsletter";
 
     private readonly ApplicationDbContext _db;
     private readonly IFileStorageService _files;
 
-    public UpsertArticleRequestHandler(ApplicationDbContext db, IFileStorageService files)
+    public UpsertNewsRequestHandler(ApplicationDbContext db, IFileStorageService files)
     {
         _db = db;
         _files = files;
     }
 
-    public async Task<JsonElement> Handle(UpsertArticleRequest request, CancellationToken ct)
+    public async Task<JsonElement> Handle(UpsertNewsRequest request, CancellationToken ct)
     {
         var lookup = !string.IsNullOrWhiteSpace(request.OriginalSlug)
             ? request.OriginalSlug!
             : request.Slug;
 
-        var entity = await _db.Articles.FirstOrDefaultAsync(a => a.Slug == lookup, ct);
+        var entity = await _db.News.FirstOrDefaultAsync(a => a.Slug == lookup, ct);
         bool isUpdate = entity is not null;
 
         var oldCover = entity?.CoverImage;
@@ -41,35 +41,41 @@ public class UpsertArticleRequestHandler : IRequestHandler<UpsertArticleRequest,
 
         if (entity is null)
         {
-            entity = new Article
+            entity = new NewsEntity
             {
                 Id = Guid.NewGuid(),
                 CreatedAt = now,
                 CreatedBy = request.Actor,
-                Views = 0, // server-tracked from real page views, never admin-set
-                SortOrder = (await _db.Articles.MaxAsync(a => (int?)a.SortOrder, ct) ?? -1) + 1,
+                Views = 0,
+                SortOrder = (await _db.News.MaxAsync(a => (int?)a.SortOrder, ct) ?? -1) + 1,
             };
-            _db.Articles.Add(entity);
+            _db.News.Add(entity);
         }
         else
         {
             entity.UpdatedAt = now;
             entity.UpdatedBy = request.Actor;
-            // Views is preserved across edits.
         }
 
         if (request.IsFeatured)
         {
-            var featuredCount = await _db.Articles.CountAsync(a => a.IsFeatured && a.Id != entity.Id, ct);
+            var featuredCount = await _db.News.CountAsync(a => a.IsFeatured && a.Id != entity.Id, ct);
             if (featuredCount >= 1)
-                throw new BusinessRuleException("Only 1 article can be featured at a time. Unfeature the current article before featuring another.");
+                throw new BusinessRuleException("Only 1 news item can be featured at a time. Unfeature the current one before featuring another.");
         }
 
         if (request.IsTopStory)
         {
-            var topStoryCount = await _db.Articles.CountAsync(a => a.IsTopStory && a.Id != entity.Id, ct);
+            var topStoryCount = await _db.News.CountAsync(a => a.IsTopStory && a.Id != entity.Id, ct);
             if (topStoryCount >= 3)
-                throw new BusinessRuleException("Only 3 articles can be Top Stories at a time. Remove a Top Story before adding another.");
+                throw new BusinessRuleException("Only 3 news items can be Top Stories at a time. Remove a Top Story before adding another.");
+        }
+
+        if (request.IsFeaturedHome)
+        {
+            var homeCount = await _db.News.CountAsync(a => a.IsFeaturedHome && a.Id != entity.Id, ct);
+            if (homeCount >= 1)
+                throw new BusinessRuleException("Only 1 news item can be shown on the home page at a time. Remove the current one before featuring another.");
         }
 
         var desiredSlug = SlugService.Slugify(
@@ -87,7 +93,7 @@ public class UpsertArticleRequestHandler : IRequestHandler<UpsertArticleRequest,
         entity.ReadMinutes = request.ReadMinutes;
         entity.IsFeatured = request.IsFeatured;
         entity.IsTopStory = request.IsTopStory;
-        // A Newsletter article opens a PDF instead of a body page.
+        entity.IsFeaturedHome = request.IsFeaturedHome;
         var isNewsletter = string.Equals(request.Category, NewsletterCategory, StringComparison.OrdinalIgnoreCase);
         entity.Type = isNewsletter ? "newsletter" : "article";
         entity.PdfUrl = isNewsletter ? request.PdfUrl : null;
@@ -104,15 +110,15 @@ public class UpsertArticleRequestHandler : IRequestHandler<UpsertArticleRequest,
                 await _files.DeleteAsync(url, ct);
         }
 
-        return ContentJson.Article(entity);
+        return ContentJson.News(entity);
     }
 
     private async Task<string> EnsureUniqueSlugAsync(string desired, Guid currentId, CancellationToken ct)
     {
-        var baseSlug = string.IsNullOrEmpty(desired) ? $"article-{currentId:N}"[..14] : desired;
+        var baseSlug = string.IsNullOrEmpty(desired) ? $"news-{currentId:N}"[..11] : desired;
         var slug = baseSlug;
         var n = 2;
-        while (await _db.Articles.AnyAsync(a => a.Slug == slug && a.Id != currentId, ct))
+        while (await _db.News.AnyAsync(a => a.Slug == slug && a.Id != currentId, ct))
         {
             slug = $"{baseSlug}-{n++}";
         }

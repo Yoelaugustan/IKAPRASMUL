@@ -7,27 +7,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IkaPrasmul.Commons.RequestHandlers.News;
 
-public class DeleteArticleRequestHandler : IRequestHandler<DeleteArticleRequest, Unit>
+public class DeleteNewsRequestHandler : IRequestHandler<DeleteNewsRequest, Unit>
 {
     private readonly ApplicationDbContext _db;
     private readonly IFileStorageService _files;
 
-    public DeleteArticleRequestHandler(ApplicationDbContext db, IFileStorageService files)
+    public DeleteNewsRequestHandler(ApplicationDbContext db, IFileStorageService files)
     {
         _db = db;
         _files = files;
     }
 
-    public async Task<Unit> Handle(DeleteArticleRequest request, CancellationToken ct)
+    public async Task<Unit> Handle(DeleteNewsRequest request, CancellationToken ct)
     {
-        var entity = await _db.Articles.FirstOrDefaultAsync(a => a.Slug == request.Slug, ct);
+        var entity = await _db.News.FirstOrDefaultAsync(a => a.Slug == request.Slug, ct);
         if (entity is not null)
         {
             var coverImage = entity.CoverImage;
             var pdfUrl = entity.PdfUrl;
             var bodyImageUrls = ExtractLocalImageUrls(entity.Body);
 
-            _db.Articles.Remove(entity);
+            _db.News.Remove(entity);
             await _db.SaveChangesAsync(ct);
 
             await _files.DeleteAsync(coverImage, ct);

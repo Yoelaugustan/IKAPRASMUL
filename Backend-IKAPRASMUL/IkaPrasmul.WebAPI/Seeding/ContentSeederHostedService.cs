@@ -49,7 +49,7 @@ public class ContentSeederHostedService : IHostedService
             await SeedAsync(db.SigSpotlights, root, "sigSpotlight", MapSigSpotlight, seeded, cancellationToken);
             await SeedAsync(db.Stories, root, "story", MapStory, seeded, cancellationToken);
             await SeedAsync(db.BusinessListings, root, "business", MapBusiness, seeded, cancellationToken);
-            await SeedAsync(db.Articles, root, "article", MapArticle, seeded, cancellationToken);
+            await SeedAsync(db.News, root, "article", MapArticle, seeded, cancellationToken);
             await SeedAsync(db.Events, root, "event", MapEvent, seeded, cancellationToken);
 
             if (seeded.Count == 0)
@@ -161,11 +161,11 @@ public class ContentSeederHostedService : IHostedService
         CreatedAt = DateTime.UtcNow,
     };
 
-    private static Article MapArticle(JsonElement e, int order)
+    private static News MapArticle(JsonElement e, int order)
     {
         var category = Str(e, "category") ?? string.Empty;
         var isNewsletter = string.Equals(category, "Newsletter", StringComparison.OrdinalIgnoreCase);
-        return new Article
+        return new News
         {
             Id = Guid.NewGuid(),
             Slug = Str(e, "slug") ?? string.Empty,
@@ -181,6 +181,7 @@ public class ContentSeederHostedService : IHostedService
             Views = Long(e, "views"),
             IsFeatured = Bool(e, "isFeatured"),
             IsTopStory = Bool(e, "isTopStory"),
+            IsFeaturedHome = Bool(e, "isFeaturedHome"),
             Type = Str(e, "type") ?? (isNewsletter ? "newsletter" : "article"),
             PdfUrl = Str(e, "pdfUrl"),
             Status = "Published",

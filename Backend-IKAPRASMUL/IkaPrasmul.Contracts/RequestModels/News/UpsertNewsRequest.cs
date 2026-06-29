@@ -4,10 +4,10 @@ using MediatR;
 
 namespace IkaPrasmul.Contracts.RequestModels.News;
 
-/// <summary>Create or update a News &amp; Insight article (Admin only, allow-list).
+/// <summary>Create or update a News &amp; Insight item (Admin only, allow-list).
 /// Note: <c>views</c> is server-tracked, not admin-set, so it is intentionally
 /// absent; <c>type</c> is derived from the category (Newsletter → newsletter).</summary>
-public class UpsertArticleRequest : IRequest<JsonElement>
+public class UpsertNewsRequest : IRequest<JsonElement>
 {
     public string Slug { get; set; } = string.Empty;
     public string? OriginalSlug { get; set; }
@@ -22,6 +22,7 @@ public class UpsertArticleRequest : IRequest<JsonElement>
     public int ReadMinutes { get; set; }
     public bool IsFeatured { get; set; }
     public bool IsTopStory { get; set; }
+    public bool IsFeaturedHome { get; set; }
     public string? PdfUrl { get; set; }
     public bool IsDraft { get; set; }
 

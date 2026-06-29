@@ -17,12 +17,12 @@ public class NewsController : ControllerBase
 
     [HttpGet]
     public async Task<IActionResult> Get(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetArticlesRequest(), ct));
+        Ok(await _mediator.Send(new GetNewsRequest(), ct));
 
     [HttpPost("{slug}/view")]
     public async Task<IActionResult> IncrementView(string slug, CancellationToken ct)
     {
-        await _mediator.Send(new IncrementArticleViewsRequest(slug), ct);
+        await _mediator.Send(new IncrementNewsViewsRequest(slug), ct);
         return NoContent();
     }
 }

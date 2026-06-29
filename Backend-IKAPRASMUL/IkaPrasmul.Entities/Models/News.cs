@@ -4,10 +4,10 @@ using IkaPrasmul.Entities.Interfaces;
 namespace IkaPrasmul.Entities.Models;
 
 /// <summary>
-/// A News &amp; Insight article. A "Newsletter"-category article opens a PDF
+/// A News &amp; Insight article. A "Newsletter"-category item opens a PDF
 /// (<see cref="PdfUrl"/>) instead of a body detail page (<see cref="Type"/>).
 /// </summary>
-public class Article : IHaveCreateAndUpdateAudit
+public class News : IHaveCreateAndUpdateAudit
 {
     [Key]
     public Guid Id { get; set; }
@@ -52,6 +52,9 @@ public class Article : IHaveCreateAndUpdateAudit
 
     /// <summary>Pinned to the Top Stories section on the news page (max 3). Independent of <see cref="IsFeatured"/>.</summary>
     public bool IsTopStory { get; set; }
+
+    /// <summary>Surfaced as the Featured News highlight on the home page (max 1).</summary>
+    public bool IsFeaturedHome { get; set; }
 
     /// <summary>"article" | "newsletter".</summary>
     [StringLength(20)]

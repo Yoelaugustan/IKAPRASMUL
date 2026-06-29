@@ -75,7 +75,7 @@ public static class ContentJson
         isDraft = IsDraft(b.Status),
     });
 
-    public static JsonElement Article(Article a) => To(new
+    public static JsonElement News(News a) => To(new
     {
         slug = a.Slug,
         title = a.Title,
@@ -89,6 +89,7 @@ public static class ContentJson
         views = a.Views,
         isFeatured = a.IsFeatured,
         isTopStory = a.IsTopStory,
+        isFeaturedHome = a.IsFeaturedHome,
         type = a.Type,
         pdfUrl = a.PdfUrl,
         isDraft = IsDraft(a.Status),

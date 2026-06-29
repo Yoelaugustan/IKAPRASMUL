@@ -16,10 +16,10 @@ public class AdminNewsController : AdminControllerBase
 
     [HttpGet]
     public async Task<IActionResult> List(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetAdminArticleListRequest(), ct));
+        Ok(await _mediator.Send(new GetAdminNewsListRequest(), ct));
 
     [HttpPost]
-    public async Task<IActionResult> Upsert([FromBody] UpsertArticleRequest request, CancellationToken ct)
+    public async Task<IActionResult> Upsert([FromBody] UpsertNewsRequest request, CancellationToken ct)
     {
         request.Actor = ActorEmail;
         return Ok(await _mediator.Send(request, ct));
@@ -28,7 +28,7 @@ public class AdminNewsController : AdminControllerBase
     [HttpDelete("{slug}")]
     public async Task<IActionResult> Delete(string slug, CancellationToken ct)
     {
-        await _mediator.Send(new DeleteArticleRequest(slug), ct);
+        await _mediator.Send(new DeleteNewsRequest(slug), ct);
         return NoContent();
     }
 }
