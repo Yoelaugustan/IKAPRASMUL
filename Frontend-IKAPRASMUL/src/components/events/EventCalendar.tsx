@@ -1,48 +1,52 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { AlumniEvent } from "@/types";
 import { cn } from "@/lib/utils";
 import { useLang } from "@/components/shared/LanguageProvider";
 
-// Local date key (YYYY-MM-DD) taken straight from the ISO string so the day
-// never shifts across timezones.
-const dayKey = (iso: string) => (iso || "").slice(0, 10);
 const monthKey = (y: number, m: number) =>
   `${y}-${String(m + 1).padStart(2, "0")}`;
 
 export function EventCalendar({
-  events,
+  initialMonth,
   selectedDate,
   onSelectDate,
 }: {
-  events: AlumniEvent[];
+  /** YYYY-MM to open on (e.g. soonest upcoming event's month). Defaults to current month. */
+  initialMonth?: string;
   selectedDate: string | null;
   onSelectDate: (date: string | null) => void;
 }) {
   const { lang, t } = useLang();
   const locale = lang === "id" ? "id-ID" : "en-GB";
 
-  // Days that have at least one event, by YYYY-MM-DD.
-  const eventDays = useMemo(() => {
-    const set = new Set<string>();
-    for (const e of events) if (e.date) set.add(dayKey(e.date));
-    return set;
-  }, [events]);
-
-  // Start on the month of the soonest event (or today) so the dots are visible.
   const initial = useMemo(() => {
-    const keys = [...eventDays].sort();
-    const todayKey = new Date().toISOString().slice(0, 10);
-    const next = keys.find((k) => k >= todayKey) ?? keys[0];
-    const base = next ? new Date(`${next}T00:00:00`) : new Date();
+    const base = initialMonth
+      ? new Date(`${initialMonth}-01T00:00:00`)
+      : new Date();
     return { year: base.getFullYear(), month: base.getMonth() };
-  }, [eventDays]);
+  }, [initialMonth]);
 
   const [view, setView] = useState(initial);
+  const [eventDays, setEventDays] = useState<Set<string>>(new Set());
 
   const { year, month } = view;
+  const currentMonthKey = monthKey(year, month);
+
+  // Fetch event dates whenever the displayed month changes.
+  useEffect(() => {
+    let cancelled = false;
+    fetch(`/api/events/dates?month=${currentMonthKey}`)
+      .then((r) => r.json())
+      .then((dates: unknown) => {
+        if (!cancelled && Array.isArray(dates))
+          setEventDays(new Set(dates as string[]));
+      })
+      .catch(() => { /* keep previous */ });
+    return () => { cancelled = true; };
+  }, [currentMonthKey]);
+
   const monthLabel = new Date(year, month, 1).toLocaleDateString(locale, {
     month: "long",
     year: "numeric",
@@ -77,7 +81,9 @@ export function EventCalendar({
   return (
     <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.04)]">
       <div className="mb-4 flex items-center justify-between">
-        <p className="text-sm font-bold text-primary">{monthLabel}</p>
+        <p className="text-sm font-bold text-primary">
+          {monthLabel}
+        </p>
         <div className="flex items-center gap-1">
           <button
             type="button"
@@ -110,7 +116,7 @@ export function EventCalendar({
 
         {cells.map((day, i) => {
           if (day === null) return <span key={`b-${i}`} />;
-          const key = `${monthKey(year, month)}-${String(day).padStart(2, "0")}`;
+          const key = `${currentMonthKey}-${String(day).padStart(2, "0")}`;
           const hasEvent = eventDays.has(key);
           const isSelected = selectedDate === key;
           const isToday = key === todayKey;

@@ -1,37 +1,54 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight, X } from "lucide-react";
-import type { AlumniEvent } from "@/types";
+import { useMemo, useRef } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ArrowRight, ArrowUpDown, ChevronLeft, ChevronRight, X } from "lucide-react";
+import type { AlumniEvent, Paginated } from "@/types";
 import { EVENT_CATEGORIES } from "@/constants/categories";
 import { cn } from "@/lib/utils";
 import { scrollToElement } from "@/lib/scroll";
 import { formatDate } from "@/lib/format";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { CategoryTabs } from "@/components/shared/CategoryTabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useLang } from "@/components/shared/LanguageProvider";
 import { FeaturedEvent } from "./FeaturedEvent";
 import { EventListCard } from "./EventListCard";
 import { EventCalendar } from "./EventCalendar";
 
-const PAGE_SIZE = 9;
 const UPCOMING_COUNT = 3;
+type Sort = "date_asc" | "date_desc" | "newest";
 
 const dayKey = (iso: string) => (iso || "").slice(0, 10);
 
 export function EventsView({
   featuredEvents,
   events,
+  pagedEvents,
 }: {
   featuredEvents: AlumniEvent[];
+  /** Full unfiltered list — used for the calendar and upcoming section. */
   events: AlumniEvent[];
+  /** Server-paginated list for the "view all" mode. */
+  pagedEvents: Paginated<AlumniEvent>;
 }) {
   const { t, lang } = useLang();
-  const [viewAll, setViewAll] = useState(false);
-  const [category, setCategory] = useState<string>("All");
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const contentRef = useRef<HTMLDivElement>(null);
+
+  // URL-driven state.
+  const viewAll = searchParams.get("view") === "all";
+  const category = searchParams.get("category") || "All";
+  const sort = (searchParams.get("sort") || "date_asc") as Sort;
+  const selectedDate = searchParams.get("date") || null;
 
   const todayKey = new Date().toISOString().slice(0, 10);
 
@@ -40,7 +57,14 @@ export function EventsView({
     [events],
   );
 
-  // Counts per category for the sidebar.
+  // Initial calendar month: soonest upcoming event, or today.
+  const initialMonth = useMemo(() => {
+    const todayPrefix = todayKey.slice(0, 10);
+    const next = sorted.find((e) => (e.date || "").slice(0, 10) >= todayPrefix);
+    const base = next ? new Date(`${(next.date || "").slice(0, 10)}T00:00:00`) : new Date();
+    return `${base.getFullYear()}-${String(base.getMonth() + 1).padStart(2, "0")}`;
+  }, [sorted, todayKey]);
+
   const counts = useMemo(
     () =>
       EVENT_CATEGORIES.map((c) => ({
@@ -53,25 +77,39 @@ export function EventsView({
   const scrollToContent = () =>
     requestAnimationFrame(() => scrollToElement(contentRef.current));
 
+  const setParams = (
+    next: Partial<{ view: string | null; category: string | null; sort: string | null; page: string | null; date: string | null }>,
+  ) => {
+    const params = new URLSearchParams(searchParams.toString());
+    for (const [k, v] of Object.entries(next)) {
+      if (v === null || v === "" || v === "All") params.delete(k);
+      else params.set(k, v);
+    }
+    if ("category" in next || "sort" in next || "date" in next) params.delete("page");
+    // date-view and view-all are mutually exclusive.
+    if ("date" in next && next.date) params.delete("view");
+    if ("view" in next && next.view) params.delete("date");
+    const qs = params.toString();
+    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  };
+
   const selectCategory = (cat: string) => {
-    setCategory(cat);
-    setViewAll(true);
-    setSelectedDate(null);
-    setPage(1);
+    setParams({ category: cat, view: "all", date: null });
     scrollToContent();
   };
 
   const selectDate = (date: string | null) => {
-    setSelectedDate(date);
-    setPage(1);
+    setParams({ date });
     if (date) scrollToContent();
   };
 
   const backToFeatured = () => {
-    setViewAll(false);
-    setCategory("All");
-    setSelectedDate(null);
-    setPage(1);
+    router.push(pathname, { scroll: false });
+    scrollToContent();
+  };
+
+  const goToPage = (p: number) => {
+    setParams({ page: p > 1 ? String(p) : null });
     scrollToContent();
   };
 
@@ -79,7 +117,7 @@ export function EventsView({
   const sidebar = (
     <div className="space-y-6">
       <EventCalendar
-        events={events}
+        initialMonth={initialMonth}
         selectedDate={selectedDate}
         onSelectDate={selectDate}
       />
@@ -95,7 +133,7 @@ export function EventsView({
                 onClick={() => selectCategory(c)}
                 className={cn(
                   "group flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors",
-                  category === c
+                  category === c && viewAll
                     ? "bg-secondary font-semibold text-primary"
                     : "text-foreground/70 hover:bg-secondary hover:text-primary",
                 )}
@@ -126,9 +164,8 @@ export function EventsView({
   let main: React.ReactNode;
 
   if (selectedDate) {
-    // Calendar day picked — show every event on that date.
-    const dayEvents = sorted.filter((e) => dayKey(e.date) === selectedDate);
     const niceDate = formatDate(`${selectedDate}T00:00:00`);
+    const { items: dayItems } = pagedEvents;
     main = (
       <div className="min-w-0">
         <SectionHeading
@@ -143,23 +180,19 @@ export function EventsView({
             </button>
           }
         />
-        <div className="grid gap-6 sm:grid-cols-2">
-          {dayEvents.map((e) => (
-            <EventListCard key={e.slug} event={e} />
-          ))}
-        </div>
+        {dayItems.length === 0 ? (
+          <EmptyState title={t.events.noEventsTitle} description={t.events.noEventsDesc} />
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2">
+            {dayItems.map((e) => (
+              <EventListCard key={e.slug} event={e} />
+            ))}
+          </div>
+        )}
       </div>
     );
   } else if (viewAll) {
-    // Full, category-filtered, paginated list.
-    const filtered =
-      category === "All"
-        ? sorted
-        : sorted.filter((e) => e.category === category);
-    const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-    const currentPage = Math.min(page, totalPages);
-    const start = (currentPage - 1) * PAGE_SIZE;
-    const pageItems = filtered.slice(start, start + PAGE_SIZE);
+    const { items: pageItems, totalPages, page: currentPage } = pagedEvents;
 
     main = (
       <div className="min-w-0">
@@ -175,15 +208,28 @@ export function EventsView({
             </button>
           }
         />
-        <CategoryTabs
-          options={EVENT_CATEGORIES}
-          value={category}
-          onChange={(c) => {
-            setCategory(c);
-            setPage(1);
-          }}
-          className="mb-6"
-        />
+        <div className="mb-6 flex flex-wrap items-center gap-3">
+          <CategoryTabs
+            options={EVENT_CATEGORIES}
+            value={category}
+            onChange={(c) => setParams({ category: c })}
+            className="flex-1"
+          />
+          <Select
+            value={sort}
+            onValueChange={(v) => setParams({ sort: v })}
+          >
+            <SelectTrigger className="h-auto w-auto shrink-0 gap-1.5 border-0 bg-transparent px-0 shadow-none text-sm font-medium text-muted-foreground hover:text-foreground focus:ring-0">
+              <ArrowUpDown className="size-3.5 shrink-0" />
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="date_asc">{t.events.sortDateAsc ?? "Soonest first"}</SelectItem>
+              <SelectItem value="date_desc">{t.events.sortDateDesc ?? "Latest first"}</SelectItem>
+              <SelectItem value="newest">{t.events.sortNewest ?? "Recently added"}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         {pageItems.length === 0 ? (
           <EmptyState
             title={t.events.noEventsTitle}
@@ -211,10 +257,7 @@ export function EventsView({
                   <button
                     key={p}
                     type="button"
-                    onClick={() => {
-                      setPage(p);
-                      scrollToContent();
-                    }}
+                    onClick={() => goToPage(p)}
                     className={cn(
                       "size-9 rounded-full text-sm font-semibold transition-colors",
                       p === currentPage
@@ -232,9 +275,6 @@ export function EventsView({
       </div>
     );
   } else {
-    // Default — featured events carousel + an upcoming grid with a "view all" link.
-    // Future-dated events lead; if there aren't enough to fill the grid, top up
-    // with the most recent remaining events so the section always feels full.
     const upcoming = sorted.filter((e) => dayKey(e.date) >= todayKey);
     const fillers = [...sorted].reverse().filter((e) => !upcoming.includes(e));
     const grid = [...upcoming, ...fillers].slice(0, UPCOMING_COUNT);
@@ -253,10 +293,7 @@ export function EventsView({
             action={
               <button
                 type="button"
-                onClick={() => {
-                  setViewAll(true);
-                  scrollToContent();
-                }}
+                onClick={() => { setParams({ view: "all" }); scrollToContent(); }}
                 className="inline-flex items-center gap-1 text-[13px] font-bold text-[#c6b273] transition-colors hover:text-[#b4a05e]"
               >
                 {t.events.viewAll} <ArrowRight className="size-4" />
@@ -292,9 +329,6 @@ export function EventsView({
       key={lang}
       className="scroll-mt-24 grid gap-x-8 gap-y-12 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300 xl:grid-cols-[320px_1fr]"
     >
-      {/* Calendar + categories on the left, content on the right — a mirror of
-          the Stories layout so the two pages don't read the same. Content stays
-          first in the DOM so it leads on mobile, then is placed right on xl. */}
       <div className="min-w-0 xl:col-start-2 xl:row-start-1">{main}</div>
       <div className="xl:col-start-1 xl:row-start-1">{sidebar}</div>
     </div>
