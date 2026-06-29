@@ -15,6 +15,6 @@ public class BusinessController : ControllerBase
     public BusinessController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
-    public async Task<IActionResult> Get(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetBusinessesRequest(), ct));
+    public async Task<IActionResult> Get([FromQuery] GetBusinessesRequest request, CancellationToken ct) =>
+        Ok(await _mediator.Send(request, ct));
 }

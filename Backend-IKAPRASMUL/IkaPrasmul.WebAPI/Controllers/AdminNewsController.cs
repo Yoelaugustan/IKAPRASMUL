@@ -15,8 +15,8 @@ public class AdminNewsController : AdminControllerBase
     public AdminNewsController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
-    public async Task<IActionResult> List(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetAdminNewsListRequest(), ct));
+    public async Task<IActionResult> List([FromQuery] GetAdminNewsListRequest request, CancellationToken ct) =>
+        Ok(await _mediator.Send(request, ct));
 
     [HttpPost]
     public async Task<IActionResult> Upsert([FromBody] UpsertNewsRequest request, CancellationToken ct)

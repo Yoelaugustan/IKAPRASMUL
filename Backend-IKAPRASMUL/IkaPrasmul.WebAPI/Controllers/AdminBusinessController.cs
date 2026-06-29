@@ -15,8 +15,8 @@ public class AdminBusinessController : AdminControllerBase
     public AdminBusinessController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
-    public async Task<IActionResult> List(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetAdminBusinessListRequest(), ct));
+    public async Task<IActionResult> List([FromQuery] GetAdminBusinessListRequest request, CancellationToken ct) =>
+        Ok(await _mediator.Send(request, ct));
 
     [HttpPost]
     public async Task<IActionResult> Upsert([FromBody] UpsertBusinessRequest request, CancellationToken ct)

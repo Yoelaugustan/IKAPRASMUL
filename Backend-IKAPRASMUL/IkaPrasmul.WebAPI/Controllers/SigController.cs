@@ -19,6 +19,6 @@ public class SigController : ControllerBase
         Ok(await _mediator.Send(new GetSigGroupsRequest(), ct));
 
     [HttpGet("spotlight")]
-    public async Task<IActionResult> Spotlight(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetSigSpotlightsRequest(), ct));
+    public async Task<IActionResult> Spotlight([FromQuery] GetSigSpotlightsRequest request, CancellationToken ct) =>
+        Ok(await _mediator.Send(request, ct));
 }

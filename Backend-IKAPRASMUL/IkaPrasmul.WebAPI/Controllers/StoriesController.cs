@@ -15,6 +15,6 @@ public class StoriesController : ControllerBase
     public StoriesController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
-    public async Task<IActionResult> Get(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetStoriesRequest(), ct));
+    public async Task<IActionResult> Get([FromQuery] GetStoriesRequest request, CancellationToken ct) =>
+        Ok(await _mediator.Send(request, ct));
 }

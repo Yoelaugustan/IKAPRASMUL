@@ -16,8 +16,8 @@ public class AdminStoriesController : AdminControllerBase
 
     /// <summary>List all stories including drafts.</summary>
     [HttpGet]
-    public async Task<IActionResult> List(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetAdminStoryListRequest(), ct));
+    public async Task<IActionResult> List([FromQuery] GetAdminStoryListRequest request, CancellationToken ct) =>
+        Ok(await _mediator.Send(request, ct));
 
     /// <summary>Create or update a story.</summary>
     [HttpPost]

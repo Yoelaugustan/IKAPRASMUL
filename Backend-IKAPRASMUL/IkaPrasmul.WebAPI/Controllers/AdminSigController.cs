@@ -17,8 +17,8 @@ public class AdminSigController : AdminControllerBase
 
     // ---- Groups ----
     [HttpGet("groups")]
-    public async Task<IActionResult> Groups(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetAdminSigGroupListRequest(), ct));
+    public async Task<IActionResult> Groups([FromQuery] GetAdminSigGroupListRequest request, CancellationToken ct) =>
+        Ok(await _mediator.Send(request, ct));
 
     [HttpPost("groups")]
     public async Task<IActionResult> UpsertGroup([FromBody] UpsertSigGroupRequest request, CancellationToken ct)
@@ -36,8 +36,8 @@ public class AdminSigController : AdminControllerBase
 
     // ---- Spotlight ----
     [HttpGet("spotlight")]
-    public async Task<IActionResult> Spotlights(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetAdminSigSpotlightListRequest(), ct));
+    public async Task<IActionResult> Spotlights([FromQuery] GetAdminSigSpotlightListRequest request, CancellationToken ct) =>
+        Ok(await _mediator.Send(request, ct));
 
     [HttpPost("spotlight")]
     public async Task<IActionResult> UpsertSpotlight([FromBody] UpsertSigSpotlightRequest request, CancellationToken ct)

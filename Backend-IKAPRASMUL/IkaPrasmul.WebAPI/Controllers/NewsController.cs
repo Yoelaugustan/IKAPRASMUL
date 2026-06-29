@@ -16,8 +16,8 @@ public class NewsController : ControllerBase
     public NewsController(IMediator mediator) => _mediator = mediator;
 
     [HttpGet]
-    public async Task<IActionResult> Get(CancellationToken ct) =>
-        Ok(await _mediator.Send(new GetNewsRequest(), ct));
+    public async Task<IActionResult> Get([FromQuery] GetNewsRequest request, CancellationToken ct) =>
+        Ok(await _mediator.Send(request, ct));
 
     [HttpPost("{slug}/view")]
     public async Task<IActionResult> IncrementView(string slug, CancellationToken ct)
