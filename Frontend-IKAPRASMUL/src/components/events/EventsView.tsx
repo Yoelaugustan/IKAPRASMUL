@@ -20,10 +20,10 @@ const UPCOMING_COUNT = 3;
 const dayKey = (iso: string) => (iso || "").slice(0, 10);
 
 export function EventsView({
-  featuredEvent,
+  featuredEvents,
   events,
 }: {
-  featuredEvent?: AlumniEvent;
+  featuredEvents: AlumniEvent[];
   events: AlumniEvent[];
 }) {
   const { t, lang } = useLang();
@@ -232,24 +232,19 @@ export function EventsView({
       </div>
     );
   } else {
-    // Default — featured event + an upcoming grid with a "view all" link.
+    // Default — featured events carousel + an upcoming grid with a "view all" link.
     // Future-dated events lead; if there aren't enough to fill the grid, top up
     // with the most recent remaining events so the section always feels full.
-    const isFeatured = (e: AlumniEvent) => e.slug === featuredEvent?.slug;
-    const upcoming = sorted.filter(
-      (e) => dayKey(e.date) >= todayKey && !isFeatured(e),
-    );
-    const fillers = [...sorted]
-      .reverse()
-      .filter((e) => !isFeatured(e) && !upcoming.includes(e));
+    const upcoming = sorted.filter((e) => dayKey(e.date) >= todayKey);
+    const fillers = [...sorted].reverse().filter((e) => !upcoming.includes(e));
     const grid = [...upcoming, ...fillers].slice(0, UPCOMING_COUNT);
 
     main = (
       <div className="min-w-0 space-y-12">
-        {featuredEvent && (
+        {featuredEvents.length > 0 && (
           <div>
             <SectionHeading title={t.events.featured} />
-            <FeaturedEvent event={featuredEvent} />
+            <FeaturedEvent events={featuredEvents} />
           </div>
         )}
         <div>

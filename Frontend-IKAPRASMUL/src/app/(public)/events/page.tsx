@@ -3,7 +3,7 @@ import { Container } from "@/components/layouts/Container";
 import { PageHero } from "@/components/layouts/PageHero";
 import { Reveal } from "@/components/shared/Reveal";
 import { EventsView } from "@/components/events/EventsView";
-import { getEvents, getFeaturedEvent } from "@/lib/content";
+import { getEvents, getFeaturedEvents } from "@/lib/content";
 import { getServerDict } from "@/i18n/server";
 
 export const metadata: Metadata = {
@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default async function EventsPage() {
-  const [{ t }, events, featuredEvent] = await Promise.all([
+  const [{ t }, events, featuredEvents] = await Promise.all([
     getServerDict(),
     getEvents(),
-    getFeaturedEvent(),
+    getFeaturedEvents(),
   ]);
 
   return (
@@ -37,7 +37,7 @@ export default async function EventsPage() {
       <section className="py-16 sm:py-20">
         <Container>
           <Reveal>
-            <EventsView featuredEvent={featuredEvent} events={events} />
+            <EventsView featuredEvents={featuredEvents} events={events} />
           </Reveal>
         </Container>
       </section>
