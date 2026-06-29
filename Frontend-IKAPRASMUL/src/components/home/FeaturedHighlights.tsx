@@ -6,7 +6,7 @@ import { getServerDict } from "@/i18n/server";
 import { EventCard } from "./EventCard";
 import { FeaturedAlumniCard } from "./FeaturedAlumniCard";
 import { FeaturedBusinessCard } from "./FeaturedBusinessCard";
-import { FeaturedStoryCard } from "./FeaturedStoryCard";
+import { FeaturedNewsCard } from "./FeaturedNewsCard";
 
 // "Featured Highlights" — a curated-but-resilient mix of up to 4 cards. Aims for
 // Event · Alumni · Business · Business, backfilling from other content types so
@@ -39,8 +39,8 @@ export async function FeaturedHighlights() {
                   return <FeaturedAlumniCard key={`alumni-${h.alumni.slug}`} alumni={h.alumni} />;
                 case "business":
                   return <FeaturedBusinessCard key={`business-${h.business.slug}`} business={h.business} />;
-                case "story":
-                  return <FeaturedStoryCard key={`story-${h.story.slug}`} story={h.story} />;
+                case "news":
+                  return <FeaturedNewsCard key={`news-${h.article.slug}`} article={h.article} />;
               }
             })}
           </Reveal>

@@ -1,0 +1,50 @@
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, FileText } from "lucide-react";
+import type { Article } from "@/types";
+import { ROUTES } from "@/constants/routes";
+import { getServerDict } from "@/i18n/server";
+
+export async function FeaturedNewsCard({ article }: { article: Article }) {
+  const { t } = await getServerDict();
+  const isNewsletter = article.category === "Newsletter";
+  const href = isNewsletter && article.pdfUrl
+    ? article.pdfUrl
+    : ROUTES.articleDetail(article.slug);
+  const isExternal = isNewsletter && !!article.pdfUrl;
+
+  return (
+    <Link
+      href={href}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className="group flex flex-col overflow-hidden rounded-xl bg-card shadow-md ring-1 ring-border/60 transition-[transform,box-shadow] duration-300 ease-expo hover:-translate-y-1.5 hover:shadow-[0_20px_45px_-18px_rgba(0,57,108,0.30)] active:scale-[0.98] active:shadow-sm"
+    >
+      <div className="relative aspect-[16/10] overflow-hidden">
+        <Image
+          src={article.coverImage}
+          alt={article.title}
+          fill
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+          className="object-cover transition-transform duration-700 ease-expo group-hover:scale-[1.06]"
+        />
+        <span className="absolute left-3 top-3 rounded bg-primary px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary-foreground">
+          {article.category}
+        </span>
+      </div>
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="line-clamp-2 text-lg font-bold leading-snug text-primary">
+          {article.title}
+        </h3>
+        <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
+          {article.excerpt}
+        </p>
+        <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-primary transition-all group-hover:gap-2.5 group-hover:underline">
+          {isNewsletter
+            ? <><FileText className="size-4" /> {t.cards.viewDetails}</>
+            : <>{t.cards.readStory} <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" /></>
+          }
+        </span>
+      </div>
+    </Link>
+  );
+}

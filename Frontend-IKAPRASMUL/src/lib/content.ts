@@ -41,15 +41,16 @@ export const getUpcomingEvent = async (): Promise<AlumniEvent | undefined> => {
   const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
   return sorted.find((e) => e.date >= now) ?? sorted[0];
 };
-// The admin-curated Featured Event (isFeatured). Falls back to the soonest
-// upcoming event, then to the earliest event, so the slot is never empty.
-export const getFeaturedEvent = async (): Promise<AlumniEvent | undefined> => {
+// Up to 4 admin-curated Featured Events (isFeatured). Falls back to the
+// soonest upcoming event (then earliest) so the carousel is never empty.
+export const getFeaturedEvents = async (): Promise<AlumniEvent[]> => {
   const events = await getEvents();
-  const flagged = events.find((e) => e.isFeatured);
-  if (flagged) return flagged;
+  const flagged = events.filter((e) => e.isFeatured).slice(0, 4);
+  if (flagged.length > 0) return flagged;
   const now = new Date().toISOString();
   const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
-  return sorted.find((e) => e.date >= now) ?? sorted[0];
+  const fallback = sorted.find((e) => e.date >= now) ?? sorted[0];
+  return fallback ? [fallback] : [];
 };
 export const getEventBySlug = async (
   slug: string,
@@ -129,57 +130,31 @@ export const getMostPopularArticles = async (limit = 5): Promise<Article[]> =>
   [...(await getArticles())].sort((a, b) => b.views - a.views).slice(0, limit);
 export const getArticleBySlug = async (slug: string): Promise<Article | undefined> =>
   (await getArticles()).find((a) => a.slug === slug);
+export const getFeaturedHomeArticle = async (): Promise<Article | undefined> =>
+  (await getArticles()).find((a) => a.isFeaturedHome);
 
 /* ---------- Home featured highlights ---------- */
 export type FeaturedHighlight =
   | { type: "event"; event: AlumniEvent }
   | { type: "alumni"; alumni: FeaturedAlumni }
   | { type: "business"; business: Business }
-  | { type: "story"; story: Story };
+  | { type: "news"; article: Article };
 
-// Curated-but-resilient home highlights. Pass 1 aims for the editorial mix
-// (event · alumni · business · business) honoring per-type caps; pass 2 relaxes
-// those caps to backfill from whatever else is available so the grid always
-// fills up to 4 cards instead of leaving a gap. Hard cap: 4.
+// Strict 1-1-1-1 grid: one upcoming event · one featured alumni ·
+// one featured business · one featured news. Each slot is independent —
+// no backfilling across types.
 export const getFeaturedHighlights = async (): Promise<FeaturedHighlight[]> => {
-  const [event, alumni, businesses, stories] = await Promise.all([
+  const [event, alumni, business, article] = await Promise.all([
     getUpcomingEvent(),
     getFeaturedAlumni(),
-    getFeaturedBusinesses(4),
-    getStories(),
+    getFeaturedBusinesses(1).then((r) => r[0] as Business | undefined),
+    getFeaturedHomeArticle(),
   ]);
 
-  // Home-worthy stories, minus the one already shown as the Alumni card.
-  const storyPool = stories.filter(
-    (s) => (s.isHighlight || s.isFeatured) && s.slug !== alumni?.slug,
-  );
-
-  const pools: Record<string, FeaturedHighlight[]> = {
-    event: event ? [{ type: "event", event }] : [],
-    alumni: alumni ? [{ type: "alumni", alumni }] : [],
-    business: businesses.map((business) => ({ type: "business", business })),
-    story: storyPool.map((story) => ({ type: "story", story })),
-  };
-
-  const MAX = 4;
-  const ORDER = ["event", "alumni", "business", "story"];
-  const CAPS: Record<string, number> = { event: 1, alumni: 1, business: 2, story: 2 };
-
-  const picked: FeaturedHighlight[] = [];
-
-  // Pass 1 — balanced mix (per-type caps).
-  for (const key of ORDER) {
-    for (const item of pools[key].slice(0, CAPS[key])) {
-      if (picked.length >= MAX) break;
-      picked.push(item);
-    }
-  }
-  // Pass 2 — backfill to 4 from any remaining content.
-  for (const key of ORDER) {
-    for (const item of pools[key]) {
-      if (picked.length >= MAX) break;
-      if (!picked.includes(item)) picked.push(item);
-    }
-  }
-  return picked.slice(0, MAX);
+  const highlights: FeaturedHighlight[] = [];
+  if (event)   highlights.push({ type: "event",    event });
+  if (alumni)  highlights.push({ type: "alumni",   alumni });
+  if (business) highlights.push({ type: "business", business });
+  if (article) highlights.push({ type: "news",     article });
+  return highlights;
 };

@@ -97,6 +97,8 @@ export type Article = {
   isFeatured?: boolean;
   /** Pinned to the Top Stories section on the news page (max 3). Independent of isFeatured. */
   isTopStory?: boolean;
+  /** Surfaced as the Featured News highlight on the home page (max 1). */
+  isFeaturedHome?: boolean;
   /** 'newsletter' cards open a PDF instead of a slug detail page. */
   type?: "article" | "newsletter";
   pdfUrl?: string;
@@ -112,7 +114,7 @@ export type AlumniEvent = {
   description: string;
   registerUrl?: string;
   category?: EventCategory;
-  /** Pinned as the single Featured Event on the events page (max 1). */
+  /** Pinned to the Featured Events carousel on the events page (max 4). */
   isFeatured?: boolean;
   /** Surfaced as the "Upcoming Event" highlight on the home page (max 1). */
   isFeaturedHome?: boolean;
