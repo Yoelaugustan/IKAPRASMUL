@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDragScroll } from "@/hooks/useDragScroll";
+import { useDebounce } from "@/hooks/useDebounce";
 import { scrollToElement } from "@/lib/scroll";
-import { ArrowRight, Bookmark, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowUpDown, Bookmark, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   BriefcaseIcon,
   MapPinIcon,
@@ -32,43 +34,79 @@ import { useLang } from "@/components/shared/LanguageProvider";
 import { INDUSTRY_ICONS } from "./industryMeta";
 
 const INDUSTRY_TABS = ["All", ...INDUSTRIES];
-const INDUSTRY_SET = new Set<string>(INDUSTRIES);
-const normalizeIndustry = (ind: string) => INDUSTRY_SET.has(ind) ? ind : "Other";
 const fieldClass =
   "h-11 rounded-lg border border-white/10 bg-[#06203f] text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-gold/40";
 
-const EMPTY_FILTERS = {
-  query: "",
-  industry: "All",
-  location: "All",
-  founder: "All",
-};
-
-const PAGE_SIZE = 12; // view-all grid, per page
+const PAGE_SIZE = 12;
+type Sort = "newest" | "az" | "za";
 
 export function BusinessExplorer({
   businesses,
   featuredBusinesses,
+  spotlight,
 }: {
+  /** Server-filtered list (by search/industry/sort from URL params). */
   businesses: Business[];
-  /** Admin-curated featured businesses (isFeatured flag). Falls back to the first 8 when empty. */
+  /** Admin-curated featured businesses (isFeatured flag). */
   featuredBusinesses: Business[];
+  /** Spotlight business — fetched separately so it's always available. */
+  spotlight?: Business;
 }) {
   const { t } = useLang();
-  // Draft values being edited in the search bar.
-  const [query, setQuery] = useState("");
-  const [industry, setIndustry] = useState("All");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // URL-driven state.
+  const viewAll = searchParams.get("view") === "all";
+  const urlIndustry = searchParams.get("industry") || "All";
+  const urlSearch = searchParams.get("search") || "";
+  const urlSort = (searchParams.get("sort") || "newest") as Sort;
+
+  // Draft state for the search form — applied on submit or Search button.
+  const [draftQuery, setDraftQuery] = useState(urlSearch);
+  const [draftIndustry, setDraftIndustry] = useState(urlIndustry);
+  const debouncedQuery = useDebounce(draftQuery, 400);
+
+  // Keep form fields in sync when URL changes (e.g., industry tab click).
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { setDraftIndustry(urlIndustry); }, [urlIndustry]);
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { setDraftQuery(urlSearch); }, [urlSearch]);
+
+  // Client-side secondary filters (not in URL — location/founder/saved).
   const [location, setLocation] = useState("All");
   const [founder, setFounder] = useState("All");
-  // Applied filters — only these drive the list. Updated on Search / tab click.
-  const [applied, setApplied] = useState(EMPTY_FILTERS);
-  // "View all" stage: spotlight hidden, full-width paginated grid.
-  const [viewAll, setViewAll] = useState(false);
-  const [page, setPage] = useState(1);
-  // "Saved" view (browser-local bookmarks).
   const [savedOnly, setSavedOnly] = useState(false);
+  const [page, setPage] = useState(1);
   const savedSlugs = useSavedBusinessStore((s) => s.saved);
   const hydrated = useHasHydrated();
+
+  // Debounce fires: push search query to URL.
+  const isFirstDebounce = useRef(true);
+  useEffect(() => {
+    if (isFirstDebounce.current) { isFirstDebounce.current = false; return; }
+    const params = new URLSearchParams(window.location.search);
+    if (debouncedQuery) params.set("search", debouncedQuery);
+    else params.delete("search");
+    params.set("view", "all");
+    params.delete("page");
+    const qs = params.toString();
+    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedQuery]);
+
+  const setParams = (
+    next: Partial<{ view: string | null; search: string | null; industry: string | null; sort: string | null }>,
+  ) => {
+    const params = new URLSearchParams(searchParams.toString());
+    for (const [k, v] of Object.entries(next)) {
+      if (v === null || v === "" || v === "All" || v === "newest") params.delete(k);
+      else params.set(k, v);
+    }
+    const qs = params.toString();
+    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  };
 
   const locations = useMemo(
     () => Array.from(new Set(businesses.map((b) => b.location))),
@@ -79,49 +117,22 @@ export function BusinessExplorer({
     [businesses],
   );
 
-  // Spotlight: the flagged business, else the first listing (undefined if none).
-  const spotlight = businesses.find((b) => b.isSpotlight) ?? businesses[0];
-
+  // Client-side secondary filtering over the server-filtered set.
   const filtered = useMemo(() => {
-    const q = applied.query.trim().toLowerCase();
     return businesses.filter((b) => {
       const ms = !savedOnly || savedSlugs.includes(b.slug);
-      const mi = applied.industry === "All" || normalizeIndustry(b.industry) === applied.industry;
-      const ml = applied.location === "All" || b.location === applied.location;
-      const mf = applied.founder === "All" || b.founder.name === applied.founder;
-      const mq =
-        !q ||
-        b.name.toLowerCase().includes(q) ||
-        b.founder.name.toLowerCase().includes(q) ||
-        b.location.toLowerCase().includes(q);
-      return ms && mi && ml && mf && mq;
+      const ml = location === "All" || b.location === location;
+      const mf = founder === "All" || b.founder.name === founder;
+      return ms && ml && mf;
     });
-  }, [businesses, applied, savedOnly, savedSlugs]);
+  }, [businesses, savedOnly, location, founder, savedSlugs]);
 
-  // Pagination over the filtered set (view-all stage).
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const currentPage = Math.min(page, totalPages);
   const pageItems = filtered.slice(
     (currentPage - 1) * PAGE_SIZE,
     currentPage * PAGE_SIZE,
   );
-
-  const applySearch = () => {
-    setApplied({ query, industry, location, founder });
-    setSavedOnly(false);
-    setViewAll(true);
-    setPage(1);
-    scrollToPanel();
-  };
-
-  const selectIndustry = (value: string) => {
-    setIndustry(value);
-    setApplied((prev) => ({ ...prev, industry: value }));
-    setSavedOnly(false);
-    setViewAll(true);
-    setPage(1);
-    scrollToPanel();
-  };
 
   const {
     ref: tabsRef,
@@ -135,24 +146,45 @@ export function BusinessExplorer({
   const scrollToPanel = () =>
     requestAnimationFrame(() => scrollToElement(panelRef.current));
 
-  // Page changes land at the top of the results, not the filter bar.
   const goToPage = (p: number) => {
     setPage(p);
     scrollToElement(resultsRef.current);
   };
 
-  const resetFilters = () => {
-    setQuery("");
-    setIndustry("All");
+  const applySearch = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (draftQuery.trim()) params.set("search", draftQuery.trim()); else params.delete("search");
+    if (draftIndustry && draftIndustry !== "All") params.set("industry", draftIndustry); else params.delete("industry");
+    params.set("view", "all");
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
     setLocation("All");
     setFounder("All");
-    setApplied(EMPTY_FILTERS);
+    setSavedOnly(false);
+    setPage(1);
+    scrollToPanel();
+  };
+
+  const selectIndustry = (value: string) => {
+    setDraftIndustry(value);
+    setParams({ industry: value, view: "all" });
+    setLocation("All");
+    setFounder("All");
+    setSavedOnly(false);
+    setPage(1);
+    scrollToPanel();
+  };
+
+  const resetFilters = () => {
+    setDraftQuery("");
+    setDraftIndustry("All");
+    setLocation("All");
+    setFounder("All");
     setSavedOnly(false);
   };
 
   const openViewAll = () => {
     resetFilters();
-    setViewAll(true);
+    setParams({ view: "all" });
     setPage(1);
     scrollToPanel();
   };
@@ -160,14 +192,14 @@ export function BusinessExplorer({
   const openSaved = () => {
     resetFilters();
     setSavedOnly(true);
-    setViewAll(true);
+    setParams({ view: "all" });
     setPage(1);
     scrollToPanel();
   };
 
   const backToFeatured = () => {
     resetFilters();
-    setViewAll(false);
+    router.push(pathname, { scroll: false });
     setPage(1);
     scrollToPanel();
   };
@@ -177,17 +209,14 @@ export function BusinessExplorer({
       {/* ---- Search bar (overlaps the hero) ---- */}
       <Container>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            applySearch();
-          }}
+          onSubmit={(e) => { e.preventDefault(); applySearch(); }}
           className="relative z-10 -mt-10 flex flex-col gap-3 rounded-2xl bg-[#0a2a52] p-4 shadow-2xl ring-1 ring-white/10 lg:flex-row lg:items-center"
         >
           <div className="relative flex-1">
             <SearchIcon className="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-white/40" />
             <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              value={draftQuery}
+              onChange={(e) => setDraftQuery(e.target.value)}
               placeholder={t.bizList.searchPlaceholder}
               aria-label={t.bizList.searchAria}
               className={cn(fieldClass, "w-full pl-10 pr-4")}
@@ -196,8 +225,8 @@ export function BusinessExplorer({
 
           <SelectField
             icon={BriefcaseIcon}
-            value={industry}
-            onChange={setIndustry}
+            value={draftIndustry}
+            onChange={setDraftIndustry}
             allLabel={t.bizList.industryLabel}
             options={INDUSTRIES}
             labels={t.categories.industry}
@@ -242,7 +271,7 @@ export function BusinessExplorer({
           >
             {INDUSTRY_TABS.map((tab) => {
               const Icon = INDUSTRY_ICONS[tab] ?? BriefcaseIcon;
-              const active = applied.industry === tab;
+              const active = urlIndustry === tab;
               return (
                 <button
                   key={tab}
@@ -335,16 +364,29 @@ export function BusinessExplorer({
               ref={resultsRef}
               className="mt-12 scroll-mt-24 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-2 motion-safe:duration-300"
             >
-              <div className="mb-6 flex items-center justify-between gap-4">
+              <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
                 <SectionLabel>
                   {savedOnly
                     ? t.bizList.savedBusinesses
-                    : applied.industry === "All"
+                    : urlIndustry === "All"
                       ? t.bizList.allBusinesses
-                      : t.categories.industry[applied.industry] ??
-                        applied.industry}
+                      : t.categories.industry[urlIndustry] ?? urlIndustry}
                 </SectionLabel>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
+                  <Select
+                    value={urlSort}
+                    onValueChange={(v) => setParams({ sort: v })}
+                  >
+                    <SelectTrigger className="h-auto w-auto gap-1.5 border-0 bg-transparent px-0 shadow-none text-sm font-medium text-slate-500 hover:text-slate-900 focus:ring-0">
+                      <ArrowUpDown className="size-3.5 shrink-0" />
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="newest">{t.admin?.sortNewest ?? "Newest"}</SelectItem>
+                      <SelectItem value="az">{t.admin?.sortAZ ?? "A – Z"}</SelectItem>
+                      <SelectItem value="za">{t.admin?.sortZA ?? "Z – A"}</SelectItem>
+                    </SelectContent>
+                  </Select>
                   {hydrated && savedSlugs.length > 0 && !savedOnly && (
                     <button
                       type="button"
@@ -381,7 +423,7 @@ export function BusinessExplorer({
               ) : (
                 <>
                   <div
-                    key={`${applied.industry}|${applied.location}|${applied.founder}|${applied.query}|${savedOnly}|${currentPage}`}
+                    key={`${urlIndustry}|${location}|${founder}|${urlSearch}|${savedOnly}|${currentPage}`}
                     className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4"
                   >
                     {pageItems.map((b, i) => (
@@ -490,8 +532,6 @@ function SelectField({
   onChange: (v: string) => void;
   allLabel: string;
   options: readonly string[];
-  /** Optional display-label map (e.g. translated industries). Keys are the
-   * canonical option values; values stay English so filtering still works. */
   labels?: Record<string, string>;
 }) {
   return (

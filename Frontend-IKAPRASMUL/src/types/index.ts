@@ -144,3 +144,11 @@ export type FeaturedAlumni = Person & {
   photo: string;
   quote: string;
 };
+
+export type Paginated<T> = {
+  items: T[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+};

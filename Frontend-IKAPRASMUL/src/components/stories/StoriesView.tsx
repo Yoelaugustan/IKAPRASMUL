@@ -1,11 +1,18 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import type { Story } from "@/types";
+import { ArrowRight, ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react";
+import type { Paginated, Story } from "@/types";
 import { cn } from "@/lib/utils";
 import { scrollToElement } from "@/lib/scroll";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { FeaturedStory } from "./FeaturedStory";
 import { StoryCard } from "./StoryCard";
 import { StoryCategoriesSidebar } from "./StoryCategoriesSidebar";
@@ -13,19 +20,17 @@ import { ShareYourStorySidebar } from "./ShareYourStorySidebar";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { useLang } from "@/components/shared/LanguageProvider";
 
-const PAGE_SIZE = 9;
-const HIGHLIGHT_COUNT = 3;
-
 export function StoriesView({
   featuredStories,
   highlightStories,
-  stories,
+  pagedStories,
   counts,
 }: {
   featuredStories: Story[];
-  /** Admin-curated highlight stories (isHighlight flag). Falls back to the first 3 non-featured stories when empty. */
+  /** Admin-curated highlight stories (isHighlight flag). */
   highlightStories: Story[];
-  stories: Story[];
+  /** Server-paginated stories for the "view all" mode. */
+  pagedStories: Paginated<Story>;
   counts: { category: string; count: number }[];
 }) {
   const router = useRouter();
@@ -34,20 +39,13 @@ export function StoriesView({
   const { t } = useLang();
 
   const category = searchParams.get("category") || "All";
+  const sort = searchParams.get("sort") || "newest";
   const viewAll = searchParams.get("view") === "all";
-  const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10) || 1);
-
-  const filtered = useMemo(
-    () =>
-      category === "All"
-        ? stories
-        : stories.filter((s) => s.category === category),
-    [stories, category],
-  );
 
   // Update the query string without scrolling the page.
   const setParams = (next: {
     category?: string | null;
+    sort?: string | null;
     view?: string | null;
     page?: number | null;
   }) => {
@@ -57,6 +55,10 @@ export function StoriesView({
         params.set("category", next.category);
       else params.delete("category");
     }
+    if (next.sort !== undefined) {
+      if (next.sort && next.sort !== "newest") params.set("sort", next.sort);
+      else params.delete("sort");
+    }
     if (next.view !== undefined) {
       if (next.view) params.set("view", next.view);
       else params.delete("view");
@@ -65,6 +67,8 @@ export function StoriesView({
       if (next.page && next.page > 1) params.set("page", String(next.page));
       else params.delete("page");
     }
+    // Reset page when filter/sort changes.
+    if (next.category !== undefined || next.sort !== undefined) params.delete("page");
     const qs = params.toString();
     router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   };
@@ -86,14 +90,7 @@ export function StoriesView({
 
   /* ------------------------- DEFAULT MODE ------------------------- */
   if (!viewAll) {
-    // Highlights are NOT category-filtered — the category tabs only apply in the
-    // view-all stage. Use admin-curated isHighlight stories; fall back to the
-    // first HIGHLIGHT_COUNT non-featured stories when none are flagged.
-    const featuredSlugs = new Set(featuredStories.map((s) => s.slug));
-    const highlights =
-      highlightStories.length > 0
-        ? highlightStories
-        : stories.filter((s) => !featuredSlugs.has(s.slug)).slice(0, HIGHLIGHT_COUNT);
+    const highlights = highlightStories;
 
     return (
       <div
@@ -158,10 +155,9 @@ export function StoriesView({
   }
 
   /* ------------------------- VIEW-ALL MODE ------------------------ */
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const currentPage = Math.min(page, totalPages);
-  const start = (currentPage - 1) * PAGE_SIZE;
-  const pageItems = filtered.slice(start, start + PAGE_SIZE);
+  const pageItems = pagedStories.items;
+  const totalPages = pagedStories.totalPages;
+  const currentPage = pagedStories.page;
   const heading =
     category === "All"
       ? t.lists.allStories
@@ -177,13 +173,30 @@ export function StoriesView({
         <SectionHeading
           title={heading}
           action={
-            <button
-              type="button"
-              onClick={() => { setParams({ view: null, category: null, page: 1 }); scrollToContent(); }}
-              className="inline-flex items-center gap-1 text-[13px] font-bold text-[#c6b273] transition-colors hover:text-[#b4a05e]"
-            >
-              <ChevronLeft className="size-4" /> {t.lists.backToFeatured}
-            </button>
+            <div className="flex items-center gap-3">
+              <Select
+                value={sort}
+                onValueChange={(v) => { setParams({ sort: v }); scrollToContent(); }}
+              >
+                <SelectTrigger className="h-auto w-auto gap-1.5 border-0 bg-transparent px-0 shadow-none text-sm font-medium text-muted-foreground hover:text-foreground focus:ring-0">
+                  <ArrowUpDown className="size-3.5 shrink-0" />
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="newest">Newest</SelectItem>
+                  <SelectItem value="oldest">Oldest</SelectItem>
+                  <SelectItem value="az">A – Z</SelectItem>
+                  <SelectItem value="za">Z – A</SelectItem>
+                </SelectContent>
+              </Select>
+              <button
+                type="button"
+                onClick={() => { setParams({ view: null, category: null, page: 1 }); scrollToContent(); }}
+                className="inline-flex items-center gap-1 text-[13px] font-bold text-[#c6b273] transition-colors hover:text-[#b4a05e]"
+              >
+                <ChevronLeft className="size-4" /> {t.lists.backToFeatured}
+              </button>
+            </div>
           }
         />
         {pageItems.length === 0 ? (

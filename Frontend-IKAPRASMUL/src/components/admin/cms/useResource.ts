@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import type { ResourceConfig } from "./types";
@@ -28,6 +28,32 @@ export function useResource<T>(config: ResourceConfig<T>, initial: T[]) {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurrentPage(1);
+  }, [query, sortBy]);
+
+  // Debounced backend re-fetch: keeps local state for instant feedback while
+  // syncing to the server 400 ms after the last keystroke / sort change.
+  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) { isFirstRender.current = false; return; }
+    if (debounceTimer.current) clearTimeout(debounceTimer.current);
+    debounceTimer.current = setTimeout(async () => {
+      try {
+        const qs = new URLSearchParams({ sort: sortBy });
+        if (query.trim()) qs.set("search", query.trim());
+        const res = await fetch(`/api/admin/${config.resourcePath}?${qs}`);
+        if (!res.ok) return;
+        const data = await res.json() as unknown;
+        const fetched: T[] = Array.isArray(data)
+          ? (data as T[])
+          : ((data as { items?: T[] }).items ?? []);
+        setItems(fetched);
+        setCurrentPage(1);
+      } catch { /* silently keep stale data */ }
+    }, 400);
+    return () => { if (debounceTimer.current) clearTimeout(debounceTimer.current); };
+    // config.resourcePath is a module-level constant — stable across renders.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, sortBy]);
 
   const getKey = (item: T) => String(getPath(item, config.keyField) ?? "");

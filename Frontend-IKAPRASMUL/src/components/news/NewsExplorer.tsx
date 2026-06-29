@@ -1,14 +1,16 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight, Search } from "lucide-react";
-import type { Article } from "@/types";
+import { useEffect, useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { ArrowRight, ArrowUpDown, ChevronLeft, ChevronRight, Search } from "lucide-react";
+import type { Article, Paginated } from "@/types";
 import { NEWS_CATEGORIES } from "@/constants/categories";
 import { cn } from "@/lib/utils";
 import { scrollToElement } from "@/lib/scroll";
 import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
 import { useDragScroll } from "@/hooks/useDragScroll";
+import { useDebounce } from "@/hooks/useDebounce";
 import {
   Select,
   SelectContent,
@@ -26,28 +28,38 @@ import { StayInformed } from "./StayInformed";
 import { NEWS_CATEGORY_ICONS } from "./newsMeta";
 
 const TABS = ["All", ...NEWS_CATEGORIES];
-const PAGE_SIZE = 10; // view-all grid, per page (2 columns × 5 rows)
-type Sort = "latest" | "oldest" | "popular";
+type Sort = "newest" | "oldest" | "popular";
 
 export function NewsExplorer({
-  articles,
+  pagedArticles,
   featured,
-  topStories: topStoriesProp,
+  topStories,
   mostPopular,
 }: {
-  articles: Article[];
+  /** Server-paginated articles for the "view all" mode. */
+  pagedArticles: Paginated<Article>;
   featured?: Article;
-  /** Admin-curated top stories (isTopStory flag). Falls back to the first 3 latest non-featured articles when empty. */
   topStories: Article[];
   mostPopular: Article[];
 }) {
   const { t } = useLang();
-  const [category, setCategory] = useState("All");
-  const [draftQuery, setDraftQuery] = useState("");
-  const [appliedQuery, setAppliedQuery] = useState("");
-  const [sort, setSort] = useState<Sort>("latest");
-  const [viewAll, setViewAll] = useState(false);
-  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Read current state from URL.
+  const viewAll = searchParams.get("view") === "all";
+  const category = searchParams.get("category") || "All";
+  const sort = (searchParams.get("sort") || "newest") as Sort;
+  const appliedSearch = searchParams.get("search") || "";
+
+  // Local draft for the search input — pushed to URL after debounce.
+  const [draftQuery, setDraftQuery] = useState(appliedSearch);
+  const debouncedQuery = useDebounce(draftQuery, 400);
+
+  // Keep the input in sync when URL search param changes externally (e.g. back button).
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { setDraftQuery(appliedSearch); }, [appliedSearch]);
 
   const {
     ref: tabsRef,
@@ -55,76 +67,69 @@ export function NewsExplorer({
     wasDragged: tabsWasDragged,
   } = useDragScroll();
 
-  const filteredArticles = useMemo(() => {
-    const q = appliedQuery.trim().toLowerCase();
-    const filtered = articles.filter((a) => {
-      if (!viewAll && a.isFeatured) return false;
-      const mc = category === "All" || a.category === category;
-      const mq =
-        !q ||
-        a.title.toLowerCase().includes(q) ||
-        a.excerpt.toLowerCase().includes(q);
-      return mc && mq;
-    });
-    filtered.sort((a, b) => {
-      if (sort === "popular") return b.views - a.views;
-      if (sort === "oldest") return a.publishedAt.localeCompare(b.publishedAt);
-      return b.publishedAt.localeCompare(a.publishedAt);
-    });
-    return filtered;
-  }, [articles, category, appliedQuery, sort, viewAll]);
-
-  const isFiltering = category !== "All" || appliedQuery.trim() !== "";
-  // Use admin-curated isTopStory articles in the default view; fall back to the
-  // first 3 latest non-featured articles so the section is never empty.
-  const topStories =
-    !viewAll && topStoriesProp.length > 0
-      ? topStoriesProp
-      : filteredArticles.slice(0, isFiltering ? 9 : 3);
-
-  const totalPages = Math.max(1, Math.ceil(filteredArticles.length / PAGE_SIZE));
-  const currentPage = Math.min(page, totalPages);
-  const pageItems = filteredArticles.slice(
-    (currentPage - 1) * PAGE_SIZE,
-    currentPage * PAGE_SIZE,
-  );
-
   const panelRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
   const scrollToPanel = () =>
     requestAnimationFrame(() => scrollToElement(panelRef.current));
 
+  // Push URL changes without scrolling.
+  const setParams = (
+    next: Partial<{ view: string | null; category: string | null; search: string | null; sort: string | null; page: string | null }>,
+  ) => {
+    const params = new URLSearchParams(searchParams.toString());
+    for (const [k, v] of Object.entries(next)) {
+      if (v === null || v === "" || v === "All") params.delete(k);
+      else params.set(k, v);
+    }
+    // Clear page whenever filter/sort changes.
+    if ("category" in next || "search" in next || "sort" in next) params.delete("page");
+    const qs = params.toString();
+    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  };
+
+  // After debounce fires, push search to URL. Skip the first render to avoid
+  // pushing the initial value (which is already in the URL).
+  const isFirstDebounce = useRef(true);
+  useEffect(() => {
+    if (isFirstDebounce.current) { isFirstDebounce.current = false; return; }
+    const params = new URLSearchParams(window.location.search);
+    if (debouncedQuery) params.set("search", debouncedQuery);
+    else params.delete("search");
+    params.set("view", "all");
+    params.delete("page");
+    const qs = params.toString();
+    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedQuery]);
+
+  const applySearch = () => {
+    setParams({ search: draftQuery, view: "all" });
+    scrollToPanel();
+  };
+
+  const selectCategory = (tab: string) => {
+    setParams({ category: tab, view: "all" });
+    scrollToPanel();
+  };
+
+  const enterViewAll = () => {
+    setParams({ view: "all" });
+    scrollToPanel();
+  };
+
+  const backToFeatured = () => {
+    setDraftQuery("");
+    router.push(pathname, { scroll: false });
+    scrollToPanel();
+  };
+
   const goToPage = (p: number) => {
-    setPage(p);
+    setParams({ page: p > 1 ? String(p) : null });
     scrollToElement(resultsRef.current);
   };
 
-  const applySearch = () => {
-    setAppliedQuery(draftQuery);
-    setViewAll(true);
-    setPage(1);
-    scrollToPanel();
-  };
-  const selectCategory = (tab: string) => {
-    setCategory(tab);
-    setViewAll(true);
-    setPage(1);
-    scrollToPanel();
-  };
-  const enterViewAll = () => {
-    setViewAll(true);
-    setPage(1);
-    scrollToPanel();
-  };
-  const backToFeatured = () => {
-    setViewAll(false);
-    setCategory("All");
-    setDraftQuery("");
-    setAppliedQuery("");
-    setPage(1);
-    scrollToPanel();
-  };
+  const { items: pageItems, totalPages, page: currentPage } = pagedArticles;
 
   return (
     <div className="pb-20">
@@ -184,9 +189,7 @@ export function NewsExplorer({
                   <input
                     value={draftQuery}
                     onChange={(e) => setDraftQuery(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") applySearch();
-                    }}
+                    onKeyDown={(e) => { if (e.key === "Enter") applySearch(); }}
                     placeholder={t.newsList.searchPlaceholder}
                     aria-label={t.newsList.searchAria}
                     className="h-10 w-full rounded-lg border border-slate-200 bg-white pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#00396c] focus:outline-none focus:ring-2 focus:ring-[#00396c]/15"
@@ -202,23 +205,17 @@ export function NewsExplorer({
                 <Select
                   value={sort}
                   onValueChange={(v) => {
-                    setSort(v as Sort);
-                    setPage(1);
+                    setParams({ sort: v, view: "all" });
                   }}
                 >
-                  <SelectTrigger className="h-10 w-32 rounded-lg border-slate-200 text-sm text-slate-700 data-[size=default]:h-10">
+                  <SelectTrigger className="h-auto w-auto gap-1.5 border-0 bg-transparent px-0 shadow-none text-sm font-medium text-slate-500 hover:text-slate-900 focus:ring-0 data-[size=default]:h-auto">
+                    <ArrowUpDown className="size-3.5 shrink-0" />
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent
-                    position="popper"
-                    sideOffset={6}
-                    className="rounded-xl"
-                  >
-                    <SelectItem value="latest">{t.newsList.sortLatest}</SelectItem>
+                  <SelectContent position="popper" sideOffset={6} className="rounded-xl">
+                    <SelectItem value="newest">{t.newsList.sortNewest}</SelectItem>
                     <SelectItem value="oldest">{t.newsList.sortOldest}</SelectItem>
-                    <SelectItem value="popular">
-                      {t.newsList.sortPopular}
-                    </SelectItem>
+                    <SelectItem value="popular">{t.newsList.sortPopular}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -261,8 +258,8 @@ export function NewsExplorer({
                     {pageItems.length === 0 ? (
                       <EmptyState
                         title={
-                          appliedQuery.trim()
-                            ? `${t.newsList.noResultsFor} "${appliedQuery.trim()}"`
+                          appliedSearch.trim()
+                            ? `${t.newsList.noResultsFor} "${appliedSearch.trim()}"`
                             : t.newsList.noArticlesTitle
                         }
                         description={t.newsList.noArticlesDesc}

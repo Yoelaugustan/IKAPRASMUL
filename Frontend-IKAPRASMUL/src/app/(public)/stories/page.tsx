@@ -6,8 +6,14 @@ import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
 import { StoryCategoryTabs } from "@/components/stories/StoryCategoryTabs";
 import { StoriesView } from "@/components/stories/StoriesView";
-import { getHighlightStories, getStories, getStoryCategoryCounts } from "@/lib/content";
+import {
+  getFeaturedStories,
+  getHighlightStories,
+  getStoriesPage,
+  getStoryCategoryCounts,
+} from "@/lib/content";
 import { getServerDict } from "@/i18n/server";
+import type { Paginated, Story } from "@/types";
 
 export const metadata: Metadata = {
   title: "Alumni Stories",
@@ -15,17 +21,27 @@ export const metadata: Metadata = {
     "Stories that inspire — founder journeys, executive paths, international alumni, and impact stories from the Prasmul community.",
 };
 
-export default async function StoriesPage() {
-  const [{ t }, stories, highlightStories, counts] = await Promise.all([
+const PAGE_SIZE = 9;
+const EMPTY_PAGE: Paginated<Story> = { items: [], total: 0, page: 1, pageSize: PAGE_SIZE, totalPages: 0 };
+
+export default async function StoriesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ view?: string; category?: string; page?: string; sort?: string }>;
+}) {
+  const sp = await searchParams;
+  const viewAll = sp.view === "all";
+  const category = sp.category || undefined;
+  const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
+  const sort = sp.sort || undefined;
+
+  const [{ t }, featuredStories, highlightStories, counts, pagedStories] = await Promise.all([
     getServerDict(),
-    getStories(),
+    getFeaturedStories(),
     getHighlightStories(),
     getStoryCategoryCounts(),
+    viewAll ? getStoriesPage({ category, sort, page, pageSize: PAGE_SIZE }) : Promise.resolve(EMPTY_PAGE),
   ]);
-
-  // Use all flagged featured stories. If none are flagged, fallback to the latest 4 stories.
-  const flagged = stories.filter((s) => s.isFeatured);
-  const featuredStories = flagged.length > 0 ? flagged : stories.slice(0, 4);
 
   return (
     <>
@@ -52,7 +68,7 @@ export default async function StoriesPage() {
               <StoriesView
                 featuredStories={featuredStories}
                 highlightStories={highlightStories}
-                stories={stories}
+                pagedStories={pagedStories}
                 counts={counts}
               />
             </Suspense>

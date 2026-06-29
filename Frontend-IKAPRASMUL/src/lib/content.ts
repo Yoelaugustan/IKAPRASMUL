@@ -2,18 +2,21 @@ import "server-only";
 
 import type {
   Article,
+  AlumniEvent,
   Business,
+  FeaturedAlumni,
   ImpactStat,
+  Paginated,
   SigGroup,
   SigSpotlight,
   Story,
-  AlumniEvent,
-  FeaturedAlumni,
 } from "@/types";
 import { STORY_CATEGORIES } from "@/constants/categories";
 import { IMPACT_STATS } from "@/data/impact";
 
 const API_URL = process.env.API_URL ?? "http://localhost:5080";
+
+/* ─── Core fetch ─── */
 
 async function safeFetch<T>(path: string, fallback: T, tag?: string): Promise<T> {
   try {
@@ -27,57 +30,84 @@ async function safeFetch<T>(path: string, fallback: T, tag?: string): Promise<T>
   }
 }
 
-/* ---------- Home ---------- */
-export const getImpactStats = async (): Promise<ImpactStat[]> => IMPACT_STATS;
-export const getEvents = (): Promise<AlumniEvent[]> =>
-  safeFetch<AlumniEvent[]>("/events", [], "events");
-// The home page "Upcoming Event" slot: prefer the admin-flagged event
-// (isFeaturedHome), then fall back to the soonest upcoming, then the earliest.
-export const getUpcomingEvent = async (): Promise<AlumniEvent | undefined> => {
-  const events = await getEvents();
-  const flagged = events.find((e) => e.isFeaturedHome);
-  if (flagged) return flagged;
-  const now = new Date().toISOString();
-  const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
-  return sorted.find((e) => e.date >= now) ?? sorted[0];
-};
-// Up to 4 admin-curated Featured Events (isFeatured). Falls back to the
-// soonest upcoming event (then earliest) so the carousel is never empty.
-export const getFeaturedEvents = async (): Promise<AlumniEvent[]> => {
-  const events = await getEvents();
-  const flagged = events.filter((e) => e.isFeatured).slice(0, 4);
-  if (flagged.length > 0) return flagged;
-  const now = new Date().toISOString();
-  const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date));
-  const fallback = sorted.find((e) => e.date >= now) ?? sorted[0];
-  return fallback ? [fallback] : [];
-};
-export const getEventBySlug = async (
-  slug: string,
-): Promise<AlumniEvent | undefined> =>
-  (await getEvents()).find((e) => e.slug === slug);
+/* ─── Paginated fetch helpers ─── */
 
-/* ---------- SIG ---------- */
+function buildQs(params: Record<string, string | number | boolean | null | undefined>): string {
+  const qs = new URLSearchParams();
+  for (const [k, v] of Object.entries(params)) {
+    if (v !== undefined && v !== null) qs.set(k, String(v));
+  }
+  return qs.toString();
+}
+
+async function getPaged<T>(
+  entity: string,
+  params: Record<string, string | number | boolean | null | undefined>,
+  tag: string,
+): Promise<Paginated<T>> {
+  const qs = buildQs(params);
+  const fallback: Paginated<T> = { items: [], total: 0, page: 1, pageSize: 10, totalPages: 0 };
+  return safeFetch<Paginated<T>>(`/${entity}${qs ? `?${qs}` : ""}`, fallback, tag);
+}
+
+// Single item matching a filter — uses pageSize=1
+async function fetchOne<T>(
+  entity: string,
+  filter: Record<string, string | number | boolean>,
+  tag: string,
+): Promise<T | undefined> {
+  const result = await getPaged<T>(entity, { ...filter, pageSize: 1, page: 1 }, tag);
+  return result.items[0];
+}
+
+// Small curated list matching a filter
+async function fetchFiltered<T>(
+  entity: string,
+  filter: Record<string, string | number | boolean>,
+  pageSize: number,
+  tag: string,
+): Promise<T[]> {
+  const result = await getPaged<T>(entity, { ...filter, pageSize, page: 1 }, tag);
+  return result.items;
+}
+
+// Full-list for complex client-filtered components (calendar, text search, saved bookmarks).
+// Cap prevents runaway payloads while keeping client-side filtering practical.
+async function fetchAll<T>(entity: string, tag: string, cap = 500): Promise<T[]> {
+  const result = await getPaged<T>(entity, { pageSize: cap, page: 1 }, tag);
+  return result.items;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Public APIs
+═══════════════════════════════════════════════════════════════════════ */
+
+/* ─── Impact stats (static) ─── */
+export const getImpactStats = async (): Promise<ImpactStat[]> => IMPACT_STATS;
+
+/* ─── SIG ─── */
+
 export const getSigGroups = (): Promise<SigGroup[]> =>
   safeFetch<SigGroup[]>("/sig/groups", [], "sig");
+
 export const getSigSpotlights = (): Promise<SigSpotlight[]> =>
-  safeFetch<SigSpotlight[]>("/sig/spotlight", [], "sig");
-export const getSigSpotlightById = async (
-  id: string,
-): Promise<SigSpotlight | undefined> =>
+  fetchFiltered<SigSpotlight>("sig/spotlight", {}, 10, "sig");
+
+export const getSigSpotlightById = async (id: string): Promise<SigSpotlight | undefined> =>
   (await getSigSpotlights()).find((s) => s.id === id);
 
-/* ---------- Stories ---------- */
-export const getStories = (): Promise<Story[]> => safeFetch<Story[]>("/stories", [], "stories");
-export const getFeaturedStories = async (): Promise<Story[]> =>
-  (await getStories()).filter((s) => s.isFeatured);
-export const getHighlightStories = async (): Promise<Story[]> =>
-  (await getStories()).filter((s) => s.isHighlight);
+/* ─── Stories ─── */
 
-// isFeaturedHome is a separate flag from isFeatured — controls the home page Alumni slot
+// Curated sections — small targeted fetches
+export const getFeaturedStories = (): Promise<Story[]> =>
+  fetchFiltered<Story>("stories", { isFeatured: true }, 4, "stories");
+
+export const getHighlightStories = (): Promise<Story[]> =>
+  fetchFiltered<Story>("stories", { isHighlight: true }, 3, "stories");
+
+// Home page "Alumni of the Month" slot — maps isFeaturedHome story → FeaturedAlumni shape
 export const getFeaturedAlumni = async (): Promise<FeaturedAlumni | undefined> => {
-  const stories = await getStories();
-  const story = stories.find((s) => s.isFeaturedHome);
+  const story = await fetchOne<Story>("stories", { isFeaturedHome: true }, "stories");
   if (!story) return undefined;
   return {
     slug: story.slug,
@@ -88,73 +118,152 @@ export const getFeaturedAlumni = async (): Promise<FeaturedAlumni | undefined> =
     quote: story.excerpt,
   };
 };
-export const getStoryBySlug = async (slug: string): Promise<Story | undefined> =>
-  (await getStories()).find((s) => s.slug === slug);
-export const getStoryCategoryCounts = async (): Promise<
-  { category: string; count: number }[]
-> => {
-  const stories = await getStories();
-  // always returns every category (even 0-count) so the sidebar never collapses
+
+// Server-driven paginated browse — for the StoriesView "view all" mode
+export const getStoriesPage = (params: {
+  category?: string;
+  sort?: string;
+  page?: number;
+  pageSize?: number;
+}): Promise<Paginated<Story>> =>
+  getPaged<Story>(
+    "stories",
+    { category: params.category, sort: params.sort, page: params.page ?? 1, pageSize: params.pageSize ?? 9 },
+    "stories",
+  );
+
+// Category counts — separate fetch (cached) so the sidebar shows accurate totals
+export const getStoryCategoryCounts = async (): Promise<{ category: string; count: number }[]> => {
+  const all = await fetchAll<Story>("stories", "stories");
   return STORY_CATEGORIES.map((category) => ({
     category,
-    count: stories.filter((s) => s.category === category).length,
+    count: all.filter((s) => s.category === category).length,
   }));
 };
 
-/* ---------- Business ---------- */
-export const getBusinesses = (): Promise<Business[]> =>
-  safeFetch<Business[]>("/business", [], "business");
-export const getBusinessSpotlight = async (): Promise<Business | undefined> => {
-  const businesses = await getBusinesses();
-  return businesses.find((b) => b.isSpotlight) ?? businesses[0];
-};
-export const getBusinessPageFeatured = async (): Promise<Business[]> => {
-  const businesses = await getBusinesses();
-  const flagged = businesses.filter((b) => b.isFeatured);
-  return flagged.length > 0 ? flagged : businesses.slice(0, 8);
-};
-export const getBusinessBySlug = async (
-  slug: string,
-): Promise<Business | undefined> =>
-  (await getBusinesses()).find((b) => b.slug === slug);
-export const getFeaturedBusinesses = async (limit = 2): Promise<Business[]> =>
-  (await getBusinesses()).filter((b) => b.isFeaturedHome).slice(0, limit);
+// By slug — for detail pages (no slug endpoint exists server-side yet)
+export const getStoryBySlug = async (slug: string): Promise<Story | undefined> =>
+  (await fetchAll<Story>("stories", "stories")).find((s) => s.slug === slug);
 
-/* ---------- News ---------- */
-export const getArticles = (): Promise<Article[]> => safeFetch<Article[]>("/news", [], "news");
-export const getFeaturedArticle = async (): Promise<Article | undefined> =>
-  (await getArticles()).find((a) => a.isFeatured);
-export const getTopStories = async (): Promise<Article[]> =>
-  (await getArticles()).filter((a) => a.isTopStory);
-export const getMostPopularArticles = async (limit = 5): Promise<Article[]> =>
-  [...(await getArticles())].sort((a, b) => b.views - a.views).slice(0, limit);
+/* ─── Business ─── */
+
+// Curated sections
+export const getBusinessSpotlight = (): Promise<Business | undefined> =>
+  fetchOne<Business>("business", { isSpotlight: true }, "business");
+
+export const getBusinessPageFeatured = (): Promise<Business[]> =>
+  fetchFiltered<Business>("business", { isFeatured: true }, 8, "business");
+
+// Home page business slot
+export const getFeaturedBusinesses = (limit = 1): Promise<Business[]> =>
+  fetchFiltered<Business>("business", { isFeaturedHome: true }, limit, "business");
+
+// Full list — for BusinessExplorer. Server handles search/industry/sort; client handles
+// secondary location/founder filters, saved bookmarks, and pagination.
+export const getBusinesses = async (params?: {
+  search?: string;
+  industry?: string;
+  sort?: string;
+}): Promise<Business[]> => {
+  const result = await getPaged<Business>(
+    "business",
+    { ...params, pageSize: 200, page: 1 },
+    "business",
+  );
+  return result.items;
+};
+
+export const getBusinessBySlug = async (slug: string): Promise<Business | undefined> =>
+  (await fetchAll<Business>("business", "business")).find((b) => b.slug === slug);
+
+/* ─── News ─── */
+
+// Curated sections
+export const getFeaturedArticle = (): Promise<Article | undefined> =>
+  fetchOne<Article>("news", { isFeatured: true }, "news");
+
+export const getTopStories = (): Promise<Article[]> =>
+  fetchFiltered<Article>("news", { isTopStory: true }, 3, "news");
+
+// Home page news slot
+export const getFeaturedHomeArticle = (): Promise<Article | undefined> =>
+  fetchOne<Article>("news", { isFeaturedHome: true }, "news");
+
+// Server-driven paginated browse — for the NewsExplorer "view all" mode
+export const getArticlesPage = (params: {
+  search?: string;
+  category?: string;
+  sort?: string;
+  page?: number;
+  pageSize?: number;
+}): Promise<Paginated<Article>> =>
+  getPaged<Article>(
+    "news",
+    { search: params.search, category: params.category, sort: params.sort,
+      page: params.page ?? 1, pageSize: params.pageSize ?? 10 },
+    "news",
+  );
+
+export const getMostPopularArticles = (limit = 5): Promise<Article[]> =>
+  fetchFiltered<Article>("news", { sort: "popular" }, limit, "news");
+
 export const getArticleBySlug = async (slug: string): Promise<Article | undefined> =>
-  (await getArticles()).find((a) => a.slug === slug);
-export const getFeaturedHomeArticle = async (): Promise<Article | undefined> =>
-  (await getArticles()).find((a) => a.isFeaturedHome);
+  (await fetchAll<Article>("news", "news")).find((a) => a.slug === slug);
 
-/* ---------- Home featured highlights ---------- */
+/* ─── Events ─── */
+
+// Curated sections
+export const getFeaturedEvents = (): Promise<AlumniEvent[]> =>
+  fetchFiltered<AlumniEvent>("events", { isFeatured: true }, 4, "events");
+
+// Home page event slot
+export const getUpcomingEvent = (): Promise<AlumniEvent | undefined> =>
+  fetchOne<AlumniEvent>("events", { isFeaturedHome: true }, "events");
+
+// Full list — for EventsView calendar and upcoming section (client-side date filtering)
+export const getEvents = (): Promise<AlumniEvent[]> =>
+  fetchAll<AlumniEvent>("events", "events", 200);
+
+// Server-driven paginated browse — for the EventsView "view all" mode
+export const getEventsPage = (params: {
+  category?: string;
+  sort?: string;
+  date?: string;
+  page?: number;
+  pageSize?: number;
+}): Promise<Paginated<AlumniEvent>> =>
+  getPaged<AlumniEvent>(
+    "events",
+    { category: params.category, sort: params.sort, date: params.date,
+      page: params.page ?? 1, pageSize: params.pageSize ?? 9 },
+    "events",
+  );
+
+export const getEventBySlug = async (slug: string): Promise<AlumniEvent | undefined> =>
+  (await fetchAll<AlumniEvent>("events", "events")).find((e) => e.slug === slug);
+
+/* ─── Home featured highlights ─── */
+
 export type FeaturedHighlight =
   | { type: "event"; event: AlumniEvent }
   | { type: "alumni"; alumni: FeaturedAlumni }
   | { type: "business"; business: Business }
   | { type: "news"; article: Article };
 
-// Strict 1-1-1-1 grid: one upcoming event · one featured alumni ·
-// one featured business · one featured news. Each slot is independent —
-// no backfilling across types.
+// Strict 1-1-1-1 grid: each slot is independently flag-driven with no backfill.
 export const getFeaturedHighlights = async (): Promise<FeaturedHighlight[]> => {
-  const [event, alumni, business, article] = await Promise.all([
+  const [event, alumni, businesses, article] = await Promise.all([
     getUpcomingEvent(),
     getFeaturedAlumni(),
-    getFeaturedBusinesses(1).then((r) => r[0] as Business | undefined),
+    getFeaturedBusinesses(1),
     getFeaturedHomeArticle(),
   ]);
+  const business = businesses[0] as Business | undefined;
 
   const highlights: FeaturedHighlight[] = [];
-  if (event)   highlights.push({ type: "event",    event });
-  if (alumni)  highlights.push({ type: "alumni",   alumni });
+  if (event)    highlights.push({ type: "event",    event });
+  if (alumni)   highlights.push({ type: "alumni",   alumni });
   if (business) highlights.push({ type: "business", business });
-  if (article) highlights.push({ type: "news",     article });
+  if (article)  highlights.push({ type: "news",     article });
   return highlights;
 };

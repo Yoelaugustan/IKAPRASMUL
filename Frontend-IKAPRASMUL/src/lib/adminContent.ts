@@ -6,6 +6,7 @@ import type {
   AlumniEvent,
   Article,
   Business,
+  Paginated,
   SigGroup,
   SigSpotlight,
   Story,
@@ -33,7 +34,10 @@ async function adminList<T>(path: string): Promise<T[]> {
   }
 
   if (!res.ok) return [];
-  return (await res.json()) as T[];
+  const data = await res.json();
+  // Handle both paginated { items: [...] } and legacy plain-array responses
+  if (Array.isArray(data)) return data as T[];
+  return ((data as Paginated<T>).items) ?? [];
 }
 
 export const getAdminSigGroups = () => adminList<SigGroup>("sig/groups");
