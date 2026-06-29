@@ -72,7 +72,6 @@ export function EditDialog<T>({
     if (open) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setForm(item);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFieldErrors(new Set());
       slugTouched.current = false;
       initialForm.current = item;
@@ -84,7 +83,6 @@ export function EditDialog<T>({
       const t = setTimeout(() => setForm(null), 300);
       return () => clearTimeout(t);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, item]);
 
   // Scroll to top so the error banner is visible when validation fails.

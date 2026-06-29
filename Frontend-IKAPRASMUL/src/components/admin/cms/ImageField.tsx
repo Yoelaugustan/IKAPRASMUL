@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 // uploads are created when the user closes without saving.
 export function ImageField({
   value,
-  onChange,
   onFileQueued,
   error,
 }: {
