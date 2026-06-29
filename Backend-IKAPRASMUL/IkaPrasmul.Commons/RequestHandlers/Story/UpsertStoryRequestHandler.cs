@@ -86,6 +86,12 @@ public class UpsertStoryRequestHandler : IRequestHandler<UpsertStoryRequest, Jso
         entity.ReadMinutes = request.ReadMinutes;
         entity.IsFeatured = request.IsFeatured;
         entity.IsHighlight = request.IsHighlight;
+        if (request.IsFeaturedHome)
+        {
+            var homeCount = await _db.Stories.CountAsync(s => s.IsFeaturedHome && s.Id != entity.Id, ct);
+            if (homeCount >= 1)
+                throw new BusinessRuleException("Only 1 story can be shown on the home page at a time.");
+        }
         entity.IsFeaturedHome = request.IsFeaturedHome;
         entity.Status = request.IsDraft ? ContentStatus.Draft : ContentStatus.Published;
 

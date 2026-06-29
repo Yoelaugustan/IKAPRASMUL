@@ -85,6 +85,12 @@ public class UpsertBusinessRequestHandler : IRequestHandler<UpsertBusinessReques
         entity.Website = request.Website;
         entity.IsSpotlight = request.IsSpotlight;
         entity.IsFeatured = request.IsFeatured;
+        if (request.IsFeaturedHome)
+        {
+            var homeCount = await _db.BusinessListings.CountAsync(b => b.IsFeaturedHome && b.Id != entity.Id, ct);
+            if (homeCount >= 1)
+                throw new BusinessRuleException("Only 1 business can be shown on the home page at a time.");
+        }
         entity.IsFeaturedHome = request.IsFeaturedHome;
         entity.Status = request.IsDraft ? ContentStatus.Draft : ContentStatus.Published;
 
