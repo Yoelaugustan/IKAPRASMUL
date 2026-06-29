@@ -379,15 +379,25 @@ export function EditDialog<T>({
           className="flex max-h-[90vh] flex-col gap-0 overflow-hidden p-0 sm:max-w-[680px]"
         >
           <div className="relative border-b px-6 py-4">
-            <div className="text-[11px] font-semibold uppercase tracking-wider text-gold">
-              {config.kicker ?? config.name}
-            </div>
-            <DialogTitle className="mt-1 text-lg text-primary">
-              {isNew ? `${t.admin.newLabel} ${config.name}` : `${t.admin.editLabel} ${config.name}`}
-            </DialogTitle>
-            <DialogDescription className="sr-only">
-              {isNew ? `${t.admin.create} ${config.name}` : `${t.admin.editLabel} ${config.name}`}
-            </DialogDescription>
+            {(() => {
+              const activeTab = config.formTabs?.find((tab) =>
+                tab.isActive ? tab.isActive(form) : getPath(form, tab.field) === tab.value,
+              );
+              const activeName = activeTab?.formName ?? config.name;
+              return (
+                <>
+                  <div className="text-[11px] font-semibold uppercase tracking-wider text-gold">
+                    {config.kicker ?? config.name}
+                  </div>
+                  <DialogTitle className="mt-1 text-lg text-primary">
+                    {isNew ? `${t.admin.newLabel} ${activeName}` : `${t.admin.editLabel} ${activeName}`}
+                  </DialogTitle>
+                  <DialogDescription className="sr-only">
+                    {isNew ? `${t.admin.create} ${activeName}` : `${t.admin.editLabel} ${activeName}`}
+                  </DialogDescription>
+                </>
+              );
+            })()}
             <button
               type="button"
               onClick={handleClose}
@@ -399,6 +409,30 @@ export function EditDialog<T>({
           </div>
 
           <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 py-5">
+            {config.formTabs && (
+              <div className="mb-5 flex gap-1 rounded-lg border bg-muted/40 p-1">
+                {config.formTabs.map((tab) => {
+                  const active = tab.isActive
+                    ? tab.isActive(form)
+                    : getPath(form, tab.field) === tab.value;
+                  return (
+                    <button
+                      key={tab.value}
+                      type="button"
+                      onClick={() => setField(tab.field, tab.value)}
+                      className={cn(
+                        "flex-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                        active
+                          ? "bg-primary text-primary-foreground shadow-sm"
+                          : "text-muted-foreground hover:text-foreground",
+                      )}
+                    >
+                      {tab.label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
             {fieldErrors.size > 0 && (
               <p className="mb-4 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs font-medium text-destructive">
                 {t.admin.requiredError}

@@ -46,12 +46,16 @@ export interface ColumnConfig<T> {
 export interface ResourceConfig<T> {
   /** Singular label, e.g. "SIG Group". */
   name: string;
+  /** Plural label when it doesn't follow the default +s rule, e.g. "News". */
+  namePlural?: string;
   /** Page heading, e.g. "SIG Groups". */
   title: string;
   subtitle: string;
   /** Small uppercase kicker shown above the edit-modal title. */
   kicker?: string;
   searchPlaceholder?: string;
+  /** Overrides the default "{New} {name}" create button label. */
+  createLabel?: string;
   /** Dot-path to the entity's unique key (used for list keys + de-dupe). */
   keyField: string;
   /** Admin API path under /api/admin (e.g. "stories", "sig/groups"). */
@@ -73,4 +77,17 @@ export interface ResourceConfig<T> {
   blank: () => T;
   /** Max number of items that can have a given toggle flag set (e.g. { isFeatured: 4, isHighlight: 3 }). */
   toggleLimits?: Partial<Record<string, number>>;
+  /**
+   * When set, renders a pill tab switcher at the top of the form body.
+   * Each tab sets `field` to `value` when clicked. `isActive` determines
+   * which tab appears selected; defaults to `getPath(form, field) === value`.
+   */
+  formTabs?: {
+    label: string;
+    field: string;
+    value: string;
+    isActive?: (form: unknown) => boolean;
+    /** Overrides config.name in the dialog title when this tab is active. */
+    formName?: string;
+  }[];
 }

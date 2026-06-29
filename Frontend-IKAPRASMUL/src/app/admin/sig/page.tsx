@@ -3,7 +3,7 @@ import { getAdminSigGroups, getAdminSigSpotlights } from "@/lib/adminContent";
 import { SigManager } from "@/components/admin/cms/SigManager";
 
 export const metadata: Metadata = {
-  title: "SIG Groups",
+  title: "SIG",
   robots: { index: false, follow: false },
 };
 

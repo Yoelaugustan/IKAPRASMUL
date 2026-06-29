@@ -36,7 +36,7 @@ export function StatCardSkeleton() {
 // Full table skeleton (header + rows) for CMS pages
 export function ResourceTableSkeleton({ rows = 8 }: { rows?: number }) {
   return (
-    <div className="mx-auto max-w-[1180px]">
+    <div>
       {/* Page title */}
       <div className="flex items-end justify-between gap-5">
         <div className="space-y-2">
@@ -74,7 +74,7 @@ export function ResourceTableSkeleton({ rows = 8 }: { rows?: number }) {
 // Dashboard skeleton
 export function DashboardSkeleton() {
   return (
-    <div className="mx-auto max-w-[1080px]">
+    <div>
       <Skeleton className="h-7 w-36" />
       <Skeleton className="mt-1.5 h-4 w-80" />
 

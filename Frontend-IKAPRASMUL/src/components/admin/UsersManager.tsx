@@ -222,7 +222,7 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
   const paginated = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div>
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>

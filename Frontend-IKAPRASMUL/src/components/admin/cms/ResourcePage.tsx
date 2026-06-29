@@ -38,7 +38,7 @@ export function ResourcePage<T>({
   const count = r.filtered.length;
 
   return (
-    <div className="mx-auto max-w-[1180px]">
+    <div>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-primary">
@@ -59,7 +59,7 @@ export function ResourcePage<T>({
           )}
           <Button onClick={r.openNew} className="gap-2">
             <Plus className="size-4" />
-            {t.admin.newItem} {config.name}
+            {config.createLabel ?? `${t.admin.newItem} ${config.name}`}
           </Button>
         </div>
       </div>
@@ -78,7 +78,7 @@ export function ResourcePage<T>({
         </div>
 
         <Select value={r.sortBy} onValueChange={(v) => r.setSortBy(v as typeof r.sortBy)}>
-          <SelectTrigger className="w-[140px] shrink-0 sm:w-[160px]">
+          <SelectTrigger className="w-[175px] shrink-0 sm:w-[200px]">
             <ArrowUpDown className="mr-2 size-3.5 text-muted-foreground" />
             <SelectValue />
           </SelectTrigger>
@@ -91,7 +91,7 @@ export function ResourcePage<T>({
         </Select>
 
         <span className="ml-auto shrink-0 text-sm text-muted-foreground">
-          {count} {count === 1 ? config.name : `${config.name}s`}
+          {count} {count === 1 ? config.name : (config.namePlural ?? `${config.name}s`)}
         </span>
       </div>
 
@@ -151,7 +151,7 @@ export function ResourcePage<T>({
 
             {count === 0 && (
               <div className="border-t px-6 py-12 text-center text-sm text-muted-foreground">
-                No {config.name.toLowerCase()}s {t.admin.noResults}
+                No {(config.namePlural ?? `${config.name}s`).toLowerCase()} {t.admin.noResults}
               </div>
             )}
           </div>

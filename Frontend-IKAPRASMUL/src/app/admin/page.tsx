@@ -86,7 +86,7 @@ export default async function AdminDashboardPage() {
   ];
 
   return (
-    <div className="mx-auto max-w-[1080px]">
+    <div>
       <h1 className="text-2xl font-bold tracking-tight text-primary">
         {t.admin.dashboard}
       </h1>
