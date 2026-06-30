@@ -320,7 +320,7 @@ const en = {
     errorToast: "Something went wrong. Please try again.",
   },
   lists: {
-    storiesHighlight: "Stories Highlight",
+    storiesHighlight: "Top Story",
     viewAllStories: "View All Stories",
     backToFeatured: "Back to Featured",
     allStories: "All Stories",
@@ -1006,7 +1006,7 @@ const id: Dictionary = {
     errorToast: "Terjadi kesalahan. Silakan coba lagi.",
   },
   lists: {
-    storiesHighlight: "Sorotan Cerita",
+    storiesHighlight: "Certia Utama",
     viewAllStories: "Lihat Semua Cerita",
     backToFeatured: "Kembali ke Unggulan",
     allStories: "Semua Cerita",
@@ -1104,7 +1104,7 @@ const id: Dictionary = {
     noFeaturedTitle: "Belum ada berita unggulan saat ini",
     noFeaturedDesc:
       "Artikel tidak dapat dimuat. Silakan periksa kembali sebentar lagi.",
-    topStories: "Berita Terpilih",
+    topStories: "Berita Utama",
     viewAllStories: "Lihat Semua Berita",
     mostPopular: "Terpopuler",
     viewAll: "Lihat Semua",
