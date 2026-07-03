@@ -89,6 +89,15 @@ export function SmoothScroll() {
     };
     raf = requestAnimationFrame(loop);
 
+    // Lenis measures document.documentElement, but `<html>` is locked to the
+    // viewport height (h-full in the layout), so Lenis's own ResizeObserver
+    // never fires when the *body* grows — late-loading images, Reveal
+    // animations, Google Translate reflow, etc. That leaves Lenis's cached
+    // scroll limit stale, so it clamps you back to an old "stuck" point until a
+    // refresh. Observe the body (which does grow) and force a re-measure.
+    const resizeObserver = new ResizeObserver(() => lenis.resize());
+    resizeObserver.observe(document.body);
+
     const onClick = (e: MouseEvent) => {
       const anchor = (e.target as HTMLElement).closest<HTMLAnchorElement>(
         'a[href^="#"]',
@@ -105,6 +114,7 @@ export function SmoothScroll() {
 
     return () => {
       cancelAnimationFrame(raf);
+      resizeObserver.disconnect();
       document.removeEventListener("click", onClick);
       lenis.destroy();
       setLenisInstance(null);
