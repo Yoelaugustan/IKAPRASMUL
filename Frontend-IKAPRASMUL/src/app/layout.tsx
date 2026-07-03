@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { SmoothScroll } from "@/components/shared/SmoothScroll";
 import { NavSourceProvider } from "@/components/shared/NavSourceProvider";
 import { LanguageProvider } from "@/components/shared/LanguageProvider";
+import { GoogleTranslate } from "@/components/shared/GoogleTranslate";
 import { getLang } from "@/i18n/server";
 
 const sans = Inter({
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     "The digital home for Prasetiya Mulya alumni. Connect. Grow. Give Back. Discover alumni stories, businesses, shared interest groups, and news.",
   metadataBase: new URL("https://Ikaprasmul.id"),
   openGraph: {
-    title: "IKAPRASMUL - Prasmul Alumni Association",
+    title: "IKAPRASMUL - Ikatan Alumni Prasetiya Mulya",
     description: "Connect. Grow. Give Back.",
     type: "website",
   },
@@ -44,6 +45,7 @@ export default async function RootLayout({
         <SmoothScroll />
         <Providers>
           <LanguageProvider initialLang={lang}>
+            <GoogleTranslate />
             <NavSourceProvider>{children}</NavSourceProvider>
             <Toaster richColors position="top-center" />
           </LanguageProvider>

@@ -36,7 +36,8 @@ export function ContactModal() {
     <Dialog open={isOpen} onOpenChange={setOpen}>
       <DialogContent
         showCloseButton={false}
-        className="max-h-[92vh] gap-0 overflow-y-auto border-0 p-0 sm:max-w-4xl"
+        translate="no"
+        className="notranslate max-h-[92vh] gap-0 overflow-y-auto border-0 p-0 sm:max-w-4xl"
       >
         {/* Navy header bar — sticky so the title and the close button stay
             reachable while scrolling the form on mobile. */}

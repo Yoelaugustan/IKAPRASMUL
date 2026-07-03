@@ -294,3 +294,28 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none !important;
 }
+
+/* Google Translate widget runs headless (see GoogleTranslate.tsx) — hide every
+   piece of its default UI so only the translated text itself is visible. The
+   component also enforces this in JS with inline !important as a backstop. */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+iframe.goog-te-banner-frame,
+iframe.skiptranslate,
+.goog-te-gadget-icon,
+#goog-gt-tt,
+.goog-tooltip,
+.goog-tooltip:hover,
+#google_translate_element {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+body,
+html {
+  top: 0 !important;
+}
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}

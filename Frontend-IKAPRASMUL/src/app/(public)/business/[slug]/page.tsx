@@ -45,7 +45,10 @@ export default async function BusinessDetailPage({ params }: Params) {
           {business.industry}
         </span>
 
-        <h1 className="mt-3 text-3xl font-bold leading-tight text-primary sm:text-4xl">
+        <h1
+          className="mt-3 text-3xl font-bold leading-tight text-primary sm:text-4xl notranslate"
+          translate="no"
+        >
           {business.name}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">

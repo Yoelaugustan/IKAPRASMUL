@@ -31,7 +31,10 @@ export function SiteHeader() {
     href === ROUTES.home ? pathname === href : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/25 bg-primary text-primary-foreground">
+    <header
+      translate="no"
+      className="notranslate sticky top-0 z-50 border-b border-white/25 bg-primary text-primary-foreground"
+    >
       <Container>
         <div className="flex h-[72px] items-center justify-between gap-3">
           <Link href={ROUTES.home} aria-label="IKAPRASMUL home" className="shrink-0">
@@ -92,7 +95,8 @@ export function SiteHeader() {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-80 border-white/10 bg-primary text-primary-foreground"
+                translate="no"
+                className="notranslate w-80 border-white/10 bg-primary text-primary-foreground"
               >
                 <SheetHeader>
                   <SheetTitle>
