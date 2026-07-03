@@ -45,6 +45,12 @@ public class BusinessListing : IHaveCreateAndUpdateAudit
     [StringLength(500)]
     public string? CoverImage { get; set; }
 
+    [StringLength(500)]
+    public string? CoverImage2 { get; set; }
+
+    [StringLength(500)]
+    public string? CoverImage3 { get; set; }
+
     [StringLength(255)]
     public string? Website { get; set; }
 

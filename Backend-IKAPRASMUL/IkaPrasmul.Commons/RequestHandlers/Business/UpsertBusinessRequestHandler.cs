@@ -34,6 +34,8 @@ public class UpsertBusinessRequestHandler : IRequestHandler<UpsertBusinessReques
         // Snapshot old local file URLs before overwriting (update path only).
         var oldLogo = entity?.Logo;
         var oldCover = entity?.CoverImage;
+        var oldCover2 = entity?.CoverImage2;
+        var oldCover3 = entity?.CoverImage3;
         var oldBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity?.Description).ToHashSet();
 
         var now = DateTime.UtcNow;
@@ -82,6 +84,8 @@ public class UpsertBusinessRequestHandler : IRequestHandler<UpsertBusinessReques
         entity.Description = ContentSanitizer.Sanitize(request.Description);
         entity.Logo = request.Logo;
         entity.CoverImage = request.CoverImage;
+        entity.CoverImage2 = request.CoverImage2;
+        entity.CoverImage3 = request.CoverImage3;
         entity.Website = request.Website;
         entity.IsSpotlight = request.IsSpotlight;
         entity.IsFeatured = request.IsFeatured;
@@ -100,6 +104,8 @@ public class UpsertBusinessRequestHandler : IRequestHandler<UpsertBusinessReques
         {
             if (oldLogo != entity.Logo) await _files.DeleteAsync(oldLogo, ct);
             if (oldCover != entity.CoverImage) await _files.DeleteAsync(oldCover, ct);
+            if (oldCover2 != entity.CoverImage2) await _files.DeleteAsync(oldCover2, ct);
+            if (oldCover3 != entity.CoverImage3) await _files.DeleteAsync(oldCover3, ct);
             var newBodyUrls = ContentSanitizer.ExtractLocalImageUrls(entity.Description).ToHashSet();
             foreach (var url in oldBodyUrls.Except(newBodyUrls))
                 await _files.DeleteAsync(url, ct);

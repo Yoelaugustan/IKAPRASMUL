@@ -152,6 +152,8 @@ public class ContentSeederHostedService : IHostedService
         Description = Str(e, "description"),
         Logo = Str(e, "logo"),
         CoverImage = Str(e, "coverImage"),
+        CoverImage2 = Str(e, "coverImage2"),
+        CoverImage3 = Str(e, "coverImage3"),
         Website = Str(e, "website"),
         IsSpotlight = Bool(e, "isSpotlight"),
         IsFeatured = Bool(e, "isFeatured"),

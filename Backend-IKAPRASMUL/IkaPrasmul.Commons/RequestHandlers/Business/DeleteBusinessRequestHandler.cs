@@ -24,6 +24,8 @@ public class DeleteBusinessRequestHandler : IRequestHandler<DeleteBusinessReques
         {
             var logo = entity.Logo;
             var coverImage = entity.CoverImage;
+            var coverImage2 = entity.CoverImage2;
+            var coverImage3 = entity.CoverImage3;
             var bodyImageUrls = ContentSanitizer.ExtractLocalImageUrls(entity.Description);
 
             _db.BusinessListings.Remove(entity);
@@ -31,6 +33,8 @@ public class DeleteBusinessRequestHandler : IRequestHandler<DeleteBusinessReques
 
             await _files.DeleteAsync(logo, ct);
             await _files.DeleteAsync(coverImage, ct);
+            await _files.DeleteAsync(coverImage2, ct);
+            await _files.DeleteAsync(coverImage3, ct);
             foreach (var url in bodyImageUrls)
                 await _files.DeleteAsync(url, ct);
         }

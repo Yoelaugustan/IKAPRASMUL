@@ -68,6 +68,10 @@ public static class ContentJson
         description = b.Description,
         logo = b.Logo,
         coverImage = b.CoverImage,
+        coverImage2 = b.CoverImage2,
+        coverImage3 = b.CoverImage3,
+        coverImages = new[] { b.CoverImage, b.CoverImage2, b.CoverImage3 }
+            .Where(x => !string.IsNullOrWhiteSpace(x)).ToArray(),
         website = b.Website,
         isSpotlight = b.IsSpotlight,
         isFeatured = b.IsFeatured,
