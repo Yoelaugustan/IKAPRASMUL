@@ -31,4 +31,8 @@ public class AdminNewsController : AdminControllerBase
         await _mediator.Send(new DeleteNewsRequest(slug), ct);
         return NoContent();
     }
+
+    [HttpPost("{slug}/send-newsletter")]
+    public async Task<IActionResult> SendNewsletter(string slug, CancellationToken ct) =>
+        Ok(await _mediator.Send(new SendNewsletterRequest { Slug = slug }, ct));
 }

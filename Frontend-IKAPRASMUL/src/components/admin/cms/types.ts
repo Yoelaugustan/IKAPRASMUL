@@ -90,4 +90,16 @@ export interface ResourceConfig<T> {
     /** Overrides config.name in the dialog title when this tab is active. */
     formName?: string;
   }[];
+  /**
+   * Optional per-row "send" action (currently: emailing a Newsletter-type News
+   * item to every newsletter subscriber). Shown as an extra icon button in the
+   * Actions column when `isEligible` returns true, and offered as an automatic
+   * confirm-to-send prompt right after a matching item is saved.
+   */
+  sendAction?: {
+    isEligible: (item: T) => boolean;
+    /** Decide whether to auto-prompt right after a successful save. */
+    shouldPromptAfterSave: (saved: T, previous: T | null, isNew: boolean) => boolean;
+    send: (item: T) => Promise<{ sentCount: number; subscriberCount: number }>;
+  };
 }

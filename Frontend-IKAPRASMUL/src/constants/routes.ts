@@ -16,6 +16,7 @@ export const ROUTES = {
   eventDetail: (slug: string) => `/events/${slug}`,
   sigDetail: (id: string) => `/sig/${id}`,
   featuredAlumni: "/featured-alumni",
+  unsubscribe: "/unsubscribe",
 
   // Admin sign-in (no public registration)
   login: "/login",

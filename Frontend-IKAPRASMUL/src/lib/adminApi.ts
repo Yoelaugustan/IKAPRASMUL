@@ -13,6 +13,16 @@ export async function deleteResource(resourcePath: string, key: string): Promise
   await client.delete(`/api/admin/${resourcePath}/${encodeURIComponent(key)}`);
 }
 
+/** Sends a published Newsletter-type news item to every active subscriber. */
+export async function sendNewsletter(
+  slug: string,
+): Promise<{ sentCount: number; subscriberCount: number; message: string }> {
+  const { data } = await client.post<{ sentCount: number; subscriberCount: number; message: string }>(
+    `/api/admin/news/${encodeURIComponent(slug)}/send-newsletter`,
+  );
+  return data;
+}
+
 /** Upload an image or PDF; returns the stored public URL path.
  *  Pass `folder` to save into a named wwwroot subfolder (e.g. "media/news"). */
 export async function uploadFile(file: File, folder?: string): Promise<string> {

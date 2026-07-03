@@ -25,6 +25,7 @@ public static class DependencyInjection
         services.Configure<ContactOptions>(configuration.GetSection(ContactOptions.SectionName));
         services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.SectionName));
         services.Configure<UploadOptions>(configuration.GetSection(UploadOptions.SectionName));
+        services.Configure<AppUrlsOptions>(configuration.GetSection(AppUrlsOptions.SectionName));
 
         services.AddScoped<IEmailService, SmtpEmailService>();
         services.AddSingleton<ITokenService, JwtTokenService>();

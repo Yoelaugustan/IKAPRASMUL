@@ -1,7 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { Plus, Search, Pencil, Trash2, ChevronLeft, ChevronRight, ArrowUpDown, ExternalLink } from "lucide-react";
+import { useState, type ReactNode } from "react";
+import { Plus, Search, Pencil, Trash2, Send, ChevronLeft, ChevronRight, ArrowUpDown, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,7 @@ import {
 import { useResource } from "./useResource";
 import { EditDialog } from "./EditDialog";
 import { DeleteDialog } from "./DeleteDialog";
+import { SendNewsletterDialog } from "./SendNewsletterDialog";
 import type { ResourceConfig } from "./types";
 import { useLang } from "@/components/shared/LanguageProvider";
 
@@ -30,7 +31,18 @@ export function ResourcePage<T>({
   initialItems: T[];
   subTabs?: ReactNode;
 }) {
-  const r = useResource(config, initialItems);
+  const [sendTarget, setSendTarget] = useState<T | null>(null);
+  const r = useResource(config, initialItems, {
+    onSaved: (saved, ctx) => {
+      if (config.sendAction?.shouldPromptAfterSave(saved, ctx.previous, ctx.isNew)) {
+        // EditDialog is closing in this same tick (its Radix Dialog is playing
+        // a ~300ms close animation). Opening another Dialog instance before
+        // that finishes confuses Radix's dismissable-layer handling and the
+        // new one closes itself almost immediately. Wait it out first.
+        setTimeout(() => setSendTarget(saved), 350);
+      }
+    },
+  });
   const { t } = useLang();
   const { columns } = config;
   // One track per column plus a fixed 76px track for the actions cell.
@@ -129,6 +141,16 @@ export function ResourcePage<T>({
                   </div>
                 ))}
                 <div className="flex justify-end gap-1">
+                  {config.sendAction?.isEligible(row) && (
+                    <button
+                      type="button"
+                      onClick={() => setSendTarget(row)}
+                      title={t.admin.sendNewsletterButtonTitle}
+                      className="grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-primary"
+                    >
+                      <Send className="size-4" />
+                    </button>
+                  )}
                   <button
                     type="button"
                     onClick={() => r.openEdit(row)}
@@ -203,6 +225,14 @@ export function ResourcePage<T>({
         onClose={r.cancelDelete}
         onConfirm={r.confirmDelete}
       />
+      {config.sendAction && (
+        <SendNewsletterDialog
+          open={sendTarget !== null}
+          title={sendTarget ? config.getLabel(sendTarget) : ""}
+          onClose={() => setSendTarget(null)}
+          onSend={() => config.sendAction!.send(sendTarget as T)}
+        />
+      )}
     </div>
   );
 }

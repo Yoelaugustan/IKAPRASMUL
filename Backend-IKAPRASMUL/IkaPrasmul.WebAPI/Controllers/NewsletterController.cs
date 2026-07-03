@@ -28,4 +28,14 @@ public class NewsletterController : ControllerBase
         var result = await _mediator.Send(request, cancellationToken);
         return Ok(result);
     }
+
+    // GET so the link in the newsletter email works as a plain <a href>.
+    [HttpGet("unsubscribe")]
+    public async Task<ActionResult<SubscribeResponse>> Unsubscribe(
+        [FromQuery] string email,
+        CancellationToken cancellationToken)
+    {
+        var result = await _mediator.Send(new UnsubscribeRequest { Email = email }, cancellationToken);
+        return Ok(result);
+    }
 }

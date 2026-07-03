@@ -110,6 +110,9 @@ public class UpsertNewsRequestHandler : IRequestHandler<UpsertNewsRequest, JsonE
                 await _files.DeleteAsync(url, ct);
         }
 
+        // Sending to subscribers is a separate, explicit admin action — see
+        // SendNewsletterRequestHandler — triggered from the UI after the admin
+        // confirms, rather than automatically on every publish.
         return ContentJson.News(entity);
     }
 

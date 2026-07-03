@@ -5,6 +5,7 @@ import { Thumb } from "../Thumb";
 import { formatDate } from "../utils";
 import type { ResourceConfig } from "../types";
 import type { Dictionary } from "@/i18n/dictionaries";
+import { sendNewsletter } from "@/lib/adminApi";
 
 type A = Dictionary["admin"];
 
@@ -60,8 +61,12 @@ export const newsConfig = (a: A): ResourceConfig<Article> => ({
     },
     {
       header: a.colCategory,
-      width: "118px",
-      cell: (article) => <Badge variant="secondary">{article.category}</Badge>,
+      width: "160px",
+      cell: (article) => (
+        <Badge variant="secondary" className="max-w-full truncate">
+          {article.category}
+        </Badge>
+      ),
     },
     {
       header: a.colPublished,
@@ -184,4 +189,14 @@ export const newsConfig = (a: A): ResourceConfig<Article> => ({
     isDraft: false,
   }),
   toggleLimits: { isFeatured: 1, isTopStory: 3, isFeaturedHome: 1 },
+  sendAction: {
+    isEligible: (article) => article.type === "newsletter" && !article.isDraft,
+    shouldPromptAfterSave: (saved, previous, isNew) => {
+      if (saved.type !== "newsletter" || saved.isDraft) return false;
+      const wasAlreadyEligible =
+        !isNew && !!previous && previous.type === "newsletter" && !previous.isDraft;
+      return !wasAlreadyEligible;
+    },
+    send: (article) => sendNewsletter(article.slug),
+  },
 });

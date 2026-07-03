@@ -12,7 +12,15 @@ import { deleteResource, saveResource } from "@/lib/adminApi";
 // local state + revalidate the route.
 export type SortOption = "newest" | "oldest" | "az" | "za";
 
-export function useResource<T>(config: ResourceConfig<T>, initial: T[]) {
+export function useResource<T>(
+  config: ResourceConfig<T>,
+  initial: T[],
+  options?: {
+    /** Called right after a successful save with the saved item, whether it
+     * was a new record, and the pre-edit item (null for new records). */
+    onSaved?: (saved: T, ctx: { isNew: boolean; previous: T | null }) => void;
+  },
+) {
   const router = useRouter();
   const [items, setItems] = useState<T[]>(initial);
   const [query, setQuery] = useState("");
@@ -127,6 +135,7 @@ export function useResource<T>(config: ResourceConfig<T>, initial: T[]) {
       toast.success(`${config.name} ${action}`);
       setEditing(null);
       router.refresh();
+      options?.onSaved?.(saved, { isNew, previous: editingSnapshot?.item ?? null });
     } catch (error) {
       toast.error(
         error instanceof Error ? error.message : `Couldn't save ${config.name}.`,
