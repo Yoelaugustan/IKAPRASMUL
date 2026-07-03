@@ -10,7 +10,6 @@ import { scrollToElement } from "@/lib/scroll";
 import { Container } from "@/components/layouts/Container";
 import { Reveal } from "@/components/shared/Reveal";
 import { useDragScroll } from "@/hooks/useDragScroll";
-import { useDebounce } from "@/hooks/useDebounce";
 import {
   Select,
   SelectContent,
@@ -53,9 +52,9 @@ export function NewsExplorer({
   const sort = (searchParams.get("sort") || "newest") as Sort;
   const appliedSearch = searchParams.get("search") || "";
 
-  // Local draft for the search input — pushed to URL after debounce.
+  // Local draft for the search input — only pushed to the URL via applySearch
+  // (Search button or Enter key), not automatically while typing.
   const [draftQuery, setDraftQuery] = useState(appliedSearch);
-  const debouncedQuery = useDebounce(draftQuery, 400);
 
   // Keep the input in sync when URL search param changes externally (e.g. back button).
   // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -87,21 +86,6 @@ export function NewsExplorer({
     const qs = params.toString();
     router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
   };
-
-  // After debounce fires, push search to URL. Skip the first render to avoid
-  // pushing the initial value (which is already in the URL).
-  const isFirstDebounce = useRef(true);
-  useEffect(() => {
-    if (isFirstDebounce.current) { isFirstDebounce.current = false; return; }
-    const params = new URLSearchParams(window.location.search);
-    if (debouncedQuery) params.set("search", debouncedQuery);
-    else params.delete("search");
-    params.set("view", "all");
-    params.delete("page");
-    const qs = params.toString();
-    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedQuery]);
 
   const applySearch = () => {
     setParams({ search: draftQuery, view: "all" });
