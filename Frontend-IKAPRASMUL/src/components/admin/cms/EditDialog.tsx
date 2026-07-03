@@ -38,7 +38,7 @@ interface EditDialogProps<T> {
   /** Full unfiltered list used to enforce toggle slot limits. */
   allItems?: T[];
   onClose: () => void;
-  onSave: (draft: T) => void;
+  onSave: (draft: T) => Promise<void>;
 }
 
 export function EditDialog<T>({
@@ -172,6 +172,7 @@ export function EditDialog<T>({
           <ImageField
             value={str(field.key)}
             error={error}
+            clearable={!field.required}
             onChange={(value) => setField(field.key, value)}
             onFileQueued={(file) => handleFileQueued(field.key, file)}
           />
@@ -345,9 +346,14 @@ export function EditDialog<T>({
     }
     pendingBodyImages.current.clear();
 
-    setSaving(false);
-
-    onSave(hasDraftSupport ? setPath(current, "isDraft", asDraft) : current);
+    // Keep `saving` true across the actual persistence call (the slow part —
+    // the network request to the admin API) so the loading state stays visible
+    // and the buttons stay disabled the whole time, not just during uploads.
+    try {
+      await onSave(hasDraftSupport ? setPath(current, "isDraft", asDraft) : current);
+    } finally {
+      setSaving(false);
+    }
   };
 
   // On close, auto-save as draft for new items only when the label field is
@@ -376,6 +382,19 @@ export function EditDialog<T>({
           showCloseButton={false}
           className="flex max-h-[90vh] flex-col gap-0 overflow-hidden p-0 sm:max-w-[680px]"
         >
+          {saving && (
+            <div className="absolute inset-0 z-50 flex flex-col items-center justify-center gap-3 bg-white/85 backdrop-blur-[1px]">
+              <Loader2 className="size-8 animate-spin text-primary" />
+              <div className="text-center">
+                <p className="text-sm font-semibold text-foreground">
+                  {t.admin.savingOverlayTitle}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {t.admin.savingOverlayDesc}
+                </p>
+              </div>
+            </div>
+          )}
           <div className="relative border-b px-6 py-4">
             {(() => {
               const activeTab = config.formTabs?.find((tab) =>
@@ -462,11 +481,7 @@ export function EditDialog<T>({
           </div>
 
           <div className="flex items-center justify-between gap-3 border-t bg-surface px-6 py-4">
-            {saving && (
-              <span className="text-xs text-muted-foreground">
-                {t.admin.uploading}
-              </span>
-            )}
+            <div />
             <div className="flex gap-2.5">
               {hasDraftSupport && (
                 <Button
