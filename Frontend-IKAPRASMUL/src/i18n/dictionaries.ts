@@ -143,7 +143,7 @@ const en = {
       {
         year: "1983 – 1986",
         description:
-          "IKAPRAMA was led by Mr. Ir. Sukiman Hendrokusumo, MSc (MBA Modular 1986, PT. Pembangunan Jaya).",
+          "IKAPRAMA was led by Mr. Ir. Sukiman Hendrokusumo, MSc (MBA Modular 1986, PT Pembangunan Jaya).",
       },
       {
         year: "1987 – 1988",
@@ -153,7 +153,7 @@ const en = {
       {
         year: "1988 – 1990",
         description:
-          "IKAPRAMA was led by Mr. Eddy Sutjipto, MBA (MBA Modular 1988, Director of PT. Wijaya Kusuma Contractors).",
+          "IKAPRAMA was led by Mr. Eddy Sutjipto, MBA (MBA Modular 1988, Director of PT Wijaya Kusuma Contractors).",
       },
       {
         year: "1990 – 1994",
@@ -173,37 +173,37 @@ const en = {
       {
         year: "1997 – 2000",
         description:
-          "IKAPRAMA was led by Mr. Pulung Peranginangin, MM (MME MS Batch 5, Chairman of PT. Gema Graha Sarana Tbk).",
+          "IKAPRAMA was led by Mr. Pulung Peranginangin, M.M. (MME MS Batch 5, Chairman of PT Gema Graha Sarana Tbk).",
       },
       {
         year: "2001 – 2005",
         description:
-          "IKAPRAMA was led by Mr. Eddy Junaedi Danu, MM (MME MS Batch 10, Director of PT. Indika Energy, Tbk).",
+          "IKAPRAMA was led by Mr. Eddy Junaedi Danu, M.M. (MME MS Batch 10, Director of PT Indika Energy, Tbk).",
       },
       {
         year: "2005 – 2010",
         description:
-          "IKAPRAMA was led by Mr. Djuanda Nugraha Ibrahim, MM (MME MS Batch 16, Director of Human Resources & Organization at PT PLN).",
+          "IKAPRAMA was led by Mr. Djuanda Nugraha Ibrahim, M.M. (MME MS Batch 16, Director of Human Resources & Organization at PT PLN).",
       },
       {
         year: "2010 – 2015",
         description:
-          "IKAPRAMA was led by Mr. Taslim Yunus, MM (MME MS Batch 8 – Vice President of SKK Migas).",
+          "IKAPRAMA was led by Mr. Taslim Yunus, M.M. (MME MS Batch 8 – Vice President of SKK Migas).",
       },
       {
         year: "2015 – 2020",
         description:
-          "IKAPRAMA was led by Mr. Dr. Harris Turino, MM (MME MS Batch 10 – CEO of Kleo Beauty Group).",
+          "IKAPRAMA was led by Mr. Dr. Harris Turino, M.M. (MME MS Batch 10 – CEO of Kleo Beauty Group).",
       },
       {
         year: "2020 – 2025",
         description:
-          "IKAPRAMA was led by Mr. Ir. Maspiyono Handoyo, MM (MM SM 10 – Regional Managing Director of PT. Mayora Indah Tbk).",
+          "IKAPRAMA was led by Mr. Ir. Maspiyono Handoyo, M.M. (MM SM 10 – Regional Managing Director of PT Mayora Indah Tbk).",
       },
       {
         year: "2025 – 2029",
         description:
-          "IKAPRAMA was renamed to IKA PRASMUL. Led by Mr. Edy Sutrisman, MM (MMSM 47 - President Commissioner of PT Rekayasa Engineering).",
+          "IKAPRAMA was renamed to IKA PRASMUL. Led by Mr. Edy Sutrisman, M.M. (MMSM 47 - President Commissioner of PT Rekayasa Engineering).",
       },
     ],
     governanceTitle: "Governance Structure",
@@ -319,6 +319,15 @@ const en = {
     successToast: "You're subscribed! Watch your inbox for updates.",
     errorToast: "Something went wrong. Please try again.",
   },
+  unsubscribe: {
+    successTitle: "You've been unsubscribed",
+    successDesc:
+      "You won't receive any more newsletter emails from IKAPRASMUL. You can subscribe again anytime from the News page.",
+    errorTitle: "We couldn't process that",
+    errorDesc:
+      "This unsubscribe link looks invalid or has expired. If you keep getting our newsletter, please contact us and we'll remove you manually.",
+    backHome: "Back to Home",
+  },
   lists: {
     storiesHighlight: "Top Story",
     viewAllStories: "View All Stories",
@@ -400,6 +409,9 @@ const en = {
     noResultsTitle: "No businesses found",
     noResultsDesc: "Try a different search term, industry, or filter.",
     allIndustries: "All Industries",
+    featured: "Featured Business",
+    alumnus: "Alumnus",
+    alumniProgram: "Alumni Program",
   },
   newsList: {
     searchPlaceholder: "Search articles, topics, or authors",
@@ -549,13 +561,28 @@ const en = {
     saveChanges: "Save changes",
     create: "Create",
     savingDraft: "Saving as draft…",
+    savingOverlayTitle: "Saving your changes",
+    savingOverlayDesc: "This can take a few seconds — please don't close this window.",
+    savedToast: "Saved successfully.",
     limitReached: "Limit of {n} reached — remove one first.",
+    deletingOverlayTitle: "Deleting…",
     // Delete dialog
     deleteTitle: "Delete this item?",
     deleteDescBefore: "You're about to delete",
     deleteDescAfter: ". This removes it from the public site and can't be undone.",
     cancel: "Cancel",
     delete: "Delete",
+    // Send newsletter dialog
+    sendNewsletterButtonTitle: "Send to subscribers",
+    sendNewsletterTitle: "Send this newsletter?",
+    sendNewsletterDescBefore: "This will email",
+    sendNewsletterDescAfter:
+      " to everyone in your active newsletter subscription list. This can't be undone.",
+    notNow: "Not Now",
+    sendToAll: "Send to All",
+    sendingNewsletter: "Sending to subscribers…",
+    newsletterSentToast: "Newsletter sent",
+    newsletterSendErrorToast: "Couldn't send the newsletter.",
     // Login page panel
     adminConsole: "Admin Console",
     adminTagline: "Manage the home of Prasmul alumni.",
@@ -625,7 +652,7 @@ const en = {
     tabSigSpotlight: "SIG Spotlight",
     // CMS column headers
     colStory: "Story",
-    colArticle: "Article",
+    colArticle: "News",
     colEvent: "Event",
     colBusiness: "Business",
     colGroup: "Group",
@@ -824,7 +851,7 @@ const id: Dictionary = {
       {
         year: "1983 – 1986",
         description:
-          "IKAPRAMA dipimpin oleh Bpk Ir. Sukiman Hendrokusumo, MSc (MBA Modular 1986, PT. Pembangunan Jaya).",
+          "IKAPRAMA dipimpin oleh Bpk Ir. Sukiman Hendrokusumo, MSc (MBA Modular 1986, PT Pembangunan Jaya).",
       },
       {
         year: "1987 – 1988",
@@ -834,7 +861,7 @@ const id: Dictionary = {
       {
         year: "1988 – 1990",
         description:
-          "IKAPRAMA dipimpin oleh Bapak Eddy Sutjipto, MBA (MBA Modular 1988, Direktur PT. Wijaya Kusuma Contractors).",
+          "IKAPRAMA dipimpin oleh Bapak Eddy Sutjipto, MBA (MBA Modular 1988, Direktur PT Wijaya Kusuma Contractors).",
       },
       {
         year: "1990 – 1994",
@@ -854,37 +881,37 @@ const id: Dictionary = {
       {
         year: "1997 – 2000",
         description:
-          "IKAPRAMA dipimpin oleh Bapak Pulung Peranginangin, MM (MME MS Batch 5, Chairman PT. Gema Graha Sarana Tbk).",
+          "IKAPRAMA dipimpin oleh Bapak Pulung Peranginangin, M.M. (MME MS Batch 5, Chairman PT Gema Graha Sarana Tbk).",
       },
       {
         year: "2001 – 2005",
         description:
-          "IKAPRAMA dipimpin oleh Bapak Eddy Junaedi Danu, MM (MME MS Batch 10, Director PT. Indika Energy, Tbk).",
+          "IKAPRAMA dipimpin oleh Bapak Eddy Junaedi Danu, M.M. (MME MS Batch 10, Director PT Indika Energy, Tbk).",
       },
       {
         year: "2005 – 2010",
         description:
-          "IKAPRAMA dipimpin oleh Bapak Djuanda Nugraha Ibrahim, MM (MME MS Batch 16, Direktur Sumber Daya Manusia dan Organisasi PT PLN).",
+          "IKAPRAMA dipimpin oleh Bapak Djuanda Nugraha Ibrahim, M.M. (MME MS Batch 16, Direktur Sumber Daya Manusia dan Organisasi PT PLN).",
       },
       {
         year: "2010 – 2015",
         description:
-          "IKAPRAMA dipimpin oleh Bapak Taslim Yunus, MM (MME MS Batch 8 – Vice President SKK Migas).",
+          "IKAPRAMA dipimpin oleh Bapak Taslim Yunus, M.M. (MME MS Batch 8 – Vice President SKK Migas).",
       },
       {
         year: "2015 – 2020",
         description:
-          "IKAPRAMA dipimpin oleh Bapak Dr. Harris Turino, MM (MME MS Batch 10 – CEO Kleo Beauty Group).",
+          "IKAPRAMA dipimpin oleh Bapak Dr. Harris Turino, M.M. (MME MS Batch 10 – CEO Kleo Beauty Group).",
       },
       {
         year: "2020 – 2025",
         description:
-          "IKAPRAMA dipimpin oleh Bapak Ir. Maspiyono Handoyo, MM (MM SM 10 – Regional Managing Director PT. Mayora Indah Tbk).",
+          "IKAPRAMA dipimpin oleh Bapak Ir. Maspiyono Handoyo, M.M. (MM SM 10 – Regional Managing Director PT Mayora Indah Tbk).",
       },
       {
         year: "2025 – 2029",
         description:
-          "IKAPRAMA berubah nama menjadi IKA PRASMUL. Dipimpin oleh Bapak Edy Sutrisman, MM (MMSM 47 - Komisaris Utama PT Rekayasa Engineering).",
+          "IKAPRAMA berubah nama menjadi IKA PRASMUL. Dipimpin oleh Bapak Edy Sutrisman, M.M. (MMSM 47 - Komisaris Utama PT Rekayasa Engineering).",
       },
     ],
     governanceTitle: "Struktur Organisasi",
@@ -1005,6 +1032,15 @@ const id: Dictionary = {
       "Anda telah berlangganan! Periksa kotak masuk Anda untuk pembaruan.",
     errorToast: "Terjadi kesalahan. Silakan coba lagi.",
   },
+  unsubscribe: {
+    successTitle: "Anda telah berhenti berlangganan",
+    successDesc:
+      "Anda tidak akan lagi menerima email newsletter dari IKAPRASMUL. Anda dapat berlangganan kembali kapan saja dari halaman News.",
+    errorTitle: "Kami tidak dapat memproses ini",
+    errorDesc:
+      "Tautan berhenti berlangganan ini tampaknya tidak valid atau sudah kedaluwarsa. Jika Anda masih menerima newsletter kami, silakan hubungi kami dan kami akan menghapus Anda secara manual.",
+    backHome: "Kembali ke Beranda",
+  },
   lists: {
     storiesHighlight: "Certia Utama",
     viewAllStories: "Lihat Semua Cerita",
@@ -1087,6 +1123,9 @@ const id: Dictionary = {
     noResultsTitle: "Tidak ada bisnis ditemukan",
     noResultsDesc: "Coba kata kunci, industri, atau filter lain.",
     allIndustries: "Semua Industri",
+    featured: "Bisnis Unggulan",
+    alumnus: "Alumni",
+    alumniProgram: "Program Alumni",
   },
   newsList: {
     searchPlaceholder: "Cari artikel, topik, atau penulis",
@@ -1231,12 +1270,26 @@ const id: Dictionary = {
     saveChanges: "Simpan perubahan",
     create: "Buat",
     savingDraft: "Menyimpan sebagai draf…",
+    savingOverlayTitle: "Menyimpan perubahan Anda",
+    savingOverlayDesc: "Ini bisa memakan waktu beberapa detik — mohon jangan tutup jendela ini.",
+    savedToast: "Berhasil disimpan.",
     limitReached: "Batas {n} tercapai — hapus satu terlebih dahulu.",
+    deletingOverlayTitle: "Menghapus…",
     deleteTitle: "Hapus item ini?",
     deleteDescBefore: "Anda akan menghapus",
     deleteDescAfter: ". Ini akan menghapusnya dari situs publik dan tidak dapat dibatalkan.",
     cancel: "Batal",
     delete: "Hapus",
+    sendNewsletterButtonTitle: "Kirim ke pelanggan",
+    sendNewsletterTitle: "Kirim newsletter ini?",
+    sendNewsletterDescBefore: "Ini akan mengirimkan email",
+    sendNewsletterDescAfter:
+      " ke semua orang di daftar pelanggan newsletter aktif Anda. Tindakan ini tidak dapat dibatalkan.",
+    notNow: "Nanti Saja",
+    sendToAll: "Kirim ke Semua",
+    sendingNewsletter: "Mengirim ke pelanggan…",
+    newsletterSentToast: "Newsletter terkirim",
+    newsletterSendErrorToast: "Gagal mengirim newsletter.",
     adminConsole: "Konsol Admin",
     adminTagline: "Kelola rumah digital alumni Prasmul.",
     adminDesc: "Tulis cerita, kurasi beranda, kelola SIG dan daftar bisnis, serta tanggapi pertanyaan — semuanya di satu tempat.",
