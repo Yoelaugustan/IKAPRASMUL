@@ -78,6 +78,24 @@ async function fetchAll<T>(entity: string, tag: string, cap = 500): Promise<T[]>
   return result.items;
 }
 
+// Always-fresh variant for by-slug detail lookups. These must reflect content
+// created or published moments ago (an admin publishing something and clicking
+// straight through to it), so they skip the Next.js fetch cache entirely
+// rather than risk hitting a stale cached list — and thus a spurious notFound()
+// — in the window before/around an on-demand revalidateTag() takes effect.
+async function fetchAllFresh<T>(entity: string, cap = 500): Promise<T[]> {
+  try {
+    const res = await fetch(`${API_URL}/api/${entity}?pageSize=${cap}&page=1`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return [];
+    const data = (await res.json()) as Paginated<T>;
+    return data.items;
+  } catch {
+    return [];
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════════════
    Public APIs
 ═══════════════════════════════════════════════════════════════════════ */
@@ -143,7 +161,7 @@ export const getStoryCategoryCounts = async (): Promise<{ category: string; coun
 
 // By slug — for detail pages (no slug endpoint exists server-side yet)
 export const getStoryBySlug = async (slug: string): Promise<Story | undefined> =>
-  (await fetchAll<Story>("stories", "stories")).find((s) => s.slug === slug);
+  (await fetchAllFresh<Story>("stories")).find((s) => s.slug === slug);
 
 /* ─── Business ─── */
 
@@ -174,7 +192,7 @@ export const getBusinesses = async (params?: {
 };
 
 export const getBusinessBySlug = async (slug: string): Promise<Business | undefined> =>
-  (await fetchAll<Business>("business", "business")).find((b) => b.slug === slug);
+  (await fetchAllFresh<Business>("business")).find((b) => b.slug === slug);
 
 /* ─── News ─── */
 
@@ -208,7 +226,7 @@ export const getMostPopularArticles = (limit = 5): Promise<Article[]> =>
   fetchFiltered<Article>("news", { sort: "popular" }, limit, "news");
 
 export const getArticleBySlug = async (slug: string): Promise<Article | undefined> =>
-  (await fetchAll<Article>("news", "news")).find((a) => a.slug === slug);
+  (await fetchAllFresh<Article>("news")).find((a) => a.slug === slug);
 
 /* ─── Events ─── */
 
@@ -240,7 +258,7 @@ export const getEventsPage = (params: {
   );
 
 export const getEventBySlug = async (slug: string): Promise<AlumniEvent | undefined> =>
-  (await fetchAll<AlumniEvent>("events", "events")).find((e) => e.slug === slug);
+  (await fetchAllFresh<AlumniEvent>("events")).find((e) => e.slug === slug);
 
 /* ─── Home featured highlights ─── */
 
