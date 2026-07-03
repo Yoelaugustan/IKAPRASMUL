@@ -10,13 +10,17 @@ import { Button } from "@/components/ui/button";
 // uploads are created when the user closes without saving.
 export function ImageField({
   value,
+  onChange,
   onFileQueued,
   error,
+  clearable,
 }: {
   value: string;
   onChange: (value: string) => void;
   onFileQueued?: (file: File | null) => void;
   error?: boolean;
+  /** Shows a button to clear the field down to empty. */
+  clearable?: boolean;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
@@ -42,6 +46,11 @@ export function ImageField({
     if (blobUrl) URL.revokeObjectURL(blobUrl);
     setBlobUrl(null);
     onFileQueued?.(null);
+  };
+
+  const clearValue = () => {
+    clearPending();
+    onChange("");
   };
 
   const previewSrc = blobUrl ?? value;
@@ -90,6 +99,16 @@ export function ImageField({
             alt="Preview"
             className="h-full w-full object-contain"
           />
+          {clearable && (
+            <button
+              type="button"
+              title="Clear image"
+              onClick={clearValue}
+              className="absolute right-1.5 top-1.5 grid size-6 place-items-center rounded-full bg-black/60 text-white transition-colors hover:bg-destructive"
+            >
+              <X className="size-3.5" />
+            </button>
+          )}
         </div>
       ) : null}
     </div>

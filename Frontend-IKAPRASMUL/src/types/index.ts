@@ -73,6 +73,10 @@ export type Business = {
   description: string;
   logo: string;
   coverImage: string;
+  coverImage2?: string;
+  coverImage3?: string;
+  /** 1–3 cover photos for the detail modal montage. Falls back to [coverImage]. */
+  coverImages?: string[];
   website?: string;
   /** Controls the big spotlight card on the business listing page. */
   isSpotlight?: boolean;
