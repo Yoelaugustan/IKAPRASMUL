@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDragScroll } from "@/hooks/useDragScroll";
-import { useDebounce } from "@/hooks/useDebounce";
 import { scrollToElement } from "@/lib/scroll";
 import { ArrowRight, ArrowUpDown, Bookmark, ChevronLeft, ChevronRight } from "lucide-react";
 import {
@@ -28,6 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { BusinessCard } from "./BusinessCard";
+import { BusinessDetailModal } from "./BusinessDetailModal";
 import { BusinessSpotlight } from "./BusinessSpotlight";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { useLang } from "@/components/shared/LanguageProvider";
@@ -63,10 +63,10 @@ export function BusinessExplorer({
   const urlSearch = searchParams.get("search") || "";
   const urlSort = (searchParams.get("sort") || "newest") as Sort;
 
-  // Draft state for the search form — applied on submit or Search button.
+  // Draft state for the search form — only applied to the URL when the Search
+  // button (or Enter, via form submit) is used. Typing alone doesn't filter.
   const [draftQuery, setDraftQuery] = useState(urlSearch);
   const [draftIndustry, setDraftIndustry] = useState(urlIndustry);
-  const debouncedQuery = useDebounce(draftQuery, 400);
 
   // Keep form fields in sync when URL changes (e.g., industry tab click).
   // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -75,26 +75,16 @@ export function BusinessExplorer({
   useEffect(() => { setDraftQuery(urlSearch); }, [urlSearch]);
 
   // Client-side secondary filters (not in URL — location/founder/saved).
+  // Draft counterparts so selecting them doesn't filter until Search is clicked.
   const [location, setLocation] = useState("All");
   const [founder, setFounder] = useState("All");
+  const [draftLocation, setDraftLocation] = useState("All");
+  const [draftFounder, setDraftFounder] = useState("All");
   const [savedOnly, setSavedOnly] = useState(false);
   const [page, setPage] = useState(1);
+  const [selectedBusiness, setSelectedBusiness] = useState<Business | null>(null);
   const savedSlugs = useSavedBusinessStore((s) => s.saved);
   const hydrated = useHasHydrated();
-
-  // Debounce fires: push search query to URL.
-  const isFirstDebounce = useRef(true);
-  useEffect(() => {
-    if (isFirstDebounce.current) { isFirstDebounce.current = false; return; }
-    const params = new URLSearchParams(window.location.search);
-    if (debouncedQuery) params.set("search", debouncedQuery);
-    else params.delete("search");
-    params.set("view", "all");
-    params.delete("page");
-    const qs = params.toString();
-    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedQuery]);
 
   const setParams = (
     next: Partial<{ view: string | null; search: string | null; industry: string | null; sort: string | null }>,
@@ -157,8 +147,8 @@ export function BusinessExplorer({
     if (draftIndustry && draftIndustry !== "All") params.set("industry", draftIndustry); else params.delete("industry");
     params.set("view", "all");
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
-    setLocation("All");
-    setFounder("All");
+    setLocation(draftLocation);
+    setFounder(draftFounder);
     setSavedOnly(false);
     setPage(1);
     scrollToPanel();
@@ -169,6 +159,8 @@ export function BusinessExplorer({
     setParams({ industry: value, view: "all" });
     setLocation("All");
     setFounder("All");
+    setDraftLocation("All");
+    setDraftFounder("All");
     setSavedOnly(false);
     setPage(1);
     scrollToPanel();
@@ -179,6 +171,8 @@ export function BusinessExplorer({
     setDraftIndustry("All");
     setLocation("All");
     setFounder("All");
+    setDraftLocation("All");
+    setDraftFounder("All");
     setSavedOnly(false);
   };
 
@@ -205,6 +199,7 @@ export function BusinessExplorer({
   };
 
   return (
+    <>
     <div className="flow-root bg-slate-50">
       {/* ---- Search bar (overlaps the hero) ---- */}
       <Container>
@@ -233,15 +228,15 @@ export function BusinessExplorer({
           />
           <SelectField
             icon={MapPinIcon}
-            value={location}
-            onChange={setLocation}
+            value={draftLocation}
+            onChange={setDraftLocation}
             allLabel={t.bizList.locationLabel}
             options={locations}
           />
           <SelectField
             icon={UserIcon}
-            value={founder}
-            onChange={setFounder}
+            value={draftFounder}
+            onChange={setDraftFounder}
             allLabel={t.bizList.founderLabel}
             options={founders}
           />
@@ -348,14 +343,14 @@ export function BusinessExplorer({
                         className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-3 [animation-fill-mode:both] duration-500"
                         style={{ animationDelay: `${i * 60}ms` }}
                       >
-                        <BusinessCard business={b} />
+                        <BusinessCard business={b} onSelect={setSelectedBusiness} />
                       </div>
                     ))}
                   </div>
                 )}
               </div>
 
-              <BusinessSpotlight business={spotlight} />
+              <BusinessSpotlight business={spotlight} onSelect={setSelectedBusiness} />
             </div>
           ) : (
             /* ---- View all: full-width paginated grid ---- */
@@ -432,7 +427,7 @@ export function BusinessExplorer({
                         className="motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-bottom-3 [animation-fill-mode:both] duration-500"
                         style={{ animationDelay: `${i * 60}ms` }}
                       >
-                        <BusinessCard business={b} />
+                        <BusinessCard business={b} onSelect={setSelectedBusiness} />
                       </div>
                     ))}
                   </div>
@@ -451,6 +446,14 @@ export function BusinessExplorer({
       </Container>
       </div>
     </div>
+
+    {selectedBusiness && (
+      <BusinessDetailModal
+        business={selectedBusiness}
+        onClose={() => setSelectedBusiness(null)}
+      />
+    )}
+    </>
   );
 }
 

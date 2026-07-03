@@ -1,12 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Business } from "@/types";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { useLang } from "@/components/shared/LanguageProvider";
-import { ROUTES } from "@/constants/routes";
 
 function SpotlightHeader({ title }: { title: string }) {
   return (
@@ -21,7 +19,13 @@ function SpotlightHeader({ title }: { title: string }) {
 
 // "Alumni Business Spotlight" card — features one business from the DB (the
 // flagged spotlight, else the first listing). Shows a placeholder when none.
-export function BusinessSpotlight({ business }: { business?: Business }) {
+export function BusinessSpotlight({
+  business,
+  onSelect,
+}: {
+  business?: Business;
+  onSelect: (business: Business) => void;
+}) {
   const { t } = useLang();
   if (!business) {
     return (
@@ -57,7 +61,10 @@ export function BusinessSpotlight({ business }: { business?: Business }) {
           <p className="text-[11px] font-bold uppercase tracking-widest text-gold">
             {t.detail.featuredStory}
           </p>
-          <h3 className="mt-2 text-xl font-bold leading-snug text-white">
+          <h3
+            className="mt-2 text-xl font-bold leading-snug text-white notranslate"
+            translate="no"
+          >
             {business.name}
           </h3>
           <p className="mt-3 line-clamp-3 text-[13.5px] leading-relaxed text-white/75">
@@ -83,12 +90,13 @@ export function BusinessSpotlight({ business }: { business?: Business }) {
             </div>
           </div>
 
-          <Link
-            href={ROUTES.businessDetail(business.slug)}
+          <button
+            type="button"
+            onClick={() => onSelect(business)}
             className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-gold px-4 py-3 text-[13px] font-bold text-gold-foreground transition-colors hover:bg-gold-dark"
           >
             {t.detail.readFullStory} <ArrowRight className="size-4" />
-          </Link>
+          </button>
         </div>
       </div>
     </div>
