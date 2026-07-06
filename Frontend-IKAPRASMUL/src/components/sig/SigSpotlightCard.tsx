@@ -13,14 +13,17 @@ export async function SigSpotlightCard({
 }) {
   const { t } = await getServerDict();
   return (
-    <div className="rounded-2xl border border-slate-100/80 bg-white p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+    <Link
+      href={ROUTES.sigDetail(spotlight.id)}
+      className="group block rounded-2xl border border-slate-100/80 bg-white p-4 shadow-[0_2px_8px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-md"
+    >
       <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
         <Image
           src={spotlight.image}
           alt={spotlight.name}
           fill
           sizes="380px"
-          className="object-cover"
+          className="object-cover transition-transform duration-700 ease-expo group-hover:scale-[1.05]"
         />
       </div>
       <div className="mt-5 px-1 pb-2">
@@ -28,13 +31,10 @@ export async function SigSpotlightCard({
         <p className="mt-1.5 line-clamp-3 text-[14px] leading-relaxed text-slate-500">
           {htmlToText(spotlight.description)}
         </p>
-        <Link
-          href={ROUTES.sigDetail(spotlight.id)}
-          className="mt-4 inline-flex items-center gap-1 text-[13.5px] font-semibold text-[#EAB308] transition-colors hover:text-[#ca8a04]"
-        >
+        <span className="mt-4 inline-flex items-center gap-1 text-[13.5px] font-semibold text-[#EAB308] transition-colors group-hover:text-[#ca8a04]">
           {t.cards.learnMore} <ArrowRight className="size-4" />
-        </Link>
+        </span>
       </div>
-    </div>
+    </Link>
   );
 }
