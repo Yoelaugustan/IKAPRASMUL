@@ -12,6 +12,7 @@ import {
   Newspaper,
   CalendarDays,
   ShieldCheck,
+  FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ROUTES } from "@/constants/routes";
@@ -38,6 +39,7 @@ export function AdminSidebar({ isOpen, onClose, isSuperAdmin = false, permission
     { label: t.admin.alumniStories, href: ROUTES.adminStories, Icon: BookOpen, section: "stories" },
     { label: t.admin.newsInsights, href: ROUTES.adminNews, Icon: Newspaper, section: "news" },
     { label: t.admin.events, href: ROUTES.adminEvents, Icon: CalendarDays, section: "events" },
+    { label: t.admin.governanceDocuments, href: ROUTES.adminGovernance, Icon: FileText, section: "governance" },
     // section: null = always visible regardless of permissions
     { label: t.admin.userManagement, href: ROUTES.adminUsers, Icon: ShieldCheck, section: null },
   ];

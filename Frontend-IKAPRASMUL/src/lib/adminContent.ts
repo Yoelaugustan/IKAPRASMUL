@@ -11,6 +11,7 @@ import type {
   SigSpotlight,
   Story,
 } from "@/types";
+import type { GovernanceDocument } from "@/types/governance";
 import { ROUTES } from "@/constants/routes";
 import { adminFetch } from "@/lib/adminFetch";
 
@@ -47,3 +48,5 @@ export const getAdminBusinesses = () => adminList<Business>("business");
 export const getAdminArticles = () => adminList<Article>("news");
 export const getAdminEvents = () => adminList<AlumniEvent>("events");
 export const getAdminUsers = () => adminList<AdminUser>("users");
+export const getAdminGovernanceDocuments = () =>
+  adminList<GovernanceDocument>("governance-documents");

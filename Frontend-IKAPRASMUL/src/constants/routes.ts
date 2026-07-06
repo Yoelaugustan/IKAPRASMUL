@@ -8,6 +8,7 @@ export const ROUTES = {
   business: "/business",
   news: "/news",
   events: "/events",
+  careerCenter: "/career-center",
 
   storyDetail: (slug: string) => `/stories/${slug}`,
   businessDetail: (slug: string) => `/business/${slug}`,
@@ -33,6 +34,7 @@ export const ROUTES = {
   adminHome: "/admin/home",
   adminInquiries: "/admin/inquiries",
   adminNewsletter: "/admin/newsletter",
+  adminGovernance: "/admin/governance",
 } as const;
 
 // `key` maps to dictionaries.nav[key] for translated labels; `label` is the
@@ -45,4 +47,5 @@ export const MAIN_NAV = [
   { key: "business", label: "Alumni Business", href: ROUTES.business },
   { key: "news", label: "News & Insight", href: ROUTES.news },
   { key: "events", label: "Events", href: ROUTES.events },
+  { key: "careerCenter", label: "Career Center", href: ROUTES.careerCenter },
 ] as const;

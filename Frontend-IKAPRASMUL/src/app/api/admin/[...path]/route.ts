@@ -9,6 +9,7 @@ const CACHE_TAG: Record<string, string> = {
   business: "business",
   sig: "sig",
   events: "events",
+  "governance-documents": "governance-documents",
 };
 
 // Single choke point for all admin writes/reads. Forwards to the .NET

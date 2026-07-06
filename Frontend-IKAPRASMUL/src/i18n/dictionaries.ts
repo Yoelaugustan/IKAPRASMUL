@@ -16,6 +16,7 @@ const en = {
     business: "Alumni Business",
     news: "News & Insight",
     events: "Events",
+    careerCenter: "Career Center",
   },
   events: {
     eyebrow: "Events",
@@ -135,76 +136,12 @@ const en = {
     ],
     historyTitle: "Our History",
     history: [
-      {
-        year: "28 Oktober 1983",
-        description:
-          "Ikatan Alumni Prasetiya Mulya was first established at Hotel Kemang.",
-      },
-      {
-        year: "1983 – 1986",
-        description:
-          "IKAPRAMA was led by Mr. Ir. Sukiman Hendrokusumo, MSc (MBA Modular 1986, PT Pembangunan Jaya).",
-      },
-      {
-        year: "1987 – 1988",
-        description:
-          "IKAPRAMA was led by Mr. Dr. Sismadi Partodumuljo, MBA (late) (MBA Modular 1987, owner of RS Sukmul).",
-      },
-      {
-        year: "1988 – 1990",
-        description:
-          "IKAPRAMA was led by Mr. Eddy Sutjipto, MBA (MBA Modular 1988, Director of PT Wijaya Kusuma Contractors).",
-      },
-      {
-        year: "1990 – 1994",
-        description:
-          "IKAPRAMA was led by Mr. Max Moein, MBA (MBA Modular 1990).",
-      },
-      {
-        year: "1994 – 1996",
-        description:
-          "IKAPRAMA was led by Ms. Dinny Sri Roehdiany, MBA (MBA Modular 1989, entrepreneur).",
-      },
-      {
-        year: "1995 – 1997",
-        description:
-          "IKAPRAMA was led by Capt. Bobby Faisal MBA (MBA Modular 1991).",
-      },
-      {
-        year: "1997 – 2000",
-        description:
-          "IKAPRAMA was led by Mr. Pulung Peranginangin, M.M. (MME MS Batch 5, Chairman of PT Gema Graha Sarana Tbk).",
-      },
-      {
-        year: "2001 – 2005",
-        description:
-          "IKAPRAMA was led by Mr. Eddy Junaedi Danu, M.M. (MME MS Batch 10, Director of PT Indika Energy, Tbk).",
-      },
-      {
-        year: "2005 – 2010",
-        description:
-          "IKAPRAMA was led by Mr. Djuanda Nugraha Ibrahim, M.M. (MME MS Batch 16, Director of Human Resources & Organization at PT PLN).",
-      },
-      {
-        year: "2010 – 2015",
-        description:
-          "IKAPRAMA was led by Mr. Taslim Yunus, M.M. (MME MS Batch 8 – Vice President of SKK Migas).",
-      },
-      {
-        year: "2015 – 2020",
-        description:
-          "IKAPRAMA was led by Mr. Dr. Harris Turino, M.M. (MME MS Batch 10 – CEO of Kleo Beauty Group).",
-      },
-      {
-        year: "2020 – 2025",
-        description:
-          "IKAPRAMA was led by Mr. Ir. Maspiyono Handoyo, M.M. (MM SM 10 – Regional Managing Director of PT Mayora Indah Tbk).",
-      },
-      {
-        year: "2025 – 2029",
-        description:
-          "IKAPRAMA was renamed to IKA PRASMUL. Led by Mr. Edy Sutrisman, M.M. (MMSM 47 - President Commissioner of PT Rekayasa Engineering).",
-      },
+      { year: "1982", icon: "founding", title: "Prasetiya Mulya University Established" },
+      { year: "1988", icon: "community", title: "IKA PRASMUL Founded" },
+      { year: "2000", icon: "expansion", title: "National Alumni Expansion" },
+      { year: "2015", icon: "entrepreneurship", title: "Entrepreneurship Network" },
+      { year: "2025", icon: "digital", title: "Digital Transformation" },
+      { year: "Future", icon: "global", title: "Global Alumni Ecosystem" },
     ],
     governanceTitle: "Governance Structure",
     executiveBoardLabel: "Executive Board",
@@ -229,6 +166,92 @@ const en = {
       "Head of Expert Board": "Head of Expert Board",
       "Deputy Head of Expert Board": "Deputy Head of Expert Board",
     } as Record<string, string>,
+    exploreOrg: "Explore Our Organization",
+    ourPurpose: "Purpose",
+    purpose: [
+      "Connecting Alumni.",
+      "Creating Opportunities.",
+      "Delivering Lasting Impact.",
+    ],
+    subNav: {
+      visionMission: "Vision & Mission",
+      ourJourney: "Our Journey",
+      executiveBoard: "Executive Board",
+      dewanPelindung: "Dewan Pelindung",
+      dewanPenasihat: "Dewan Penasihat",
+      dewanPakar: "Dewan Pakar",
+      dewanPenyantun: "Dewan Penyantun",
+      orgStructure: "Organization Structure",
+      governance: "Governance",
+      contact: "Contact",
+    },
+    journeyEyebrow: "Overview",
+    journeyTitle: "A Lifelong Community of Impactful Alumni",
+    journeyP1:
+      "IKA PRASMUL is a lifelong alumni community connecting graduates of Universitas Prasetiya Mulya through professional development, entrepreneurship, networking, lifelong learning, and collaborative initiatives.",
+    journeyP2:
+      "With thousands of alumni across industries and countries, IKA PRASMUL continues to strengthen meaningful relationships that benefit alumni, students, the university, and society.",
+    program: "Program",
+    batch: "Batch",
+    orgChartTitle: "Organization Structure",
+    orgChart: {
+      pelindung: "Dewan Pelindung",
+      penasihat: "Dewan Penasihat",
+      ketuaUmum: "Ketua Umum",
+      wakilKetua: "Wakil Ketua",
+      sekjen: "Secretary General",
+      bendahara: "Treasurer",
+      departments: {
+        membership: "Membership & Engagement",
+        entrepreneurship: "Entrepreneurship & Business Development",
+        career: "Career & Professional Development",
+        education: "Education & Lifelong Learning",
+        communication: "Communication & Public Relations",
+        technology: "Technology & Digital Innovation",
+        social: "Social Impact & Sustainability",
+      } as Record<string, string>,
+    },
+    govDocsEyebrow: "Governance",
+    govDocsTitle: "Our Governance Documents",
+    govDocsDownload: "Download",
+    noGovDocsTitle: "No documents available right now",
+    noGovDocsDesc: "We're unable to load the governance documents at the moment. Please check back shortly.",
+    contactSectionEyebrow: "Contact Us",
+    contactSectionTitle: "Let's Stay Connected",
+    contactLabels: {
+      office: "Office",
+      email: "Email",
+      website: "Website",
+      phone: "Phone",
+      socialMedia: "Social Media",
+    },
+    ourImpactEyebrow: "Our Impact",
+    ourImpactTitle: "Creating Impact Together",
+    ourImpactDesc:
+      "Through collaboration, knowledge sharing, and meaningful initiatives, we create value that extends beyond ourselves.",
+    ourImpactCta: "See Our Programs",
+  },
+  careerCenter: {
+    heroEyebrow: "Career Center",
+    heroTitleLine1: "One Platform for Your Career",
+    heroTitleLine2: "and Business Growth",
+    heroSubtitle:
+      "The IKAPRASMUL community is built on a foundation of excellence and a spirit of collaboration. Working together with the Career Development Center (CDC) of Universitas Prasetiya Mulya, we bridge your professional needs and business growth in one integrated platform.",
+    tabJobs: "Job Vacancies",
+    tabInternship: "Internship",
+    ctaLabel: "Enter the Prasetiya Mulya Career Portal",
+    jobsTalentTitle: "For Job Seekers",
+    jobsTalentDesc:
+      "Discover job openings from leading companies, access career guidance, and prepare yourself for future leadership roles.",
+    jobsRecruiterTitle: "For Recruiters & Employers",
+    jobsRecruiterDesc:
+      "Get direct access to the alma mater's best talent pool. Recruit Prasetiya Mulya graduates and alumni ready to deliver real impact for your business.",
+    internshipTalentTitle: "For Internship Seekers",
+    internshipTalentDesc:
+      "Discover internship programs from leading companies, build practical experience, and prepare yourself for future professional roles.",
+    internshipRecruiterTitle: "For Recruiters & Employers",
+    internshipRecruiterDesc:
+      "Get direct access to the alma mater's best talent pool. Recruit Prasetiya Mulya students and alumni ready to deliver real contribution to your business through internship programs.",
   },
   pageHero: {
     storiesEyebrow: "Alumni Stories",
@@ -521,6 +544,7 @@ const en = {
     alumniStories: "Alumni Stories",
     newsInsights: "News & Insights",
     events: "Events",
+    governanceDocuments: "Governance Documents",
     // Dashboard page
     dashboardSubtitle: "Overview of published content across the public site.",
     recentlyPublished: "Recently published",
@@ -638,6 +662,10 @@ const en = {
     titleEvents: "Events",
     subtitleEvents: "Events shown on the public Events page. The Featured Event headlines the page.",
     searchEvents: "Search events…",
+    nameGovernanceDocument: "Governance Document",
+    titleGovernanceDocuments: "Governance Documents",
+    subtitleGovernanceDocuments: "Downloadable PDF documents shown on the public About page.",
+    searchGovernanceDocuments: "Search documents…",
     titleBusiness: "Alumni Business",
     subtitleBusiness: "Alumni-founded businesses featured across the public site.",
     kickerBusiness: "Alumni Business",
@@ -663,6 +691,8 @@ const en = {
     colDate: "Date",
     colIndustry: "Industry",
     colFounder: "Founder",
+    colDocument: "Document",
+    colSortOrder: "Order",
     // CMS shared field labels
     fieldTitle: "Title",
     fieldPageUrl: "Page URL",
@@ -686,6 +716,10 @@ const en = {
     // Events fields
     fieldEventDate: "Event date",
     fieldRegistrationLink: "Registration link",
+    // Governance document fields
+    fieldPdfFile: "PDF file",
+    fieldSortOrder: "Sort order",
+    hintSortOrder: "Lower numbers appear first in the carousel.",
     // Business fields
     fieldBusinessName: "Business name",
     fieldIndustry: "Industry",
@@ -724,6 +758,7 @@ const id: Dictionary = {
     business: "Bisnis Alumni",
     news: "Berita & Wawasan",
     events: "Acara",
+    careerCenter: "Pusat Karir",
   },
   events: {
     eyebrow: "Acara",
@@ -843,76 +878,12 @@ const id: Dictionary = {
     ],
     historyTitle: "Sejarah Kami",
     history: [
-      {
-        year: "28 Oktober 1983",
-        description:
-          "Ikatan Alumni Prasetiya Mulya pertama kali dibentuk di Hotel Kemang.",
-      },
-      {
-        year: "1983 – 1986",
-        description:
-          "IKAPRAMA dipimpin oleh Bpk Ir. Sukiman Hendrokusumo, MSc (MBA Modular 1986, PT Pembangunan Jaya).",
-      },
-      {
-        year: "1987 – 1988",
-        description:
-          "IKAPRAMA dipimpin oleh Bpk. Dr. Sismadi Partodumuljo, MBA (Alm) (MBA Modular 1987, pemilik RS Sukmul).",
-      },
-      {
-        year: "1988 – 1990",
-        description:
-          "IKAPRAMA dipimpin oleh Bapak Eddy Sutjipto, MBA (MBA Modular 1988, Direktur PT Wijaya Kusuma Contractors).",
-      },
-      {
-        year: "1990 – 1994",
-        description:
-          "IKAPRAMA dipimpin oleh Bapak Max Moein, MBA (MBA Modular 1990).",
-      },
-      {
-        year: "1994 – 1996",
-        description:
-          "IKAPRAMA dipimpin oleh Ibu Dinny Sri Roehdiany, MBA (MBA Modular 1989, wiraswasta).",
-      },
-      {
-        year: "1995 – 1997",
-        description:
-          "IKAPRAMA dipimpin oleh Capt. Bobby Faisal MBA (MBA Modular 1991).",
-      },
-      {
-        year: "1997 – 2000",
-        description:
-          "IKAPRAMA dipimpin oleh Bapak Pulung Peranginangin, M.M. (MME MS Batch 5, Chairman PT Gema Graha Sarana Tbk).",
-      },
-      {
-        year: "2001 – 2005",
-        description:
-          "IKAPRAMA dipimpin oleh Bapak Eddy Junaedi Danu, M.M. (MME MS Batch 10, Director PT Indika Energy, Tbk).",
-      },
-      {
-        year: "2005 – 2010",
-        description:
-          "IKAPRAMA dipimpin oleh Bapak Djuanda Nugraha Ibrahim, M.M. (MME MS Batch 16, Direktur Sumber Daya Manusia dan Organisasi PT PLN).",
-      },
-      {
-        year: "2010 – 2015",
-        description:
-          "IKAPRAMA dipimpin oleh Bapak Taslim Yunus, M.M. (MME MS Batch 8 – Vice President SKK Migas).",
-      },
-      {
-        year: "2015 – 2020",
-        description:
-          "IKAPRAMA dipimpin oleh Bapak Dr. Harris Turino, M.M. (MME MS Batch 10 – CEO Kleo Beauty Group).",
-      },
-      {
-        year: "2020 – 2025",
-        description:
-          "IKAPRAMA dipimpin oleh Bapak Ir. Maspiyono Handoyo, M.M. (MM SM 10 – Regional Managing Director PT Mayora Indah Tbk).",
-      },
-      {
-        year: "2025 – 2029",
-        description:
-          "IKAPRAMA berubah nama menjadi IKA PRASMUL. Dipimpin oleh Bapak Edy Sutrisman, M.M. (MMSM 47 - Komisaris Utama PT Rekayasa Engineering).",
-      },
+      { year: "1982", icon: "founding", title: "Universitas Prasetiya Mulya Didirikan" },
+      { year: "1988", icon: "community", title: "IKA PRASMUL Didirikan" },
+      { year: "2000", icon: "expansion", title: "Ekspansi Alumni Nasional" },
+      { year: "2015", icon: "entrepreneurship", title: "Jaringan Kewirausahaan" },
+      { year: "2025", icon: "digital", title: "Transformasi Digital" },
+      { year: "Masa Depan", icon: "global", title: "Ekosistem Alumni Global" },
     ],
     governanceTitle: "Struktur Organisasi",
     executiveBoardLabel: "Dewan Eksekutif",
@@ -937,6 +908,92 @@ const id: Dictionary = {
       "Head of Expert Board": "Ketua Dewan Pakar",
       "Deputy Head of Expert Board": "Wakil Ketua Dewan Pakar",
     },
+    exploreOrg: "Jelajahi Organisasi Kami",
+    ourPurpose: "Tujuan",
+    purpose: [
+      "Menghubungkan Alumni.",
+      "Menciptakan Peluang.",
+      "Menghadirkan Dampak Berkelanjutan.",
+    ],
+    subNav: {
+      visionMission: "Visi & Misi",
+      ourJourney: "Perjalanan Kami",
+      executiveBoard: "Dewan Eksekutif",
+      dewanPelindung: "Dewan Pelindung",
+      dewanPenasihat: "Dewan Penasihat",
+      dewanPakar: "Dewan Pakar",
+      dewanPenyantun: "Dewan Penyantun",
+      orgStructure: "Struktur Organisasi",
+      governance: "Governansi",
+      contact: "Kontak",
+    },
+    journeyEyebrow: "Ikhtisar",
+    journeyTitle: "Komunitas Alumni Seumur Hidup yang Berdampak",
+    journeyP1:
+      "IKA PRASMUL adalah komunitas alumni seumur hidup yang menghubungkan lulusan Universitas Prasetiya Mulya melalui pengembangan profesional, kewirausahaan, jejaring, pembelajaran berkelanjutan, dan inisiatif kolaboratif.",
+    journeyP2:
+      "Dengan ribuan alumni di berbagai industri dan negara, IKA PRASMUL terus memperkuat hubungan yang bermakna bagi alumni, mahasiswa, universitas, dan masyarakat.",
+    program: "Program",
+    batch: "Angkatan",
+    orgChartTitle: "Struktur Organisasi",
+    orgChart: {
+      pelindung: "Dewan Pelindung",
+      penasihat: "Dewan Penasihat",
+      ketuaUmum: "Ketua Umum",
+      wakilKetua: "Wakil Ketua",
+      sekjen: "Sekretaris Jenderal",
+      bendahara: "Bendahara",
+      departments: {
+        membership: "Keanggotaan & Keterlibatan",
+        entrepreneurship: "Kewirausahaan & Pengembangan Bisnis",
+        career: "Karier & Pengembangan Profesional",
+        education: "Pendidikan & Pembelajaran Berkelanjutan",
+        communication: "Komunikasi & Hubungan Masyarakat",
+        technology: "Teknologi & Inovasi Digital",
+        social: "Dampak Sosial & Keberlanjutan",
+      } as Record<string, string>,
+    },
+    govDocsEyebrow: "Governansi",
+    govDocsTitle: "Dokumen Tata Kelola Kami",
+    govDocsDownload: "Unduh",
+    noGovDocsTitle: "Belum ada dokumen tersedia",
+    noGovDocsDesc: "Kami tidak dapat memuat dokumen tata kelola saat ini. Silakan periksa kembali sebentar lagi.",
+    contactSectionEyebrow: "Hubungi Kami",
+    contactSectionTitle: "Mari Tetap Terhubung",
+    contactLabels: {
+      office: "Kantor",
+      email: "Email",
+      website: "Situs Web",
+      phone: "Telepon",
+      socialMedia: "Media Sosial",
+    },
+    ourImpactEyebrow: "Dampak Kami",
+    ourImpactTitle: "Menciptakan Dampak Bersama",
+    ourImpactDesc:
+      "Melalui kolaborasi, berbagi pengetahuan, dan inisiatif yang bermakna, kami menciptakan nilai yang melampaui diri kami sendiri.",
+    ourImpactCta: "Lihat Program Kami",
+  },
+  careerCenter: {
+    heroEyebrow: "Pusat Karir",
+    heroTitleLine1: "Satu Platform untuk Karir",
+    heroTitleLine2: "dan Pertumbuhan Bisnis Anda",
+    heroSubtitle:
+      "Komunitas IKAPRASMUL dibangun di atas fondasi keunggulan dan semangat kolaborasi. Bekerja sama dengan Career Development Center (CDC) Universitas Prasetiya Mulya, kami menjembatani kebutuhan profesional dan pertumbuhan bisnis Anda dalam satu platform terpadu.",
+    tabJobs: "Lowongan Kerja",
+    tabInternship: "Magang",
+    ctaLabel: "Masuk ke Portal Karir Prasetiya Mulya",
+    jobsTalentTitle: "Untuk Pencari Kerja",
+    jobsTalentDesc:
+      "Temukan lowongan kerja dari perusahaan terkemuka, akses bimbingan karir, dan persiapkan diri Anda untuk peran kepemimpinan di masa depan.",
+    jobsRecruiterTitle: "Untuk Perekrut & Pengusaha",
+    jobsRecruiterDesc:
+      "Akses langsung talent pool terbaik almamater. Rekrut lulusan dan alumni Prasetiya Mulya yang siap memberikan dampak nyata bagi bisnis Anda.",
+    internshipTalentTitle: "Untuk Pencari Magang",
+    internshipTalentDesc:
+      "Temukan program magang dari perusahaan terkemuka, kembangkan pengalaman praktis, dan persiapkan diri Anda untuk peran profesional di masa depan.",
+    internshipRecruiterTitle: "Untuk Perekrut & Pengusaha",
+    internshipRecruiterDesc:
+      "Akses langsung talent pool terbaik almamater. Rekrut mahasiswa dan alumni Prasetiya Mulya yang siap memberikan kontribusi nyata bagi bisnis Anda melalui program magang.",
   },
   pageHero: {
     storiesEyebrow: "Cerita Alumni",
@@ -1233,6 +1290,7 @@ const id: Dictionary = {
     alumniStories: "Cerita Alumni",
     newsInsights: "Berita & Wawasan",
     events: "Acara",
+    governanceDocuments: "Dokumen Tata Kelola",
     dashboardSubtitle: "Ikhtisar konten yang diterbitkan di seluruh situs publik.",
     recentlyPublished: "Baru diterbitkan",
     latestContent: "Cerita & berita terbaru",
@@ -1343,6 +1401,10 @@ const id: Dictionary = {
     titleEvents: "Acara",
     subtitleEvents: "Acara yang ditampilkan di halaman Acara publik. Acara Unggulan menjadi judul halaman.",
     searchEvents: "Cari acara…",
+    nameGovernanceDocument: "Dokumen Tata Kelola",
+    titleGovernanceDocuments: "Dokumen Tata Kelola",
+    subtitleGovernanceDocuments: "Dokumen PDF yang dapat diunduh, ditampilkan di halaman Tentang Kami publik.",
+    searchGovernanceDocuments: "Cari dokumen…",
     titleBusiness: "Bisnis Alumni",
     subtitleBusiness: "Bisnis yang didirikan alumni yang ditampilkan di situs publik.",
     kickerBusiness: "Bisnis Alumni",
@@ -1368,6 +1430,8 @@ const id: Dictionary = {
     colDate: "Tanggal",
     colIndustry: "Industri",
     colFounder: "Pendiri",
+    colDocument: "Dokumen",
+    colSortOrder: "Urutan",
     // CMS shared field labels
     fieldTitle: "Judul",
     fieldPageUrl: "URL Halaman",
@@ -1391,6 +1455,10 @@ const id: Dictionary = {
     // Events fields
     fieldEventDate: "Tanggal acara",
     fieldRegistrationLink: "Tautan pendaftaran",
+    // Governance document fields
+    fieldPdfFile: "File PDF",
+    fieldSortOrder: "Urutan tampilan",
+    hintSortOrder: "Angka lebih kecil akan tampil lebih dulu di carousel.",
     // Business fields
     fieldBusinessName: "Nama bisnis",
     fieldIndustry: "Industri",

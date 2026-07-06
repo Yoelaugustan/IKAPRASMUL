@@ -31,6 +31,12 @@ export function useDragScroll() {
     };
     const onUp = () => {
       state.current.down = false;
+      // Deferred so the click event that immediately follows this mouseup
+      // (the one ending the drag) still sees `moved: true` and gets ignored,
+      // while later, unrelated clicks (e.g. the arrow buttons) see it reset.
+      setTimeout(() => {
+        state.current.moved = false;
+      }, 0);
     };
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);

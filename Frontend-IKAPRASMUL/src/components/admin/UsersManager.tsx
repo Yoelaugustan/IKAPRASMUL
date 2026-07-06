@@ -40,6 +40,7 @@ const ALL_SECTIONS = [
   { key: "stories", labelKey: "alumniStories" as const },
   { key: "news", labelKey: "newsInsights" as const },
   { key: "events", labelKey: "events" as const },
+  { key: "governance", labelKey: "governanceDocuments" as const },
 ] as const;
 
 interface UsersManagerProps {
