@@ -1,27 +1,34 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/layouts/PageHero";
-import { Container } from "@/components/layouts/Container";
-import { Reveal } from "@/components/shared/Reveal";
-import { ImpactStats } from "@/components/layouts/ImpactStats";
+import Link from "next/link";
+import { AboutHero } from "@/components/about/AboutHero";
+import { AboutSubNav } from "@/components/about/AboutSubNav";
 import { VisionMission } from "@/components/about/VisionMission";
-import { AboutValues } from "@/components/about/AboutValues";
-import { AboutPillars } from "@/components/about/AboutPillars";
-import { HistoryTimeline } from "@/components/about/HistoryTimeline";
-import { GovernanceStructure } from "@/components/about/GovernanceStructure";
+import { OurJourney } from "@/components/about/OurJourney";
+import { BoardSection } from "@/components/about/BoardSection";
+import { OrganizationStructureChart } from "@/components/about/OrganizationStructureChart";
+import { GovernanceDocuments } from "@/components/about/GovernanceDocuments";
+import { AboutContactSection } from "@/components/about/AboutContactSection";
+import {
+  EXECUTIVE_BOARD,
+  DEWAN_PELINDUNG,
+  DEWAN_PENASIHAT,
+  DEWAN_PAKAR,
+  DEWAN_PENYANTUN,
+} from "@/data/about";
 import { getServerDict } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: "About IKAPRASMUL",
   description:
-    "Empowering alumni. Enabling impact. IKAPRASMUL's vision, mission, values, strategic pillars, history, and the people who lead the Prasmul alumni association.",
+    "Empowering alumni. Enabling impact. IKAPRASMUL's vision, mission, history, governing bodies, organization structure, and governance documents.",
 };
 
 export default async function AboutPage() {
   const { t } = await getServerDict();
 
   return (
-    <>
-      <PageHero
+    <div className="bg-[#F8FAFC]">
+      <AboutHero
         eyebrow={t.about.heroEyebrow}
         title={
           <>
@@ -31,26 +38,32 @@ export default async function AboutPage() {
           </>
         }
         subtitle={t.about.heroSubtitle}
-        backgroundImage="/images/about/hero-building.jpg"
-        overlap
-      />
+      >
+        <Link
+          href="#vision-mission"
+          className="inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3.5 text-sm font-bold text-gold-foreground transition-colors hover:bg-gold-dark"
+        >
+          {t.about.exploreOrg}
+        </Link>
+      </AboutHero>
 
-      <ImpactStats overlap />
+      <AboutSubNav />
 
       <VisionMission />
 
-      <AboutValues />
+      <OurJourney />
 
-      <AboutPillars />
+      <BoardSection id="executive-board" title={t.about.subNav.executiveBoard} members={EXECUTIVE_BOARD} />
+      <BoardSection id="dewan-pelindung" title={t.about.subNav.dewanPelindung} members={DEWAN_PELINDUNG} tint />
+      <BoardSection id="dewan-penasihat" title={t.about.subNav.dewanPenasihat} members={DEWAN_PENASIHAT} />
+      <BoardSection id="dewan-pakar" title={t.about.subNav.dewanPakar} members={DEWAN_PAKAR} tint />
+      <BoardSection id="dewan-penyantun" title={t.about.subNav.dewanPenyantun} members={DEWAN_PENYANTUN} />
 
-      <section className="bg-slate-50 py-16 sm:py-20">
-        <Container>
-          <Reveal className="grid gap-12 lg:grid-cols-[340px_1fr] lg:gap-16">
-            <HistoryTimeline />
-            <GovernanceStructure />
-          </Reveal>
-        </Container>
-      </section>
-    </>
+      <OrganizationStructureChart />
+
+      <GovernanceDocuments />
+
+      <AboutContactSection />
+    </div>
   );
 }

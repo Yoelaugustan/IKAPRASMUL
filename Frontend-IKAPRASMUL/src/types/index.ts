@@ -141,6 +141,9 @@ export type BoardMember = {
   role: string;
   photo: string;
   tier: "executive" | "board";
+  program?: string;
+  batch?: string;
+  linkedin?: string;
 };
 
 export type FeaturedAlumni = Person & {

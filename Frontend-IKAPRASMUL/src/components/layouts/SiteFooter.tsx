@@ -3,23 +3,9 @@ import { Container } from "./Container";
 import { Logo } from "./Logo";
 import { NewsletterForm } from "@/components/newsletter/NewsletterForm";
 import { ROUTES } from "@/constants/routes";
+import { SOCIALS } from "@/constants/socials";
 import { getServerDict } from "@/i18n/server";
-import {
-  Building2Icon,
-  InstagramIcon,
-  LinkedinIcon,
-  MailIcon,
-  PhoneIcon,
-  SpotifyIcon,
-  YoutubeIcon,
-} from "@/components/icons";
-
-const SOCIALS = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/ikaprasmul/", Icon: LinkedinIcon },
-  { label: "Instagram", href: "https://www.instagram.com/alumniprasmul?igsh=N3ZnNGx0dzRtMG9y", Icon: InstagramIcon },
-  { label: "YouTube", href: "https://youtube.com/@ikapramaprasetiyamulya?si=LQSjDLmGWhg76Uo1", Icon: YoutubeIcon },
-  { label: "Spotify", href: "https://open.spotify.com/show/2TV53T3kSDvVNH6WcnMsTx?si=7Bl65LKeQHiyXeiSsQGauA", Icon: SpotifyIcon },
-];
+import { Building2Icon, MailIcon, PhoneIcon } from "@/components/icons";
 
 const CAMPUSES = [
   {

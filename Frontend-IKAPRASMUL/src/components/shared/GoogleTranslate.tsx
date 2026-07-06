@@ -118,19 +118,26 @@ export function GoogleTranslate() {
     if (pollRef.current) clearInterval(pollRef.current);
 
     if (target === "en") {
-      // Translate in place: poll until the widget's combo exists, then select
-      // English. Google rewrites the DOM immediately — no reload needed.
+      // Translate in place: poll until the widget's combo exists *and* Google
+      // has actually populated it with an "en" option. On a cold first load
+      // the <select> appears before that (it needs an extra round-trip to
+      // Google's server for the language list), so setting .value = "en" too
+      // early silently no-ops — the dispatched change event fires on a value
+      // that never actually changed. By the time a user manually toggles
+      // ID -> EN later the widget has long since finished initializing, which
+      // is why this only seemed to fail on the very first automatic load.
       let attempts = 0;
       pollRef.current = setInterval(() => {
         attempts += 1;
         const select = document.querySelector<HTMLSelectElement>(".goog-te-combo");
-        if (select) {
+        const hasEnglishOption = !!select?.querySelector('option[value="en"]');
+        if (select && hasEnglishOption) {
           if (select.value !== "en") {
             select.value = "en";
             select.dispatchEvent(new Event("change"));
           }
           if (pollRef.current) clearInterval(pollRef.current);
-        } else if (attempts > 20) {
+        } else if (attempts > 60) {
           if (pollRef.current) clearInterval(pollRef.current);
         }
       }, 250);

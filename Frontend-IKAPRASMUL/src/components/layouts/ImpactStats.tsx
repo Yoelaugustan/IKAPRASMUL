@@ -20,8 +20,9 @@ export async function ImpactStats({ overlap = false }: { overlap?: boolean }) {
   const [stats, { t }] = await Promise.all([getImpactStats(), getServerDict()]);
   return (
     <div
+      translate="no"
       className={
-        overlap ? "relative z-10 -mt-28 sm:-mt-32" : "py-12 sm:py-16"
+        "notranslate " + (overlap ? "relative z-10 -mt-28 sm:-mt-32" : "py-12 sm:py-16")
       }
     >
       <Container>
