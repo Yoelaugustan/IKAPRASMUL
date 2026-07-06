@@ -33,7 +33,6 @@ public class AdminSeederHostedService : IHostedService
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
-            // Ensure both roles exist.
             foreach (var roleName in new[] { Roles.SuperAdmin, Roles.Admin })
             {
                 if (!await roleManager.RoleExistsAsync(roleName))

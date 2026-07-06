@@ -11,7 +11,6 @@ import {
   PurposeIcon,
 } from "@/components/icons";
 
-// Map category to icon
 const getCategoryIcon = (category: string) => {
   switch (category) {
     case "Founder Stories": return PresentationIcon;

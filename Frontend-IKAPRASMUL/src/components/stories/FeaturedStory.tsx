@@ -57,7 +57,6 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
       >
-        {/* Sliding track */}
         <div
           className="flex transition-transform duration-500 ease-out motion-reduce:transition-none"
           style={{ transform: `translateX(-${index * 100}%)` }}
@@ -109,7 +108,6 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
 
         {count > 1 && (
           <>
-            {/* Prev / next — revealed on hover */}
             <button
               type="button"
               onClick={() => go(-1)}
@@ -127,7 +125,6 @@ export function FeaturedStory({ stories }: { stories: Story[] }) {
               <ChevronRight className="size-5" />
             </button>
 
-            {/* Dots */}
             <div className="absolute bottom-6 right-8 flex gap-1.5">
               {stories.map((s, i) => (
                 <button

@@ -20,7 +20,6 @@ export function AdminShell({ email, isSuperAdmin = false, permissions = [], chil
 
   return (
     <div className="flex h-dvh overflow-hidden bg-surface">
-      {/* Mobile backdrop — tapping it closes the sidebar */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-20 bg-black/50 lg:hidden"
@@ -38,7 +37,6 @@ export function AdminShell({ email, isSuperAdmin = false, permissions = [], chil
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <header className="flex h-16 shrink-0 items-center justify-between border-b bg-background px-4 sm:px-6">
           <div className="flex items-center gap-3">
-            {/* Hamburger — only visible on mobile */}
             <button
               type="button"
               aria-label={t.admin.openMenu}

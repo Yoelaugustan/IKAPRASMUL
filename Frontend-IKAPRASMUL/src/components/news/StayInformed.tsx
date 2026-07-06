@@ -4,7 +4,6 @@ import { Mail } from "lucide-react";
 import { NewsletterForm } from "@/components/newsletter/NewsletterForm";
 import { useLang } from "@/components/shared/LanguageProvider";
 
-// "Stay Informed" newsletter card on the News page (navy variant).
 export function StayInformed() {
   const { t } = useLang();
   return (

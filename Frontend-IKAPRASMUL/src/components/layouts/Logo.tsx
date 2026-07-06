@@ -25,7 +25,6 @@ export function Logo({
     );
   }
 
-  // Text fallback for light backgrounds (mobile sheet, etc.)
   return (
     <span className={cn("flex items-center gap-2", className)}>
       <span className="grid size-8 shrink-0 place-items-center rounded-full border-2 border-primary text-[9px] font-bold text-primary">

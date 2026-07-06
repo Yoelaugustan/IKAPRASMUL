@@ -97,20 +97,16 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
   const [dialog, setDialog] = useState<DialogMode>(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  // Create form state
   const [createEmail, setCreateEmail] = useState("");
   const [createPassword, setCreatePassword] = useState("");
   const [createConfirm, setCreateConfirm] = useState("");
   const [createSections, setCreateSections] = useState<string[]>([]);
 
-  // Edit permissions state
   const [editSections, setEditSections] = useState<string[]>([]);
 
-  // Change password state
   const [newPassword, setNewPassword] = useState("");
   const [newConfirm, setNewConfirm] = useState("");
 
-  // Search + pagination
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 10;
@@ -211,7 +207,6 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
   const superAdminCount = initial.filter((u) => u.role === "SuperAdmin").length;
   const adminCount = initial.filter((u) => u.role === "Admin").length;
 
-  // Search filter + pagination
   const filtered = query.trim()
     ? initial.filter((u) =>
         u.email.toLowerCase().includes(query.trim().toLowerCase()),
@@ -223,7 +218,6 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-start justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-primary">
@@ -245,7 +239,6 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
         )}
       </div>
 
-      {/* Stat cards */}
       <div className="mt-6 grid grid-cols-2 gap-4">
         <Card className="gap-0 p-5">
           <div className="flex items-center justify-between">
@@ -277,7 +270,6 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
         </Card>
       </div>
 
-      {/* Search bar */}
       <div className="mt-4 relative">
         <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
@@ -291,7 +283,6 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
         />
       </div>
 
-      {/* User list */}
       <Card className="mt-3 gap-0 overflow-hidden p-0 border-0 shadow-md">
         {filtered.length === 0 ? (
           <p className="px-6 py-12 text-center text-sm text-muted-foreground">
@@ -350,7 +341,6 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
                   </p>
                 </div>
 
-                {/* Actions — SuperAdmin can manage normal admins; normal admins see nothing */}
                 {isSuperAdmin && !isSA ? (
                   <div className="flex shrink-0 gap-2">
                     <Button
@@ -397,7 +387,6 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
           })
         )}
 
-        {/* Pagination footer */}
         {totalPages > 1 && (
           <div className="flex items-center justify-between border-t border-slate-100 bg-white px-6 py-4">
             <span className="text-sm text-muted-foreground">
@@ -427,7 +416,6 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
         )}
       </Card>
 
-      {/* Create admin dialog */}
       <Dialog open={dialog?.kind === "create"} onOpenChange={(open) => !open && closeDialog()}>
         <DialogContent>
           <DialogHeader>
@@ -488,7 +476,6 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
         </DialogContent>
       </Dialog>
 
-      {/* Edit permissions dialog */}
       <Dialog
         open={dialog?.kind === "permissions"}
         onOpenChange={(open) => !open && closeDialog()}
@@ -514,7 +501,6 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
         </DialogContent>
       </Dialog>
 
-      {/* Change password dialog */}
       <Dialog
         open={dialog?.kind === "password"}
         onOpenChange={(open) => !open && closeDialog()}
@@ -561,7 +547,6 @@ export function UsersManager({ users: initial, isSuperAdmin }: UsersManagerProps
         </DialogContent>
       </Dialog>
 
-      {/* Delete confirmation dialog */}
       <Dialog
         open={dialog?.kind === "delete"}
         onOpenChange={(open) => !open && closeDialog()}

@@ -19,7 +19,6 @@ function TableRowSkeleton() {
   );
 }
 
-// Stat card skeleton used on the dashboard
 export function StatCardSkeleton() {
   return (
     <div className="rounded-xl bg-card p-5 shadow-md">
@@ -33,11 +32,9 @@ export function StatCardSkeleton() {
   );
 }
 
-// Full table skeleton (header + rows) for CMS pages
 export function ResourceTableSkeleton({ rows = 8 }: { rows?: number }) {
   return (
     <div>
-      {/* Page title */}
       <div className="flex items-end justify-between gap-5">
         <div className="space-y-2">
           <Skeleton className="h-7 w-44" />
@@ -46,15 +43,12 @@ export function ResourceTableSkeleton({ rows = 8 }: { rows?: number }) {
         <Skeleton className="h-9 w-32 rounded-lg" />
       </div>
 
-      {/* Search bar */}
       <div className="mt-5 flex items-center justify-between gap-4">
         <Skeleton className="h-10 w-80 rounded-lg" />
         <Skeleton className="h-4 w-20" />
       </div>
 
-      {/* Table */}
       <div className="mt-4 overflow-hidden rounded-xl bg-card shadow-sm">
-        {/* Header */}
         <div className="flex items-center gap-4 bg-card px-5 py-4">
           <Skeleton className="h-3 w-1/3" />
           <Skeleton className="h-3 w-16" />
@@ -62,7 +56,6 @@ export function ResourceTableSkeleton({ rows = 8 }: { rows?: number }) {
           <Skeleton className="h-3 w-16" />
           <Skeleton className="ml-auto h-3 w-14" />
         </div>
-        {/* Rows */}
         {Array.from({ length: rows }).map((_, i) => (
           <TableRowSkeleton key={i} />
         ))}
@@ -71,21 +64,18 @@ export function ResourceTableSkeleton({ rows = 8 }: { rows?: number }) {
   );
 }
 
-// Dashboard skeleton
 export function DashboardSkeleton() {
   return (
     <div>
       <Skeleton className="h-7 w-36" />
       <Skeleton className="mt-1.5 h-4 w-80" />
 
-      {/* Stat cards */}
       <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <StatCardSkeleton key={i} />
         ))}
       </div>
 
-      {/* Bottom cards */}
       <div className="mt-5 grid gap-4 lg:grid-cols-[1.6fr_1fr]">
         <div className="overflow-hidden rounded-xl bg-card shadow-md">
           <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">

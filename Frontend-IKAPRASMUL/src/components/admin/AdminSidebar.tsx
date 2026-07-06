@@ -51,11 +51,9 @@ export function AdminSidebar({ isOpen, onClose, isSuperAdmin = false, permission
   return (
     <aside
       className={cn(
-        // Mobile: fixed overlay that slides in from the left
         "fixed inset-y-0 left-0 z-30 flex w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground",
         "transform transition-transform duration-300 ease-in-out",
         isOpen ? "translate-x-0" : "-translate-x-full",
-        // Desktop: static in-flow column, always visible
         "lg:static lg:translate-x-0",
       )}
     >
@@ -67,7 +65,6 @@ export function AdminSidebar({ isOpen, onClose, isSuperAdmin = false, permission
           height={40}
           className="object-contain"
         />
-        {/* Close button — mobile only */}
         <button
           type="button"
           aria-label={t.admin.openMenu}

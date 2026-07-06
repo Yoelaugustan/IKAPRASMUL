@@ -90,8 +90,6 @@ public class ContentSeederHostedService : IHostedService
         if (order > 0) seeded.Add(typeKey);
     }
 
-    // ---- Per-type maps (JSON shape → entity) ----
-
     private static SigGroup MapSigGroup(JsonElement e, int order) => new()
     {
         Id = Guid.NewGuid(),
@@ -209,8 +207,6 @@ public class ContentSeederHostedService : IHostedService
         SortOrder = order,
         CreatedAt = DateTime.UtcNow,
     };
-
-    // ---- JSON helpers ----
 
     private static JsonElement Obj(JsonElement e, string name) =>
         e.TryGetProperty(name, out var v) && v.ValueKind == JsonValueKind.Object ? v : default;

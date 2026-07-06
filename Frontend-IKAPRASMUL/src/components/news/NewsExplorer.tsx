@@ -46,7 +46,6 @@ export function NewsExplorer({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Read current state from URL.
   const viewAll = searchParams.get("view") === "all";
   const category = searchParams.get("category") || "All";
   const sort = (searchParams.get("sort") || "newest") as Sort;
@@ -72,7 +71,6 @@ export function NewsExplorer({
   const scrollToPanel = () =>
     requestAnimationFrame(() => scrollToElement(panelRef.current));
 
-  // Push URL changes without scrolling.
   const setParams = (
     next: Partial<{ view: string | null; category: string | null; search: string | null; sort: string | null; page: string | null }>,
   ) => {

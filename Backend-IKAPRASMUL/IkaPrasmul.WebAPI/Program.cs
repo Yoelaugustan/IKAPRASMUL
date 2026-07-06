@@ -20,7 +20,6 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- Services ---------------------------------------------------------------
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     // Omit null optionals so the public read JSON matches the original sparse shape.
@@ -93,7 +92,6 @@ builder.Services.PostConfigure<UploadOptions>(options =>
 builder.Services.AddHostedService<ContentSeederHostedService>();
 builder.Services.AddHostedService<AdminSeederHostedService>();
 
-// CORS
 var allowedOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
 builder.Services.AddCors(options =>
@@ -118,14 +116,12 @@ builder.Services.AddRateLimiter(options =>
 
 var app = builder.Build();
 
-// Apply any pending EF Core migrations automatically on startup.
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     await db.Database.MigrateAsync();
 }
 
-// --- Pipeline ---------------------------------------------------------------
 app.UseExceptionHandler();
 app.UseMiddleware<SecurityHeadersMiddleware>();
 app.UseStaticFiles();

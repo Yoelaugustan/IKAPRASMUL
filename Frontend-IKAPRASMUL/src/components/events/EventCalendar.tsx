@@ -34,7 +34,6 @@ export function EventCalendar({
   const { year, month } = view;
   const currentMonthKey = monthKey(year, month);
 
-  // Fetch event dates whenever the displayed month changes.
   useEffect(() => {
     let cancelled = false;
     fetch(`/api/events/dates?month=${currentMonthKey}`)

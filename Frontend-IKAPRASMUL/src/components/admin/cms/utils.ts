@@ -1,5 +1,3 @@
-// Small helpers shared across the CMS toolkit.
-
 /** Read a nested value by dot-path, e.g. getPath(b, "founder.name"). */
 export function getPath(obj: unknown, path: string): unknown {
   return path.split(".").reduce<unknown>((acc, key) => {

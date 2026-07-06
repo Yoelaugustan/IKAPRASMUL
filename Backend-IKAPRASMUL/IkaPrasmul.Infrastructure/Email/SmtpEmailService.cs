@@ -6,7 +6,6 @@ using MimeKit;
 
 namespace IkaPrasmul.Infrastructure.Email;
 
-/// <summary>SMTP implementation of <see cref="IEmailService"/> using MailKit.</summary>
 public class SmtpEmailService : IEmailService
 {
     private readonly SmtpOptions _options;

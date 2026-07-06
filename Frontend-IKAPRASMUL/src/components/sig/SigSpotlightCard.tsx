@@ -6,7 +6,6 @@ import { ROUTES } from "@/constants/routes";
 import { htmlToText } from "@/lib/format";
 import { getServerDict } from "@/i18n/server";
 
-// Spotlight SIG card (news-like) — links to its detail page.
 export async function SigSpotlightCard({
   spotlight,
 }: {

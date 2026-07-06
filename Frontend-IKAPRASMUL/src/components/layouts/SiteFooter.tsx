@@ -52,7 +52,6 @@ export async function SiteFooter() {
     >
       <Container className="py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.3fr_1.4fr_1fr_1.1fr]">
-          {/* Brand */}
           <div>
             <Logo variant="inverted" />
             <p className="mt-6 max-w-xs text-sm leading-6 text-primary-foreground/70">
@@ -60,7 +59,6 @@ export async function SiteFooter() {
             </p>
           </div>
 
-          {/* Contact */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-gold">
               {t.footer.contactHeading}
@@ -118,7 +116,6 @@ export async function SiteFooter() {
             </ul>
           </div>
 
-          {/* Socials */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-gold">
               {t.footer.followHeading}
@@ -141,7 +138,6 @@ export async function SiteFooter() {
             </div>
           </div>
 
-          {/* Newsletter */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider text-gold">
               {t.footer.newsletterHeading}

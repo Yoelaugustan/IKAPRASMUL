@@ -106,7 +106,6 @@ public class LocalFileStorageService : IFileStorageService
             publicUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
             return Task.CompletedTask;
 
-        // Resolve the public URL path to a physical path.
         var relativePath = publicUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar);
         var fullPath = Path.GetFullPath(Path.Combine(_webRoot, relativePath));
 

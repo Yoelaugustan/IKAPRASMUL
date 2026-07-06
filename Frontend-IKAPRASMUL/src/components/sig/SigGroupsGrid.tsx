@@ -4,7 +4,6 @@ import { Reveal } from "@/components/shared/Reveal";
 import { getServerDict } from "@/i18n/server";
 import { SigCard } from "./SigCard";
 
-// Grid of SIG group cards — image + name (icon fallback).
 export async function SigGroupsGrid({ groups }: { groups: SigGroup[] }) {
   if (groups.length === 0) {
     const { t } = await getServerDict();

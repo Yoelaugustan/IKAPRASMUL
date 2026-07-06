@@ -16,8 +16,6 @@ import { IMPACT_STATS } from "@/data/impact";
 
 const API_URL = process.env.API_URL ?? "http://localhost:5080";
 
-/* ─── Core fetch ─── */
-
 async function safeFetch<T>(path: string, fallback: T, tag?: string): Promise<T> {
   try {
     const res = await fetch(`${API_URL}/api${path}`, {
@@ -29,8 +27,6 @@ async function safeFetch<T>(path: string, fallback: T, tag?: string): Promise<T>
     return fallback;
   }
 }
-
-/* ─── Paginated fetch helpers ─── */
 
 function buildQs(params: Record<string, string | number | boolean | null | undefined>): string {
   const qs = new URLSearchParams();
@@ -50,7 +46,6 @@ async function getPaged<T>(
   return safeFetch<Paginated<T>>(`/${entity}${qs ? `?${qs}` : ""}`, fallback, tag);
 }
 
-// Single item matching a filter — uses pageSize=1
 async function fetchOne<T>(
   entity: string,
   filter: Record<string, string | number | boolean>,
@@ -60,7 +55,6 @@ async function fetchOne<T>(
   return result.items[0];
 }
 
-// Small curated list matching a filter
 async function fetchFiltered<T>(
   entity: string,
   filter: Record<string, string | number | boolean>,
@@ -96,14 +90,7 @@ async function fetchAllFresh<T>(entity: string, cap = 500): Promise<T[]> {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════
-   Public APIs
-═══════════════════════════════════════════════════════════════════════ */
-
-/* ─── Impact stats (static) ─── */
 export const getImpactStats = async (): Promise<ImpactStat[]> => IMPACT_STATS;
-
-/* ─── SIG ─── */
 
 export const getSigGroups = (): Promise<SigGroup[]> =>
   safeFetch<SigGroup[]>("/sig/groups", [], "sig");
@@ -114,9 +101,6 @@ export const getSigSpotlights = (): Promise<SigSpotlight[]> =>
 export const getSigSpotlightById = async (id: string): Promise<SigSpotlight | undefined> =>
   (await getSigSpotlights()).find((s) => s.id === id);
 
-/* ─── Stories ─── */
-
-// Curated sections — small targeted fetches
 export const getFeaturedStories = (): Promise<Story[]> =>
   fetchFiltered<Story>("stories", { isFeatured: true }, 4, "stories");
 
@@ -163,9 +147,6 @@ export const getStoryCategoryCounts = async (): Promise<{ category: string; coun
 export const getStoryBySlug = async (slug: string): Promise<Story | undefined> =>
   (await fetchAllFresh<Story>("stories")).find((s) => s.slug === slug);
 
-/* ─── Business ─── */
-
-// Curated sections
 export const getBusinessSpotlight = (): Promise<Business | undefined> =>
   fetchOne<Business>("business", { isSpotlight: true }, "business");
 
@@ -194,9 +175,6 @@ export const getBusinesses = async (params?: {
 export const getBusinessBySlug = async (slug: string): Promise<Business | undefined> =>
   (await fetchAllFresh<Business>("business")).find((b) => b.slug === slug);
 
-/* ─── News ─── */
-
-// Curated sections
 export const getFeaturedArticle = (): Promise<Article | undefined> =>
   fetchOne<Article>("news", { isFeatured: true }, "news");
 
@@ -228,9 +206,6 @@ export const getMostPopularArticles = (limit = 5): Promise<Article[]> =>
 export const getArticleBySlug = async (slug: string): Promise<Article | undefined> =>
   (await fetchAllFresh<Article>("news")).find((a) => a.slug === slug);
 
-/* ─── Events ─── */
-
-// Curated sections
 export const getFeaturedEvents = (): Promise<AlumniEvent[]> =>
   fetchFiltered<AlumniEvent>("events", { isFeatured: true }, 4, "events");
 
@@ -259,8 +234,6 @@ export const getEventsPage = (params: {
 
 export const getEventBySlug = async (slug: string): Promise<AlumniEvent | undefined> =>
   (await fetchAllFresh<AlumniEvent>("events")).find((e) => e.slug === slug);
-
-/* ─── Home featured highlights ─── */
 
 export type FeaturedHighlight =
   | { type: "event"; event: AlumniEvent }

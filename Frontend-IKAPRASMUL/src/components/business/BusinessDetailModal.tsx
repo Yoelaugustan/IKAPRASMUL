@@ -86,7 +86,6 @@ export function BusinessDetailModal({
       ? business.coverImages
       : [business.coverImage];
 
-  // Close on Escape.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
@@ -100,7 +99,6 @@ export function BusinessDetailModal({
     .filter(Boolean);
 
   return createPortal(
-    /* Backdrop */
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
       onClick={onClose}
@@ -118,7 +116,6 @@ export function BusinessDetailModal({
         className="relative z-10 flex max-h-[90vh] w-full max-w-5xl flex-col overflow-y-auto overscroll-contain rounded-[28px] bg-[#f4f4f5] shadow-2xl motion-safe:animate-in motion-safe:fade-in-0 motion-safe:zoom-in-95 motion-safe:duration-200 md:h-[85vh] md:max-h-[780px] md:min-h-[560px] md:flex-row md:overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Left — photo montage */}
         <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden md:aspect-auto md:h-full md:w-[52%]">
           <PhotoMontage images={images} />
 
@@ -130,9 +127,7 @@ export function BusinessDetailModal({
           )}
         </div>
 
-        {/* Right — details */}
         <div className="flex min-w-0 flex-1 flex-col p-8 sm:p-10 md:min-h-0 md:overflow-y-auto">
-          {/* Top row: logo (left) + alumnus badge (right) */}
           <div className="flex items-start justify-between gap-4">
             <div className="relative size-16 shrink-0 overflow-hidden rounded-full bg-white shadow-sm ring-1 ring-black/5">
               <Image
@@ -152,7 +147,6 @@ export function BusinessDetailModal({
             )}
           </div>
 
-          {/* Title */}
           <h2
             className="mt-6 text-4xl font-extrabold leading-none tracking-tight text-[#13294b] sm:text-5xl notranslate"
             translate="no"
@@ -161,7 +155,6 @@ export function BusinessDetailModal({
           </h2>
           <span className="mt-4 block h-1 w-16 rounded-full bg-gold" />
 
-          {/* Meta rows */}
           <div className="mt-7 space-y-4">
             <MetaRow
               icon={<User className="size-5" strokeWidth={1.75} />}
@@ -179,7 +172,6 @@ export function BusinessDetailModal({
 
           <hr className="my-7 border-slate-200" />
 
-          {/* Description */}
           <div className="space-y-4">
             {paragraphs.map((p, i) => (
               <p key={i} className="text-[15px] leading-relaxed text-slate-600">
@@ -188,7 +180,6 @@ export function BusinessDetailModal({
             ))}
           </div>
 
-          {/* CTA */}
           <Link
             href={ROUTES.businessDetail(business.slug)}
             className="mt-8 inline-flex w-fit items-center gap-3 rounded-xl bg-[#13294b] px-7 py-4 text-[14px] font-bold text-gold transition-colors hover:bg-[#1c3a66]"
@@ -197,7 +188,6 @@ export function BusinessDetailModal({
           </Link>
         </div>
 
-        {/* Close button */}
         <button
           type="button"
           onClick={onClose}

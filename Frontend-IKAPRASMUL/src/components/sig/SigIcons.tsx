@@ -65,7 +65,6 @@ const ICON_MAP: Record<string, IconType> = {
   "volume-2": DatabaseIcon, // Buzzer
 };
 
-// Renders the SIG icon for a given data key (falls back to a group icon).
 export function SigIcon({
   iconKey,
   className,

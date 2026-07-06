@@ -10,7 +10,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-// Compact SIG list item — circular badge + name, which triggers a popup modal.
 export function SigCard({ sig }: { sig: SigGroup }) {
   return (
     <Dialog>

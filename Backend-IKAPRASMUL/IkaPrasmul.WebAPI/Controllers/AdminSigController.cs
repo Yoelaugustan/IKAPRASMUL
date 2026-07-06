@@ -15,7 +15,6 @@ public class AdminSigController : AdminControllerBase
 
     public AdminSigController(IMediator mediator) => _mediator = mediator;
 
-    // ---- Groups ----
     [HttpGet("groups")]
     public async Task<IActionResult> Groups([FromQuery] GetAdminSigGroupListRequest request, CancellationToken ct) =>
         Ok(await _mediator.Send(request, ct));
@@ -34,7 +33,6 @@ public class AdminSigController : AdminControllerBase
         return NoContent();
     }
 
-    // ---- Spotlight ----
     [HttpGet("spotlight")]
     public async Task<IActionResult> Spotlights([FromQuery] GetAdminSigSpotlightListRequest request, CancellationToken ct) =>
         Ok(await _mediator.Send(request, ct));

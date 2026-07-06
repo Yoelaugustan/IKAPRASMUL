@@ -23,7 +23,6 @@ export default async function SigPage() {
 
   return (
     <>
-      {/* 1. Hero with background image + overlapping stats */}
       <PageHero
         eyebrow={t.pageHero.sigEyebrow}
         title={
@@ -46,39 +45,24 @@ export default async function SigPage() {
         </ContactCtaButton>
       </PageHero>
 
-      {/* 2. Impact Stats overlapping the hero */}
       <ImpactStats overlap />
 
-      {/* 3. Description + CTA card */}
       <SigDescription />
 
-      {/* 4. What You Can Do — gold bar */}
       <WhatYouCanDo />
 
-      {/* 5. SIG Groups + Spotlight side by side */}
       <section className="py-16 sm:py-20 bg-[#f8fafc] border-t border-slate-100/50">
         <Container>
           <Reveal className="grid items-start gap-12 lg:grid-cols-[1fr_340px]">
-            {/* Left: groups heading + grid */}
             <div>
               <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
                 <h2 className="text-xl font-bold uppercase tracking-wide text-[#00396c]">
                   {t.sig.ourGroups}
                 </h2>
-                {/* <ContactCtaButton
-                  subject="Create a SIG"
-                  variant="outline"
-                  className="flex items-center gap-2 bg-white border border-slate-300 text-slate-800 font-semibold px-5 py-2.5 h-11 rounded-lg text-sm shadow-xs hover:bg-slate-50 transition-colors"
-                >
-                  <UserPlus className="size-4 text-slate-600" />
-                  <span>Create a SIG</span>
-                  <ArrowRight className="size-4 text-slate-600 ml-1" />
-                </ContactCtaButton> */}
               </div>
               <SigGroupsGrid groups={groups} />
             </div>
 
-            {/* Right: SIG Spotlight sidebar */}
             <aside>
               <SigSpotlight />
             </aside>

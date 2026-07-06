@@ -55,7 +55,6 @@ export function ContactModal() {
         </DialogDescription>
 
         <div className="grid md:grid-cols-[5fr_7fr]">
-          {/* Left: contact details */}
           <aside className="bg-[#F5F3F3] p-6 sm:p-8">
             <ul className="space-y-6">
               {CAMPUSES.map((c) => (
@@ -101,7 +100,6 @@ export function ContactModal() {
             </ul>
           </aside>
 
-          {/* Right: form */}
           <div className="bg-white p-6 sm:p-8">
             <h2 className="text-2xl font-bold text-[#001B3D]">
               {t.contact.sendAMessage}

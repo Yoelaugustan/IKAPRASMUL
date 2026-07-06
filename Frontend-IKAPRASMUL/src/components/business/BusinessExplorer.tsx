@@ -57,7 +57,6 @@ export function BusinessExplorer({
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // URL-driven state.
   const viewAll = searchParams.get("view") === "all";
   const urlIndustry = searchParams.get("industry") || "All";
   const urlSearch = searchParams.get("search") || "";
@@ -201,7 +200,6 @@ export function BusinessExplorer({
   return (
     <>
     <div className="flow-root bg-slate-50">
-      {/* ---- Search bar (overlaps the hero) ---- */}
       <Container>
         <form
           onSubmit={(e) => { e.preventDefault(); applySearch(); }}
@@ -250,14 +248,12 @@ export function BusinessExplorer({
         </form>
       </Container>
 
-      {/* ---- Browse by Industry + Featured + Spotlight ---- */}
       <div className="bg-slate-50 pb-8">
       <Container className="pt-8">
         <div
           ref={panelRef}
           className="scroll-mt-24 rounded-2xl bg-white p-6 shadow-sm sm:p-8"
         >
-          {/* Browse by Industry */}
           <SectionLabel>{t.bizList.browseByIndustry}</SectionLabel>
           <div
             ref={tabsRef}
@@ -300,7 +296,6 @@ export function BusinessExplorer({
             })}
           </div>
 
-          {/* ---- Default: Featured + Spotlight ---- */}
           {!viewAll ? (
             <div
               key="featured"
@@ -353,7 +348,6 @@ export function BusinessExplorer({
               <BusinessSpotlight business={spotlight} onSelect={setSelectedBusiness} />
             </div>
           ) : (
-            /* ---- View all: full-width paginated grid ---- */
             <div
               key="viewall"
               ref={resultsRef}

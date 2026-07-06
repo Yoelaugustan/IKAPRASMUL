@@ -11,7 +11,6 @@ export async function SigDescription() {
     <section className="py-16 sm:py-20">
       <Container>
         <Reveal className="grid items-start gap-10 lg:grid-cols-[1fr_380px]">
-          {/* Left — descriptive copy with circle badge icon */}
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:gap-8">
             <div className="flex size-18 shrink-0 items-center justify-center rounded-full bg-[#00396c]">
               <GatherIcon className="size-9 text-gold" />
@@ -22,7 +21,6 @@ export async function SigDescription() {
             </div>
           </div>
 
-          {/* Right — CTA card */}
           <div className="rounded-2xl bg-[#0b1220] p-8 text-white shadow-xl">
             <div className="flex items-start gap-4">
               <div className="flex size-12 shrink-0 items-center justify-center rounded-full border border-gold/30 text-gold">

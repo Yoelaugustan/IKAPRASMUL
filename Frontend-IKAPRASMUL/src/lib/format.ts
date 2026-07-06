@@ -1,5 +1,3 @@
-// Small formatting helpers shared across content cards.
-
 export function formatDate(
   iso: string,
   opts: Intl.DateTimeFormatOptions = {

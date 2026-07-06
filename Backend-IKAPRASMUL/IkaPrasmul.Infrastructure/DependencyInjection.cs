@@ -12,8 +12,6 @@ namespace IkaPrasmul.Infrastructure;
 
 public static class DependencyInjection
 {
-    /// <summary>Registers infrastructure: the PostgreSQL DbContext, SMTP email,
-    /// JWT token + file-storage services, and the bound options.</summary>
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
         IConfiguration configuration)

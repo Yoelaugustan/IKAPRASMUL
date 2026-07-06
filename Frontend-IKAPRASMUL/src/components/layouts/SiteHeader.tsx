@@ -41,7 +41,6 @@ export function SiteHeader() {
             <Logo variant="inverted" />
           </Link>
 
-          {/* Desktop nav — visible from 1100px */}
           <nav className="hidden items-center gap-5 min-[1100px]:flex">
             {MAIN_NAV.map((item) => (
               <Link
@@ -81,7 +80,6 @@ export function SiteHeader() {
               {t.header.contact}
             </Button>
 
-            {/* Mobile menu */}
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger asChild>
                 <Button

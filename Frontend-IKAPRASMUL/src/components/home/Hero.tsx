@@ -11,7 +11,6 @@ export async function Hero() {
   const { t } = await getServerDict();
   return (
     <section className="relative overflow-hidden bg-primary text-primary-foreground">
-      {/* Full-bleed campus backdrop */}
       <Image
         src="/images/home/hero-campus.jpg"
         alt="Prasetiya Mulya campus"
@@ -22,7 +21,6 @@ export async function Hero() {
         sizes="100vw"
         className="object-cover"
       />
-      {/* Subtle navy tint — left side legible, campus clearly visible */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/50 to-transparent" />
 
       <Container className="relative pt-20 pb-44 sm:pt-24 lg:pt-28 lg:pb-52">

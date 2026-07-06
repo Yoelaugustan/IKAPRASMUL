@@ -44,7 +44,6 @@ export function EventsView({
   const searchParams = useSearchParams();
   const contentRef = useRef<HTMLDivElement>(null);
 
-  // URL-driven state.
   const viewAll = searchParams.get("view") === "all";
   const category = searchParams.get("category") || "All";
   const sort = (searchParams.get("sort") || "date_asc") as Sort;
@@ -113,7 +112,6 @@ export function EventsView({
     scrollToContent();
   };
 
-  /* ----------------------------- Sidebar ----------------------------- */
   const sidebar = (
     <div className="space-y-6">
       <EventCalendar
@@ -160,7 +158,6 @@ export function EventsView({
     );
   }
 
-  /* --------------------------- Main content --------------------------- */
   let main: React.ReactNode;
 
   if (selectedDate) {

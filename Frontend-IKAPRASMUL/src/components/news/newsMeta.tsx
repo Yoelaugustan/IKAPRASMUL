@@ -21,6 +21,5 @@ export const NEWS_CATEGORY_ICONS: Record<string, IconType> = {
   Newsletter: Mail,
 };
 
-// Gold text for the small category eyebrow on cards.
 export const CATEGORY_EYEBROW =
   "text-[11px] font-bold uppercase tracking-wider text-gold";

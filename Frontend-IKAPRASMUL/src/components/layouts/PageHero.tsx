@@ -46,7 +46,6 @@ export function PageHero({
           className="object-cover"
         />
       )}
-      {/* gradient: full bleed when there's an image; subtle glow when plain */}
       {backgroundImage ? (
         <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/60 to-transparent" />
       ) : (

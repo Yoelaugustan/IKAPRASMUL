@@ -42,7 +42,6 @@ export function StoriesView({
   const sort = searchParams.get("sort") || "newest";
   const viewAll = searchParams.get("view") === "all";
 
-  // Update the query string without scrolling the page.
   const setParams = (next: {
     category?: string | null;
     sort?: string | null;
@@ -88,7 +87,6 @@ export function StoriesView({
     requestAnimationFrame(() => scrollToElement(contentRef.current));
   };
 
-  /* ------------------------- DEFAULT MODE ------------------------- */
   if (!viewAll) {
     const highlights = highlightStories;
 
@@ -154,7 +152,6 @@ export function StoriesView({
     );
   }
 
-  /* ------------------------- VIEW-ALL MODE ------------------------ */
   const pageItems = pagedStories.items;
   const totalPages = pagedStories.totalPages;
   const currentPage = pagedStories.page;

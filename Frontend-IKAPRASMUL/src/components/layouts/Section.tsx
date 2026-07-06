@@ -2,11 +2,9 @@ import { cn } from "@/lib/utils";
 import { Container } from "./Container";
 
 type SectionProps = {
-  /** Small uppercase eyebrow above the title. */
   eyebrow?: string;
   title?: string;
   description?: string;
-  /** Visual background treatment. */
   variant?: "default" | "surface";
   className?: string;
   containerClassName?: string;

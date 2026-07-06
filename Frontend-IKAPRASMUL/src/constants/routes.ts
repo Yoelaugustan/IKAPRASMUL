@@ -9,7 +9,6 @@ export const ROUTES = {
   news: "/news",
   events: "/events",
 
-  // Dynamic content detail pages
   storyDetail: (slug: string) => `/stories/${slug}`,
   businessDetail: (slug: string) => `/business/${slug}`,
   articleDetail: (slug: string) => `/news/${slug}`,
@@ -23,7 +22,6 @@ export const ROUTES = {
   forgotPassword: "/forgot-password",
   resetPassword: "/reset-password",
 
-  // Admin CMS
   admin: "/admin",
   adminSig: "/admin/sig",
   adminStories: "/admin/stories",

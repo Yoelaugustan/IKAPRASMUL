@@ -61,7 +61,6 @@ export function BusinessCard({
           <Bookmark className={cn("size-4", isSaved && "fill-gold text-gold")} />
         </button>
 
-        {/* Logo badge overlapping the image */}
         <div className="absolute -bottom-5 left-4 size-12 overflow-hidden rounded-full border-2 border-white bg-white shadow">
           <Image
             src={business.logo}

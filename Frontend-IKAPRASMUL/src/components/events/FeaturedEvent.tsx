@@ -36,7 +36,6 @@ export function FeaturedEvent({ events }: { events: AlumniEvent[] }) {
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
     >
-      {/* Sliding track */}
       <div
         className="flex transition-transform duration-500 ease-out motion-reduce:transition-none"
         style={{ transform: `translateX(-${index * 100}%)` }}
@@ -112,7 +111,6 @@ export function FeaturedEvent({ events }: { events: AlumniEvent[] }) {
             <ChevronRight className="size-5" />
           </button>
 
-          {/* Dots */}
           <div className="absolute bottom-5 right-7 flex gap-1.5">
             {events.map((e, i) => (
               <button
