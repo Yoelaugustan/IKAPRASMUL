@@ -15,6 +15,7 @@ public class AdminUploadController : AdminControllerBase
         "media/business",
         "media/sig",
         "media/events",
+        "media/governance",
     };
 
     private readonly IFileStorageService _storage;

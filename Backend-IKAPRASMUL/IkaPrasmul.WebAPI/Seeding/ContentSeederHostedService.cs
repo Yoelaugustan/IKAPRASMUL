@@ -51,6 +51,7 @@ public class ContentSeederHostedService : IHostedService
             await SeedAsync(db.BusinessListings, root, "business", MapBusiness, seeded, cancellationToken);
             await SeedAsync(db.News, root, "article", MapArticle, seeded, cancellationToken);
             await SeedAsync(db.Events, root, "event", MapEvent, seeded, cancellationToken);
+            await SeedAsync(db.GovernanceDocuments, root, "governanceDocument", MapGovernanceDocument, seeded, cancellationToken);
 
             if (seeded.Count == 0)
             {
@@ -204,6 +205,16 @@ public class ContentSeederHostedService : IHostedService
         IsFeatured = Bool(e, "isFeatured"),
         IsFeaturedHome = Bool(e, "isFeaturedHome"),
         Status = "Published",
+        SortOrder = order,
+        CreatedAt = DateTime.UtcNow,
+    };
+
+    private static GovernanceDocument MapGovernanceDocument(JsonElement e, int order) => new()
+    {
+        Id = Guid.NewGuid(),
+        Title = Str(e, "title") ?? string.Empty,
+        Description = Str(e, "description") ?? string.Empty,
+        PdfUrl = Str(e, "pdfUrl") ?? string.Empty,
         SortOrder = order,
         CreatedAt = DateTime.UtcNow,
     };

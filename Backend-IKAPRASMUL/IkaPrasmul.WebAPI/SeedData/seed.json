@@ -747,5 +747,37 @@
       "isFeatured": true
     }
   ],
-  "alumniStories": []
+  "alumniStories": [],
+  "governanceDocument": [
+    {
+      "title": "Anggaran Dasar",
+      "description": "Piagam dasar yang menetapkan tujuan, struktur, dan tata kelola organisasi kami.",
+      "pdfUrl": "/documents/governance/organization-charter.pdf"
+    },
+    {
+      "title": "Anggaran Rumah Tangga",
+      "description": "Aturan dan ketentuan yang mengatur IKAPRASMUL.",
+      "pdfUrl": "/documents/governance/articles-of-association.pdf"
+    },
+    {
+      "title": "Laporan Tahunan",
+      "description": "Gambaran menyeluruh atas kinerja dan pencapaian kami.",
+      "pdfUrl": "/documents/governance/annual-report.pdf"
+    },
+    {
+      "title": "Rencana Strategis",
+      "description": "Peta jalan kami untuk menghadirkan dampak dan menciptakan nilai jangka panjang.",
+      "pdfUrl": "/documents/governance/strategic-plan.pdf"
+    },
+    {
+      "title": "Program Kerja Tahunan",
+      "description": "Inisiatif dan kegiatan yang direncanakan untuk tahun mendatang.",
+      "pdfUrl": "/documents/governance/annual-work-program.pdf"
+    },
+    {
+      "title": "Notulen Rapat",
+      "description": "Catatan resmi rapat umum dan diskusi pengurus.",
+      "pdfUrl": "/documents/governance/meeting-minutes.pdf"
+    }
+  ]
 }

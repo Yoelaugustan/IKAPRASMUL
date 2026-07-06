@@ -113,4 +113,13 @@ public static class ContentJson
         isFeaturedHome = e.IsFeaturedHome,
         isDraft = IsDraft(e.Status),
     });
+
+    public static JsonElement GovernanceDocument(GovernanceDocument d) => To(new
+    {
+        id = d.Id,
+        title = d.Title,
+        description = d.Description,
+        pdfUrl = d.PdfUrl,
+        sortOrder = d.SortOrder,
+    });
 }

@@ -9,7 +9,8 @@ public static class Sections
     public const string Stories = "stories";
     public const string News = "news";
     public const string Events = "events";
+    public const string Governance = "governance";
 
     public static readonly IReadOnlyList<string> All =
-        [Sig, Business, Stories, News, Events];
+        [Sig, Business, Stories, News, Events, Governance];
 }

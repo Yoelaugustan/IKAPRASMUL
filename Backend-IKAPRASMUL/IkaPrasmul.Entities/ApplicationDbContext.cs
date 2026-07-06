@@ -24,6 +24,7 @@ public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<Guid>, 
     public DbSet<BusinessListing> BusinessListings => Set<BusinessListing>();
     public DbSet<News> News => Set<News>();
     public DbSet<Event> Events => Set<Event>();
+    public DbSet<GovernanceDocument> GovernanceDocuments => Set<GovernanceDocument>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
