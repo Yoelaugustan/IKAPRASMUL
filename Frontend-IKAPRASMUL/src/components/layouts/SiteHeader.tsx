@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
-import { UserIcon } from "@/components/icons";
+// import { UserIcon } from "@/components/icons";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { MAIN_NAV, ROUTES } from "@/constants/routes";
@@ -117,7 +117,7 @@ export function SiteHeader() {
                   ))}
                 </nav>
                 <div className="mt-4 flex flex-col gap-2 px-4">
-                  <Button
+                  {/* <Button
                     asChild
                     variant="outline"
                     className="border-white/40 bg-transparent text-primary-foreground hover:bg-white/10 hover:text-white"
@@ -125,7 +125,7 @@ export function SiteHeader() {
                     <a href="https://alumniprofile.ikaprama.org/home" onClick={() => setMobileOpen(false)}>
                       <UserIcon /> {t.header.login}
                     </a>
-                  </Button>
+                  </Button> */}
                   <Button
                     variant="gold"
                     onClick={() => {
