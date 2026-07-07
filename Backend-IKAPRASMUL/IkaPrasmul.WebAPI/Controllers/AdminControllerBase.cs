@@ -19,4 +19,10 @@ public abstract class AdminControllerBase : ControllerBase
         User.FindFirstValue(ClaimTypes.Email)
         ?? User.FindFirstValue("email")
         ?? User.Identity?.Name;
+
+    /// <summary>The authenticated user's own Id (from the JWT's `sub` claim), for
+    /// self-service actions (e.g. changing your own password) that must never
+    /// trust a client-supplied id for "who am I".</summary>
+    protected Guid ActorId =>
+        Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 }

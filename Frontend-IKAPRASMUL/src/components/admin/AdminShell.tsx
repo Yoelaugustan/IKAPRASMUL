@@ -2,9 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { KeyRound, LogOut, Menu, User } from "lucide-react";
 import { AdminSidebar } from "./AdminSidebar";
 import { AdminBreadcrumb } from "./AdminBreadcrumb";
+import { ChangeMyPasswordDialog } from "./ChangeMyPasswordDialog";
+import { useLogout } from "./hooks/useLogout";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { LanguageToggle } from "@/components/layouts/LanguageToggle";
 import { useLang } from "@/components/shared/LanguageProvider";
 
@@ -17,8 +27,10 @@ interface AdminShellProps {
 
 export function AdminShell({ email, isSuperAdmin = false, permissions = [], children }: AdminShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
   const { t } = useLang();
   const pathname = usePathname();
+  const logout = useLogout();
 
   // The admin layout's server-side auth gate only runs on an actual
   // navigation request — Next reuses the cached layout across client-side
@@ -72,11 +84,38 @@ export function AdminShell({ email, isSuperAdmin = false, permissions = [], chil
               {t.admin.signedInAs}{" "}
               <span className="font-medium text-foreground">{email}</span>
             </p>
-            <span className="grid size-8 place-items-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
-              {email?.[0]?.toUpperCase() ?? "A"}
-            </span>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  type="button"
+                  aria-label={t.admin.signedInAs}
+                  className="grid size-8 place-items-center rounded-full bg-primary text-sm font-semibold text-primary-foreground outline-none transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                >
+                  {email?.[0]?.toUpperCase() ?? "A"}
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel className="flex items-center gap-2 truncate">
+                  <User className="size-4 shrink-0" /> {email}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => setPasswordDialogOpen(true)}>
+                  <KeyRound /> {t.admin.changeMyPassword}
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  variant="destructive"
+                  disabled={logout.isPending}
+                  onClick={() => logout.mutate()}
+                >
+                  <LogOut /> {t.admin.signOut}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
+
+        <ChangeMyPasswordDialog open={passwordDialogOpen} onOpenChange={setPasswordDialogOpen} />
 
         <main
           className="flex-1 overflow-y-auto min-h-0 p-4 sm:p-6 lg:p-8"

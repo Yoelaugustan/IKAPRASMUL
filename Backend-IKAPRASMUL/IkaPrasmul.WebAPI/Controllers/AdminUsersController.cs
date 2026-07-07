@@ -42,6 +42,17 @@ public class AdminUsersController : AdminControllerBase
         return NoContent();
     }
 
+    /// <summary>Self-service password change for the caller's own account — the
+    /// only path that can change a SuperAdmin's password, since ChangePassword
+    /// above (admin-on-admin) explicitly excludes SuperAdmin targets.</summary>
+    [HttpPatch("me/password")]
+    public async Task<IActionResult> ChangeMyPassword([FromBody] ChangeMyPasswordRequest request, CancellationToken ct)
+    {
+        request.UserId = ActorId;
+        await _mediator.Send(request, ct);
+        return NoContent();
+    }
+
     [HttpDelete("{id:guid}")]
     [Authorize(Roles = Roles.SuperAdmin)]
     public async Task<IActionResult> Delete(Guid id, CancellationToken ct)
