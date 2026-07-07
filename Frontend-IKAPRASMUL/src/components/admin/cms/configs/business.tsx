@@ -137,9 +137,9 @@ export const businessConfig = (a: A): ResourceConfig<Business> => ({
       uploadFolder: "media/business",
     },
     { key: "logo", label: a.fieldLogo, type: "image", uploadFolder: "media/business", required: true },
-    { key: "coverImage", label: a.fieldCoverImage, type: "image", uploadFolder: "media/business", required: true },
-    { key: "coverImage2", label: `${a.fieldCoverImage} 2`, type: "image", uploadFolder: "media/business" },
-    { key: "coverImage3", label: `${a.fieldCoverImage} 3`, type: "image", uploadFolder: "media/business" },
+    { key: "coverImage", label: a.fieldCoverImage, type: "image", uploadFolder: "media/business", required: true, tooltip: a.tooltipCoverImages },
+    { key: "coverImage2", label: `${a.fieldCoverImage} 2`, type: "image", uploadFolder: "media/business", tooltip: a.tooltipCoverImages },
+    { key: "coverImage3", label: `${a.fieldCoverImage} 3`, type: "image", uploadFolder: "media/business", tooltip: a.tooltipCoverImages },
     {
       key: "isSpotlight",
       label: a.toggleBusinessSpotlight,

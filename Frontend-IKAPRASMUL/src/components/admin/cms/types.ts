@@ -23,6 +23,8 @@ export interface FieldConfig {
   options?: readonly string[];
   rows?: number;
   hint?: string;
+  /** Hover tooltip on an info icon next to the label, e.g. recommended image dimensions. */
+  tooltip?: string;
   /** Span both columns of the 2-col form grid. */
   full?: boolean;
   /** Hide this field based on the current form state. */

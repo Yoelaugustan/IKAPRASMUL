@@ -17,10 +17,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, X } from "lucide-react";
+import { Info, Loader2, X } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { uploadFile } from "@/lib/adminApi";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { ToggleField } from "./ToggleField";
 import { ImageField } from "./ImageField";
 import { PdfField } from "./PdfField";
@@ -462,10 +463,24 @@ export function EditDialog<T>({
                   className={cn(field.full && "sm:col-span-2")}
                 >
                   {field.type !== "toggle" && (
-                    <label className="mb-1.5 block text-xs font-semibold text-foreground">
+                    <label className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-foreground">
                       {field.label}
                       {field.required && (
-                        <span className="ml-1 text-destructive">*</span>
+                        <span className="text-destructive">*</span>
+                      )}
+                      {field.tooltip && (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              type="button"
+                              className="text-muted-foreground hover:text-foreground"
+                              aria-label={`About ${field.label}`}
+                            >
+                              <Info className="size-3.5" />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent>{field.tooltip}</TooltipContent>
+                        </Tooltip>
                       )}
                     </label>
                   )}

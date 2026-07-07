@@ -728,6 +728,7 @@ const en = {
     fieldShortDescription: "Short description",
     fieldFullDescription: "Full description",
     fieldLogo: "Logo",
+    tooltipCoverImages: "How many cover photos you add changes the best shape for each one.\n• 1 photo: fills the whole area. Use a photo close to square, at least 1200x1200px.\n• 2 photos: stacked one on top of the other. Use wide, landscape photos, at least 1200x900px each.\n• 3 photos: Cover image sits large on top, use a wide photo at least 1200x1000px. Cover image 2 and Cover image 3 sit side by side below it, use photos close to square, at least 900x900px each.",
     // SIG fields
     fieldGroupName: "Group name",
     fieldLogoImage: "Logo / image",
@@ -1467,6 +1468,7 @@ const id: Dictionary = {
     fieldShortDescription: "Deskripsi singkat",
     fieldFullDescription: "Deskripsi lengkap",
     fieldLogo: "Logo",
+    tooltipCoverImages: "Jumlah foto sampul yang Anda tambahkan menentukan bentuk terbaik untuk masing-masing foto.\n• 1 foto: mengisi seluruh area. Gunakan foto yang mendekati persegi, minimal 1200x1200px.\n• 2 foto: bertumpuk satu di atas yang lain. Gunakan foto lebar (landscape), minimal 1200x900px untuk masing-masing.\n• 3 foto: Gambar sampul berada besar di atas, gunakan foto lebar minimal 1200x1000px. Gambar sampul 2 dan Gambar sampul 3 berdampingan di bawahnya, gunakan foto yang mendekati persegi, minimal 900x900px untuk masing-masing.",
     // SIG fields
     fieldGroupName: "Nama grup",
     fieldLogoImage: "Logo / gambar",
