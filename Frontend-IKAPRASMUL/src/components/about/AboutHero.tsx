@@ -39,7 +39,7 @@ export function AboutHero({
       <div aria-hidden className="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-gold/10 blur-3xl" />
       <div aria-hidden className="pointer-events-none absolute -bottom-24 left-1/4 h-80 w-80 rounded-full bg-[#3d6bb0]/15 blur-3xl" />
 
-      <div className="pointer-events-none absolute inset-0 min-[1025px]:inset-y-0 min-[1025px]:left-auto min-[1025px]:right-0 min-[1025px]:w-[65%]">
+      <div className="pointer-events-none absolute inset-0 min-[1300px]:inset-y-0 min-[1300px]:left-auto min-[1300px]:right-0 min-[1300px]:w-[65%]">
         <Image
           src={HERO_IMAGE}
           alt="IKAPRASMUL board members and alumni"
@@ -49,7 +49,7 @@ export function AboutHero({
         />
       </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#082850] via-[#082850]/70 to-transparent min-[1025px]:hidden" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#082850] via-[#082850]/70 to-transparent min-[1300px]:hidden" />
 
       <Container className="relative py-14 sm:py-16 lg:py-20">
         <div className="max-w-lg [&>*]:fill-mode-both [&>*]:duration-700 [&>*]:ease-out motion-reduce:[&>*]:animate-none">
