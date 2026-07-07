@@ -60,14 +60,17 @@ export function ResourcePage<T>({
             {config.subtitle}
           </p>
         </div>
-        <div className="flex shrink-0 items-center gap-2.5">
+        <div className="flex shrink-0 items-center gap-5">
           {config.publicPath && (
-            <Button asChild variant="outline" className="gap-2">
-              <a href={config.publicPath} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="size-4" />
-                {t.admin.viewWebsite}
-              </a>
-            </Button>
+            <a
+              href={config.publicPath}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+            >
+              <ExternalLink className="size-4" />
+              {t.admin.viewWebsite}
+            </a>
           )}
           <Button onClick={r.openNew} className="gap-2">
             <Plus className="size-4" />
