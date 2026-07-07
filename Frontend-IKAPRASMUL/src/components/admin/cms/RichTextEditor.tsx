@@ -68,6 +68,28 @@ export function RichTextEditor({
     onChange(ref.current?.innerHTML ?? "");
   };
 
+  // Unlike "bold"/"italic", execCommand("formatBlock", ...) isn't a toggle —
+  // running it again with the same tag just re-applies it, it never reverts
+  // to a plain paragraph on its own. Check whether the selection is already
+  // inside that tag and, if so, format back to "p" instead.
+  const isSelectionInside = (tagName: string): boolean => {
+    const root = ref.current;
+    const sel = window.getSelection();
+    if (!root || !sel || sel.rangeCount === 0) return false;
+    let node: Node | null = sel.getRangeAt(0).startContainer;
+    while (node && node !== root) {
+      if (node instanceof HTMLElement && node.tagName.toLowerCase() === tagName) {
+        return true;
+      }
+      node = node.parentNode;
+    }
+    return false;
+  };
+
+  const toggleBlock = (tagName: string) => {
+    run("formatBlock", isSelectionInside(tagName) ? "p" : tagName);
+  };
+
   const addLink = () => {
     const url = window.prompt("Link URL");
     if (url) run("createLink", url);
@@ -133,10 +155,10 @@ export function RichTextEditor({
         <ToolButton title="Bold" onClick={() => run("bold")}>
           <Bold className="size-4" />
         </ToolButton>
-        <ToolButton title="Heading" onClick={() => run("formatBlock", "h3")}>
+        <ToolButton title="Heading" onClick={() => toggleBlock("h3")}>
           <Heading className="size-4" />
         </ToolButton>
-        <ToolButton title="Quote" onClick={() => run("formatBlock", "blockquote")}>
+        <ToolButton title="Quote" onClick={() => toggleBlock("blockquote")}>
           <Quote className="size-4" />
         </ToolButton>
         <ToolButton title="List" onClick={() => run("insertUnorderedList")}>
