@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { AdminSidebar } from "./AdminSidebar";
 import { AdminBreadcrumb } from "./AdminBreadcrumb";
@@ -17,6 +18,23 @@ interface AdminShellProps {
 export function AdminShell({ email, isSuperAdmin = false, permissions = [], children }: AdminShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { t } = useLang();
+  const pathname = usePathname();
+
+  // The admin layout's server-side auth gate only runs on an actual
+  // navigation request — Next reuses the cached layout across client-side
+  // navigations between already-visited admin pages, so a session that
+  // died while the tab sat open (overnight, or several restored tabs
+  // racing to refresh) can otherwise go unnoticed until a write silently
+  // fails. Re-check on every route change instead of waiting for that.
+  useEffect(() => {
+    fetch("/api/auth/session")
+      .then((res) => {
+        if (!res.ok) {
+          window.location.href = `/login?from=${encodeURIComponent(pathname)}`;
+        }
+      })
+      .catch(() => {});
+  }, [pathname]);
 
   return (
     <div className="flex h-dvh overflow-hidden bg-surface">
