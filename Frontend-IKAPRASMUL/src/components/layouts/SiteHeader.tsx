@@ -61,7 +61,7 @@ export function SiteHeader() {
 
           <div className="flex shrink-0 items-center gap-1.5">
             <LanguageToggle className="mr-1 hidden min-[1100px]:inline-flex" />
-            <Button
+            {/* <Button
               asChild
               variant="outline"
               size="sm"
@@ -70,7 +70,7 @@ export function SiteHeader() {
               <a href="https://alumniprofile.ikaprama.org/home" target="_blank">
                 <UserIcon className="size-3.5" /> {t.header.login}
               </a>
-            </Button>
+            </Button> */}
             <Button
               variant="gold"
               size="sm"
