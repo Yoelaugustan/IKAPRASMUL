@@ -36,12 +36,12 @@ export function SiteHeader() {
       className="notranslate sticky top-0 z-50 border-b border-white/25 bg-primary text-primary-foreground"
     >
       <Container>
-        <div className="flex h-[72px] items-center justify-between gap-3">
+        <div className="grid h-[72px] grid-cols-[auto_1fr_auto] items-center gap-3">
           <Link href={ROUTES.home} aria-label="IKAPRASMUL home" className="shrink-0">
             <Logo variant="inverted" />
           </Link>
 
-          <nav className="hidden items-center gap-5 min-[1100px]:flex">
+          <nav className="hidden items-center justify-center gap-5 xl:flex">
             {MAIN_NAV.map((item) => (
               <Link
                 key={item.href}
@@ -59,13 +59,13 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-1.5">
-            <LanguageToggle className="mr-1 hidden min-[1100px]:inline-flex" />
+          <div className="flex shrink-0 items-center gap-1.5 justify-self-end">
+            <LanguageToggle className="mr-1 hidden xl:inline-flex" />
             {/* <Button
               asChild
               variant="outline"
               size="sm"
-              className="hidden border-white/40 bg-transparent text-[13px] text-primary-foreground hover:bg-white/10 hover:text-white min-[1100px]:inline-flex"
+              className="hidden border-white/40 bg-transparent text-[13px] text-primary-foreground hover:bg-white/10 hover:text-white xl:inline-flex"
             >
               <a href="https://alumniprofile.ikaprama.org/home" target="_blank">
                 <UserIcon className="size-3.5" /> {t.header.login}
@@ -74,7 +74,7 @@ export function SiteHeader() {
             <Button
               variant="gold"
               size="sm"
-              className="hidden text-[13px] min-[1100px]:inline-flex"
+              className="hidden text-[13px] xl:inline-flex"
               onClick={() => openContact()}
             >
               {t.header.contact}
@@ -85,7 +85,7 @@ export function SiteHeader() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-primary-foreground hover:bg-white/10 hover:text-white min-[1100px]:hidden"
+                  className="text-primary-foreground hover:bg-white/10 hover:text-white xl:hidden"
                   aria-label="Open menu"
                 >
                   <Menu />
