@@ -12,13 +12,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# NEXT_PUBLIC_* vars are inlined into the client bundle at BUILD time, so they
-# MUST be passed as build args, not runtime env.
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-
-# API_URL is read at runtime by server-side code and the /media Route Handler.
-# It is NOT needed at build time — do not add it as a build arg.
+# API_URL is read at runtime by server-side code and the /media Route Handler
+# (the BFF proxy — the browser never talks to the backend directly, so no
+# NEXT_PUBLIC_* var is needed here). It is NOT needed at build time.
 
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
