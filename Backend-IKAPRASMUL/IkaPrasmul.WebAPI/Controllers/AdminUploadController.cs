@@ -23,7 +23,7 @@ public class AdminUploadController : AdminControllerBase
     public AdminUploadController(IFileStorageService storage) => _storage = storage;
 
     [HttpPost]
-    [RequestSizeLimit(6 * 1024 * 1024)] // backstop above the 5 MB content cap
+    [RequestSizeLimit(21 * 1024 * 1024)]
     public async Task<IActionResult> Upload(
         IFormFile? file,
         [FromForm] string? folder,
