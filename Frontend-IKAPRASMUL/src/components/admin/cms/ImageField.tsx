@@ -2,8 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Upload, X } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+
+const ACCEPTED = ["image/jpeg", "image/png", "image/webp"];
+const MAX_BYTES = 5 * 1024 * 1024;
 
 // File is NOT uploaded immediately on select. The parent (EditDialog) collects
 // queued files and uploads them right before calling onSave, so no orphaned
@@ -24,6 +28,7 @@ export function ImageField({
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
 
   // Revoke the object URL when it changes or the component unmounts.
   useEffect(() => {
@@ -36,6 +41,21 @@ export function ImageField({
     const file = event.target.files?.[0];
     event.target.value = "";
     if (!file) return;
+
+    if (!ACCEPTED.includes(file.type)) {
+      const message = `${file.name}: only JPG, PNG, or WebP images are allowed.`;
+      setFileError(message);
+      toast.error(message);
+      return;
+    }
+    if (file.size > MAX_BYTES) {
+      const message = `${file.name}: image must be 5 MB or smaller.`;
+      setFileError(message);
+      toast.error(message);
+      return;
+    }
+
+    setFileError(null);
     if (blobUrl) URL.revokeObjectURL(blobUrl);
     const url = URL.createObjectURL(file);
     setBlobUrl(url);
@@ -91,6 +111,7 @@ export function ImageField({
           </>
         )}
       </div>
+      {fileError && <p className="text-xs text-destructive">{fileError}</p>}
       {previewSrc ? (
         <div className="relative h-28 w-full overflow-hidden rounded-md border border-input bg-surface">
           {/* eslint-disable-next-line @next/next/no-img-element */}

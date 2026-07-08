@@ -16,5 +16,7 @@ public class UploadOptions
     /// <summary>Public URL prefix the stored file is served under.</summary>
     public string PublicBasePath { get; set; } = "/media/uploads";
 
-    public long MaxBytes { get; set; } = 5 * 1024 * 1024;
+    public long MaxImageBytes { get; set; } = 5 * 1024 * 1024;
+
+    public long MaxPdfBytes { get; set; } = 20 * 1024 * 1024;
 }

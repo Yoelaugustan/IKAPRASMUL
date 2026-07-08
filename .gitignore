@@ -54,3 +54,9 @@ next-env.d.ts
 AGENTS.md
 CLAUDE.md
 .gemini/
+.claude/
+
+# graphify
+graphify-out/
+.graphifyignore
+

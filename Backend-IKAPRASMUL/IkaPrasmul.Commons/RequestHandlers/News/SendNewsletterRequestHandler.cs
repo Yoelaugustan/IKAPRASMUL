@@ -67,7 +67,7 @@ public class SendNewsletterRequestHandler : IRequestHandler<SendNewsletterReques
 
         var pdfLink = string.IsNullOrWhiteSpace(entity.PdfUrl)
             ? _urls.Frontend
-            : $"{_urls.Api.TrimEnd('/')}{entity.PdfUrl}";
+            : $"{_urls.Frontend.TrimEnd('/')}{entity.PdfUrl}";
         var subject = $"Newsletter Baru: {entity.Title}";
 
         var sentCount = 0;
@@ -111,22 +111,10 @@ public class SendNewsletterRequestHandler : IRequestHandler<SendNewsletterReques
     {
         string E(string? value) => WebUtility.HtmlEncode(value ?? string.Empty);
 
-        var apiBase = _urls.Api.TrimEnd('/');
         var frontendUrl = _urls.Frontend.TrimEnd('/');
         // Points at the frontend confirmation page (not the raw API endpoint
         // directly) so the recipient sees a branded page, not bare JSON.
         var unsubscribeLink = $"{frontendUrl}/unsubscribe?email={Uri.EscapeDataString(toEmail)}";
-
-        var coverImageRow = string.IsNullOrWhiteSpace(entity.CoverImage)
-            ? string.Empty
-            : $"""
-                <tr>
-                  <td>
-                    <img src="{apiBase}{entity.CoverImage}" alt="{E(entity.Title)}" width="600"
-                         style="display:block;width:100%;max-width:600px;height:auto;" />
-                  </td>
-                </tr>
-                """;
 
         var metaParts = new List<string>();
         if (!string.IsNullOrWhiteSpace(entity.Category)) metaParts.Add(E(entity.Category));
@@ -159,7 +147,6 @@ public class SendNewsletterRequestHandler : IRequestHandler<SendNewsletterReques
                           </div>
                         </td>
                       </tr>
-                      {coverImageRow}
                       <tr>
                         <td style="padding:32px;">
                           <h1 style="margin:0 0 10px;color:#0a192f;font-size:24px;line-height:1.35;">{E(entity.Title)}</h1>

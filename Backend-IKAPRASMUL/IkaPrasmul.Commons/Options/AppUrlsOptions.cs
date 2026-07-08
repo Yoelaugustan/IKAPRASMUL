@@ -5,9 +5,8 @@ public class AppUrlsOptions
 {
     public const string SectionName = "AppUrls";
 
-    /// <summary>Public site origin, e.g. "https://ikaprasmul.id".</summary>
+    /// <summary>Public site origin, e.g. "https://ikaprasmul.id". Also prefixes relative
+    /// upload paths (PDF/cover URLs) since the frontend proxies /media/* to the API —
+    /// the API itself has no public port.</summary>
     public string Frontend { get; set; } = string.Empty;
-
-    /// <summary>API origin — prefixes relative upload paths (e.g. PDF/cover URLs).</summary>
-    public string Api { get; set; } = string.Empty;
 }

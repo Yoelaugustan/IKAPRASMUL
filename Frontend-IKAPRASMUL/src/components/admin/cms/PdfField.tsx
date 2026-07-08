@@ -2,8 +2,11 @@
 
 import { useRef, useState } from "react";
 import { FileText, Upload, X } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+
+const MAX_BYTES = 20 * 1024 * 1024;
 
 // File is NOT uploaded immediately. The parent (EditDialog) collects queued
 // files and uploads them right before calling onSave.
@@ -20,11 +23,27 @@ export function PdfField({
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file) return;
+
+    if (file.type !== "application/pdf") {
+      const message = `${file.name}: only PDF files are allowed.`;
+      setFileError(message);
+      toast.error(message);
+      return;
+    }
+    if (file.size > MAX_BYTES) {
+      const message = `${file.name}: PDF must be 20 MB or smaller.`;
+      setFileError(message);
+      toast.error(message);
+      return;
+    }
+
+    setFileError(null);
     setPendingFile(file);
     onFileQueued?.(file);
   };
@@ -74,6 +93,8 @@ export function PdfField({
           </button>
         )}
       </div>
+
+      {fileError && <p className="text-xs text-destructive">{fileError}</p>}
 
       {displayName && (
         <div className="flex items-center gap-2 rounded-md border border-input bg-surface px-3 py-2">

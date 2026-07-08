@@ -12,6 +12,7 @@ services:
       Smtp__Username: ${SMTP_USERNAME}
       Smtp__Password: ${SMTP_PASSWORD}
       Cors__AllowedOrigins__0: ${FRONTEND_ORIGIN}
+      AppUrls__Frontend: ${FRONTEND_ORIGIN}
       Jwt__Secret: ${JWT_SECRET}
       Admin__Email: ${ADMIN_EMAIL}
       Admin__Password: ${ADMIN_PASSWORD}

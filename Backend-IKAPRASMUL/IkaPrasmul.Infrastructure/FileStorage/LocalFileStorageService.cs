@@ -40,11 +40,6 @@ public class LocalFileStorageService : IFileStorageService
             throw Fail("file", "The file is empty.");
         }
 
-        if (content.Length > _options.MaxBytes)
-        {
-            throw Fail("file", $"The file exceeds the {_options.MaxBytes / (1024 * 1024)} MB limit.");
-        }
-
         var ext = Path.GetExtension(fileName).ToLowerInvariant();
         var isImage = ImageExtensions.Contains(ext);
         var isPdf = ext == PdfExtension;
@@ -52,6 +47,12 @@ public class LocalFileStorageService : IFileStorageService
         if (!isImage && !isPdf)
         {
             throw Fail("file", "Only JPG, PNG, WEBP images and PDF files are allowed.");
+        }
+
+        var maxBytes = isPdf ? _options.MaxPdfBytes : _options.MaxImageBytes;
+        if (content.Length > maxBytes)
+        {
+            throw Fail("file", $"The file exceeds the {maxBytes / (1024 * 1024)} MB limit.");
         }
 
         if (!SignatureMatches(ext, content))
