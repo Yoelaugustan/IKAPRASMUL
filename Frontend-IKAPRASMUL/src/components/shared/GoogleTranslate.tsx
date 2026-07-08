@@ -181,16 +181,10 @@ export function GoogleTranslate() {
   return (
     <>
       <div id="google_translate_element" className="hidden" />
-      <Script id="google-translate-init" strategy="afterInteractive">
-        {`
-          function googleTranslateElementInit() {
-            new google.translate.TranslateElement(
-              { pageLanguage: 'id', includedLanguages: 'en', autoDisplay: false },
-              'google_translate_element'
-            );
-          }
-        `}
-      </Script>
+      {/* Same-origin file instead of an inline <Script> body — an inline script
+          tag needs 'unsafe-inline' in the CSP's script-src, which the site's
+          policy intentionally doesn't grant. */}
+      <Script id="google-translate-init" src="/google-translate-init.js" strategy="afterInteractive" />
       <Script
         id="google-translate-widget"
         src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
