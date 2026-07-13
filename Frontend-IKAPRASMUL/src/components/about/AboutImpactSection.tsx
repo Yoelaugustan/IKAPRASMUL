@@ -54,7 +54,7 @@ export async function AboutImpactSection() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 gap-y-8 lg:grid-cols-4 lg:divide-x lg:divide-white/15">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-8 xl:grid-cols-4 xl:divide-x xl:divide-white/15">
               {stats.map((stat) => {
                 const Icon = ICONS[stat.key] ?? UsersIcon;
                 return (
