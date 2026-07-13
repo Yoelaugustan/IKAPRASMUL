@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import { ChevronLeft, ChevronRight, Download, FileText } from "lucide-react";
+import { ChevronLeft, ChevronRight, Mail, FileText } from "lucide-react";
 import { useDragScroll } from "@/hooks/useDragScroll";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { useLang } from "@/components/shared/LanguageProvider";
+import { useContactModalStore } from "@/stores/contactModalStore";
 import { useGovernanceCarouselStore } from "@/stores/governanceCarouselStore";
 import { useGovernanceDocuments } from "./hooks/useGovernanceDocuments";
 
@@ -20,6 +21,7 @@ function CardSkeleton() {
 export function GovernanceDocumentsCarousel() {
   const { t } = useLang();
   const { data, isLoading, isError } = useGovernanceDocuments();
+  const openContactModal = useContactModalStore((s) => s.open);
   const { ref: trackRef, onMouseDown, wasDragged } = useDragScroll();
   const { canScrollPrev, canScrollNext, setScrollState } = useGovernanceCarouselStore();
 
@@ -80,14 +82,14 @@ export function GovernanceDocumentsCarousel() {
             <p className="min-h-[46px] text-sm leading-relaxed text-muted-foreground">
               {doc.description}
             </p>
-            <a
-              href={doc.pdfUrl}
-              download
+            <button
+              type="button"
+              onClick={() => openContactModal("Governance Document")}
               className="mt-5 inline-flex shrink-0 items-center gap-2 rounded-lg border border-gold px-4 py-2 text-xs font-bold uppercase tracking-wide text-gold-dark transition-colors hover:bg-gold/10"
             >
-              <Download className="size-3.5" strokeWidth={2} />
+              <Mail className="size-3.5" strokeWidth={2} />
               {t.about.govDocsDownload}
-            </a>
+            </button>
           </div>
         ))}
       </div>
