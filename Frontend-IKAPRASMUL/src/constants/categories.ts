@@ -51,8 +51,10 @@ export const INQUIRY_SUBJECTS = [
   "General Inquiry",
   "Create a SIG",
   "List Your Business",
+  "Business Merchant",
   "Submit Your Story",
   "Contact Alumni Network",
+  "Governance Document",
   "Others",
 ] as const;
 export type InquirySubject = (typeof INQUIRY_SUBJECTS)[number];
