@@ -214,6 +214,8 @@ const en = {
     govDocsEyebrow: "Governance",
     govDocsTitle: "Our Governance Documents",
     govDocsDownload: "Request Document",
+    govDocsDownloadDirect: "Download",
+    govDocsRequestMessage: "I would like to request the following document: {title}",
     noGovDocsTitle: "No documents available right now",
     noGovDocsDesc: "We're unable to load the governance documents at the moment. Please check back shortly.",
     contactSectionEyebrow: "Contact Us",
@@ -724,6 +726,7 @@ const en = {
     fieldPdfFile: "PDF file",
     fieldSortOrder: "Sort order",
     hintSortOrder: "Lower numbers appear first in the carousel.",
+    toggleGovDocRequiresRequest: "Require email request (off = downloadable immediately)",
     // Business fields
     fieldBusinessName: "Business name",
     fieldIndustry: "Industry",
@@ -961,6 +964,8 @@ const id: Dictionary = {
     govDocsEyebrow: "Governansi",
     govDocsTitle: "Dokumen Tata Kelola Kami",
     govDocsDownload: "Minta Dokumen",
+    govDocsDownloadDirect: "Unduh",
+    govDocsRequestMessage: "Saya ingin meminta dokumen berikut: {title}",
     noGovDocsTitle: "Belum ada dokumen tersedia",
     noGovDocsDesc: "Kami tidak dapat memuat dokumen tata kelola saat ini. Silakan periksa kembali sebentar lagi.",
     contactSectionEyebrow: "Hubungi Kami",
@@ -1468,6 +1473,7 @@ const id: Dictionary = {
     fieldPdfFile: "File PDF",
     fieldSortOrder: "Urutan tampilan",
     hintSortOrder: "Angka lebih kecil akan tampil lebih dulu di carousel.",
+    toggleGovDocRequiresRequest: "Wajib permintaan via email (nonaktif = bisa diunduh langsung)",
     // Business fields
     fieldBusinessName: "Nama bisnis",
     fieldIndustry: "Industri",

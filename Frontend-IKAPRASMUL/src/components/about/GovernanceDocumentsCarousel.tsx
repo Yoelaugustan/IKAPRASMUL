@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { ChevronLeft, ChevronRight, Mail, FileText } from "lucide-react";
+import { ChevronLeft, ChevronRight, Mail, FileText, Download } from "lucide-react";
 import { useDragScroll } from "@/hooks/useDragScroll";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { useLang } from "@/components/shared/LanguageProvider";
@@ -82,14 +82,31 @@ export function GovernanceDocumentsCarousel() {
             <p className="min-h-[46px] text-sm leading-relaxed text-muted-foreground">
               {doc.description}
             </p>
-            <button
-              type="button"
-              onClick={() => openContactModal("Governance Document")}
-              className="mt-5 inline-flex shrink-0 items-center gap-2 rounded-lg border border-gold px-4 py-2 text-xs font-bold uppercase tracking-wide text-gold-dark transition-colors hover:bg-gold/10"
-            >
-              <Mail className="size-3.5" strokeWidth={2} />
-              {t.about.govDocsDownload}
-            </button>
+            {doc.requiresRequest ? (
+              <button
+                type="button"
+                onClick={() =>
+                  openContactModal(
+                    "Governance Document",
+                    t.about.govDocsRequestMessage.replace("{title}", doc.title),
+                  )
+                }
+                className="mt-5 inline-flex shrink-0 items-center gap-2 rounded-lg border border-gold px-4 py-2 text-xs font-bold uppercase tracking-wide text-gold-dark transition-colors hover:bg-gold/10"
+              >
+                <Mail className="size-3.5" strokeWidth={2} />
+                {t.about.govDocsDownload}
+              </button>
+            ) : (
+              <a
+                href={doc.pdfUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex shrink-0 items-center gap-2 rounded-lg border border-gold px-4 py-2 text-xs font-bold uppercase tracking-wide text-gold-dark transition-colors hover:bg-gold/10"
+              >
+                <Download className="size-3.5" strokeWidth={2} />
+                {t.about.govDocsDownloadDirect}
+              </a>
+            )}
           </div>
         ))}
       </div>

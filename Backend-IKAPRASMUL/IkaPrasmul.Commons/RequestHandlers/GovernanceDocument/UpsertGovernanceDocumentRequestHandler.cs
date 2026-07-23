@@ -65,6 +65,7 @@ public class UpsertGovernanceDocumentRequestHandler : IRequestHandler<UpsertGove
         entity.Title = request.Title.Trim();
         entity.Description = request.Description.Trim();
         entity.PdfUrl = request.PdfUrl;
+        entity.RequiresRequest = request.RequiresRequest;
 
         await _db.SaveChangesAsync(ct);
 

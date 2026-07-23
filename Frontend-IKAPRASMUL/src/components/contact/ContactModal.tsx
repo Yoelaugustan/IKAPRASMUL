@@ -29,7 +29,7 @@ const CAMPUSES = [
 // Global "Get in Touch" modal. Mounted once in the root layout; opened from the
 // header and from CTA buttons (with a pre-filled subject) via the Zustand store.
 export function ContactModal() {
-  const { isOpen, subject, setOpen, close } = useContactModalStore();
+  const { isOpen, subject, message, setOpen, close } = useContactModalStore();
   const { t } = useLang();
 
   return (
@@ -105,7 +105,11 @@ export function ContactModal() {
               {t.contact.sendAMessage}
             </h2>
             <div className="mt-6">
-              <ContactForm defaultSubject={subject} onSuccess={close} />
+              <ContactForm
+                defaultSubject={subject}
+                defaultMessage={message}
+                onSuccess={close}
+              />
             </div>
           </div>
         </div>

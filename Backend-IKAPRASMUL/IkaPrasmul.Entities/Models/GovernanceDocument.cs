@@ -23,6 +23,11 @@ public class GovernanceDocument : IHaveCreateAndUpdateAudit
     [StringLength(500)]
     public string PdfUrl { get; set; } = string.Empty;
 
+    /// <summary>When true, the public site hides the direct PDF link and instead
+    /// routes the user to the Contact Us form (pre-filled). When false, the PDF
+    /// is downloadable immediately.</summary>
+    public bool RequiresRequest { get; set; } = true;
+
     public int SortOrder { get; set; }
 
     public DateTime CreatedAt { get; set; }

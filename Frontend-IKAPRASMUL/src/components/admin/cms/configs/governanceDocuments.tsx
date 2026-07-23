@@ -65,12 +65,19 @@ export const governanceDocumentsConfig = (
       hint: a.hintSortOrder,
       required: true,
     },
+    {
+      key: "requiresRequest",
+      label: a.toggleGovDocRequiresRequest,
+      type: "toggle",
+      full: true,
+    },
   ],
   blank: () => ({
     id: "",
     title: "",
     description: "",
     pdfUrl: "",
+    requiresRequest: true,
     sortOrder: 0,
   }),
 });

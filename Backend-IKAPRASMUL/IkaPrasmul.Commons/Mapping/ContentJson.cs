@@ -120,6 +120,7 @@ public static class ContentJson
         title = d.Title,
         description = d.Description,
         pdfUrl = d.PdfUrl,
+        requiresRequest = d.RequiresRequest,
         sortOrder = d.SortOrder,
     });
 }

@@ -14,6 +14,7 @@ public class UpsertGovernanceDocumentRequest : IRequest<JsonElement>
     public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public string PdfUrl { get; set; } = string.Empty;
+    public bool RequiresRequest { get; set; } = true;
     /// <summary>Display order on the public carousel (lower = earlier). Auto-assigned
     /// (append to the end) when omitted on create; left unchanged when omitted on update.</summary>
     public int? SortOrder { get; set; }

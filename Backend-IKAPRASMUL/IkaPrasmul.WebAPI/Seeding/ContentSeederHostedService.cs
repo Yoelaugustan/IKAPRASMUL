@@ -215,6 +215,9 @@ public class ContentSeederHostedService : IHostedService
         Title = Str(e, "title") ?? string.Empty,
         Description = Str(e, "description") ?? string.Empty,
         PdfUrl = Str(e, "pdfUrl") ?? string.Empty,
+        RequiresRequest = e.TryGetProperty("requiresRequest", out var rr) && rr.ValueKind is JsonValueKind.True or JsonValueKind.False
+            ? rr.GetBoolean()
+            : true,
         SortOrder = order,
         CreatedAt = DateTime.UtcNow,
     };

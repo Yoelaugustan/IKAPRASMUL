@@ -9,6 +9,7 @@ export const governanceDocumentSchema = z.object({
   title: z.string(),
   description: z.string(),
   pdfUrl: z.string(),
+  requiresRequest: z.boolean(),
   sortOrder: z.number(),
 });
 

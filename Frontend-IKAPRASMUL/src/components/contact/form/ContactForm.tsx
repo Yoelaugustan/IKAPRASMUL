@@ -34,9 +34,11 @@ const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 
 export function ContactForm({
   defaultSubject,
+  defaultMessage,
   onSuccess,
 }: {
   defaultSubject?: InquirySubject;
+  defaultMessage?: string;
   onSuccess?: () => void;
 }) {
   const sendInquiry = useContact();
@@ -48,14 +50,15 @@ export function ContactForm({
       fullName: "",
       email: "",
       subject: defaultSubject ?? "General Inquiry",
-      message: "",
+      message: defaultMessage ?? "",
     },
   });
 
-  // Keep the subject in sync when the modal is opened from a CTA.
+  // Keep the subject/message in sync when the modal is opened from a CTA.
   useEffect(() => {
     if (defaultSubject) form.setValue("subject", defaultSubject);
-  }, [defaultSubject, form]);
+    if (defaultMessage) form.setValue("message", defaultMessage);
+  }, [defaultSubject, defaultMessage, form]);
 
   // Bumping this key remounts the file input, which clears its selected file.
   const [fileKey, setFileKey] = useState(0);
@@ -97,7 +100,7 @@ export function ContactForm({
           fullName: "",
           email: "",
           subject: defaultSubject ?? "General Inquiry",
-          message: "",
+          message: defaultMessage ?? "",
           image: undefined,
           imageName: undefined,
         });

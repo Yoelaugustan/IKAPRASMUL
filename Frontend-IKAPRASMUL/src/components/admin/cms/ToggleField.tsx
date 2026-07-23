@@ -16,6 +16,10 @@ export function ToggleField({
   disabled?: boolean;
   hint?: string;
 }) {
+  const bracketMatch = label.match(/^(.*?)\s*(\([^)]*\))\s*$/);
+  const main = bracketMatch ? bracketMatch[1] : label;
+  const bracket = bracketMatch ? bracketMatch[2] : null;
+
   return (
     <div>
       <button
@@ -42,7 +46,14 @@ export function ToggleField({
             )}
           />
         </span>
-        <span className="text-sm font-medium text-foreground">{label}</span>
+        <span className="text-sm font-medium text-foreground">
+          {main}
+          {bracket && (
+            <span className="ml-1 text-xs font-normal text-muted-foreground">
+              {bracket}
+            </span>
+          )}
+        </span>
       </button>
       {hint && (
         <p className="mt-1 text-xs text-muted-foreground">{hint}</p>

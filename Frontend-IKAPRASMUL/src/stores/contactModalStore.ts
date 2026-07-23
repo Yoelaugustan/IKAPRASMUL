@@ -8,7 +8,8 @@ import type { InquirySubject } from "@/constants/categories";
 type ContactModalState = {
   isOpen: boolean;
   subject?: InquirySubject;
-  open: (subject?: InquirySubject) => void;
+  message?: string;
+  open: (subject?: InquirySubject, message?: string) => void;
   close: () => void;
   setOpen: (open: boolean) => void;
 };
@@ -16,7 +17,8 @@ type ContactModalState = {
 export const useContactModalStore = create<ContactModalState>((set) => ({
   isOpen: false,
   subject: undefined,
-  open: (subject) => set({ isOpen: true, subject }),
+  message: undefined,
+  open: (subject, message) => set({ isOpen: true, subject, message }),
   close: () => set({ isOpen: false }),
   setOpen: (isOpen) => set({ isOpen }),
 }));
